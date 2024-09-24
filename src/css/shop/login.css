@@ -1,0 +1,55 @@
+.sample_farsi_digits {
+    font-feature-settings: "ss01";
+}
+
+.enField {
+    font-family: VazirmatnEngilish;
+}
+
+body {
+    font-family: VazirmatnPersian;
+    direction: rtl;
+    font-size: 1em;
+}
+
+.registerForm {
+    height: 500px;
+    width: 80%;
+    border: 2px solid lightgray;
+    border-radius: 15px;
+    margin: 80px 10% 0 0;
+}
+
+.register {
+    height: 495px;
+    width: 500px;
+    margin: 1px;
+    float: left;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    background-color: #0a0a23;
+}
+
+.register h3 {
+    margin-top: 170px;
+}
+
+.register p {
+    margin-top: 30px;
+}
+
+.loginForm {
+    height: 500px;
+    width: 500px;
+    margin: 0 30px 0 0;
+    text-align: center;
+}
+
+h2 {
+    margin: 20px 0 20px 0;
+}
+
+a {
+    text-decoration: none;
+}

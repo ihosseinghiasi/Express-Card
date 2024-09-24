@@ -1,0 +1,42 @@
+
+.sidebar {
+  height: 120vh;
+  float: right;
+  color: beige;
+  background-color: rgb(19, 15, 27);
+}
+
+.sidebar-item {
+  padding: 0.8em 1em 0.0009em 0em;
+  font-size: 1.1em;
+  transition: background-color 0.45s;
+  display: block;
+}
+
+.sidebar-item:hover {
+  background-color: rgb(35, 29, 46);
+  cursor: pointer;
+}
+
+.sidebar-title {
+  display: inline-block;
+  justify-content: space-between;
+}
+
+.sidebar-title img{
+  width: 1.5em;
+}
+
+.sidebar-title p {
+  display: inline-block;
+  margin-right: 5px;
+}
+
+.sidebarPicture {
+  height: 170px;
+  width: 170px;
+  margin: 15px 25px;
+  background-image: url("../../../public/uploads/pictures/menProfile.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

@@ -1,0 +1,212 @@
+.sample_farsi_digits {
+  font-feature-settings: "ss01";
+}
+
+.enField {
+  font-family: VazirmatnEngilish;
+}
+
+body {
+  direction: rtl;
+  font-family: VazirmatnPersian;
+  font-size: 13px;
+}
+p {
+  margin: 0 !important;
+}
+.container-flud {
+  direction: rtl;
+  font-family: VazirmatnPersian;
+  width: 100%;
+  max-width: 1800px;
+  margin: 0px;
+  padding: 0px;
+}
+
+.main {
+  position: relative;
+  height: 860px;
+  width: 100%;
+  background-color: #5e0518;
+}
+
+.mainImage {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0.05;
+}
+
+.custom-shape-divider-bottom-1694511368 {
+  position: absolute;
+  direction: ltr;
+  top: 490px;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1694511368 svg {
+  position: relative;
+  display: block;
+  width: calc(290% + 1.3px);
+  height: 400px;
+  transform: rotateY(180deg);
+}
+
+.custom-shape-divider-bottom-1694511368 .shape-fill {
+  fill: #ffffff;
+}
+
+.shoppingPicure {
+  position: absolute;
+  height: 450px;
+  width: 650px;
+  float: left;
+  margin: 50px 700px 0 50px;
+  background-image: url("../../../public/uploads/pictures/shopping.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  animation-name: shoppingPicture;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shoppingPicture {
+  0% {
+    top: 0px;
+  }
+  50% {
+    top: 100px;
+  }
+  100% {
+    top: 0px;
+  }
+}
+
+.expressCard {
+  position: absolute;
+  height: 250px;
+  width: 500px;
+  float: right;
+  margin: -750px 70px 0 0;
+  color: #fff;
+}
+
+.expressH1 {
+  font-size: 4em;
+}
+
+.expressParagraph {
+  position: relative;
+  font-size: 1.3em;
+  margin: 25px 8px 0 0;
+}
+
+.categoryFrame {
+  height: auto;
+  width: 1225px;
+  margin: 20px 117px 20px 0;
+  background-color: red;
+}
+
+.pCategories {
+  margin: 18px 530px 50px 0;
+  color: #020720;
+  font-size: 3em;
+}
+
+.categoryItem {
+  float: inline-start;
+  height: 350px;
+  width: 350px;
+  margin: 20px 10px 20px 10px;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.categoryItem:hover {
+  display: inline-block;
+  height: 350px;
+  width: 350px;
+  margin: 20px 10px 20px 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 10px 22px 0 rgba(0, 0, 0, 0.2),
+    0 20px 30px 0 rgba(0, 0, 0, 0.19);
+}
+
+.categoryItem img {
+  height: 70%;
+  width: 100%;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.categoryItem p {
+  text-align: center;
+  color: #020720;
+  font-size: 1.5em;
+  margin-top: 40px;
+}
+
+footer {
+  display: block;
+  float: inline-start;
+  height: 70vh;
+  width: 100%;
+  background-color: #020720;
+  margin-top: 100px;
+}
+
+.links {
+  height: 60vh;
+  width: 33%;
+  float: right;
+  margin: 50px 35px 0 0;
+}
+
+.symbols {
+  height: 60vh;
+  width: 28%;
+  float: right;
+  margin: 50px 30px 0 0;
+}
+
+.contactsDetail {
+  height: 7vh;
+  width: 90%;
+  margin: 20px 20px 0 0;
+}
+
+.contactsParagraph {
+  font-size: 1.2em;
+  color: white;
+}
+
+.divLinks {
+  height: 40vh;
+  width: 45%;
+  float: right;
+  margin: 0 5px 0 0;
+}
+
+.divSymbols {
+  height: 40vh;
+  width: 47%;
+  float: right;
+  margin: 0 5px 0 0;
+}
+
+.symbol {
+  height: 25vh;
+  width: 25vh;
+  margin: 0;
+}
+
+.picLogo {
+  height: 150px;
+  width: 150px;
+}
