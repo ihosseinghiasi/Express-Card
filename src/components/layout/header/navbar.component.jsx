@@ -1,11 +1,11 @@
-/* eslint-disable react-hooks/rules-of-hooks */
-import React, { useEffect, useState } from "react";
+import "../../../css/shop/navbar.css";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 // import { getAuthenticatedUser } from "../../../services/authenticatedUserServices";
 
-const navbarComponent = () => {
+const NavbarComponent = () => {
   const [cookies, setCookie, removeCookie] = useCookies([]);
   const [person, setPerson] = useState();
   const [fullName, setFullName] = useState();
@@ -62,13 +62,13 @@ const navbarComponent = () => {
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
               <ul className="navbar-nav me-5">
                 <li className="nav-item mx-2 my-3">
-                  <Link className="nav-link linkColor" to="/">
+                  <Link className="nav-link text-light" to="/">
                     صفحه اصلی
                   </Link>
                 </li>
                 <li className="nav-item dropdown mx-2 my-3" dir="rtl">
                   <Link
-                    className="nav-link dropdown-toggle linkColor"
+                    className="nav-link dropdown-toggle text-light"
                     role="button"
                     data-bs-toggle="dropdown"
                     href="#"
@@ -105,7 +105,7 @@ const navbarComponent = () => {
                 <li className="nav-item ms-3">
                   <Link
                     onClick={(e) => logOut(e)}
-                    className="nav-link linkColor"
+                    className="nav-link text-light"
                   >
                     خروج
                   </Link>
@@ -135,13 +135,13 @@ const navbarComponent = () => {
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
               <ul className="navbar-nav me-5">
                 <li className="nav-item mx-2 my-3">
-                  <Link className="nav-link linkColor" to="/">
+                  <Link className="nav-link text-light" to="/">
                     صفحه اصلی
                   </Link>
                 </li>
                 <li className="nav-item dropdown mx-2 my-3" dir="rtl">
                   <Link
-                    className="nav-link dropdown-toggle linkColor"
+                    className="nav-link dropdown-toggle text-light"
                     role="button"
                     data-bs-toggle="dropdown"
                     href="#"
@@ -156,7 +156,7 @@ const navbarComponent = () => {
                 </li>
                 <li className="nav-item mx-2 my-3">
                   <Link
-                    className="nav-link linkColor"
+                    className="nav-link text-light"
                     to="/login"
                     onClick={userLogin}
                   >
@@ -165,7 +165,7 @@ const navbarComponent = () => {
                 </li>
                 <li className="nav-item mx-2 my-3">
                   <Link
-                    className="nav-link linkColor"
+                    className="nav-link text-light"
                     to="/login"
                     onClick={adminLogin}
                   >
@@ -176,12 +176,12 @@ const navbarComponent = () => {
 
               <ul className="navbar-nav me-auto me-5">
                 <li className="nav-item ms-3">
-                  <Link to="/smsForm" className="nav-link linkColor">
+                  <Link to="/smsForm" className="nav-link text-light">
                     <img src={"/uploads/icons/user.svg"} alt="icon" />
                   </Link>
                 </li>
                 <li className="nav-item ms-3">
-                  <Link href="" className="nav-link linkColor"></Link>
+                  <Link href="" className="nav-link text-light"></Link>
                 </li>
                 <li className="nav-item ms-5">
                   <button className="callButton">
@@ -199,4 +199,4 @@ const navbarComponent = () => {
   );
 };
 
-export default navbarComponent;
+export default NavbarComponent;
