@@ -1,5 +1,6 @@
-const router = require("express").Router();
-const ProfileController = require("../../../../controllers/user/profile");
+import express from "express"
+const router = express.Router()
+// const ProfileController = require("../../../../controllers/user/profile");
 
 /**
  * @swagger
@@ -34,6 +35,6 @@ const ProfileController = require("../../../../controllers/user/profile");
  *       200:
  *         description: Edit An User
  */
-router.put("/:id", ProfileController.profile);
+// router.put("/:id", ProfileController.profile);
 
-module.exports = router;
+export default router;

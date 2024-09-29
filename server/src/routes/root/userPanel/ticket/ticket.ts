@@ -1,5 +1,6 @@
-const router = require('express').Router()
-const { addTicket } = require("../../../../controllers/user/ticketConroller")
+import express from "express"
+const router = express.Router()
+// const { addTicket } = require("../../../../controllers/user/ticketConroller")
 
 /**
  * @swagger
@@ -39,6 +40,6 @@ const { addTicket } = require("../../../../controllers/user/ticketConroller")
  *       200:
  *         description: Create A New Ticket
  */
-router.post("/addTicket", addTicket);
+// router.post("/addTicket", addTicket);
 
-module.exports = router
+export default router
