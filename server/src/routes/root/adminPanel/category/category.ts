@@ -1,6 +1,9 @@
-const categoryController = require("../../../../controllers/admin/categoryController")
-const router = require('express').Router()
-const upload = require("../../../../upload/upload")
+import express from "express"
+// const categoryController = require("../../../../controllers/admin/categoryController")
+// const upload = require("../../../../upload/upload")
+
+const router = express.Router()
+
 
 /**
  * @swagger
@@ -28,14 +31,14 @@ const upload = require("../../../../upload/upload")
  *       200:
  *         description: Create A New Category
  */
-router.post('/addCategory', upload.single('file'), (req, res, next) => {
-  if(!req.file) {
-    req.body.image = null
-  }else {
-    req.body.image = req.file.filename
-  }
-  next()
-}, categoryController.newCategory)
+// router.post('/addCategory', upload.single('file'), (req, res, next) => {
+//   if(!req.file) {
+//     req.body.image = null
+//   }else {
+//     req.body.image = req.file.filename
+//   }
+//   next()
+// }, categoryController.newCategory)
 
 /**
  * @swagger
@@ -48,7 +51,7 @@ router.post('/addCategory', upload.single('file'), (req, res, next) => {
  *       200:
  *         description: Returns All Categories
  */
-router.get('/allCategories', categoryController.allCategories)
+// router.get('/allCategories', categoryController.allCategories)
 
 /**
  * @swagger
@@ -67,7 +70,7 @@ router.get('/allCategories', categoryController.allCategories)
  *       200:
  *         description: Returns A Category
  */
-router.get('/showCategory/:id', categoryController.showCategory)
+// router.get('/showCategory/:id', categoryController.showCategory)
 
 /**
  * @swagger
@@ -100,7 +103,7 @@ router.get('/showCategory/:id', categoryController.showCategory)
  *       200:
  *         description: Upadte A Category
  */
-router.put('/updateCategory/:id', upload.single('file'), categoryController.updateCategory)
+// router.put('/updateCategory/:id', upload.single('file'), categoryController.updateCategory)
 
 /**
  * @swagger
@@ -119,7 +122,7 @@ router.put('/updateCategory/:id', upload.single('file'), categoryController.upda
  *       200:
  *         description: Delete A Category
  */
-router.delete('/deleteCategory/:id', categoryController.deleteCategory)
-router.post('/category', categoryController.category)
+// router.delete('/deleteCategory/:id', categoryController.deleteCategory)
+// router.post('/category', categoryController.category)
 
-module.exports = router
+export default router

@@ -1,12 +1,15 @@
-const {
-  newAdmin,
-  allAdmins,
-  showAdmin,
-  updateAdmin,
-  deleteAdmin,
-} = require("../../../../controllers/admin/adminController");
+import express from "express"
 
-const router = require("express").Router();
+const router = express.Router()
+// const {
+//   newAdmin,
+//   allAdmins,
+//   showAdmin,
+//   updateAdmin,
+//   deleteAdmin,
+// } = require("../../../../controllers/admin/adminController");
+
+
 
 /**
  * @swagger
@@ -56,7 +59,7 @@ const router = require("express").Router();
  *       200:
  *         description: Create A New Admin
  */
-router.post("/newAdmin", newAdmin);
+// router.post("/newAdmin", newAdmin);
 
 /**
  * @swagger
@@ -69,7 +72,7 @@ router.post("/newAdmin", newAdmin);
  *       200:
  *         description: Returns All Admins
  */
-router.get("/allAdmins", allAdmins);
+// router.get("/allAdmins", allAdmins);
 
 /**
  * @swagger
@@ -88,7 +91,7 @@ router.get("/allAdmins", allAdmins);
  *       200:
  *         description: Returns An Admin
  */
-router.get("/showAdmin/:id", showAdmin);
+// router.get("/showAdmin/:id", showAdmin);
 
 /**
  * @swagger
@@ -143,7 +146,7 @@ router.get("/showAdmin/:id", showAdmin);
  *       200:
  *         description: Edit An Admin
  */
-router.put("/updateAdmin/:id", updateAdmin);
+// router.put("/updateAdmin/:id", updateAdmin);
 
 /**
  * @swagger
@@ -162,6 +165,6 @@ router.put("/updateAdmin/:id", updateAdmin);
  *       200:
  *         description: Delete An Admin
  */
-router.delete("/deleteAdmin/:id", deleteAdmin);
+// router.delete("/deleteAdmin/:id", deleteAdmin);
 
-module.exports = router;
+export default router;

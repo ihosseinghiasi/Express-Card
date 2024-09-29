@@ -1,5 +1,8 @@
-const router = require("express").Router();
-const userController = require("../../../../controllers/admin/userClassController");
+import express from "express"
+
+// const userController = require("../../../../controllers/admin/userClassController");
+
+const router = express.Router()
 
 /**
  * @swagger
@@ -42,7 +45,7 @@ const userController = require("../../../../controllers/admin/userClassControlle
  *       200:
  *         description: Returns All Users
  */
-router.get("/allUsers", userController.getAllUsers);
+// router.get("/allUsers", userController.getAllUsers);
 
 /**
  * @swagger
@@ -119,4 +122,4 @@ router.get("/allUsers", userController.getAllUsers);
  */
 // router.delete('/deleteUser/:id', deleteUser)
 
-module.exports = router;
+export default router;

@@ -1,7 +1,8 @@
-const router = require('express').Router()
-const cardController = require('../../../../controllers/admin/cardController')
+import express from "express";
+// const cardController = require('../../../../controllers/admin/cardController')
 
-router.get('/getCardsAndProducts', cardController.getCategoriesAndProducts)
+// router.get('/getCardsAndProducts', cardController.getCategoriesAndProducts)
+const router = express.Router();
 
 /**
  * @swagger
@@ -17,19 +18,19 @@ router.get('/getCardsAndProducts', cardController.getCategoriesAndProducts)
  *        schema:
  *          type: object
  *          properties:
- *            cardCategory: 
+ *            cardCategory:
  *              type: string
- *            cardProduct: 
+ *            cardProduct:
  *              type: string
- *            CardStatus: 
+ *            CardStatus:
  *              type: string
- *            cardFields: 
+ *            cardFields:
  *              type: []
  *     responses:
  *       200:
  *         description: Create A New cards
  */
-router.post('/addCard', cardController.addCard)
+// router.post('/addCard', cardController.addCard)
 
 /**
  * @swagger
@@ -42,7 +43,7 @@ router.post('/addCard', cardController.addCard)
  *       200:
  *         description: Returns All Cards
  */
-router.get('/allCards', cardController.allCards)
+// router.get('/allCards', cardController.allCards)
 
 /**
  * @swagger
@@ -61,7 +62,7 @@ router.get('/allCards', cardController.allCards)
  *       200:
  *         description: Returns A cards
  */
-router.get('/showCard/:id', cardController.showCard)
+// router.get('/showCard/:id', cardController.showCard)
 
 /**
  * @swagger
@@ -79,13 +80,13 @@ router.get('/showCard/:id', cardController.showCard)
  *         schema:
  *          type: object
  *          properties:
- *            cardCategory: 
+ *            cardCategory:
  *              type: string
- *            cardProduct: 
+ *            cardProduct:
  *              type: string
- *            CardStatus: 
+ *            CardStatus:
  *              type: string
- *            cardFields: 
+ *            cardFields:
  *              type: []
  *     tags:
  *      - Cards
@@ -94,7 +95,7 @@ router.get('/showCard/:id', cardController.showCard)
  *       200:
  *         description: Upadte A cards
  */
-router.put('/updateCard/:id', cardController.updateCard)
+// router.put('/updateCard/:id', cardController.updateCard)
 
 /**
  * @swagger
@@ -113,6 +114,6 @@ router.put('/updateCard/:id', cardController.updateCard)
  *       200:
  *         description: Delete A cards
  */
-router.delete('/deleteCard/:id', cardController.deleteCard)
+// router.delete('/deleteCard/:id', cardController.deleteCard)
 
-module.exports = router
+export default router;

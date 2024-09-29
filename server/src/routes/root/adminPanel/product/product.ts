@@ -1,6 +1,9 @@
-const router = require("express").Router();
-const productController = require("../../../../controllers/admin/productController");
-const upload = require("../../../../upload/upload");
+import express from "express"
+
+// const productController = require("../../../../controllers/admin/productController");
+// const upload = require("../../../../upload/upload");
+
+const router = express.Router()
 
 /**
  * @swagger
@@ -40,19 +43,19 @@ const upload = require("../../../../upload/upload");
  *       200:
  *         description: Create A New Product
  */
-router.post(
-  "/addProduct",
-  upload.single("file"),
-  (req, res, next) => {
-    if (!req.file) {
-      req.body.image = null;
-    } else {
-      req.body.image = req.file.filename;
-    }
-    next();
-  },
-  productController.addProduct
-);
+// router.post(
+//   "/addProduct",
+//   upload.single("file"),
+//   (req, res, next) => {
+//     if (!req.file) {
+//       req.body.image = null;
+//     } else {
+//       req.body.image = req.file.filename;
+//     }
+//     next();
+//   },
+//   productController.addProduct
+// );
 
 /**
  * @swagger
@@ -65,7 +68,7 @@ router.post(
  *       200:
  *         description: Returns All Products
  */
-router.get("/allProducts", productController.allProducts);
+// router.get("/allProducts", productController.allProducts);
 
 /**
  * @swagger
@@ -84,7 +87,7 @@ router.get("/allProducts", productController.allProducts);
  *       200:
  *         description: Returns A Product
  */
-router.get("/showProduct/:id", productController.showProduct);
+// router.get("/showProduct/:id", productController.showProduct);
 
 /**
  * @swagger
@@ -129,11 +132,11 @@ router.get("/showProduct/:id", productController.showProduct);
  *       200:
  *         description: Upadte A Product
  */
-router.put(
-  "/updateProduct/:id",
-  upload.single("file"),
-  productController.updateProduct
-);
+// router.put(
+//   "/updateProduct/:id",
+//   upload.single("file"),
+//   productController.updateProduct
+// );
 
 /**
  * @swagger
@@ -152,7 +155,7 @@ router.put(
  *       200:
  *         description: Delete A Product
  */
-router.delete("/deleteProduct/:id", productController.deleteProduct);
-router.post("/product", productController.product);
+// router.delete("/deleteProduct/:id", productController.deleteProduct);
+// router.post("/product", productController.product);
 
-module.exports = router;
+export default router;
