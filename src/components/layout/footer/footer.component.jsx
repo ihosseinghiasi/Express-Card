@@ -1,4 +1,4 @@
-import "../../../css/shop/mainPage.css";
+// import "../../../css/shop/mainPage.css";
 
 import { FooterWrapper } from "./footer.styles";
 

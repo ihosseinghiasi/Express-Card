@@ -1,5 +1,5 @@
-const router = require('express').Router()
-const { addUser, allUsers, showUser, updateUser, deleteUser } = require('../../../../controllers/admin/userController')
+const router = require("express").Router();
+const userController = require("../../../../controllers/admin/userClassController");
 
 /**
  * @swagger
@@ -15,21 +15,21 @@ const { addUser, allUsers, showUser, updateUser, deleteUser } = require('../../.
  *        schema:
  *          type: object
  *          properties:
- *            firstName: 
+ *            firstName:
  *              type: string
- *            lastName: 
+ *            lastName:
  *              type: string
- *            email: 
+ *            email:
  *              type: string
- *            phoneNumber: 
+ *            phoneNumber:
  *              type: string
- *            password: 
+ *            password:
  *              type: string
  *     responses:
  *       200:
  *         description: Create A New User
  */
-router.post('/addUser', addUser)
+// router.post('/addUser', addUser)
 
 /**
  * @swagger
@@ -42,7 +42,7 @@ router.post('/addUser', addUser)
  *       200:
  *         description: Returns All Users
  */
-router.get('/allUsers', allUsers)
+router.get("/allUsers", userController.getAllUsers);
 
 /**
  * @swagger
@@ -61,7 +61,7 @@ router.get('/allUsers', allUsers)
  *       200:
  *         description: Returns A User
  */
-router.get('/showUser/:id', showUser)
+// router.get('/showUser/:id', showUser)
 
 /**
  * @swagger
@@ -79,17 +79,17 @@ router.get('/showUser/:id', showUser)
  *         schema:
  *          type: object
  *          properties:
- *           firstName: 
+ *           firstName:
  *            type: string
- *           lastName: 
+ *           lastName:
  *            type: string
- *           email: 
+ *           email:
  *            type: string
- *           phoneNumber: 
+ *           phoneNumber:
  *            type: string
- *           password: 
+ *           password:
  *             type: string
- *           department: 
+ *           department:
  *             type: string
  *     tags:
  *      - Users
@@ -98,7 +98,7 @@ router.get('/showUser/:id', showUser)
  *       200:
  *         description: Update A User
  */
-router.put("/updateUser/:id", updateUser);
+// router.put("/updateUser/:id", updateUser);
 
 /**
  * @swagger
@@ -117,6 +117,6 @@ router.put("/updateUser/:id", updateUser);
  *       200:
  *         description: Delete A User
  */
-router.delete('/deleteUser/:id', deleteUser)
+// router.delete('/deleteUser/:id', deleteUser)
 
-module.exports = router
+module.exports = router;

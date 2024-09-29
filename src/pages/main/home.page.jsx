@@ -56,7 +56,9 @@ const HomePage = () => {
             </p>
           </div>
         </div>
-        <p className="pCategories">انتخاب دسته بندی</p>
+        <div className="pCategories">
+          <p  >انتخاب دسته بندی</p>
+        </div>
       </div>
       {categories?.map((category) => (
         <CategoryItem
