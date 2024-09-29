@@ -5,6 +5,9 @@ import mongoose from "mongoose"
 import cookieParser from "cookie-parser"
 import rootRoutes from "./routes/root/root"
 
+require("dotenv").config()
+console.log(process.env.MONGO_URL)
+
 // import swaggerJSDoc from "swagger-jsdoc"
 // import swaggerUi from 'swagger-ui-express'
 
@@ -47,7 +50,7 @@ const swaggerOptions = {
 
 
 mongoose.Promise = Promise
-mongoose.connect("mongodb://localhost:27017/comercial")
+mongoose.connect(`${process.env.MONGO_URL}`)
 mongoose.connection.on('error', (error: Error) => (console.log(error)))
 
 app.use(
@@ -62,7 +65,7 @@ app.use(cookieParser());
 app.use(express.json());
 app.use("/", rootRoutes);
 
-app.listen(4000, () => {
-  console.log("Server Is Running In Port 4000");
+app.listen(process.env.PORT, () => {
+  console.log(`Server Is Running On Port ${process.env.PORT}` );
 });
   
