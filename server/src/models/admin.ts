@@ -19,3 +19,10 @@ const adminSchema = new mongoose.Schema({
 })
 
 export const adminModel = mongoose.model('Admin', adminSchema, 'Admin')
+
+export const getAdmins = () => { adminModel.find() }
+export const getAdminById = (id: String) => { adminModel.findById({ id }) }
+export const deleteAdminById = (id: string) => { adminModel.findByIdAndDelete({ _id: id }) }
+export const updateAdminById = (id: string, values: Record<string, any>) => { adminModel.findByIdAndUpdate(id, values) }
+export const createAdmin = (values: Record<string, any>) =>
+    new adminModel(values).save().then((Admin) => Admin.toObject())
