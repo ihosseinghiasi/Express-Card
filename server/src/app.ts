@@ -66,6 +66,6 @@ app.use(express.json());
 app.use("/", rootRoutes);
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server Is Running On Port ${process.env.PORT}` );
+  console.log(`Server Is Running On  http://localhost:${process.env.PORT}` );
 });
   
