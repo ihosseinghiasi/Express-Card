@@ -14,3 +14,10 @@ const ticketSchema = new mongoose.Schema({
 });
 
 export const ticketModel = mongoose.model("Ticket", ticketSchema, "Ticket");
+
+export const getTickets = () => { ticketModel.find() }
+export const getTicketById = (id: String) => { ticketModel.findById({ id }) }
+export const deleteTicketById = (id: string) => { ticketModel.findByIdAndDelete({ _id: id }) }
+export const updateTicketById = (id: string, values: Record<string, any>) => { ticketModel.findByIdAndUpdate(id, values) }
+export const createTicket = (values: Record<string, any>) =>
+    new ticketModel(values).save().then((ticket) => ticket.toObject())
