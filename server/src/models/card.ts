@@ -1,8 +1,7 @@
 import mongoose from "mongoose"
-import { categoryModel } from "./category";
 
 const cardSchema = new mongoose.Schema({
-  cardCategory: { type: String },
+  cardCard: { type: String },
   cardProduct: { type: String },
   cardStatus: { type: String },
   cardFields: {},
@@ -10,9 +9,9 @@ const cardSchema = new mongoose.Schema({
 
 export const cardModel = mongoose.model("Card", cardSchema, "Card");
 
-export const getCategories = () => { categoryModel.find() }
-export const getCategoryById = (id: String) => { categoryModel.findById({ id }) }
-export const deleteCategoryById = (id: string) => { categoryModel.findByIdAndDelete({ _id: id }) }
-export const updateCategoryById = (id: string, values: Record<string, any>) => { categoryModel.findByIdAndUpdate(id, values) }
-export const createCategory = (values: Record<string, any>) =>
-    new categoryModel(values).save().then((Category) => Category.toObject())
+export const getCard = () => { cardModel.find() }
+export const getCardById = (id: String) => { cardModel.findById({ id }) }
+export const deleteCardById = (id: string) => { cardModel.findByIdAndDelete({ _id: id }) }
+export const updateCardById = (id: string, values: Record<string, any>) => { cardModel.findByIdAndUpdate(id, values) }
+export const createCard = (values: Record<string, any>) =>
+    new cardModel(values).save().then((Card) => Card.toObject())
