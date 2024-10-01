@@ -1,9 +1,11 @@
-// import { getUsers, getUserById, createUser, deleteUserById, updateUserById } from "../../models/user"
-
-export default class User {
-  getAllUsers() {
-    return "dhdfhkhdfkhdkf"
+import UserDB from "../../models/user"
+class User {
+  
+  async getAllUsers() {
+    const users = await UserDB.find()
+    return users
   }
 }
 
-
+const user = new User()
+console.log(user.getAllUsers())

@@ -1,5 +1,5 @@
 import express from "express"
-import User from "../../../../controllers/admin/userController"
+// import User from "../../../../controllers/admin/userController"
 
 const router = express.Router()
 
@@ -44,7 +44,7 @@ const router = express.Router()
  *       200:
  *         description: Returns All Users
  */
-router.get("/allUsers", );
+// router.get("/allUsers", );
 
 /**
  * @swagger
