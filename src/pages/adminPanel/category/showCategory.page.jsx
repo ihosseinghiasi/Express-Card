@@ -13,21 +13,21 @@ const ShowCategory = () => {
   const fileUploadRef = useRef(null);
 
   const getCategory = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/category/showCategory/${params.id}`)
-      .then((response) => {
-        setCategory(response.data.category);
-      });
+    // await axios
+    //   .get(`http://localhost:4000/adminPanel/category/showCategory/${params.id}`)
+    //   .then((response) => {
+    //     setCategory(response.data.category);
+    //   });
   };
 
   useEffect(() => {
-    const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
-    };
+    // const getPersianDate = async () => {
+    //   await axios.get("http://localhost:4000/persianDate").then((res) => {
+    //     setPersianDate(res.data);
+    //   });
+    // };
 
-    getPersianDate();
+    // getPersianDate();
     if (params) getCategory();
   }, []);
 
@@ -56,13 +56,13 @@ const ShowCategory = () => {
     formData.append("image", category.image);
 
     await axios
-      .put(
-        `http://localhost:4000/adminPanel/category/updateCategory/${categoryId}`,
-        formData
-      )
-      .then((res) => {
-        console.log(res);
-      });
+      // .put(
+      //   `http://localhost:4000/adminPanel/category/updateCategory/${categoryId}`,
+      //   formData
+      // )
+      // .then((res) => {
+      //   console.log(res);
+      // });
   };
 
   return (

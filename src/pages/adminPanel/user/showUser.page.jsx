@@ -12,9 +12,9 @@ const ShowUser = () => {
 
   useEffect(() => {
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
     getPersianDate();
 
@@ -24,29 +24,29 @@ const ShowUser = () => {
   }, []);
 
   const getUser = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/user/showUser/${params.id}`)
-      .then((res) => {
-        setValues(res.data.user);
-      });
+    // await axios
+    //   .get(`http://localhost:4000/adminPanel/user/showUser/${params.id}`)
+    //   .then((res) => {
+    //     setValues(res.data.user);
+    //   });
   };
 
   const updateUser = async (e) => {
     e.preventDefault();
-    await axios
-      .put(
-        `http://localhost:4000/adminPanel/user/updateUser/${params.id}`,
-        { ...values },
-        {
-          headers: { accept: "*/*", "Content-Type": "application/json" },
-        }
-      )
-      .then((res) => {
-        if (res?.data?.status) {
-          navigate("/admin/allUsers");
-        }
-      })
-      .catch((err) => console.log(err));
+    // await axios
+    //   .put(
+    //     `http://localhost:4000/adminPanel/user/updateUser/${params.id}`,
+    //     { ...values },
+    //     {
+    //       headers: { accept: "*/*", "Content-Type": "application/json" },
+    //     }
+    //   )
+    //   .then((res) => {
+    //     if (res?.data?.status) {
+    //       navigate("/admin/allUsers");
+    //     }
+    //   })
+    //   .catch((err) => console.log(err));
   };
 
   return (

@@ -18,26 +18,26 @@ const ShowCard = () => {
   const params = useParams();
 
   const getCard = () => {
-    axios
-      .get(`http://localhost:4000/adminPanel/card/showCard/${params.id}`)
-      .then((res) => {
-        setCard(res.data.card);
-      });
+    // axios
+    //   .get(`http://localhost:4000/adminPanel/card/showCard/${params.id}`)
+    //   .then((res) => {
+    //     setCard(res.data.card);
+    //   });
   };
 
   const getPersianDate = async () => {
-    await axios.get("http://localhost:4000/persianDate").then((res) => {
-      setPersianDate(res.data);
-    });
+    // await axios.get("http://localhost:4000/persianDate").then((res) => {
+    //   setPersianDate(res.data);
+    // });
   };
 
   const getCategoriesAndProducts = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/card/getCategoriesAndProducts")
-      .then((res) => {
-        setCategories(res.data.categories);
-        setProducts(res.data.products);
-      });
+    // await axios
+    //   .get("http://localhost:4000/adminPanel/card/getCategoriesAndProducts")
+    //   .then((res) => {
+    //     setCategories(res.data.categories);
+    //     setProducts(res.data.products);
+    //   });
   };
 
   useEffect(() => {
@@ -130,16 +130,16 @@ const ShowCard = () => {
       fieldValues,
     };
     await axios
-      .put(
-        `http://localhost:4000/adminPanel/card/updateCard/${params.id}`,
-        data,
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res);
-      });
+      // .put(
+      //   `http://localhost:4000/adminPanel/card/updateCard/${params.id}`,
+      //   data,
+      //   {
+      //     withCredentials: true,
+      //   }
+      // )
+      // .then((res) => {
+      //   console.log(res);
+      // });
   };
 
   return (

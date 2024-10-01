@@ -6,9 +6,9 @@ const AddTicket = () => {
   const [persianDate, setPersianDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios.get("http://localhost:4000/persianDate").then((res) => {
-      setPersianDate(res.data);
-    });
+    // await axios.get("http://localhost:4000/persianDate").then((res) => {
+    //   setPersianDate(res.data);
+    // });
   };
   useEffect(() => {
     getPersianDate();

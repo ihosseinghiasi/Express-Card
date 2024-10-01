@@ -13,28 +13,28 @@ const AllAdmins = () => {
 
   useEffect(() => {
     const getAllAdmins = () => {
-      axios
-        .get("http://localhost:4000/adminPanel/admin/allAdmins")
-        .then((res) => {
-          setAdmins(res.data.admins);
-        });
+      // axios
+      //   .get("http://localhost:4000/adminPanel/admin/allAdmins")
+      //   .then((res) => {
+      //     setAdmins(res.data.admins);
+      //   });
     };
 
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
     getPersianDate();
     getAllAdmins();
   }, []);
 
   const handleDelete = async (id) => {
-    await axios.delete(
-      `http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`,
-      { id },
-      { withCredentials: true }
-    );
+    // await axios.delete(
+    //   `http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`,
+    //   { id },
+    //   { withCredentials: true }
+    // );
   };
 
   return (

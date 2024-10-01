@@ -19,17 +19,17 @@ const AddProduct = () => {
 
   useEffect(() => {
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
 
     const getCategories = async () => {
-      await axios
-        .get("http://localhost:4000/adminPanel/category/allCategories")
-        .then((res) => {
-          setCategories(res.data.categories);
-        });
+      // await axios
+      //   .get("http://localhost:4000/adminPanel/category/allCategories")
+      //   .then((res) => {
+      //     setCategories(res.data.categories);
+      //   });
     };
 
     getCategories();
@@ -80,13 +80,13 @@ const AddProduct = () => {
     formData.append("fields", fields);
 
     await axios
-      .post("http://localhost:4000/adminPanel/product/addProduct", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((res) => {
-        console.log(res.data.status);
-        navigate("/admin/allProducts");
-      });
+      // .post("http://localhost:4000/adminPanel/product/addProduct", formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // })
+      // .then((res) => {
+      //   console.log(res.data.status);
+      //   navigate("/admin/allProducts");
+      // });
   };
 
   return (

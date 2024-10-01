@@ -24,20 +24,20 @@ const ShowAdmin = () => {
   }, []);
 
   const updateAdmin = async () => {
-    console.log(values);
-    await axios
-      .put(
-        `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
-        {
-          ...values,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        if (res.data.status) {
-          navigate("/admin/allAdmins");
-        }
-      });
+    // console.log(values);
+    // await axios
+    //   .put(
+    //     `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
+    //     {
+    //       ...values,
+    //     },
+    //     { withCredentials: true }
+    //   )
+    //   .then((res) => {
+    //     if (res.data.status) {
+    //       navigate("/admin/allAdmins");
+    //     }
+    //   });
   };
 
   return (

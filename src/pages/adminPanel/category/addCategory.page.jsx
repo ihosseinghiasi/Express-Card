@@ -15,9 +15,9 @@ const AddCategory = () => {
 
   useEffect(() => {
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
     getPersianDate();
   }, []);
@@ -42,13 +42,13 @@ const AddCategory = () => {
     formData.append("description", category.description);
 
     await axios
-      .post("http://localhost:4000/adminPanel/category/addCategory", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((res) => {
-        navigate("/admin/allCategories");
-        console.log(res.data.status);
-      });
+      // .post("http://localhost:4000/adminPanel/category/addCategory", formData, {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      // })
+      // .then((res) => {
+      //   navigate("/admin/allCategories");
+      //   console.log(res.data.status);
+      // });
   };
 
   return (

@@ -18,29 +18,29 @@ const AddUser = () => {
 
   useEffect(() => {
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
     getPersianDate();
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .post(
-        "http://localhost:4000/adminPanel/user/addUser",
-        {
-          ...values,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-        navigate("/admin/allUsers");
-      });
+    // await axios
+    //   .post(
+    //     "http://localhost:4000/adminPanel/user/addUser",
+    //     {
+    //       ...values,
+    //     },
+    //     {
+    //       withCredentials: true,
+    //     }
+    //   )
+    //   .then((res) => {
+    //     console.log(res.data);
+    //     navigate("/admin/allUsers");
+    //   });
   };
 
   return (

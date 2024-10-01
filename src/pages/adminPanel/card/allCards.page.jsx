@@ -10,30 +10,30 @@ const AllCards = () => {
 
   useEffect(() => {
     const getAllCards = () => {
-      axios
-        .get("http://localhost:4000/adminPanel/card/allCards")
-        .then((res) => {
-          setCards(res.data.cards);
-        });
+      // axios
+      //   .get("http://localhost:4000/adminPanel/card/allCards")
+      //   .then((res) => {
+      //     setCards(res.data.cards);
+      //   });
     };
 
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
     getAllCards();
     getPersianDate();
   }, []);
 
   async function handleDelete(id) {
-    await axios.delete(
-      `http://localhost:4000/adminPanel/card/deleteCard/${id}`,
-      { id },
-      {
-        withCredentials: true,
-      }
-    );
+    // await axios.delete(
+    //   `http://localhost:4000/adminPanel/card/deleteCard/${id}`,
+    //   { id },
+    //   {
+    //     withCredentials: true,
+    //   }
+    // );
     // .then((res) => {
     //   if (res.data.status) {
     //     console.log(res.data);
