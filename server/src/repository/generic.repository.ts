@@ -1,7 +1,7 @@
 import { BaseRepository } from "../interface/base.repository";
 import mongoose from "mongoose";
 
-class GenericRepository<T extends mongoose.Document>
+export default class GenericRepository<T extends mongoose.Document>
   implements BaseRepository<T>
 {
   private readonly model: mongoose.Model<T>;

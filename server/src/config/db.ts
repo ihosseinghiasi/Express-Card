@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-class Database {
+export default class Database {
   private readonly URI: string
 
   constructor() {
@@ -17,5 +17,3 @@ class Database {
     }
   }
 }
-
-export default Database
