@@ -1,6 +1,6 @@
 import express from "express"
 import admin from "./admin/admin"
-import user from "./user/user"
+import user from "./user/user.route"
 import category from "./category/category"
 import product from "./product/product"
 import card from "./card/card"
