@@ -12,11 +12,9 @@ const AllUsers = () => {
 
   useEffect(() => {
     const getAllUsers = () => {
-      axios
-        .get("http://localhost:4000/adminPanel/user/allUsers")
-        .then((res) => {
-          setUsers(res.data.users);
-        });
+      axios.get("http://localhost:4000/users/getAllUsers").then((res) => {
+        setUsers(res.data);
+      });
     };
 
     const getPersianDate = async () => {
@@ -27,6 +25,10 @@ const AllUsers = () => {
     getAllUsers();
     getPersianDate();
   }, []);
+
+  useEffect(() => {
+    console.log(users)
+  }, [users])
 
   async function handleDelete(id) {
     // await axios.delete(

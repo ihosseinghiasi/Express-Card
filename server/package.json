@@ -4,7 +4,8 @@
   "description": "online shop with nodejs and react",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.ts",
+    "build": "tsc"
   },
   "author": "Hossein Ghiasi",
   "license": "ISC",
