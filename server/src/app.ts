@@ -1,72 +1,51 @@
-import express, { request, response, NextFunction } from "express";
-import bodyParser from "body-parser"
+import express, { Application } from "express";
 import cors from "cors";
-import mongoose from "mongoose"
-import cookieParser from "cookie-parser"
-import rootRoutes from "./routes/root/root"
+import ErrorHandler from "./helpers/error-handler";
+import Database from "./config/db";
+import dotenv from "dotenv"
+import userRoute from "./routes/root/adminPanel/user/user.route";
+import { urlencoded } from "body-parser";
 
-require("dotenv").config()
-console.log(process.env.MONGO_URL)
+class App {
+  private readonly app: Application
+  private readonly port: number
 
-// import swaggerJSDoc from "swagger-jsdoc"
-// import swaggerUi from 'swagger-ui-express'
+  constructor() {
+    this.app = express()
+    this.port = parseInt(process.env.PORT || "4000")
+    this.init()
+  }
 
-const app = express();
+  private init() {
+    this.initConfig()
+    this.initMiddlewares();
+    this.initRoutes();
+    this.initErrorHandling();
+  }
 
-const swaggerOptions = {
-  definition: {
-    openapi: "3.0.0",
-    info: {
-      title: "NodeJs API For Online Shop Project",
-      version: "0.1.0",
-      description: "swaager setup for online shop",
-      contact: {
-        name: "Hossein Ghiasi",
-        url: "ihosseinghiasi.ir",
-        email: "hosseinghiasi.dev@gmail.com",
-      },
-    },
-    servers: [
-      {
-        url: "http://localhost:4000/",
-      },
-    ],
-  },
-  apis: [
-    "./routes/root/adminPanel/admin/*.js",
-    "./routes/root/adminPanel/user/*.js",
-    "./routes/root/adminPanel/category/*.js",
-    "./routes/root/adminPanel/product/*.js",
-    "./routes/root/adminPanel/card/*.js",
-    "./routes/root/userPanel/profile/*.js",
-    "./routes/root/userPanel/ticket/*.js",
-  ],
-};
-
-// const swaggerSpc = swaggerJSDoc(swaggerOptions)
-
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpc));
-// app.use("/api-docsss", swaggerUi.serve, swaggerUi.setup(swaggerSpc));
-
-
-mongoose.Promise = Promise
-mongoose.connect(`${process.env.MONGO_URL}`)
-mongoose.connection.on('error', (error: Error) => (console.log(error)))
-
-app.use(
-  cors({
-    origin: ["http://localhost:3000"],
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-  })
-);
+  private initConfig() {
+    new Database()
+  }
   
-app.use(cookieParser());
-app.use(bodyParser.json())
-app.use(express.json());
-app.use("/", rootRoutes);
+  private initMiddlewares() {
+    this.app.use(cors())
+    this.app.use(express.json())
+    this.app.use(urlencoded({ extended: true }))
+    dotenv.config()
+  }
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server Is Running On  http://localhost:${process.env.PORT}` );
-});
-  
+  private initRoutes() {
+    this.app.use("/users", userRoute)
+  }
+
+  initErrorHandling() {
+    this.app.use(ErrorHandler.notFound)
+    this.app.use(ErrorHandler.serverError)
+  }
+
+  public listen() {
+    this.app.listen(this.port, () => {
+      console.log(`Server Is Runnin On http://localhost:${this.port}`)
+    })
+  }
+}
