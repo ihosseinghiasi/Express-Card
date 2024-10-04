@@ -6,7 +6,7 @@ import dotenv from "dotenv"
 import userRoute from "./routes/root/adminPanel/user/user.route";
 import { urlencoded } from "body-parser";
 
-class App {
+export default class App {
   private readonly app: Application
   private readonly port: number
 
