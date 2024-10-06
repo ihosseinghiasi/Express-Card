@@ -9,7 +9,6 @@ export default class userService {
   }
 
   async create(data: IUser): Promise<IUser> {
-    console.log("service")
     return this.UserRepository.create(data)
   }
 

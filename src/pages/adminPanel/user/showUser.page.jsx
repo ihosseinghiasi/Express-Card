@@ -33,20 +33,14 @@ const ShowUser = () => {
 
   const updateUser = async (e) => {
     e.preventDefault();
-    // await axios
-    //   .put(
-    //     `http://localhost:4000/adminPanel/user/updateUser/${params.id}`,
-    //     { ...values },
-    //     {
-    //       headers: { accept: "*/*", "Content-Type": "application/json" },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     if (res?.data?.status) {
-    //       navigate("/admin/allUsers");
-    //     }
-    //   })
-    //   .catch((err) => console.log(err));
+    await axios
+      .put(`http://localhost:4000/users/updateUser/${params.id}`, { values })
+      .then((res) => {
+        if (res?.data?.status) {
+          navigate("/admin/allUsers");
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

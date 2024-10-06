@@ -11,7 +11,6 @@ export default class GenericRepository<T extends mongoose.Document>
   }
 
   async create(data: T): Promise<T> {
-    console.log("repository")
     return this.model.create(data);
   }
 
@@ -24,7 +23,7 @@ export default class GenericRepository<T extends mongoose.Document>
   }
 
   async update(id: string, data: T): Promise<T | null> {
-    return this.model.findByIdAndUpdate(id, {data}).exec();
+    return this.model.findByIdAndUpdate(id, {$set: data});
   }
 
   async delete(id: string): Promise<T | null> {

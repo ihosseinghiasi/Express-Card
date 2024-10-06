@@ -39,8 +39,9 @@ export default class userController {
   }
 
   async updateUser(req: Request, res: Response) {
-    const data: IUser = req.body
-    const user = await this.userService.update(data.id, data)
+    const data: IUser = req.body.values
+    const id: string = req.params.id
+    const user = await this.userService.update(id, data)
     res.status(201).json(user)
   }
 
