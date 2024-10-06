@@ -11,7 +11,7 @@ export default class GenericRepository<T extends mongoose.Document>
   }
 
   async create(data: T): Promise<T> {
-    console.log(data)
+    console.log("repository")
     return this.model.create(data);
   }
 

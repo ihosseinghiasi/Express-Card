@@ -12,7 +12,7 @@ class UserRoute {
   }
 
   private initRoutes() {
-    this.router.post("/CreateUser", this.userController.createUser.bind(this.userController))
+    this.router.post("/createUser", this.userController.createUser.bind(this.userController))
     this.router.get("/getAllUsers", this.userController.findAllUsers.bind(this.userController))
     this.router.get("/getUser/:id", this.userController.findUser.bind(this.userController))
     this.router.put("/updateUser/:id", this.userController.updateUser.bind(this.userController))

@@ -5,7 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
-  const [values, setValues] = useState({
+  const [user, setUser] = useState({
     firstName: "",
     lastName: "",
     phoneNumber: "",
@@ -28,19 +28,12 @@ const AddUser = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await axios
-      .post(
-        "http://localhost:4000/users/createUser",
-        {
-          ...values,
-        },
-        {
-          withCredentials: true,
-        }
-      )
-      // .then((res) => {
-      //   console.log(res.data);
-      //   navigate("/admin/allUsers");
-      // });
+      .post("http://localhost:4000/users/createUser", {
+        user,
+      })
+      .then((res) => {
+        if (res.status === 201) navigate("/admin/allUsers");
+      });
   };
 
   return (
@@ -77,8 +70,8 @@ const AddUser = () => {
                         placeholder="نام"
                         name="firstName"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -89,8 +82,8 @@ const AddUser = () => {
                         placeholder="نام خانوادگی"
                         name="lastName"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -101,8 +94,8 @@ const AddUser = () => {
                         placeholder="ایمیل"
                         name="email"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -113,8 +106,8 @@ const AddUser = () => {
                         placeholder="شماره همراه"
                         name="phoneNumber"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -126,8 +119,8 @@ const AddUser = () => {
                         name="password"
                         id="password"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }

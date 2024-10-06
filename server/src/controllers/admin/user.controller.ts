@@ -11,8 +11,7 @@ export default class userController {
 
   async createUser(req: Request, res: Response) {
     try {
-      const data: IUser = req.body
-      console.log(data)
+      const data: IUser = req.body.user
       const user = await this.userService.create(data)
       res.status(201).json(user)
     } catch (error: unknown) {
