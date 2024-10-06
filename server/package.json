@@ -2,19 +2,21 @@
   "name": "online-shop",
   "version": "1.0.0",
   "description": "online shop with nodejs and react",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "start": "nodemon app.ts",
+    "start": "nodemon src/app.ts",
     "build": "tsc"
   },
   "author": "Hossein Ghiasi",
   "license": "ISC",
   "dependencies": {
+    "@types/app-module-path": "^2.2.2",
     "@types/body-parser": "^1.19.5",
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jsonwebtoken": "^9.0.7",
+    "app-module-path": "^2.2.0",
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.3",
     "cookie-parser": "^1.4.6",

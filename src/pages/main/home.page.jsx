@@ -11,9 +11,9 @@ const HomePage = () => {
   const navigate = useNavigate();
 
   const getCategories = () => {
-    getCategoriesServices().then((res) => {
-      console.log("res :>> ", res);
-    });
+    // getCategoriesServices().then((res) => {
+    //   console.log("res :>> ", res);
+    // });
   };
 
   useEffect(() => {

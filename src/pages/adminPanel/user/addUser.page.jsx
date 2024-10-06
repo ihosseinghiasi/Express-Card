@@ -27,20 +27,20 @@ const AddUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // await axios
-    //   .post(
-    //     "http://localhost:4000/adminPanel/user/addUser",
-    //     {
-    //       ...values,
-    //     },
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log(res.data);
-    //     navigate("/admin/allUsers");
-    //   });
+    await axios
+      .post(
+        "http://localhost:4000/users/createUser",
+        {
+          ...values,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      // .then((res) => {
+      //   console.log(res.data);
+      //   navigate("/admin/allUsers");
+      // });
   };
 
   return (

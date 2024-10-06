@@ -12,6 +12,7 @@ export default class userController {
   async createUser(req: Request, res: Response) {
     try {
       const data: IUser = req.body
+      console.log(data)
       const user = await this.userService.create(data)
       res.status(201).json(user)
     } catch (error: unknown) {
@@ -22,7 +23,7 @@ export default class userController {
   async findAllUsers(req: Request, res: Response) {
     try {
       const users = await this.userService.findAll()
-      res.status(201).json(users)
+      res.status(200).json(users)
     } catch (error) {
       throw new Error(error as string)      
     }
@@ -30,9 +31,9 @@ export default class userController {
 
   async findUser(req: Request, res: Response) {
     try {
-      const id: string = req.body.id
+      const id: string = req.params.id
       const user = await this.userService.findById(id)
-      res.status(201).json(user)
+      res.status(200).json(user)
     } catch (error) {
       throw new Error(error as string)
     }

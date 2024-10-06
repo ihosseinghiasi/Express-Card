@@ -7,5 +7,4 @@ export default interface IUser extends mongoose.Document {
   email: string,
   phoneNumber: string,
   password: string,
-  salt: string
 }

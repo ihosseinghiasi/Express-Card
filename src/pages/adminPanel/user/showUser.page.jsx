@@ -24,11 +24,11 @@ const ShowUser = () => {
   }, []);
 
   const getUser = async () => {
-    // await axios
-    //   .get(`http://localhost:4000/adminPanel/user/showUser/${params.id}`)
-    //   .then((res) => {
-    //     setValues(res.data.user);
-    //   });
+    await axios
+      .get(`http://localhost:4000/users/getUser/${params.id}`)
+      .then((res) => {
+        setValues(res.data);
+      });
   };
 
   const updateUser = async (e) => {
