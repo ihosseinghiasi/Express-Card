@@ -26,18 +26,9 @@ const AllUsers = () => {
     getPersianDate();
   }, []);
 
-  useEffect(() => {
-    console.log(users)
-  }, [users])
-
   async function handleDelete(id) {
-    // await axios.delete(
-    //   `http://localhost:4000/adminPanel/user/deleteUser/${id}`,
-    //   { id },
-    //   {
-    //     withCredentials: true,
-    //   }
-    // );
+    console.log("id");
+    await axios.delete(`http://localhost:4000/users/deleteUser/${id}`);
   }
 
   return (
