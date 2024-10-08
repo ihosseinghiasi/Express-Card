@@ -12,7 +12,7 @@ export default class userService {
     return this.UserRepository.create(data)
   }
 
-  async findAll(): Promise<IUser[]> {
+  async findAll(): Promise<IUser[] | null> {
     return this.UserRepository.findAll()
   }
 

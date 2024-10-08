@@ -14,7 +14,7 @@ export default class GenericRepository<T>
     return this.model.create(data);
   }
 
-  async findAll(): Promise<T[]> {
+  async findAll(): Promise<T[] | null> {
     return this.model.find().exec();
   }
 
