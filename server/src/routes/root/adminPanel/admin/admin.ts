@@ -1,170 +1,23 @@
-import express from "express"
+import { Router } from "express";
+import AdminController from "../../../../controllers/admin/admin.controller";
 
-const router = express.Router()
-// const {
-//   newAdmin,
-//   allAdmins,
-//   showAdmin,
-//   updateAdmin,
-//   deleteAdmin,
-// } = require("../../../../controllers/admin/adminController");
+class AdminRoute {
+  private readonly adminController: AdminController
+  public readonly router: Router
 
+  constructor() {
+    this.adminController = new AdminController()
+    this.router = Router()
+    this.initRoutes()
+  }
 
+  private initRoutes() {
+    this.router.post("/createAdmin", this.adminController.createAdmin.bind(this.adminController))
+    this.router.get("/getAllAdmins", this.adminController.findAllAdmins.bind(this.adminController))
+    this.router.get("/getAdmin/:id", this.adminController.findAdmin.bind(this.adminController))
+    this.router.put("/updateAdmin/:id", this.adminController.updateAdmin.bind(this.adminController))
+    this.router.delete("/deleteAdmin/:id", this.adminController.deleteAdmin.bind(this.adminController))
+  }
+}
 
-/**
- * @swagger
- * /adminPanel/admin/newAdmin:
- *   post:
- *     tags:
- *       - Admins
- *     summary: Add New Admin
- *     parameters:
- *      - in: body
- *        name: Admin
- *        description: Add New Admin
- *        schema:
- *          type: object
- *          properties:
- *            firstName:
- *              type: string
- *            lastName:
- *              type: string
- *            email:
- *              type: string
- *            phoneNumber:
- *              type: string
- *            password:
- *              type: string
- *            department:
- *              type: string
- *            isAdmin:
- *              type: boolean
- *            isProduct:
- *              type: boolean
- *            isCard:
- *              type: boolean
- *            isEmail:
- *              type: boolean
- *            isReport:
- *              type: boolean
- *            isticket:
- *              type: boolean
- *            isCategory:
- *              type: boolean
- *            isUser:
- *              type: boolean
- *            isPayment:
- *              type: boolean
- *     responses:
- *       200:
- *         description: Create A New Admin
- */
-// router.post("/newAdmin", newAdmin);
-
-/**
- * @swagger
- * /adminPanel/admin/allAdmins:
- *   get:
- *     tags:
- *      - Admins
- *     summary: Get All Admins
- *     responses:
- *       200:
- *         description: Returns All Admins
- */
-// router.get("/allAdmins", allAdmins);
-
-/**
- * @swagger
- * /adminPanel/admin/showAdmin/{id}:
- *   get:
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         type: string
- *         description: The Admin ID.
- *     tags:
- *      - Admins
- *     summary: Get An Admin
- *     responses:
- *       200:
- *         description: Returns An Admin
- */
-// router.get("/showAdmin/:id", showAdmin);
-
-/**
- * @swagger
- * /adminPanel/admin/updateAdmin/{id}:
- *   put:
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         type: string
- *         description: The Admin ID.
- *       - in: body
- *         name: Admin
- *         description: update An Admin
- *         schema:
- *          type: object
- *          properties:
- *           firstName:
- *            type: string
- *           lastName:
- *            type: string
- *           email:
- *            type: string
- *           phoneNumber:
- *             type: string
- *           password:
- *             type: string
- *           department:
- *             type: string
- *           isAdmin:
- *             type: boolean
- *           isProduct:
- *             type: boolean
- *           isCard:
- *             type: boolean
- *           isEmail:
- *             type: boolean
- *           isReport:
- *             type: boolean
- *           isticket:
- *             type: boolean
- *           isCategory:
- *             type: boolean
- *           isUser:
- *             type: boolean
- *           isPayment:
- *             type: boolean
- *     tags:
- *      - Admins
- *     summary: Edit An Admin
- *     responses:
- *       200:
- *         description: Edit An Admin
- */
-// router.put("/updateAdmin/:id", updateAdmin);
-
-/**
- * @swagger
- * /adminPanel/admin/deleteAdmin/{id}:
- *   delete:
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         type: string
- *         description: The Admin ID.
- *     tags:
- *      - Admins
- *     summary: Delete An Admin
- *     responses:
- *       200:
- *         description: Delete An Admin
- */
-// router.delete("/deleteAdmin/:id", deleteAdmin);
-
-export default router;
+export default new AdminRoute().router
