@@ -27,12 +27,4 @@ export default class userService {
   async delete(id: string): Promise<IUser | null> {
     return this.UserRepository.delete(id)
   }
-
-   async findByEmail(email: string): Promise<IUser | null> {
-    return this.UserRepository.findByEmail(email);
-  }
-
-  async findByName(name: string): Promise<IUser | null> {
-    return this.UserRepository.findByName(name);
-  }
 }

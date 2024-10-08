@@ -1,7 +1,7 @@
 import { BaseRepository } from "../interface/base.repository";
 import mongoose from "mongoose";
 
-export default class GenericRepository<T extends mongoose.Document>
+export default class GenericRepository<T>
   implements BaseRepository<T>
 {
   private readonly model: mongoose.Model<T>;
@@ -23,22 +23,10 @@ export default class GenericRepository<T extends mongoose.Document>
   }
 
   async update(id: string, data: T): Promise<T | null> {
-    return this.model.findByIdAndUpdate(id, {$set: data});
+    return this.model.findOneAndUpdate({_id: id}, data as Document, { new: true }).exec()
   }
 
   async delete(id: string): Promise<T | null> {
     return this.model.findByIdAndDelete(id).exec();
-  }
-
-  async findAllPaginatedWithFilter(
-    filter: any,
-    page: number,
-    limit: number
-  ): Promise<T[]> {
-    return this.model
-      .find(filter)
-      .skip((page - 1) * limit)
-      .limit(limit)
-      .exec();
   }
 }
