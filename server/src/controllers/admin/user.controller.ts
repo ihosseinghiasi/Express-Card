@@ -39,15 +39,23 @@ export default class userController {
   }
 
   async updateUser(req: Request, res: Response) {
-    const data: IUser = req.body.values
-    const id: string = req.params.id
-    const user = await this.userService.update(id, data)
-    res.status(201).json(user)
+    try {
+      const data: IUser = req.body.values
+      const id: string = req.params.id
+      const user = await this.userService.update(id, data)
+      res.status(201).json(user)
+    } catch (error: unknown) {
+      throw new Error(error as string)      
+    }
   }
 
   async deleteUser(req: Request, res: Response) {
-    const id: string = req.params.id
-    const user = await this.userService.delete(id)
-    res.status(201).json(user)
+    try {
+      const id: string = req.params.id
+      const user = await this.userService.delete(id)
+      res.status(201).json(user)
+    } catch (error: unknown) {
+      throw new Error(error as string)
+    }
   }
 }
