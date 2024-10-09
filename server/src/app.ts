@@ -4,6 +4,7 @@ import ErrorHandler from "./helpers/error-handler";
 import Database from "./config/db";
 import dotenv from "dotenv"
 import userRoute from "./routes/root/adminPanel/user/user.route";
+import adminRoute from "./routes/root/adminPanel/admin/admin.route"
 import { urlencoded } from "body-parser";
 export default class App {
   private readonly app: Application
@@ -35,6 +36,7 @@ export default class App {
 
   private initRoutes() {
     this.app.use("/users", userRoute)
+    this.app.use("/admins", adminRoute)
   }
 
   initErrorHandling() {

@@ -11,7 +11,7 @@ export default class AdminController {
 
   async createAdmin(req: Request, res: Response) {
     try {
-      const data: IAdmin = req.body.admin
+      let data: IAdmin = req.body.values
       const admin = await this.AdminService.create(data)
       res.status(201).json(admin)
     } catch (error: unknown) {
@@ -41,7 +41,7 @@ export default class AdminController {
   async updateAdmin(req: Request, res: Response) {
     try {
       const id: string = req.params.id
-      const data: IAdmin = req.body.data
+      const data: IAdmin = req.body.values
       const admin = await this.AdminService.update(id, data)
       res.status(200).json(admin)
     } catch (error: unknown) {

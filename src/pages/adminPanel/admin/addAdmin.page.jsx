@@ -26,30 +26,27 @@ const AddAdmin = () => {
 
   useEffect(() => {
     const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
-        setPersianDate(res.data);
-      });
+      // await axios.get("http://localhost:4000/persianDate").then((res) => {
+      //   setPersianDate(res.data);
+      // });
     };
     getPersianDate();
   }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // await axios
-    //   .post(
-    //     "http://localhost:4000/adminPanel/admin/newAdmin",
-    //     {
-    //       ...values,
-    //     },
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     if (res.data.status) {
-    //       navigate("/admin/allAdmins");
-    //     }
-    //   });
+    await axios
+      .post(
+        "http://localhost:4000/admins/createAdmin",
+        {
+          values,
+        },
+      )
+      .then((res) => {
+        if (res.data) {
+          navigate("/admin/allAdmins");
+        }
+      });
   };
 
   return (
