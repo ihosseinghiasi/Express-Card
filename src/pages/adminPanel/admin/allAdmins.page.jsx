@@ -13,11 +13,11 @@ const AllAdmins = () => {
 
   useEffect(() => {
     const getAllAdmins = () => {
-      // axios
-      //   .get("http://localhost:4000/adminPanel/admin/allAdmins")
-      //   .then((res) => {
-      //     setAdmins(res.data.admins);
-      //   });
+      axios
+        .get("http://localhost:4000/admins/getAllAdmins")
+        .then((res) => {
+          setAdmins(res.data);
+        });
     };
 
     const getPersianDate = async () => {
