@@ -13,11 +13,9 @@ const AllAdmins = () => {
 
   useEffect(() => {
     const getAllAdmins = () => {
-      axios
-        .get("http://localhost:4000/admins/getAllAdmins")
-        .then((res) => {
-          setAdmins(res.data);
-        });
+      axios.get("http://localhost:4000/admins/getAllAdmins").then((res) => {
+        setAdmins(res.data);
+      });
     };
 
     const getPersianDate = async () => {
@@ -30,11 +28,7 @@ const AllAdmins = () => {
   }, []);
 
   const handleDelete = async (id) => {
-    // await axios.delete(
-    //   `http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`,
-    //   { id },
-    //   { withCredentials: true }
-    // );
+    await axios.delete(`http://localhost:4000/admins/deleteAdmin/${id}`);
   };
 
   return (
