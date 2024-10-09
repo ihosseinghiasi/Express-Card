@@ -11,16 +11,19 @@ const ShowAdmin = () => {
   const params = useParams();
   const navigate = useNavigate();
 
-  // const getAdmin = () => {
-  //   const admin = adminServices(params)
-  //   admin.getAdmin()
-  // };
+  const getAdmin = async () => {
+    await axios
+      .get(`http://localhost:4000/admins/getAdmin/${params.id}`)
+      .then((res) => {
+        setValues(res.data);
+      });
+  };
 
   useEffect(() => {
-    getPersianDateService().then((res) => {
-      setPersianDate(res);
-    });
-    // params && getAdmin();
+    // getPersianDateService().then((res) => {
+    //   setPersianDate(res);
+    // });
+    params && getAdmin();
   }, []);
 
   const updateAdmin = async () => {
