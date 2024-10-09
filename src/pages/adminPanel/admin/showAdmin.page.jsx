@@ -26,21 +26,15 @@ const ShowAdmin = () => {
     params && getAdmin();
   }, []);
 
-  const updateAdmin = async () => {
-    // console.log(values);
-    // await axios
-    //   .put(
-    //     `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
-    //     {
-    //       ...values,
-    //     },
-    //     { withCredentials: true }
-    //   )
-    //   .then((res) => {
-    //     if (res.data.status) {
-    //       navigate("/admin/allAdmins");
-    //     }
-    //   });
+  const updateAdmin = async (e) => {
+    e.preventDefault()
+    await axios
+      .put(`http://localhost:4000/admins/updateAdmin/${params.id}`, {
+        values,
+      })
+      .then((res) => {
+        if (res?.data) navigate("/admin/allAdmins");
+      });
   };
 
   return (

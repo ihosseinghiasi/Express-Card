@@ -43,7 +43,7 @@ export default class AdminController {
       const id: string = req.params.id
       const data: IAdmin = req.body.values
       const admin = await this.AdminService.update(id, data)
-      res.status(200).json(admin)
+      res.status(201).json(admin)
     } catch (error: unknown) {
       throw new Error(error as string)
     }
