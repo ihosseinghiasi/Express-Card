@@ -8,7 +8,7 @@ export default class CategoryService {
     this.categoryRepository = new CategoryRepository()
   }
 
-  create(data: ICategory): Promise<ICategory> {
+  async create(data: ICategory): Promise<ICategory> {
     return this.categoryRepository.create(data)
   }
 
