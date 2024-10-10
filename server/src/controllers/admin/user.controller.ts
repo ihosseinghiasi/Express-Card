@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import bcrypt from "bcrypt"
 import UserService from "../../services/user.service";
 import IUser from "../../interface/user.interface";
 
@@ -12,6 +13,8 @@ export default class userController {
   async createUser(req: Request, res: Response) {
     try {
       const data: IUser = req.body.user
+      const salt = await bcrypt.genSalt()
+      data.password = await bcrypt.hash(data.password, salt)
       const user = await this.userService.create(data)
       res.status(201).json(user)
     } catch (error: unknown) {
@@ -42,6 +45,10 @@ export default class userController {
     try {
       const data: IUser = req.body.values
       const id: string = req.params.id
+      if (data.password.length <= 16) {
+        const salt = await bcrypt.genSalt()
+        data.password = await bcrypt.hash(data.password, salt)
+      }
       const user = await this.userService.update(id, data)
       res.status(201).json(user)
     } catch (error: unknown) {

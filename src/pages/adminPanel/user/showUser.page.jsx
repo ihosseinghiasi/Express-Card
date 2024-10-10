@@ -36,7 +36,7 @@ const ShowUser = () => {
     await axios
       .put(`http://localhost:4000/users/updateUser/${params.id}`, { values })
       .then((res) => {
-        if (res?.data?.status) {
+        if (res?.data) {
           navigate("/admin/allUsers");
         }
       })
@@ -129,7 +129,6 @@ const ShowUser = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
-                        // value={values.password}
                         onChange={(e) =>
                           setValues({
                             ...values,
@@ -148,7 +147,6 @@ const ShowUser = () => {
                         placeholder="تکرار کلمه عبور"
                         name="confirmPassword"
                         id="confirmPassword"
-                        // value={values.password}
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"

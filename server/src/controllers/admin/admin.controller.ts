@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import bcrypt from "bcrypt"
 import IAdmin from "../../interface/admin.interface";
 import AdminService from "../../services/admin.service";
 
@@ -11,7 +12,9 @@ export default class AdminController {
 
   async createAdmin(req: Request, res: Response) {
     try {
-      let data: IAdmin = req.body.values
+      const data: IAdmin = req.body.values
+      const salt = await bcrypt.genSalt()
+      data.password = await bcrypt.hash(data.password, salt)
       const admin = await this.AdminService.create(data)
       res.status(201).json(admin)
     } catch (error: unknown) {
@@ -42,6 +45,10 @@ export default class AdminController {
     try {
       const id: string = req.params.id
       const data: IAdmin = req.body.values
+      if (data.password.length <= 16) {
+        const salt = await bcrypt.genSalt()
+        data.password = await bcrypt.hash(data.password, salt)
+      }
       const admin = await this.AdminService.update(id, data)
       res.status(201).json(admin)
     } catch (error: unknown) {
