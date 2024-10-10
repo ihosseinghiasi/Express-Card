@@ -2,29 +2,29 @@ import IUser from "../interface/user.interface";
 import UserRepository from "../repository/user.repository";
 
 export default class userService {
-  private readonly UserRepository: UserRepository
+  private readonly userRepository: UserRepository
 
   constructor() {
-    this.UserRepository = new UserRepository()
+    this.userRepository = new UserRepository()
   }
 
   async create(data: IUser): Promise<IUser> {
-    return this.UserRepository.create(data)
+    return this.userRepository.create(data)
   }
 
   async findAll(): Promise<IUser[] | null> {
-    return this.UserRepository.findAll()
+    return this.userRepository.findAll()
   }
 
   async findById(id: string): Promise<IUser | null> {
-    return this.UserRepository.findById(id)
+    return this.userRepository.findById(id)
   }
 
   async update(id: string, data: IUser): Promise<IUser | null> {
-    return this.UserRepository.update(id, data)
+    return this.userRepository.update(id, data)
   }
 
   async delete(id: string): Promise<IUser | null> {
-    return this.UserRepository.delete(id)
+    return this.userRepository.delete(id)
   }
 }
