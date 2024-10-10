@@ -1,5 +1,5 @@
-import IAdmin from "../interface/admin.interface";
-import AdminRepository from "../repository/admin.repository";
+import IAdmin from "../../interface/admin.interface";
+import AdminRepository from "../../repository/admin.repository";
 
 export default class AdminService {
   private readonly adminRepository: AdminRepository

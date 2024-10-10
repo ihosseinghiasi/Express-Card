@@ -1,5 +1,5 @@
 import { Router } from "express";
-import AdminController from "../../../../controllers/admin/admin.controller";
+import AdminController from "../../../../controllers/adminPanel/admin.controller";
 
 class AdminRoute {
   private readonly adminController: AdminController

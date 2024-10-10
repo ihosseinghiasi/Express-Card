@@ -1,5 +1,5 @@
-import ICategory from "../interface/category.interface";
-import CategoryRepository from "../repository/category.repository";
+import ICategory from "../../interface/category.interface";
+import CategoryRepository from "../../repository/category.repository";
 
 export default class CategoryService {
   private readonly categoryRepository: CategoryRepository

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt"
-import UserService from "../../services/user.service";
+import UserService from "../../services/adminPanel/user.service";
 import IUser from "../../interface/user.interface";
 
 export default class userController {

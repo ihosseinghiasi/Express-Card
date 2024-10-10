@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt"
 import IAdmin from "../../interface/admin.interface";
-import AdminService from "../../services/admin.service";
+import AdminService from "../../services/adminPanel/admin.service";
 
 export default class AdminController {
   private readonly AdminService: AdminService

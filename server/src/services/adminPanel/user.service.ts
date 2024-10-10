@@ -1,5 +1,5 @@
-import IUser from "../interface/user.interface";
-import UserRepository from "../repository/user.repository";
+import IUser from "../../interface/user.interface";
+import UserRepository from "../../repository/user.repository";
 
 export default class userService {
   private readonly userRepository: UserRepository
