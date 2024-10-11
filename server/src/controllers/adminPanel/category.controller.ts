@@ -9,11 +9,14 @@ export default class CategoryController {
     this.categoryService = new CategoryService()
   }
 
-  async create(req: Request, res: Response) {
+  async createCategory(req: Request, res: Response) {
     try {
-      const data: ICategory = req.body.category
-      const categoryImage = req.file?.fieldname
-      data.image = categoryImage || ""
+      const data: ICategory = {
+        categoryName: req.body.categoryName,
+        title: req.body.title,
+        description: req.body.description,
+        image: req.file?.filename || ""
+      }
       const category = await this.categoryService.create(data)
       res.status(200).json(category)
     } catch (error: unknown) {

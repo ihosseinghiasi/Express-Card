@@ -1,6 +1,7 @@
 import { Router } from "express";
 import CategoryController from "../../../../controllers/adminPanel/category.controller";
-const upload = require("../../../../config/upload")
+import upload from "../../../../config/multer"
+
 class CategoryRoute {
   private readonly categoryController: CategoryController
   public readonly router: Router
@@ -12,6 +13,8 @@ class CategoryRoute {
   }
 
   private initRoutes() {
-    this.router.post('/createCategory', upload.single('file'))
+    this.router.post('/createCategory', upload.single('file'), this.categoryController.createCategory.bind(this.categoryController))
   }
 }
+
+export default new CategoryRoute().router
