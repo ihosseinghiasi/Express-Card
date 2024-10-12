@@ -23,4 +23,44 @@ export default class CategoryController {
       throw new Error(error as string)
     }
   }
+
+  async getAllCategories(req: Request, res: Response) {
+   try {
+    const categories = await this.categoryService.findAll()
+    res.status(200).json(categories)
+   } catch (error: unknown) {
+    throw new Error(error as string)
+   }
+  }
+
+  async getCategory(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id
+      const category = await this.categoryService.findById(id)
+      res.status(200).json(category)
+   } catch (error: unknown) {
+      throw new Error(error as string)
+   }
+  }
+
+  async updateCategory(req: Request, res: Response) {
+    try {
+      const data: ICategory = req.body.values
+      const id: string = req.params.id
+      const category = await this.categoryService.update(id, data)
+      res.status(200).json(category)
+    } catch (error: unknown) {
+      throw new Error(error as string)
+    }
+  }
+
+  async deleteCategory(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id
+      const category = await this.categoryService.delete(id)
+      res.status(200).json(category)
+    } catch (error: unknown) {
+      throw new Error(error as string)
+    }
+  }
 }
