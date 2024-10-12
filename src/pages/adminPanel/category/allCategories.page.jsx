@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import "../../../css/admin/category.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
-import { useNavigate } from "react-router-dom";
+import "../../../css/admin/category.css";
 
 const AllCategories = () => {
   const [categories, setCategories] = useState([]);
