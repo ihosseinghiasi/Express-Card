@@ -10,11 +10,11 @@ const AllCategories = () => {
 
   useEffect(() => {
     const getAllCategories = () => {
-      // axios
-      //   .get("http://localhost:4000/adminPanel/category/allCategories")
-      //   .then((res) => {
-      //     setCategories(res.data.categories);
-      //   });
+      axios
+        .get("http://localhost:4000/categories/getAllCategories")
+        .then((res) => {
+          setCategories(res.data);
+        });
     };
 
     const getPersianDate = async () => {
