@@ -47,7 +47,6 @@ const AddCategory = () => {
       })
       .then((res) => {
         navigate("/admin/allCategories");
-        console.log(res.data.status);
       });
   };
 

@@ -15,7 +15,7 @@ export default class CategoryController {
         categoryName: req.body.categoryName,
         title: req.body.title,
         description: req.body.description,
-        image: req.file?.filename || ""
+        image: req.file?.filename || "unimage.png"
       }
       const category = await this.categoryService.create(data)
       res.status(200).json(category)
@@ -45,8 +45,14 @@ export default class CategoryController {
 
   async updateCategory(req: Request, res: Response) {
     try {
-      const data: ICategory = req.body.values
       const id: string = req.params.id
+      const oldCategory = await this.categoryService.findById(id)
+      const data: ICategory = {
+        categoryName: req.body.categoryName,
+        title: req.body.title,
+        description: req.body.description,
+        image: req.file?.filename || oldCategory?.image || ""
+      }
       const category = await this.categoryService.update(id, data)
       res.status(200).json(category)
     } catch (error: unknown) {

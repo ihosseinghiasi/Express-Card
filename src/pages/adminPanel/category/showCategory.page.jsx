@@ -1,23 +1,23 @@
-import "../../../css/admin/category.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import "../../../css/admin/category.css";
 
 const ShowCategory = () => {
   const params = useParams();
   const [persianDate, setPersianDate] = useState("");
   const [category, setCategory] = useState({});
-  const [categoryId, setCategoryId] = useState();
   const [UrlCategoryImage, setUrlCategoryImage] = useState("");
   const [categoryImage, setCategoryImage] = useState("");
   const fileUploadRef = useRef(null);
+  const navigate = useNavigate();
 
   const getCategory = async () => {
-    // await axios
-    //   .get(`http://localhost:4000/adminPanel/category/showCategory/${params.id}`)
-    //   .then((response) => {
-    //     setCategory(response.data.category);
-    //   });
+    await axios
+      .get(`http://localhost:4000/categories/getCategory/${params.id}`)
+      .then((response) => {
+        setCategory(response.data);
+      });
   };
 
   useEffect(() => {
@@ -42,11 +42,8 @@ const ShowCategory = () => {
     setUrlCategoryImage(URL.createObjectURL(uploadedFile));
   };
 
-  useEffect(() => {
-    setCategoryId(category._id);
-  }, [category]);
-
-  const updateCategory = async () => {
+  const updateCategory = async (e) => {
+    e.preventDefault()
     const formData = new FormData();
     if (categoryImage) formData.append("file", categoryImage);
     formData.append("id", category._id);
@@ -56,13 +53,13 @@ const ShowCategory = () => {
     formData.append("image", category.image);
 
     await axios
-      // .put(
-      //   `http://localhost:4000/adminPanel/category/updateCategory/${categoryId}`,
-      //   formData
-      // )
-      // .then((res) => {
-      //   console.log(res);
-      // });
+      .put(
+        `http://localhost:4000/categories/updateCategory/${params.id}`,
+        formData
+      )
+      .then((res) => {
+        navigate("/admin/allCategories");
+      });
   };
 
   return (
@@ -134,14 +131,14 @@ const ShowCategory = () => {
                               name="newCategoryImage"
                               id="newCategoryImage"
                               alt="categoryImage"
-                              className="categiryImage"
+                              className="categoryImage"
                               onClick={handleImageUpload}
                             />
                           </div>
                         ) : (
                           <div className="imageUpload">
                             <img
-                              src={require(`../../../images/category/${category.image}`)}
+                              src={require(`../../../upload/images/${category.image}`)}
                               name="categoryImage"
                               id="categoryImage"
                               alt="categoryImage"
