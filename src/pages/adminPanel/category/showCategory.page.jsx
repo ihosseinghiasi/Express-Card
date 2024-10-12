@@ -26,7 +26,6 @@ const ShowCategory = () => {
     //     setPersianDate(res.data);
     //   });
     // };
-
     // getPersianDate();
     if (params) getCategory();
   }, []);

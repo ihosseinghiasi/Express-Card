@@ -27,19 +27,9 @@ const AllCategories = () => {
   }, []);
 
   async function handleDelete(id) {
-    // await axios
-    //   .delete(
-    //     `http://localhost:4000/adminPanel/category/deleteCategory/${id}`,
-    //     { id },
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     if (res.data.status) {
-    //       console.log(res.data);
-    //     }
-    //   });
+    await axios
+      .delete(`http://localhost:4000/categories/deleteCategory/${id}`)
+      .then((res) => {});
   }
 
   return (
