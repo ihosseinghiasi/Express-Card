@@ -10,11 +10,11 @@ const AllProducts = () => {
 
   useEffect(() => {
     const getAllProducts = () => {
-      // axios
-      //   .get("http://localhost:4000/adminPanel/product/allProducts")
-      //   .then((res) => {
-      //     setProducts(res.data.products);
-      //   });
+      axios
+        .get("http://localhost:4000/products/getAllProducts")
+        .then((res) => {
+          setProducts(res.data);
+        });
     };
 
     const getPersianDate = async () => {

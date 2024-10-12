@@ -21,3 +21,5 @@ class ProductRoute {
 
   }
 }
+
+export default new ProductRoute().router
