@@ -17,7 +17,7 @@ export default class ProductController {
     }
   }
 
-  async getAllCategories(req: Request, res: Response) {
+  async getAllProducts(req: Request, res: Response) {
    try {
     const products = await this.productService.findAll()
     res.status(200).json(products)
@@ -26,7 +26,7 @@ export default class ProductController {
    }
   }
 
-  async getCategory(req: Request, res: Response) {
+  async getProduct(req: Request, res: Response) {
     try {
       const id: string = req.params.id
       const product = await this.productService.findById(id)
@@ -36,7 +36,7 @@ export default class ProductController {
    }
   }
 
-  async updateCategory(req: Request, res: Response) {
+  async updateProduct(req: Request, res: Response) {
     try {
 
     } catch (error: unknown) {
@@ -44,7 +44,7 @@ export default class ProductController {
     }
   }
 
-  async deleteCategory(req: Request, res: Response) {
+  async deleteProduct(req: Request, res: Response) {
     try {
       const id: string = req.params.id
       const product = await this.productService.delete(id)

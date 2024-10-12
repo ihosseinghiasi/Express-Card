@@ -18,7 +18,6 @@ class CategoryRoute {
     this.router.get('/getCategory/:id', this.categoryController.getCategory.bind(this.categoryController))
     this.router.put('/updateCategory/:id', upload.single('file'), this.categoryController.updateCategory.bind(this.categoryController))
     this.router.delete('/deleteCategory/:id', this.categoryController.deleteCategory.bind(this.categoryController))
-
   }
 }
 
