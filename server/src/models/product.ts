@@ -1,4 +1,5 @@
 import mongoose from "mongoose"
+import IProduct from "../interface/product.interface"
 
 const productSchema = new mongoose.Schema({
     productName: {type: String},
@@ -14,11 +15,5 @@ const productSchema = new mongoose.Schema({
     category: {type: mongoose.Schema.Types.ObjectId, ref: 'Category'}
 })
 
-export const productModel = mongoose.model('Product', productSchema, 'Product')
-
-export const getProducts = () => { productModel.find() }
-export const getProductById = (id: String) => { productModel.findById({ id }) }
-export const deleteProductById = (id: string) => { productModel.findByIdAndDelete({ _id: id }) }
-export const updateProductById = (id: string, values: Record<string, any>) => { productModel.findByIdAndUpdate(id, values) }
-export const createProduct = (values: Record<string, any>) =>
-    new productModel(values).save().then((product) => product.toObject())
+const Product = mongoose.model<IProduct>('Product', productSchema, 'Product')
+export default Product
