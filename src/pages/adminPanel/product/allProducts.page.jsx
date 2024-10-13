@@ -10,11 +10,9 @@ const AllProducts = () => {
 
   useEffect(() => {
     const getAllProducts = () => {
-      axios
-        .get("http://localhost:4000/products/getAllProducts")
-        .then((res) => {
-          setProducts(res.data);
-        });
+      axios.get("http://localhost:4000/products/getAllProducts").then((res) => {
+        setProducts(res.data);
+      });
     };
 
     const getPersianDate = async () => {
@@ -27,19 +25,13 @@ const AllProducts = () => {
   }, []);
 
   async function handleDelete(id) {
-    // await axios
-    //   .delete(
-    //     `http://localhost:4000/adminPanel/product/deleteProduct/${id}`,
-    //     { id },
-    //     {
-    //       withCredentials: true,
-    //     }
-    //   )
-    //   .then((res) => {
-    //     if (res.data.status) {
-    //       console.log(res.data);
-    //     }
-    //   });
+    await axios
+      .delete(`http://localhost:4000/products/deleteProduct/${id}`)
+      .then((res) => {
+        if (res.data) {
+          console.log(res.data);
+        }
+      });
   }
 
   return (

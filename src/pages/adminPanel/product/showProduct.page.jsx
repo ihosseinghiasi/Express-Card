@@ -96,16 +96,16 @@ const ShowProduct = () => {
     formData.append("fields", fields);
 
     await axios
-      // .put(
-      //   `http://localhost:4000/adminPanel/product/updateProduct/${params.id}`,
-      //   formData,
-      //   {
-      //     headers: { "Content-Type": "multipart/form-data" },
-      //   }
-      // )
-      // .then((res) => {
-      //   console.log(res.data.status);
-      // });
+      .put(
+        `http://localhost:4000/products/updateProduct/${params.id}`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
   };
 
   return (
@@ -199,7 +199,7 @@ const ShowProduct = () => {
                         className="form-control"
                         onChange={uploadImageDisplay}
                         hidden
-                      />{" "}
+                      />
                       <button
                         type="submit"
                         id="submit"
