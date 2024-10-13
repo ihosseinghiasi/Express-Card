@@ -28,7 +28,7 @@ const AddProduct = () => {
       await axios
         .get("http://localhost:4000/categories/getAllCategories")
         .then((res) => {
-          setCategories(res.data.categories);
+          setCategories(res.data);
         });
     };
 
@@ -84,7 +84,7 @@ const AddProduct = () => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((res) => {
-        console.log(res.data.status);
+        console.log(res.data);
         navigate("/admin/allProducts");
       });
   };

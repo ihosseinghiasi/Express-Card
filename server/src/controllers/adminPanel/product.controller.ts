@@ -20,7 +20,7 @@ export default class ProductController {
         description: req.body.description,
         accessible: req.body.accessible,
         image: req.file?.filename || "unimage.png",
-        fields: req.body.fields,
+        fields: req.body.fields.split(','),
         count: req.body.count
       }
       const product = await this.productService.create(data)
