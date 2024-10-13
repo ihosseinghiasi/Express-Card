@@ -26,25 +26,25 @@ const ShowProduct = () => {
     };
 
     const getCategories = async () => {
-      // await axios
-      //   .get("http://localhost:4000/adminPanel/category/allCategories")
-      //   .then((res) => {
-      //     setCategories(res.data.categories);
-      //   });
+      await axios
+        .get("http://localhost:4000/categories/getAllCategories")
+        .then((res) => {
+          setCategories(res.data);
+        });
     };
 
     getCategories();
     getPersianDate();
 
     const getProduct = async () => {
-      // await axios
-      //   .get(
-      //     `http://localhost:4000/adminPanel/product/showProduct/${params.id}`
-      //   )
-      //   .then((response) => {
-      //     setProduct(response.data.product);
-      //     setFields(response.data.product.fields);
-      //   });
+      await axios
+        .get(
+          `http://localhost:4000/products/getProduct/${params.id}`
+        )
+        .then((response) => {
+          setProduct(response.data);
+          setFields(response.data.fields);
+        });
     };
 
     if (params) getProduct();
@@ -173,7 +173,7 @@ const ShowProduct = () => {
                         {product?.image &&
                           (UrlProductImage ? (
                             <img
-                              src={require(`../../../images/category/${product.image}`)}
+                              src={require(`../../../upload/images/${product.image}`)}
                               name="categoryImage"
                               id="categoryImage"
                               alt="categoryImage"
