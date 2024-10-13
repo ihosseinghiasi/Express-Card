@@ -1,12 +1,12 @@
-// import mongoose from "mongoose"
-// import ICard from "../interface/card.interface";
+import mongoose from "mongoose"
+import ICard from "../interface/card.interface";
 
-// const cardSchema = new mongoose.Schema({
-//   cardCard: { type: String },
-//   cardProduct: { type: String },
-//   cardStatus: { type: String },
-//   cardFields: {},
-// });
+const cardSchema = new mongoose.Schema({
+  cardCard: { type: String },
+  cardProduct: { type: String },
+  cardStatus: { type: String },
+  cardFields: {},
+});
 
-// const Card = mongoose.model<ICard>("Card", cardSchema, "Card");
-// export default Card
+const Card = mongoose.model<ICard>("Card", cardSchema, "Card");
+export default Card
