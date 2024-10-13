@@ -10,9 +10,7 @@ const ShowProduct = () => {
   const [fields, setFields] = useState([""]);
   const [categories, setCategories] = useState([]);
   const [productImage, setProductImage] = useState();
-  const [UrlProductImage, setUrlProductImage] = useState(
-    "/uploads/pictures/unimage.png"
-  );
+  const [UrlProductImage, setUrlProductImage] = useState();
   const [persianDate, setPersianDate] = useState("");
   const fileUploadRef = useRef(null);
   const params = useParams();
@@ -38,9 +36,7 @@ const ShowProduct = () => {
 
     const getProduct = async () => {
       await axios
-        .get(
-          `http://localhost:4000/products/getProduct/${params.id}`
-        )
+        .get(`http://localhost:4000/products/getProduct/${params.id}`)
         .then((response) => {
           setProduct(response.data);
           setFields(response.data.fields);
@@ -170,25 +166,29 @@ const ShowProduct = () => {
 
                     <div className="col-4 fileUloadArea">
                       <div className="imageUpload mx-auto" id="file">
-                        {product?.image &&
+                        {product.image &&
                           (UrlProductImage ? (
-                            <img
-                              src={require(`../../../upload/images/${product.image}`)}
-                              name="categoryImage"
-                              id="categoryImage"
-                              alt="categoryImage"
-                              className="imageUpload rounded-full"
-                              onClick={handleImageUpload}
-                            />
+                            <div className="imageUpload">
+                              <img
+                                src={UrlProductImage}
+                                name="newCategoryImage"
+                                id="newCategoryImage"
+                                alt="categoryImage"
+                                className="imageUpload rounded-full"
+                                onClick={handleImageUpload}
+                              />
+                            </div>
                           ) : (
-                            <img
-                              src={UrlProductImage}
-                              name="newCategoryImage"
-                              id="newCategoryImage"
-                              alt="categoryImage"
-                              className="imageUpload rounded-full"
-                              onClick={handleImageUpload}
-                            />
+                            <div className="imageUpload">
+                              <img
+                                src={require(`../../../upload/images/${product.image}`)}
+                                name="categoryImage"
+                                id="categoryImage"
+                                alt="categoryImage"
+                                className="imageUpload rounded-full"
+                                onClick={handleImageUpload}
+                              />
+                            </div>
                           ))}
                       </div>
                       <input

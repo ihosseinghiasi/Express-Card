@@ -53,19 +53,18 @@ export default class ProductController {
     try {
       const id: string = req.params.id
       const oldProduct = await this.productService.findById(id)
-      console.log(oldProduct)
-       const data: IProduct = {
-        productName: req.body.productName,
-        title: req.body.title,
-        categoryTitle: req.body.categoryTitle,
-        cycle: req.body.cycle,
-        price: req.body.price,
-        description: req.body.description,
-        accessible: req.body.accessible,
-        image: req.file?.filename || oldProduct?.image || "",
-        fields: req.body.fields.split(','),
-        count: req.body.count
-       }
+      const data: IProduct = {
+      productName: req.body.productName,
+      title: req.body.title,
+      categoryTitle: req.body.categoryTitle,
+      cycle: req.body.cycle,
+      price: req.body.price,
+      description: req.body.description,
+      accessible: req.body.accessible,
+      image: req.file?.filename || oldProduct?.image || "",
+      fields: req.body.fields.split(','),
+      count: req.body.count
+      }
       const product = await this.productService.update(id, data)
       res.status(200).json(product)
     } catch (error: unknown) {
