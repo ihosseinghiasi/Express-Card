@@ -7,6 +7,7 @@ import userRoute from "./routes/root/adminPanel/user/user.route";
 import adminRoute from "./routes/root/adminPanel/admin/admin.route"
 import categoryRoute from "./routes/root/adminPanel/category/category.route"
 import productRoute from "./routes/root/adminPanel/product/product"
+import cardRoute from "./routes/root/adminPanel/card/card"
 import { urlencoded } from "body-parser";
 export default class App {
   private readonly app: Application
@@ -41,6 +42,7 @@ export default class App {
     this.app.use("/admins", adminRoute)
     this.app.use('/categories', categoryRoute)
     this.app.use("/products", productRoute)
+    this.app.use("/cards", cardRoute)
   }
 
   initErrorHandling() {

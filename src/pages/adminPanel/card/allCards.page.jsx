@@ -10,11 +10,11 @@ const AllCards = () => {
 
   useEffect(() => {
     const getAllCards = () => {
-      // axios
-      //   .get("http://localhost:4000/adminPanel/card/allCards")
-      //   .then((res) => {
-      //     setCards(res.data.cards);
-      //   });
+      axios
+        .get("http://localhost:4000/cards/getAllCards")
+        .then((res) => {
+          setCards(res.data);
+        });
     };
 
     const getPersianDate = async () => {

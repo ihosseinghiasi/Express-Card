@@ -60,7 +60,10 @@ const AddCard = () => {
     };
 
     const getProducts = async () => {
-      await axios.get("http://localhost:4000/products/getAllProducts");
+      await axios.get("http://localhost:4000/products/getAllProducts")
+      .then(res => {
+        setProducts(res.data)
+      })
     }
 
     getPersianDate();

@@ -11,11 +11,22 @@ export default class CardController {
 
   async createCard(req: Request, res: Response) {
     try {
+      const fieldValues = req.body.data.fieldValues
+      const fieldNames = req.body.data.fieldNames
+      let fields = {}
+      if (fieldValues !== "") {
+        fields = Object.fromEntries(
+          fieldNames.map((fieldName: string, index: number) => [
+            `field${[index]}`,
+            { fieldName: fieldName, fieldValue: fieldValues[index] },
+          ])
+        );
+      }
       const data: ICard = {
-        title: req.body.title,
-        product: req.body.product,
-        status: req.body.status,
-        fields: req.body.fields
+        cardCategory: req.body.data.card.cardCategory,
+        cardProduct: req.body.data.card.cardProduct,
+        cardStatus: req.body.data.card.cardStatus,
+        cardFields: fields
       }
       const card = await this.cardService.create(data)
       res.status(200).json(card)

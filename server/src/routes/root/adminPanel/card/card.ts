@@ -19,3 +19,5 @@ class CardRoute {
     this.router.delete('/deleteCard/:id', this.cardController.deleteCard.bind(this.cardController))
   }
 }
+
+export default new CardRoute().router
