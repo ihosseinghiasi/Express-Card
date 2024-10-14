@@ -25,12 +25,12 @@ const AllCards = () => {
   }, []);
 
   async function handleDelete(id) {
-    // await axios
-    //   .delete(`http://localhost:4000/cards/deleteCard/${id}`)
-    //   .then((res) => {
-    //     if (res.data) {
-    //     }
-    //   });
+    await axios
+      .delete(`http://localhost:4000/cards/deleteCard/${id}`)
+      .then((res) => {
+        if (res.data) {
+        }
+      });
   }
 
   return (
