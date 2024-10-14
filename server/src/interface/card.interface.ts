@@ -1,6 +1,6 @@
 export default interface ICard {
-  cardCard: string,
-  cardProduct: string,
-  cardStatus: string,
-  cardFields: object,
+  title: string,
+  product: string,
+  status: string,
+  fields: object,
 }

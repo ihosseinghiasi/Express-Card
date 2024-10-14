@@ -2,10 +2,10 @@ import mongoose from "mongoose"
 import ICard from "../interface/card.interface";
 
 const cardSchema = new mongoose.Schema({
-  cardCard: { type: String },
-  cardProduct: { type: String },
-  cardStatus: { type: String },
-  cardFields: {},
+  title: { type: String },
+  product: { type: String },
+  status: { type: String },
+  fields: {},
 });
 
 const Card = mongoose.model<ICard>("Card", cardSchema, "Card");

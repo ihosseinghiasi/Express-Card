@@ -11,14 +11,13 @@ export default class CardController {
 
   async createCard(req: Request, res: Response) {
     try {
-      // const data: ICategory = {
-      //   categoryName: req.body.categoryName,
-      //   title: req.body.title,
-      //   description: req.body.description,
-      //   image: req.file?.filename || "unimage.png"
-      // }
-      // const category = await this.categoryService.create(data)
-      // res.status(200).json(category)
+      const data: ICard = {
+        title: req.body.title,
+        product: req.body.product,
+        status: req.body.status,
+        fields: req.body.fields
+      }
+      
     } catch (error: unknown) {
       throw new Error(error as string)
     }
@@ -64,7 +63,7 @@ export default class CardController {
     try {
       const id: string = req.params.id
       const card = await this.cardService.delete(id)
-      res.status(200).json(card)
+res.status(200).json(card)
     } catch (error: unknown) {
       throw new Error(error as string)
     }
