@@ -17,13 +17,14 @@ export default class CardController {
         status: req.body.status,
         fields: req.body.fields
       }
-      
+      const card = await this.cardService.create(data)
+      res.status(200).json(card)
     } catch (error: unknown) {
       throw new Error(error as string)
     }
   }
 
-  async getAllCard(req: Request, res: Response) {
+  async getAllCards(req: Request, res: Response) {
    try {
     const cards = await this.cardService.findAll()
     res.status(200).json(cards)
@@ -42,7 +43,7 @@ export default class CardController {
    }
   }
 
-  async updateCategory(req: Request, res: Response) {
+  async updateCard(req: Request, res: Response) {
     try {
       // const id: string = req.params.id
       // const oldCategory = await this.categoryService.findById(id)

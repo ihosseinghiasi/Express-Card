@@ -13,35 +13,35 @@ const AddCard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // getProductsOfSelectedCategorie();
+    getProductsOfSelectedCategorie();
   }, [card.cardCategory]);
 
   useEffect(() => {
-    // getfieldNamesOfProducts();
+    getfieldNamesOfProducts();
   }, [card.cardProduct]);
 
   const getProductsOfSelectedCategorie = () => {
-    // setCardProduct([]);
-    // products.map((product) => {
-    //   if (product.categoryTitle === card.cardCategory) {
-    //     setCardProduct((cardProduct) => [...cardProduct, product.title]);
-    //   }
-    // });
+    setCardProduct([]);
+    products.map((product) => {
+      if (product.categoryTitle === card.cardCategory) {
+        setCardProduct((cardProduct) => [...cardProduct, product.title]);
+      }
+    });
   };
 
   const getfieldNamesOfProducts = () => {
-    // setFieldNames([]);
-    // products.map((product) => {
-    //   if (product.title === card.cardProduct) {
-    //     setFieldNames(product.fields);
-    //   }
-    // });
+    setFieldNames([]);
+    products.map((product) => {
+      if (product.title === card.cardProduct) {
+        setFieldNames(product.fields);
+      }
+    });
   };
 
   const handleChangeField = (onChangeFields, index) => {
-    // const newFields = [...fieldValues];
-    // newFields[index] = onChangeFields;
-    // setFieldValues(newFields);
+    const newFields = [...fieldValues];
+    newFields[index] = onChangeFields;
+    setFieldValues(newFields);
   };
 
   useEffect(() => {
@@ -51,17 +51,21 @@ const AddCard = () => {
       // });
     };
 
-    const getCategoriesAndProducts = async () => {
-      // await axios
-      //   .get("http://localhost:4000/adminPanel/card/getCategoriesAndProducts")
-      //   .then((res) => {
-      //     setCategories(res.data.categories);
-      //     setProducts(res.data.products);
-      //   });
+    const getCategories = async () => {
+      await axios
+        .get("http://localhost:4000/categories/getAllCategories")
+        .then((res) => {
+          setCategories(res.data);
+        });
     };
 
+    const getProducts = async () => {
+      await axios.get("http://localhost:4000/products/getAllProducts");
+    }
+
     getPersianDate();
-    getCategoriesAndProducts();
+    getCategories();
+    getProducts()
   }, []);
 
   const addCard = async (e) => {
@@ -73,13 +77,10 @@ const AddCard = () => {
     };
 
     await axios
-      // .post("http://localhost:4000/adminPanel/card/addCard", data, {
-      //   withCredentials: true,
-      // })
-      // .then((res) => {
-      //   console.log(res.data.status);
-      //   navigate("/admin/allCards");
-      // });
+      .post("http://localhost:4000/cards/createCard", { data })
+      .then((res) => {
+        navigate("/admin/allCards");
+      });
   };
   return (
     <>
