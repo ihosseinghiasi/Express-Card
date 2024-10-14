@@ -10,11 +10,9 @@ const AllCards = () => {
 
   useEffect(() => {
     const getAllCards = () => {
-      axios
-        .get("http://localhost:4000/cards/getAllCards")
-        .then((res) => {
-          setCards(res.data);
-        });
+      axios.get("http://localhost:4000/cards/getAllCards").then((res) => {
+        setCards(res.data);
+      });
     };
 
     const getPersianDate = async () => {
@@ -27,18 +25,12 @@ const AllCards = () => {
   }, []);
 
   async function handleDelete(id) {
-    // await axios.delete(
-    //   `http://localhost:4000/adminPanel/card/deleteCard/${id}`,
-    //   { id },
-    //   {
-    //     withCredentials: true,
-    //   }
-    // );
-    // .then((res) => {
-    //   if (res.data.status) {
-    //     console.log(res.data);
-    //   }
-    // });
+    // await axios
+    //   .delete(`http://localhost:4000/cards/deleteCard/${id}`)
+    //   .then((res) => {
+    //     if (res.data) {
+    //     }
+    //   });
   }
 
   return (

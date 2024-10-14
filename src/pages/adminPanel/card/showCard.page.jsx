@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const ShowCard = () => {
   const [firstLoad, setFirstLoad] = useState(false);
@@ -14,15 +14,15 @@ const ShowCard = () => {
   const [fieldValues, setFieldValues] = useState([]);
   const [persianDate, setPersianDate] = useState("");
   const [firstProduct, setFirstProduct] = useState([]);
-
   const params = useParams();
+  const navigate = useNavigate()
 
   const getCard = () => {
-    // axios
-    //   .get(`http://localhost:4000/adminPanel/card/showCard/${params.id}`)
-    //   .then((res) => {
-    //     setCard(res.data.card);
-    //   });
+    axios
+      .get(`http://localhost:4000/cards/getCard/${params.id}`)
+      .then((res) => {
+        setCard(res.data);
+      });
   };
 
   const getPersianDate = async () => {
@@ -31,19 +31,27 @@ const ShowCard = () => {
     // });
   };
 
-  const getCategoriesAndProducts = async () => {
-    // await axios
-    //   .get("http://localhost:4000/adminPanel/card/getCategoriesAndProducts")
-    //   .then((res) => {
-    //     setCategories(res.data.categories);
-    //     setProducts(res.data.products);
-    //   });
-  };
+    const getCategories = async () => {
+      await axios
+        .get("http://localhost:4000/categories/getAllCategories")
+        .then((res) => {
+          setCategories(res.data);
+        });
+    };
+
+    const getProducts = async () => {
+      await axios
+        .get("http://localhost:4000/products/getAllProducts")
+        .then((res) => {
+          setProducts(res.data);
+        });
+    };
 
   useEffect(() => {
     getCard();
     getPersianDate();
-    getCategoriesAndProducts();
+    getCategories()
+    getProducts()
   }, []);
 
   const getProductsOfSelectedCategory = () => {
@@ -130,16 +138,15 @@ const ShowCard = () => {
       fieldValues,
     };
     await axios
-      // .put(
-      //   `http://localhost:4000/adminPanel/card/updateCard/${params.id}`,
-      //   data,
-      //   {
-      //     withCredentials: true,
-      //   }
-      // )
-      // .then((res) => {
-      //   console.log(res);
-      // });
+      .put(
+        `http://localhost:4000/cards/updateCard/${params.id}`,
+        {data},
+      )
+      .then((res) => {
+        if (res.data) {
+          navigate("/admin/allCards")
+        }
+      });
   };
 
   return (

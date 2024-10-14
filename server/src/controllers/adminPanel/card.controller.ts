@@ -56,16 +56,26 @@ export default class CardController {
 
   async updateCard(req: Request, res: Response) {
     try {
-      // const id: string = req.params.id
-      // const oldCategory = await this.categoryService.findById(id)
-      // const data: ICategory = {
-      //   categoryName: req.body.categoryName,
-      //   title: req.body.title,
-      //   description: req.body.description,
-      //   image: req.file?.filename || oldCategory?.image || ""
-      // }
-      // const category = await this.categoryService.update(id, data)
-      // res.status(200).json(category)
+      const id: string = req.params.id
+      const fieldValues = req.body.data.fieldValues
+      const fieldNames = req.body.data.fieldNames
+      let fields = {}
+      if (fieldValues !== "") {
+        fields = Object.fromEntries(
+          fieldNames.map((fieldName: string, index: number) => [
+            `field${[index]}`,
+            { fieldName: fieldName, fieldValue: fieldValues[index] },
+          ])
+        );
+      }
+      const data: ICard = {
+        cardCategory: req.body.data.card.cardCategory,
+        cardProduct: req.body.data.card.cardProduct,
+        cardStatus: req.body.data.card.cardStatus,
+        cardFields: fields
+      }
+      const card = await this.cardService.update(id, data)
+      res.status(200).json(card)
     } catch (error: unknown) {
       throw new Error(error as string)
     }
