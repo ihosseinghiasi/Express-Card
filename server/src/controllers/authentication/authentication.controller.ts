@@ -6,10 +6,12 @@ import AdminService from "../../services/adminPanel/admin.service";
 import {createToken, maxAge} from "../../middlewares/createToken";
 
 export default class UserAuthentication {
+  private _phoneNumber?: string
+  private _verifySmsCode?: string
   private readonly userService: UserService
   private readonly adminService: AdminService
-
-  constructor(public VerifySmsCode: string) {
+ 
+  constructor() {
     this.userService = new UserService()
     this.adminService = new AdminService()
   }
@@ -63,5 +65,10 @@ export default class UserAuthentication {
     } catch (error: unknown) {
       throw new Error(error as string)
     }
+  }
+
+   async getPhoneNumber(req: Request, res: Response) {
+    const phoneNumber: string = req.body.phoneNumber
+     console.log(phoneNumber)
   }
 }

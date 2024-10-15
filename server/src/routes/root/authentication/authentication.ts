@@ -1,18 +1,19 @@
-import express from "express"
-const router = express.Router()
+import { Router } from "express";
+import Authentication from "../../../controllers/authentication/authentication.controller";
 
-// const {
-//   verifyCodeSms,
-//   confirmVerifyCodeSms,
-//   login,
-//   register,
-// } = require("../../../controllers/authentication/authenticationController");
-// const { checkUser } = require("../../../middlewares/checkUserAuthenticate");
+class AuthenticationRoute {
+  private readonly authentication: Authentication
+  public readonly router: Router
 
-// router.post("/", checkUser);
-// router.post("/sms", verifyCodeSms);
-// router.post("/confirmSms", confirmVerifyCodeSms);
-// router.post("/login", login);
-// router.post("/register", register);
+  constructor() {
+    this.authentication = new Authentication()
+    this.router = Router()
+    this.initRoutes()
+  }
 
-export default router;
+  private initRoutes() {
+    this.router.post('/getPhoneNumber', this.authentication.getPhoneNumber.bind(this.authentication))
+  }
+}
+
+export default new AuthenticationRoute().router
