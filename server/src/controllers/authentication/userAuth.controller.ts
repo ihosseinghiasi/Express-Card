@@ -13,18 +13,22 @@ export default class UserAuthentication {
   }
 
   async register(req: Request, res: Response) {
-    const data: IUser = req.body.user
-    const salt = await bcrypt.genSalt()
-    data.password = await bcrypt.hash(data.password, salt)
-    const user = await this.userService.create(data)
-    
-    const token = createToken(data.id)
-    res.cookie('comercial', token, {
-        httpOnly: false,
-        maxAge: 1000 * maxAge
-    })
-
-    res.status(201).json({user: user.id, created: true})
-
+   try {
+      const data: IUser = req.body.user
+      const salt = await bcrypt.genSalt()
+      data.password = await bcrypt.hash(data.password, salt)
+      const user = await this.userService.create(data)
+      
+      const token = createToken(data.id)
+      res.cookie('comercial', token, {
+          httpOnly: false,
+          maxAge: 1000 * maxAge
+      })
+      res.status(201).json({user: user.id, created: true})
+   } catch (error: unknown) {
+    throw new Error(error as string)
+   }
   }
+
+  
 }
