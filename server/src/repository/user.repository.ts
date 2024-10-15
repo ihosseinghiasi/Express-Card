@@ -7,7 +7,7 @@ export default class UserRepository extends GenricRepository<IUser> {
     super(User)
   }
 
-  async login(email: string, password: string): Promise<IUser | null> {
-    return User.findOne({email, password})
+  async login(email: string): Promise<IUser | null> {
+    return User.findOne({email})
   }
 }

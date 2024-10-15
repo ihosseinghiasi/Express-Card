@@ -28,7 +28,7 @@ export default class AdminService {
     return this.adminRepository.delete(id)
   }
 
-  async login(email: string, password: string): Promise<IAdmin | null> {
-    return this.adminRepository.login(email, password)
+  async login(email: string): Promise<IAdmin | null> {
+    return this.adminRepository.login(email)
   }
 }

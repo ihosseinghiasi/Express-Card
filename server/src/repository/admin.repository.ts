@@ -7,8 +7,8 @@ export default class AdminRepository extends GenericRepository<IAdmin> {
     super(Admin)
   }
 
-  async login(email: string, password: string): Promise<IAdmin | null> {
-    return Admin.findOne({email, password})
+  async login(email: string): Promise<IAdmin | null> {
+    return Admin.findOne({email})
   }
 
 }
