@@ -27,4 +27,9 @@ export default class userService {
   async delete(id: string): Promise<IUser | null> {
     return this.userRepository.delete(id)
   }
+
+  async login(email: string, password: string): Promise<IUser | null> {
+    return this.userRepository.login(email, password)
+  }
+
 }
