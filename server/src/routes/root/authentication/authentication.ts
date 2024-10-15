@@ -12,6 +12,7 @@ class AuthenticationRoute {
   }
 
   private initRoutes() {
+    this.router.post('/register', this.authentication.register.bind(this.authentication))
     this.router.post('/setPhoneNumber', this.authentication.setPhoneNumber.bind(this.authentication))
     this.router.get('/getPhoneNumber', this.authentication.getPhoneNumber.bind(this.authentication))
     this.router.post('/setVerifyCode', this.authentication.setVerifyCode.bind(this.authentication))

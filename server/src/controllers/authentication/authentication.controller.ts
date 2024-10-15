@@ -7,8 +7,8 @@ import AdminService from "../../services/adminPanel/admin.service";
 import {createToken, maxAge} from "../../middlewares/createToken";
 
 export default class UserAuthentication {
-  private _phoneNumber?: string
-  private _verifySmsCode?: string
+  private _phoneNumber!: string
+  private _verifySmsCode!: string
   private readonly userService: UserService
   private readonly adminService: AdminService
  
@@ -19,12 +19,13 @@ export default class UserAuthentication {
 
   async register(req: Request, res: Response) {
     try {
-      const data: IUser = req.body.user
+      const data: IUser = req.body.data
+      data.phoneNumber = this._phoneNumber
       const salt = await bcrypt.genSalt()
       data.password = await bcrypt.hash(data.password, salt)
       const user = await this.userService.create(data)
       
-      const token = createToken(data.id)
+      const token = createToken(user._id)
       res.cookie('comercial', token, {
           httpOnly: false,
           maxAge: 1000 * maxAge
@@ -42,7 +43,7 @@ export default class UserAuthentication {
       if (user) {
         const authentication = await bcrypt.compare(password, user.password)
         if (authentication) {
-          const token = createToken(user.id)
+          const token = createToken(user._id)
           res.cookie('comercial', token, {
           httpOnly: false,
           maxAge: 1000 * maxAge

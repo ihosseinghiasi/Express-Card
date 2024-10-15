@@ -5,19 +5,13 @@ import axios from 'axios'
 
 const SmsForm = () => {
 
-    const [phoneNumber, setPhoneNumber] = useState(0)
+    const [phoneNumber, setPhoneNumber] = useState()
     const navigate = useNavigate()
-
-    useEffect(() => {
-        localStorage.setItem('phoneNumber', phoneNumber)
-    },[phoneNumber])
     
-    async function sendPhoneNumber(event) {
-        let data = {
-            phoneNumber
-        }    
+    async function sendPhoneNumber(event) { 
         event.preventDefault()
-        await axios.post('http://localhost:4000/sms', data).then((res)=> {
+        console.log(phoneNumber)
+        await axios.post('http://localhost:4000/authentication/setPhoneNumber', {phoneNumber}).then((res)=> {
             console.log(res.data)
         })
         navigate('/confirmSmsForm')
