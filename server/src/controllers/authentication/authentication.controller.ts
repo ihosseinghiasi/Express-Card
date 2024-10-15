@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt"
+import Smsir from "sms-typescript/lib"
 import IUser from "../../interface/user.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
@@ -67,8 +68,45 @@ export default class UserAuthentication {
     }
   }
 
-   async getPhoneNumber(req: Request, res: Response) {
-    const phoneNumber: string = req.body.phoneNumber
-     console.log(phoneNumber)
+   async setPhoneNumber(req: Request, res: Response) {
+    try {
+      //  const smsir = new 
+      //           Smsir("d8oGRzrQn4qishTuyrREWjRLLWpF6RhmJRdBa1216CeTROk7FKzQoFh7drV4mkvh"
+      //           , 30007732903087)
+            
+            const phoneNumber: string = req.body.phoneNumber
+            const code = Math.floor(100000 + Math.random() * 900000)
+            this._phoneNumber = phoneNumber
+            this._verifySmsCode = code.toString()
+
+            // smsir.SendVerifyCode( phoneNumber, 930321,  [
+            //     {
+            //     "name": "code",
+            //     "value": code.toString()
+            //     }
+            // ])
+      res.json({ verifyCode: code })
+    } catch (error: unknown) {
+      throw new Error(error as string)
+    }
+   }
+  
+  async getPhoneNumber(req: Request, res: Response) {
+    try {
+      res.json({ phoneNumber: this._phoneNumber })
+    } catch (error: unknown) {
+      throw new Error(error as string)
+    }
+  }
+
+  async setVerifyCode(req: Request, res: Response) {
+    try {
+      const verifyCode: string = req.body.verifyCode
+      if (verifyCode === this._verifySmsCode) {
+        res.json({ status: "OK" })
+      }
+    } catch (error: unknown) {
+      throw new Error(error as string)
+    }
   }
 }
