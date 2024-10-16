@@ -1,5 +1,7 @@
 import express, { Application } from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+import bodyParser from "body-parser";
 import ErrorHandler from "./helpers/error-handler";
 import Database from "./config/db";
 import dotenv from "dotenv"
@@ -32,8 +34,14 @@ export default class App {
   }
   
   private initMiddlewares() {
-    this.app.use(cors())
+    this.app.use(cors({
+ origin: ["http://localhost:2000", "http://localhost:3000"],
+ credentials: true
+}))
     this.app.use(express.json())
+    this.app.use(bodyParser.json())
+    bodyParser.urlencoded({extended:true})
+    this.app.use(cookieParser())
     this.app.use(urlencoded({ extended: true }))
     dotenv.config()
   }

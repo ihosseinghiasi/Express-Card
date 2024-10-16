@@ -24,10 +24,10 @@ export default class UserAuthentication {
       const salt = await bcrypt.genSalt()
       data.password = await bcrypt.hash(data.password, salt)
       const user = await this.userService.create(data)
-      
       const token = createToken(user._id)
+      console.log(token)
       res.cookie('comercial', token, {
-          httpOnly: false,
+          httpOnly: true,
           maxAge: 1000 * maxAge
       })
       res.status(201).json(user)
@@ -44,25 +44,13 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password)
         if (authentication) {
           const token = createToken(user._id)
+          console.log(token)
           res.cookie('comercial', token, {
-          httpOnly: false,
-          maxAge: 1000 * maxAge
-      })
-        res.status(201).json(user)
-        } else {
-          const admin = await this.adminService.login(email)
-          if (admin) {
-            const authentication = await bcrypt.compare(password, admin.password)
-            if (authentication) {
-              const token = createToken(admin.id)
-              res.cookie('comercial', token, {
-              httpOnly: false,
-              maxAge: 1000 * maxAge
+                       httpOnly: true,
+    secure: true,
              })
-            res.status(201).json(admin)
-            }
-          }
-        }
+        res.status(201).json(user)
+        } 
       }
     } catch (error: unknown) {
       throw new Error(error as string)
