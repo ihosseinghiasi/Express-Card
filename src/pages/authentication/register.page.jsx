@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../css/shop/register.css";
 import axios from "axios";
 
 const Register = () => {
-  const [phoneNumber, setPhoneNumber] = useState(0);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLasttName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,7 +19,6 @@ const Register = () => {
       lastName,
       email,
       password,
-      phoneNumber,
     };
     axios.post("http://localhost:4000/authentication/register", {data});
     navigate("/");

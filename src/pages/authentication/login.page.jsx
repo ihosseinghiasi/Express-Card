@@ -18,17 +18,21 @@ export const Login = () => {
   }, [userType]);
   async function userLogin(e) {
     const data = {
-      email: email,
-      password: password,
+      email,
+      password,
     };
     e.preventDefault();
     await axios
-      .post("http://localhost:4000/login", data, {
-        withCredentials: "include",
-      })
+      .post(
+        "http://localhost:4000/authentication/login",
+        { data },
+        {
+          withCredentials: true,
+        }
+      )
       .then((res) => {
-        if (res.status) {
-          navigate("/");
+        if (res.data) {
+          // navigate("/");
         }
       });
   }
