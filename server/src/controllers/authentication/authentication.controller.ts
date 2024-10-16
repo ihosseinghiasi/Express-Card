@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt"
 import Smsir from "sms-typescript/lib"
 import IUser from "../../interface/user.interface";
+import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
 import {createToken, maxAge} from "../../middlewares/createToken";
@@ -44,13 +45,25 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password)
         if (authentication) {
           const token = createToken(user._id)
-          console.log(token)
           res.cookie('comercial', token, {
-                       httpOnly: true,
-    secure: true,
-             })
+            httpOnly: true,
+            secure: true,
+        })
         res.status(201).json(user)
         } 
+      } else {
+        const admin = await this.adminService.login(email)
+        if (admin) {
+          const authentication = await bcrypt.compare(password, admin.password)
+          if (authentication) {
+            const token = createToken(admin._id)
+          res.cookie('comercial', token, {
+            httpOnly: true,
+            secure: true,
+        })
+            res.status(201).json(admin)
+          }
+        }
       }
     } catch (error: unknown) {
       throw new Error(error as string)

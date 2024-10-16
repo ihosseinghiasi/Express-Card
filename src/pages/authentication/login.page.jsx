@@ -32,7 +32,7 @@ export const Login = () => {
       )
       .then((res) => {
         if (res.data) {
-          // navigate("/");
+          navigate("/");
         }
       });
   }
