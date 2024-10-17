@@ -1,5 +1,5 @@
 import express from "express"
-import authentication from "./authentication/authentication"
+import authentication from "./authentication/authentication.route"
 import persianDate from "./persianDate"
 import adminPanel from "./adminPanel/adminPanel"
 import userPanel from "./userPanel/userPanel"

@@ -1,5 +1,6 @@
 import { Router } from "express";
 import Authentication from "../../../controllers/authentication/authentication.controller";
+import authenticatedCheck from "../../../middlewares/checkAuthenticated"
 
 class AuthenticationRoute {
   private readonly authentication: Authentication
@@ -17,6 +18,7 @@ class AuthenticationRoute {
     this.router.post('/setPhoneNumber', this.authentication.setPhoneNumber.bind(this.authentication))
     this.router.get('/getPhoneNumber', this.authentication.getPhoneNumber.bind(this.authentication))
     this.router.post('/setVerifyCode', this.authentication.setVerifyCode.bind(this.authentication))
+    this.router.post('/', authenticatedCheck)
   }
 }
 

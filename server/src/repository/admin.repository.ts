@@ -4,11 +4,10 @@ import IAdmin from "../interface/admin.interface";
 
 export default class AdminRepository extends GenericRepository<IAdmin> {
   constructor() {
-    super(Admin)
+    super(Admin);
   }
 
   async login(email: string): Promise<IAdmin | null> {
-    return Admin.findOne({email})
+    return Admin.findOne({ email });
   }
-
 }
