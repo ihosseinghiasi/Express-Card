@@ -8,5 +8,5 @@ export default interface ITicket {
   targetTicketsNumber: number;
   newUserTicketsNumber: number;
   newTargetTicketsNumber: number;
-  tickets: object;
+  tickets: {};
 }

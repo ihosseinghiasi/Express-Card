@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import ITicket from "../interface/ticket.interface";
 
 const ticketSchema = new mongoose.Schema({
   subject: { type: String },
@@ -13,5 +14,5 @@ const ticketSchema = new mongoose.Schema({
   tickets: {},
 });
 
-const Ticket = mongoose.model("Ticket", ticketSchema, "Ticket");
+const Ticket = mongoose.model<ITicket>("Ticket", ticketSchema, "Ticket");
 export default Ticket
