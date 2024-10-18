@@ -10,6 +10,7 @@ import adminRoute from "./routes/root/adminPanel/admin/admin.route";
 import categoryRoute from "./routes/root/adminPanel/category/category.route";
 import productRoute from "./routes/root/adminPanel/product/product";
 import cardRoute from "./routes/root/adminPanel/card/card";
+import adminTicketRoute from "./routes/root/adminPanel/ticket/ticket.route";
 import authenticationRoute from "./routes/root/authentication/authentication.route";
 import { urlencoded } from "body-parser";
 export default class App {
@@ -55,6 +56,7 @@ export default class App {
     this.app.use("/categories", categoryRoute);
     this.app.use("/products", productRoute);
     this.app.use("/cards", cardRoute);
+    this.app.use("/adminTickets", adminTicketRoute);
   }
 
   initErrorHandling() {

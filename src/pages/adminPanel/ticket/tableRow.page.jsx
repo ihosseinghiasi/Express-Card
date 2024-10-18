@@ -2,18 +2,14 @@ import { Link } from "react-router-dom";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 
-const TableRow = ({ index, id, namak, title, handleDelete }) => {
+const TableRow = ({ index, id, subject, status, department, handleDelete }) => {
   return (
     <>
       <tr>
         <td className="faField"> {index} </td>
-        <td className="faField"> {namak} </td>
-        <td className="enField"> {title} </td>
-        <td className="faField">
-          <Link to={`/${namak}/${id}`} class="btn btn-info" role="button">
-            <img src={"/uploads/icons/eye.svg"} alt="showCategoryPage" />
-          </Link>
-        </td>
+        <td className="faField"> {subject} </td>
+        <td className="faField"> {department} </td>
+        <td className="faField"> {status} </td>
         <td>
           <div class="container">
             <div class="row justify-content-center">

@@ -8,12 +8,12 @@ const AllTickets = () => {
   const [persianDate, setPersianDate] = useState("");
 
   useEffect(() => {
-    const getAllTickets = () => {
-      // axios
-      //   .get("http://localhost:4000/categories/getAllCategories")
-      //   .then((res) => {
-      //     setCategories(res.data);
-      //   });
+    const getAllTickets = async () => {
+      await axios
+        .get("http://localhost:4000/adminTickets/getAllTickets")
+        .then((res) => {
+          setTickets(res.data);
+        });
     };
 
     const getPersianDate = async () => {
@@ -73,7 +73,7 @@ const AllTickets = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {tickets?.map((ticket, index) => (
+                    {tickets.map((ticket, index) => (
                       <TableRow
                         index={index + 1}
                         id={ticket._id}

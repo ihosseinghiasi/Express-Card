@@ -3,12 +3,21 @@ import { useState } from "react";
 import axios from "axios";
 
 const AddTicket = () => {
+  const [ticket, setTicket] = useState();
   const [persianDate, setPersianDate] = useState("");
 
   const getPersianDate = async () => {
     // await axios.get("http://localhost:4000/persianDate").then((res) => {
     //   setPersianDate(res.data);
     // });
+  };
+
+  const addTicket = async () => {
+    await axios
+      .post("http://locahost:4000/tickets/createTicket", { ticket })
+      .then((res) => {
+        setTicket(res.data);
+      });
   };
   useEffect(() => {
     getPersianDate();
@@ -42,10 +51,16 @@ const AddTicket = () => {
                     <div class="col-6">
                       <input
                         type="text"
-                        name="title"
-                        id="title"
+                        name="subject"
+                        id="subject"
                         class="form-control mt-3"
-                        placeholder=" عنوان تیکت "
+                        placeholder=" موضوع تیکت "
+                        onChange={(e) =>
+                          setTicket({
+                            ...ticket,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
                       />
                     </div>
                   </div>
@@ -56,10 +71,8 @@ const AddTicket = () => {
                         class="form-select"
                         id="department"
                       >
-                        <option> کاربر </option>
-                        {/* <% userNames.map( userName => { %>
-                                    <option><%= userName %></option>
-                                <% } ) %> */}
+                        <option> مدیریت </option>
+                        <option> پشتیبانی </option>
                       </select>
                     </div>
                   </div>
