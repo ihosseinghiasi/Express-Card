@@ -16,6 +16,10 @@ class TicketRoute {
       "/getAllTickets",
       this.ticketController.getAllTickets.bind(this.ticketController)
     );
+    this.router.get(
+      "/getTicket/:id",
+      this.ticketController.getTicket.bind(this.ticketController)
+    );
   }
 }
 

@@ -33,7 +33,7 @@ export default class TicketController {
         },
       };
       const ticket = await this.ticketService.create(data);
-      res.status(200).json(ticket)
+      res.status(200).json(ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -41,7 +41,7 @@ export default class TicketController {
 
   async getAllTickets(req: Request, res: Response) {
     try {
-      const tickets = await this.ticketService.findAll()
+      const tickets = await this.ticketService.findAll();
       res.status(200).json(tickets);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -50,6 +50,11 @@ export default class TicketController {
 
   async getTicket(req: Request, res: Response) {
     try {
+      const id = req.params.id;
+      console.log(id)
+      const ticket = await this.ticketService.findById(id);
+      console.log(ticket);
+      res.status(200).json(ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

@@ -11,20 +11,20 @@ const TableRow = ({ index, id, subject, status, department, handleDelete }) => {
         <td className="faField"> {department} </td>
         <td className="faField"> {status} </td>
         <td>
-          <div class="container">
-            <div class="row justify-content-center">
-              <div class="col-4">
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-4">
                 <Link
-                  to={`/admin/showCategory/${id}`}
-                  class="btn btn-success"
+                  to={`/admin/showTicket/${id}`}
+                  className="btn btn-success"
                   role="button"
                 >
                   <img src={"/uploads/icons/edit.svg"} alt="edit" />
                 </Link>
               </div>
-              <div class="col-4">
+              <div className="col-4">
                 <form onSubmit={() => handleDelete(id)}>
-                  <button type="submit" class="btn btn-danger">
+                  <button type="submit" className="btn btn-danger">
                     <img src={"/uploads/icons/trash-2.svg"} alt="remove" />
                   </button>
                 </form>

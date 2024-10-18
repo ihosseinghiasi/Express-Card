@@ -208,7 +208,7 @@ const App = () => {
             }
           />
           <Route
-            path="/admin/showTicket"
+            path="/admin/showTicket/:id"
             element={
               <AdminPanelLayoutComponent>
                 <AdminShowTicket />
