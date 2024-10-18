@@ -1,26 +1,29 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AddTicket = () => {
   const [persianDate, setPersianDate] = useState();
-  const [values, setValues] = useState({
-    title: "",
+  const [ticket, setTicket] = useState({
     targetDepartment: "مدیریت",
-    ticket: "",
   });
+  const navigate = new useState()
 
   const getPersianDate = async () => {
-    await axios.get("http://localhost:4000/persianDate").then((res) => {
-      setPersianDate(res.data);
-    });
+    // await axios.get("http://localhost:4000/persianDate").then((res) => {
+    //   setPersianDate(res.data);
+    // });
   };
 
   const addTicket = async () => {
-    await axios.post(
-      "http://localhost:4000/userPanel/ticket/addTicket",
-      { ...values },
-      { withCredentials: true }
-    );
+    await axios.post("http://localhost:4000/userTickets/createTicket", {
+      ticket,
+    }).then(res => {
+      if (res.data) {
+        console.log(res.data)
+        navigate("/user/allTickets")
+      }
+    })
   };
 
   useEffect(() => {
@@ -56,13 +59,13 @@ const AddTicket = () => {
                   <div className="col-6">
                     <input
                       type="text"
-                      name="title"
-                      id="title"
+                      name="subject"
+                      id="subject"
                       className="form-control mt-3"
                       placeholder=" عنوان تیکت "
                       onChange={(event) =>
-                        setValues({
-                          ...values,
+                        setTicket({
+                          ...ticket,
                           [event.target.name]: event.target.value,
                         })
                       }
@@ -76,8 +79,8 @@ const AddTicket = () => {
                       className="form-select"
                       id="department"
                       onChange={(event) =>
-                        setValues({
-                          ...values,
+                        setTicket({
+                          ...ticket,
                           [event.target.name]: event.target.value,
                         })
                       }
@@ -92,14 +95,14 @@ const AddTicket = () => {
                   <div>
                     <div className="form-group mt-3">
                       <textarea
-                        name="ticket"
+                        name="tickets"
                         id="editor"
                         className="form-control"
                         cols="30"
                         rows="10"
                         onChange={(event) =>
-                          setValues({
-                            ...values,
+                          setTicket({
+                            ...ticket,
                             [event.target.name]: event.target.value,
                           })
                         }

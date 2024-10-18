@@ -23,6 +23,7 @@ import AllCards from "./pages/adminPanel/card/allCards.page";
 import ShowCard from "./pages/adminPanel/card/showCard.page";
 import AdminAddTicket from "./pages/adminPanel/ticket/addTicket.page";
 import AdminAllTickets from "./pages/adminPanel/ticket/allTickets.page";
+import AdminShowTicket from "./pages/adminPanel/ticket/showTicket.page";
 import Payment from "./pages/main/payment.page";
 import Category from "./pages/main/category.page";
 import UserCounter from "./pages/userPanel/counter.page";
@@ -206,6 +207,14 @@ const App = () => {
               </AdminPanelLayoutComponent>
             }
           />
+          <Route
+            path="/admin/showTicket"
+            element={
+              <AdminPanelLayoutComponent>
+                <AdminShowTicket />
+              </AdminPanelLayoutComponent>
+            }
+          />
           <Route path="/register" element={<Register />} />
           <Route path="/smsForm" element={<SmsForm />} />
           <Route path="/confirmSmsForm" element={<ConfirmSmsForm />} />
@@ -227,7 +236,7 @@ const App = () => {
             }
           />
           <Route
-            path="/user/addTicket"
+            path="/user/newTicket"
             element={
               <UserLayoutComponent>
                 <UserAddTicket />

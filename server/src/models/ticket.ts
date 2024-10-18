@@ -4,7 +4,7 @@ import ITicket from "../interface/ticket.interface";
 const ticketSchema = new mongoose.Schema({
   subject: { type: String },
   status: { type: String },
-  sender: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  sender: { type: String },
   targetDepartment: { type: String },
   ticketNumbers: { type: Number, default: 0 },
   userTicketsNumber: { type: Number, default: 0 },
