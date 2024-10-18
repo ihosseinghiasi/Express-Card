@@ -59,13 +59,13 @@ const AllTickets = () => {
                         #
                       </th>
                       <th className="col-3" scope="col">
-                        عنوان تیکت
+                        موضوع تیکت
                       </th>
                       <th className="col-3" scope="col">
-                        نامک دسته بندی
+                        دپارتمان مقصد
                       </th>
                       <th className="col-2" scope="col">
-                        دسترسی به سایت
+                        وضعیت
                       </th>
                       <th className="col-3" scope="col">
                         عملیات
@@ -73,12 +73,13 @@ const AllTickets = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {tickets?.map((category, index) => (
+                    {tickets?.map((ticket, index) => (
                       <TableRow
                         index={index + 1}
-                        id={category._id}
-                        namak={category.categoryName}
-                        title={category.title}
+                        id={ticket._id}
+                        subject={ticket.subject}
+                        department={ticket.targetDepartment}
+                        status={ticket.status}
                         handleDelete={handleDelete}
                       />
                     ))}
