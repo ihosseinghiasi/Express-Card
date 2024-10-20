@@ -25,6 +25,10 @@ const AllTickets = () => {
     getPersianDate();
   }, []);
 
+  useEffect(() => {
+    console.log(tickets);
+  }, [tickets]);
+
   async function handleDelete(id) {
     // await axios
     //   .delete(`http://localhost:4000/categories/deleteCategory/${id}`)

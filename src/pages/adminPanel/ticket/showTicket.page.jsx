@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
+import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
 import axios from "axios";
 
 const ShowTicket = () => {
@@ -45,23 +47,18 @@ const ShowTicket = () => {
               </div>
 
               <div className="addBody col-8 mx-5">
-                {/* <% Object.values(ticketText).forEach(tickets => { %>
-                            <div className="userTicket mt-2 <%= tickets.sender %>">
-                                <div className="headerTicket">
-                                    <div className="mt-2 me-3 position-absolute">
-                                        <% if (tickets.sender === "مدیریت") { %>
-                                            <p> شما در تاریخ <%= tickets.date %> گفتید : </p>
-                                        <% } else { %> 
-                                            <p> کاربر در تاریخ <%= tickets.date %> گفت : </p>
-                                        <% } %> 
-                                    </div>
-                                    <div className=" mt-5 me-3 position-absolute" id="ticket"> 
-                                         <%= tickets.text %>
-                                    </div>
-                                </div>
-                            </div>
-                        <% }) %> */}
-                sdjhkdhkhskjdhshdk
+                {ticket?.map((message) =>
+                  Object.values(message.tickets).map((text) =>
+                    text.sender === "مدیریت" || text.sender === "پشتیبانی" ? (
+                      <SendBoxTicket sender={message.sender} text={text.text} />
+                    ) : (
+                      <ReceiveBoxTicket
+                        sender={message.sender}
+                        text={text.text}
+                      />
+                    )
+                  )
+                )}
               </div>
             </div>
             <div className="addAdmin col-11 my-5 mx-5">

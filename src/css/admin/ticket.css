@@ -1,60 +1,59 @@
 .addAdmin {
-    height: 750px;
-    box-shadow: 1px 1px 70px lightgray;
+  height: 750px;
+  box-shadow: 1px 1px 70px lightgray;
 }
 
 .addtitle {
-    position: absolute;
+  position: absolute;
 }
 
 .addBody {
-    position: absolute;
-    height: auto;
-    margin-top: 80px;
+  position: absolute;
+  height: auto;
+  margin-top: 80px;
 }
 
 .userForm {
-    margin: 5px 240px 5px 0;
+  margin: 5px 240px 5px 0;
 }
 
 .passwordEye {
-    position: absolute;
-    font-size: 1.3em;
-    top: 240px;
-    right: 587px;
-    cursor: pointer;
-    color: gray;
+  position: absolute;
+  font-size: 1.3em;
+  top: 240px;
+  right: 587px;
+  cursor: pointer;
+  color: gray;
 }
 
 .confirmPasswordEye {
-    position: absolute;
-    font-size: 1.3em;
-    top: 295px;
-    right: 587px;
-    cursor: pointer;
-    color: gray;
+  position: absolute;
+  font-size: 1.3em;
+  top: 295px;
+  right: 587px;
+  cursor: pointer;
+  color: gray;
 }
 
-.userTicket {
-    display: block;
-    min-height: 150px;
-    width: 300px;
-    background-color: lightseagreen;
-    border-radius: 25px;
+.sendBox {
+  min-height: 60px;
+  width: 600px;
+  margin-top: 20px;
+  background-color: lightseagreen;
+  border: 1px solid green;
+  border-radius: 25px;
 }
 
-.headerTicket {
-    height: 35px;
-    width: 100%;
-    background-color: lightcoral;
-    border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
+.ticketText {
+  position: absolute;
+  margin: 18px 20px 0 0;
 }
 
-.مدیریت {
-    margin-right: 3px;
-}
-
-.شما {
-    margin-right: 600px;
+.recieveBox {
+  margin: 20px 300px 0 0;
+  min-height: 60px;
+  width: 600px;
+  background-color: lightcoral;
+  border: 1px solid green;
+  border-radius: 25px;
 }
