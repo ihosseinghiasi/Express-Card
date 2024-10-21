@@ -29,6 +29,8 @@ import Category from "./pages/main/category.page";
 import UserCounter from "./pages/userPanel/counter.page";
 import Profile from "./pages/userPanel/profile/profile.page";
 import UserAddTicket from "./pages/userPanel/ticket/addTicket.page";
+import UserShowTicket from "./pages/userPanel/ticket/showTicket.page";
+import UserAllTickets from "./pages/userPanel/ticket/allTickets.page";
 import HomePage from "./pages/main/home.page";
 import MainLayoutComponent from "./components/layout/main-layout.component";
 import AdminPanelLayoutComponent from "./components/layout/adminPanel-layout.component";
@@ -240,6 +242,23 @@ const App = () => {
             element={
               <UserLayoutComponent>
                 <UserAddTicket />
+              </UserLayoutComponent>
+            }
+          />
+
+          <Route
+            path="/user/showTicket"
+            element={
+              <UserLayoutComponent>
+                <UserShowTicket />
+              </UserLayoutComponent>
+            }
+          />
+          <Route
+            path="/user/allTickets"
+            element={
+              <UserLayoutComponent>
+                <UserAllTickets />
               </UserLayoutComponent>
             }
           />
