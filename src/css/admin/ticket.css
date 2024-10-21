@@ -39,9 +39,16 @@
   min-height: 60px;
   width: 600px;
   margin-top: 20px;
-  background-color: lightseagreen;
-  border: 1px solid green;
-  border-radius: 25px;
+  box-shadow: 0px 0px 2px red;
+  border-radius: 35px 0 35px 35px;
+}
+
+.recieveBox {
+  margin: 20px 300px 0 0;
+  min-height: 60px;
+  width: 600px;
+  box-shadow: 0px 0px 2px green;
+  border-radius: 0 35px 35px 35px;
 }
 
 .ticketText {
@@ -49,11 +56,32 @@
   margin: 18px 20px 0 0;
 }
 
-.recieveBox {
-  margin: 20px 300px 0 0;
-  min-height: 60px;
-  width: 600px;
-  background-color: lightcoral;
-  border: 1px solid green;
-  border-radius: 25px;
+.ticketHeader {
+  position: relative;
+  height: 120px;
+  margin: 30px 0px 0px 0px;
+  border-radius: 0 35px 35px 35px;
+  font-size: 1.1em;
+  background-color: rgba(245, 55, 213, 0.363);
+  box-shadow: 1px 1px 70px lightgray;
+}
+
+.subject {
+  position: absolute;
+  margin: 18px 20px 0 0;
+  width: 700px;
+}
+
+.sender {
+  position: absolute;
+  margin: 67px 20px 0 0;
+  width: 700px;
+}
+
+.subject p {
+  display: inline;
+}
+
+.sender p {
+  display: inline;
 }

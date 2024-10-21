@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
 import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
+import "../../../css/admin/ticket.css";
 import axios from "axios";
 
 const ShowTicket = () => {
   const [ticket, setTicket] = useState();
+  const [ticketDetail, setTicketDetail] = useState();
   const navigate = useNavigate();
   const params = useParams();
 
@@ -13,10 +15,15 @@ const ShowTicket = () => {
     await axios
       .get(`http://localhost:4000/adminTickets/getTicket/${params.id}`)
       .then((res) => {
-        console.log(res.data);
         setTicket(res.data);
       });
   };
+
+  useEffect(() => {
+    ticket?.map((detail) => {
+      setTicketDetail(detail);
+    });
+  }, [ticket]);
 
   const answerTicket = async () => {};
 
@@ -36,8 +43,22 @@ const ShowTicket = () => {
                 {/* <p><%= persianDate %></p> */}
               </div>
             </div>
+            <div className="col-11 mx-5 ticketHeader">
+              <div className="subject">
+                <img src={"/uploads/icons/mail-black.svg"} alt="ticket" />
+                <p className="mx-2">
+                  <strong>موضوع پیام  :</strong> {ticketDetail?.subject}
+                </p>
+              </div>
+              <div className="sender">
+                <img src={"/uploads/icons/user-black.svg"} alt="ticket" />
+                <p className="mx-2">
+                  <strong>ارسال کننده  :</strong> {ticketDetail?.sender}
+                </p>
+              </div>
+            </div>
 
-            <div className="addAdmin col-11 my-5 mx-5">
+            <div className="addAdmin col-11 my-4 mx-5">
               <div className="addtitle my-3 mx-2 col-8">
                 <img
                   src={"/uploads/icons/plus-square-black.svg"}
@@ -59,6 +80,7 @@ const ShowTicket = () => {
                     )
                   )
                 )}
+                <SendBoxTicket />
               </div>
             </div>
             <div className="addAdmin col-11 my-5 mx-5">
