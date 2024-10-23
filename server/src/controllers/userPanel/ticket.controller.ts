@@ -44,7 +44,8 @@ export default class TicketController {
 
   async getAllTickets(req: Request, res: Response) {
     try {
-      const tickets = await this.ticketService.findAll();
+      const allTickets = await this.ticketService.findAll();
+      const tickets = allTickets?.filter((ticket) => ticket.sender === "makan");
       res.status(200).json(tickets);
     } catch (error: unknown) {
       throw new Error(error as string);
