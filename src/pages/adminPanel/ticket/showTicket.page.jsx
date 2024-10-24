@@ -80,7 +80,6 @@ const ShowTicket = () => {
                     )
                   )
                 )}
-                <SendBoxTicket />
               </div>
             </div>
             <div className="addAdmin col-11 my-5 mx-5">

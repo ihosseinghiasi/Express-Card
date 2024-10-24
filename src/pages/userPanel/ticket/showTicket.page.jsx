@@ -71,16 +71,15 @@ const ShowTicket = () => {
                 {ticket?.map((message) =>
                   Object.values(message.tickets).map((text) =>
                     text.sender === "مدیریت" || text.sender === "پشتیبانی" ? (
-                      <SendBoxTicket sender={message.sender} text={text.text} />
-                    ) : (
                       <ReceiveBoxTicket
                         sender={message.sender}
                         text={text.text}
                       />
+                    ) : (
+                      <SendBoxTicket sender={message.sender} text={text.text} />
                     )
                   )
                 )}
-                <SendBoxTicket />
               </div>
             </div>
             <div className="addAdmin col-11 my-5 mx-5">

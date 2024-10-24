@@ -54,6 +54,9 @@ export default class TicketController {
 
   async getTicket(req: Request, res: Response) {
     try {
+      const id: string = req.params.id
+      const ticket = this.ticketService.findById(id)
+      res.status(200).json(ticket)
     } catch (error: unknown) {
       throw new Error(error as string);
     }

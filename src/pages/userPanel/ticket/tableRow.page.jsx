@@ -15,7 +15,7 @@ const TableRow = ({ index, id, subject, status, department, handleDelete }) => {
             <div className="row justify-content-center">
               <div className="col-4">
                 <Link
-                  to={`/admin/showTicket/${id}`}
+                  to={`/user/showTicket/${id}`}
                   className="btn btn-success"
                   role="button"
                 >
