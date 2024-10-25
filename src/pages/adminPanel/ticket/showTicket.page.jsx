@@ -47,13 +47,13 @@ const ShowTicket = () => {
               <div className="subject">
                 <img src={"/uploads/icons/mail-black.svg"} alt="ticket" />
                 <p className="mx-2">
-                  <strong>موضوع پیام  :</strong> {ticketDetail?.subject}
+                  <strong>موضوع پیام :</strong> {ticketDetail?.subject}
                 </p>
               </div>
               <div className="sender">
                 <img src={"/uploads/icons/user-black.svg"} alt="ticket" />
                 <p className="mx-2">
-                  <strong>ارسال کننده  :</strong> {ticketDetail?.sender}
+                  <strong>ارسال کننده :</strong> {ticketDetail?.sender}
                 </p>
               </div>
             </div>

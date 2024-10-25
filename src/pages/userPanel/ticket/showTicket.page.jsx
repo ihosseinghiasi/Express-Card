@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
 import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
-import "../../../css/admin/ticket.css";
+import "../../../css/user/ticket.css";
 import axios from "axios";
 
 const ShowTicket = () => {
@@ -71,12 +71,12 @@ const ShowTicket = () => {
                 {ticket?.map((message) =>
                   Object.values(message.tickets).map((text) =>
                     text.sender === "مدیریت" || text.sender === "پشتیبانی" ? (
+                      <SendBoxTicket sender={message.sender} text={text.text} />
+                    ) : (
                       <ReceiveBoxTicket
                         sender={message.sender}
                         text={text.text}
                       />
-                    ) : (
-                      <SendBoxTicket sender={message.sender} text={text.text} />
                     )
                   )
                 )}

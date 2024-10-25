@@ -1,60 +1,96 @@
 .addAdmin {
-    height: 750px;
-    box-shadow: 1px 1px 70px lightgray;
+  height: 750px;
+  box-shadow: 1px 1px 70px lightgray;
 }
 
 .addtitle {
-    position: absolute;
+  position: absolute;
 }
 
 .addBody {
-    position: absolute;
-    height: auto;
-    margin-top: 80px;
+  position: absolute;
+  height: auto;
+  margin-top: 80px;
 }
 
 .userForm {
-    margin: 5px 240px 5px 0;
+  margin: 5px 240px 5px 0;
 }
 
 .passwordEye {
-    position: absolute;
-    font-size: 1.3em;
-    top: 240px;
-    right: 587px;
-    cursor: pointer;
-    color: gray;
+  position: absolute;
+  font-size: 1.3em;
+  top: 240px;
+  right: 587px;
+  cursor: pointer;
+  color: gray;
 }
 
 .confirmPasswordEye {
-    position: absolute;
-    font-size: 1.3em;
-    top: 295px;
-    right: 587px;
-    cursor: pointer;
-    color: gray;
+  position: absolute;
+  font-size: 1.3em;
+  top: 295px;
+  right: 587px;
+  cursor: pointer;
+  color: gray;
 }
 
 .userTicket {
-    display: block;
-    min-height: 150px;
-    width: 300px;
-    background-color: lightseagreen;
-    border-radius: 25px;
+  display: block;
+  min-height: 150px;
+  width: 300px;
+  background-color: lightseagreen;
+  border-radius: 25px;
 }
 
-.headerTicket {
-    height: 35px;
-    width: 100%;
-    background-color: lightcoral;
-    border-top-right-radius: 25px;
-    border-top-left-radius: 25px;
+.recieveBox {
+  min-height: 60px;
+  width: 600px;
+  margin: 0;
+  margin-top: 20px;
+  box-shadow: 0px 0px 2px red;
+  border-radius: 35px 0 35px 35px;
 }
 
-.مدیریت {
-    margin-right: 600px;
+.sendBox {
+  margin: 20px 300px 0 0;
+  min-height: 60px;
+  width: 600px;
+  box-shadow: 0px 0px 2px green;
+  border-radius: 0 35px 35px 35px;
 }
 
-.شما {
-    margin-right: 3px;
+.ticketText {
+  position: absolute;
+  margin: 18px 20px 0 0;
+}
+
+.ticketHeader {
+  position: relative;
+  height: 120px;
+  margin: 30px 0px 0px 0px;
+  border-radius: 0 35px 35px 35px;
+  font-size: 1.1em;
+  background-color: rgba(247, 93, 66, 0.363);
+  box-shadow: 1px 1px 70px lightgray;
+}
+
+.subject {
+  position: absolute;
+  margin: 18px 20px 0 0;
+  width: 700px;
+}
+
+.sender {
+  position: absolute;
+  margin: 67px 20px 0 0;
+  width: 700px;
+}
+
+.subject p {
+  display: inline;
+}
+
+.sender p {
+  display: inline;
 }
