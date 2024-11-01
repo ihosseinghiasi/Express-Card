@@ -59,29 +59,41 @@ export default class TicketController {
   }
   async updateTicket(req: Request, res: Response) {
     try {
-      const id: string = req.params.id;
-      const answer: string = req.body.answer.newTicket;
       const tagIgnore = /(<([^>]+)>)/g;
+      const id: string = req.params.id;
+      const answerTicket = [
+        req.body.answer.newTicket.replace(tagIgnore, ""),
+      ] as const;
+      const ticket = await this.ticketService.findById(id);
+      let ticketNumbers: number = ticket ? ++ticket.ticketNumbers : 0;
       const data: ITicket = {
-        subject: req.body.ticket.subject,
-        status: "ارسال کاربر",
-        targetDepartment: req.body.ticket.targetDepartment,
+        subject: ticket?.subject || "",
+        status: "پاسخ مدیریت",
+        targetDepartment: ticket?.targetDepartment || "",
+        sender: ticket?.sender || "",
         tickets: {},
-        sender: "",
-        ticketNumbers: req.body.ticketNumbers,
-        userTicketsNumber: 1,
-        targetTicketsNumber: 0,
-        newUserTicketsNumber: 1,
-        newTargetTicketsNumber: 0,
+        ticketNumbers,
+        targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : 0,
+        newTargetTicketsNumber: ticket ? ++ticket.newTargetTicketsNumber : 0,
+        userTicketsNumber: ticket?.userTicketsNumber || -1,
+        newUserTicketsNumber: ticket?.newUserTicketsNumber || -1,
       };
-      const newTicket = req.body.ticket.tickets.replace(tagIgnore, "");
-      data.tickets = {
-        ticket1: {
-          sender: "",
-          text: newTicket,
-          date: "27 mehr",
-        },
-      };
+      const newTicket = Object.fromEntries(
+        answerTicket.map(() => [
+          `ticket${[ticketNumbers]}`,
+          {
+            sender: "مدیریت",
+            text: answerTicket[0],
+            date: "11 aban",
+          },
+        ])
+      );
+      if (ticket) {
+        Object.assign(ticket.tickets, newTicket);
+        data.tickets = ticket.tickets;
+      }
+      const updateTicket = await this.ticketService.update(id, data)
+      res.status(200).json(updateTicket)
     } catch (error: unknown) {
       throw new Error(error as string);
     }
