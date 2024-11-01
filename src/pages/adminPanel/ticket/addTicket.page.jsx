@@ -4,13 +4,14 @@ import axios from "axios";
 
 const AddTicket = () => {
   const [ticket, setTicket] = useState();
-  const [persianDate, setPersianDate] = useState("");
+  // const [persianDate, setPersianDate] = useState("");
 
   const getPersianDate = async () => {
     // await axios.get("http://localhost:4000/persianDate").then((res) => {
     //   setPersianDate(res.data);
     // });
   };
+
 
   const addTicket = async () => {
     await axios
@@ -32,7 +33,7 @@ const AddTicket = () => {
                 <p>پیشخوان / تیکت ها / افزودن تیکت</p>
               </div>
               <div class="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {/* {persianDate} */}
               </div>
             </div>
 
@@ -46,7 +47,7 @@ const AddTicket = () => {
               </div>
 
               <div class="addBody col-8 mx-5">
-                <form action="/admin-cPanel/ticket/newTicket" method="POST">
+                <form onSubmit={e => addTicket(e)}>
                   <div class="row">
                     <div class="col-6">
                       <input

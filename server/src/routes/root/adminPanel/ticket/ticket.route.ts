@@ -20,6 +20,10 @@ class TicketRoute {
       "/getTicket/:id",
       this.ticketController.getTicket.bind(this.ticketController)
     );
+    this.router.put(
+      "/answerTicket/:id",
+      this.ticketController.updateTicket.bind(this.ticketController)
+    );
   }
 }
 

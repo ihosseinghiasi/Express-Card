@@ -59,6 +59,29 @@ export default class TicketController {
   }
   async updateTicket(req: Request, res: Response) {
     try {
+      const id: string = req.params.id;
+      const answer: string = req.body.answer.newTicket;
+      const tagIgnore = /(<([^>]+)>)/g;
+      const data: ITicket = {
+        subject: req.body.ticket.subject,
+        status: "ارسال کاربر",
+        targetDepartment: req.body.ticket.targetDepartment,
+        tickets: {},
+        sender: "",
+        ticketNumbers: req.body.ticketNumbers,
+        userTicketsNumber: 1,
+        targetTicketsNumber: 0,
+        newUserTicketsNumber: 1,
+        newTargetTicketsNumber: 0,
+      };
+      const newTicket = req.body.ticket.tickets.replace(tagIgnore, "");
+      data.tickets = {
+        ticket1: {
+          sender: "",
+          text: newTicket,
+          date: "27 mehr",
+        },
+      };
     } catch (error: unknown) {
       throw new Error(error as string);
     }

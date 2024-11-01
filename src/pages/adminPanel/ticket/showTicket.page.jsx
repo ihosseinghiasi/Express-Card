@@ -8,6 +8,7 @@ import axios from "axios";
 const ShowTicket = () => {
   const [ticket, setTicket] = useState();
   const [ticketDetail, setTicketDetail] = useState();
+  const [answer, setAnswer] = useState();
   const navigate = useNavigate();
   const params = useParams();
 
@@ -25,7 +26,16 @@ const ShowTicket = () => {
     });
   }, [ticket]);
 
-  const answerTicket = async () => {};
+  const answerTicket = async (e) => {
+    e.preventDefault();
+    axios
+      .put(`http://localhost:4000/adminTickets/answerTicket/${params.id}`, {
+        answer,
+      })
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
 
   useEffect(() => {
     getTicket();
@@ -102,6 +112,12 @@ const ShowTicket = () => {
                           className="form-control"
                           cols="30"
                           rows="10"
+                          onChange={(e) =>
+                            setAnswer({
+                              ...answer,
+                              [e.target.name]: e.target.value,
+                            })
+                          }
                         ></textarea>
                       </div>
                     </div>
