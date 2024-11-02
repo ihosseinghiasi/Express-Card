@@ -65,7 +65,7 @@ export default class TicketController {
         req.body.answer.newTicket.replace(tagIgnore, ""),
       ] as const;
       const ticket = await this.ticketService.findById(id);
-      let ticketNumbers: number = ticket ? ++ticket.ticketNumbers : 0;
+      const ticketNumbers: number = ticket ? ++ticket.ticketNumbers : -1;
       const data: ITicket = {
         subject: ticket?.subject || "",
         status: "پاسخ مدیریت",
@@ -73,8 +73,8 @@ export default class TicketController {
         sender: ticket?.sender || "",
         tickets: {},
         ticketNumbers,
-        targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : 0,
-        newTargetTicketsNumber: ticket ? ++ticket.newTargetTicketsNumber : 0,
+        targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : -1,
+        newTargetTicketsNumber: ticket ? ++ticket.newTargetTicketsNumber : -1,
         userTicketsNumber: ticket?.userTicketsNumber || -1,
         newUserTicketsNumber: ticket?.newUserTicketsNumber || -1,
       };
