@@ -53,7 +53,7 @@ const ShowTicket = () => {
                 {/* <p><%= persianDate %></p> */}
               </div>
             </div>
-            <div className="col-11 mx-5 ticketHeader">
+            <div className="col-11 mx-5 ticketHeaderAdmin">
               <div className="subject">
                 <img src={"/uploads/icons/mail-black.svg"} alt="ticket" />
                 <p className="mx-2">
@@ -81,12 +81,12 @@ const ShowTicket = () => {
                 {ticket?.map((message) =>
                   Object.values(message.tickets).map((text) =>
                     text.sender === "مدیریت" || text.sender === "پشتیبانی" ? (
-                      <SendBoxTicket sender={message.sender} text={text.text} />
-                    ) : (
                       <ReceiveBoxTicket
                         sender={message.sender}
                         text={text.text}
                       />
+                    ) : (
+                      <SendBoxTicket sender={message.sender} text={text.text} />
                     )
                   )
                 )}

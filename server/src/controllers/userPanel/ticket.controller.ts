@@ -63,6 +63,44 @@ export default class TicketController {
   }
   async updateTicket(req: Request, res: Response) {
     try {
+            const tagIgnore = /(<([^>]+)>)/g;
+            const id: string = req.params.id;
+            const answerTicket = [
+              req.body.answer.newTicket.replace(tagIgnore, ""),
+            ] as const;
+            const ticket = await this.ticketService.findById(id);
+            const ticketNumbers: number = ticket ? ++ticket.ticketNumbers : -1;
+            const data: ITicket = {
+              subject: ticket?.subject || "",
+              status: "پاسخ کاربر",
+              targetDepartment: ticket?.targetDepartment || "",
+              sender: ticket?.sender || "",
+              tickets: {},
+              ticketNumbers,
+              targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : -1,
+              newTargetTicketsNumber: ticket
+                ? ++ticket.newTargetTicketsNumber
+                : -1,
+              userTicketsNumber: ticket?.userTicketsNumber || -1,
+              newUserTicketsNumber: ticket?.newUserTicketsNumber || -1,
+            };
+            const newTicket = Object.fromEntries(
+              answerTicket.map(() => [
+                `ticket${[ticketNumbers]}`,
+                {
+                  sender: "کاربر",
+                  text: answerTicket[0],
+                  date: "11 aban",
+                },
+              ])
+            );
+            if (ticket) {
+              Object.assign(ticket.tickets, newTicket);
+              data.tickets = ticket.tickets;
+            }
+            const updateTicket = await this.ticketService.update(id, data);
+            res.status(200).json(updateTicket);
+
     } catch (error: unknown) {
       throw new Error(error as string);
     }
