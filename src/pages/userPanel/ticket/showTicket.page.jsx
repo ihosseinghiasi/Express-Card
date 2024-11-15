@@ -27,7 +27,6 @@ const ShowTicket = () => {
   }, [ticket]);
 
   const answerTicket = async (e) => {
-    e.preventDefault();
     axios
       .put(`http://localhost:4000/userTickets/answerTicket/${params.id}`, {
         answer,
