@@ -92,14 +92,17 @@ export default class TicketController {
         Object.assign(ticket.tickets, newTicket);
         data.tickets = ticket.tickets;
       }
-      const updateTicket = await this.ticketService.update(id, data)
-      res.status(200).json(updateTicket)
+      const updateTicket = await this.ticketService.update(id, data);
+      res.status(200).json(updateTicket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
   }
   async deleteTicket(req: Request, res: Response) {
     try {
+      const id: string = req.params.id;
+      const ticket = await this.ticketService.delete(id);
+      res.status(200).json(ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

@@ -24,6 +24,10 @@ class TicketRoute {
       "/answerTicket/:id",
       this.ticketController.updateTicket.bind(this.ticketController)
     );
+    this.router.delete(
+      "/deleteTicket/:id",
+      this.ticketController.deleteTicket.bind(this.ticketController)
+    );
   }
 }
 

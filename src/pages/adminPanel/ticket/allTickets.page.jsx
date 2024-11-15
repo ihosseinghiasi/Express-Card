@@ -30,9 +30,9 @@ const AllTickets = () => {
   }, [tickets]);
 
   async function handleDelete(id) {
-    // await axios
-    //   .delete(`http://localhost:4000/categories/deleteCategory/${id}`)
-    //   .then((res) => {});
+    await axios
+      .delete(`http://localhost:4000/adminTickets/deleteTicket/${id}`)
+      .then((res) => {});
   }
 
   return (
