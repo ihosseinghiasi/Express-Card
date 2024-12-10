@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import Smsir from "sms-typescript/lib";
-import Cookies from "js-cookie"
+// import Smsir from "sms-typescript/lib";
+// import Cookies from "js-cookie";
 import IUser from "../../interface/user.interface";
-import IAdmin from "../../interface/admin.interface";
+// import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
 import { createToken, maxAge } from "../../middlewares/createToken";
@@ -26,11 +26,6 @@ export default class UserAuthentication {
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
       const user = await this.userService.create(data);
-      const token = createToken(user._id);
-      res.cookie("comercial", token, {
-        httpOnly: true,
-        maxAge: 1000 * maxAge,
-      });
       res.status(201).json(user);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -45,12 +40,11 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password);
         if (authentication) {
           const token = createToken(user._id);
-          Cookies.set("test", "hossienghiasi", { expires: 365 });
-          // res.cookie("comercial", token, {
-          //   httpOnly: true,
-          //   secure: true,
-          //   maxAge: 1000 * maxAge,
-          // });
+          res.cookie("comercial", token, {
+            httpOnly: true,
+            secure: true,
+            maxAge: 1000 * maxAge,
+          });
           res.status(201).json(user);
         }
       } else {

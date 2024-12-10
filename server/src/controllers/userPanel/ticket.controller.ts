@@ -4,6 +4,7 @@ import UserService from "../../services/adminPanel/user.service";
 import ITicket from "../../interface/ticket.interface";
 
 export default class TicketController {
+  
   private readonly ticketService: TicketService;
   private readonly userService: UserService;
   constructor() {
@@ -77,10 +78,10 @@ export default class TicketController {
         sender: ticket?.sender || "",
         tickets: {},
         ticketNumbers,
-        targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : -1,
-        newTargetTicketsNumber: ticket ? ++ticket.newTargetTicketsNumber : -1,
-        userTicketsNumber: ticket?.userTicketsNumber || -1,
-        newUserTicketsNumber: ticket?.newUserTicketsNumber || -1,
+        targetTicketsNumber: ticket?.targetTicketsNumber || -1,
+        newTargetTicketsNumber: ticket?.newTargetTicketsNumber || -1,
+        userTicketsNumber: ticket ? ++ticket.userTicketsNumber : -1,
+        newUserTicketsNumber: ticket ? ++ticket.newUserTicketsNumber : -1,
       };
       const newTicket = Object.fromEntries(
         answerTicket.map(() => [
