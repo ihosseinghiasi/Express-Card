@@ -1,13 +1,11 @@
 import "../../../css/shop/navbar.css";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import Cookies from "js-cookie";
 import axios from "axios";
-// import { getAuthenticatedUser } from "../../../services/authenticatedUserServices";
 
 const NavbarComponent = () => {
-  // const [cookies, setCookie, removeCookie] = useCookies(['comercial']);
   const [person, setPerson] = useState();
   const [fullName, setFullName] = useState();
   const [userAuthenticated, setUserAuthenticated] = useState(false);
@@ -16,11 +14,9 @@ const NavbarComponent = () => {
   
   useEffect(() => {
     const getUser = async () => {
-      // Cookies.set("name", "value", { expires: 365 });
       Cookies.get("comercial"); 
       console.log(Cookies.get('comercial'))
       if (Cookies.comercial) {
-        // const user = await getAuthenticatedUser();
         await axios
           .post("http://localhost:4000/authentication/", {})
           .then((res) => {
