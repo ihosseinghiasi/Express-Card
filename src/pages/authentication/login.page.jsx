@@ -37,6 +37,10 @@ export const Login = () => {
             expires: 7,
             secure: true,
           });
+          localStorage.setItem(
+            "authenticatedPerson",
+            `${res.data.person.firstName} ${res.data.person.lastName}`
+          );
           navigate("/");
         }
       });

@@ -40,7 +40,7 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password);
         if (authentication) {
           const token = createToken(user._id);
-          res.status(201).json({ user, token });
+          res.status(201).json({ person: user, token });
         }
       } else {
         const admin = await this.adminService.login(email);
@@ -48,7 +48,7 @@ export default class UserAuthentication {
           const authentication = await bcrypt.compare(password, admin.password);
           if (authentication) {
             const token = createToken(admin._id);
-            res.status(201).json({ admin, token });
+            res.status(201).json({ person: admin, token });
           }
         }
       }

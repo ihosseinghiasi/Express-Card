@@ -2,26 +2,23 @@ import "../../../css/shop/navbar.css";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
 const NavbarComponent = () => {
-  const [person, setPerson] = useState();
-  const [fullName, setFullName] = useState();
+  const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getUser = async () => {
-      
-    }
-    // const coockie = Cookies.get("token");
-    // console.log(coockie);
-    // setFullName(coockie);
+    setPerson(localStorage.getItem("authenticatedPerson"));
   }, []);
 
   useEffect(() => {
-    if (person) setFullName(`${person?.firstName} ${person?.lastName}`);
+    if (person) {
+      setUserAuthenticated(true);
+    }
   }, [person]);
 
   function userLogin() {
@@ -32,9 +29,10 @@ const NavbarComponent = () => {
     localStorage.setItem("userType", "admin");
   }
 
-  const logOut = (e) => {
-    // e.preventDefault();
-    // removeCookie("comercial");
+  const logOut = () => {
+    Cookies.remove("commercial");
+    localStorage.removeItem("userType");
+    localStorage.removeItem("authenticatedPerson");
     navigate("/");
   };
   return (
@@ -81,22 +79,23 @@ const NavbarComponent = () => {
                       className="nav-link text-info navUser"
                       to="/user/counter"
                     >
-                      {fullName}
+                      {person}
                     </Link>
                   ) : (
                     <Link
                       className="nav-link text-info navUser"
                       to="/admin/counter"
                     >
-                      {fullName}
+                      {person}
                     </Link>
                   )}
                 </li>
 
                 <li className="nav-item ms-3">
                   <Link
-                    onClick={(e) => logOut(e)}
+                    onClick={() => logOut()}
                     className="nav-link text-light"
+                    reloadDocument
                   >
                     خروج
                   </Link>
