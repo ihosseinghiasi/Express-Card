@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../../css/shop/login.css";
 import { useEffect, useState } from "react";
+import Cookies from "js-cookie";
+import "../../css/shop/login.css";
 // import Home from "../main/home";
 import axios from "axios";
 
@@ -32,6 +33,10 @@ export const Login = () => {
       )
       .then((res) => {
         if (res.data) {
+          Cookies.set("commercial", res.data.token, {
+            expires: 7,
+            secure: true,
+          });
           navigate("/");
         }
       });

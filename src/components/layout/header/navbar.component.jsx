@@ -7,29 +7,18 @@ import axios from "axios";
 const NavbarComponent = () => {
   const [person, setPerson] = useState();
   const [fullName, setFullName] = useState();
-  const [userAuthenticated, setUserAuthenticated] = useState(true);
+  const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const navigate = useNavigate();
 
   useEffect(() => {
     const getUser = async () => {
-      // if (Cookies.comercial) {
-      //   await axios
-      //     .post("http://localhost:4000/authentication/", {})
-      //     .then((res) => {
-      //       setPerson(res.data.person);
-      //       setUserAuthenticated(res.data.status);
-      //       console.log(res);
-      //     });
-      // }
-    };
-    getUser();
+      
+    }
+    // const coockie = Cookies.get("token");
+    // console.log(coockie);
+    // setFullName(coockie);
   }, []);
-  useEffect(() => {
-    const coockie = Cookies.get("token");
-    console.log(coockie);
-    setFullName(coockie)
-  });
 
   useEffect(() => {
     if (person) setFullName(`${person?.firstName} ${person?.lastName}`);
