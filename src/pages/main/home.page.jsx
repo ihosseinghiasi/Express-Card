@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryItem from "../../components/home/categoryItem.component";
+import Cookies from "js-cookie";
 import { getCategoriesServices } from "../../services/category.services";
 import "../../css/shop/mainPage.css";
 
@@ -17,7 +18,11 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    getCategories();
+    // getCategories();
+    // const token = "YOUR_JWT_TOKEN";
+    // Cookies.set("token", token, { expires: 7, secure: true });
+    const coockie = Cookies.get('token')
+    console.log(coockie)
   }, []);
 
   return (

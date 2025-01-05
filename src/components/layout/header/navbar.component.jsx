@@ -1,33 +1,35 @@
 import "../../../css/shop/navbar.css";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useCookies } from "react-cookie";
 import Cookies from "js-cookie";
 import axios from "axios";
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState();
   const [fullName, setFullName] = useState();
-  const [userAuthenticated, setUserAuthenticated] = useState(false);
+  const [userAuthenticated, setUserAuthenticated] = useState(true);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const getUser = async () => {
-      Cookies.get("comercial"); 
-      console.log(Cookies.get('comercial'))
-      if (Cookies.comercial) {
-        await axios
-          .post("http://localhost:4000/authentication/", {})
-          .then((res) => {
-            setPerson(res.data.person);
-            setUserAuthenticated(res.data.status);
-            console.log(res);
-          });
-      }
+      // if (Cookies.comercial) {
+      //   await axios
+      //     .post("http://localhost:4000/authentication/", {})
+      //     .then((res) => {
+      //       setPerson(res.data.person);
+      //       setUserAuthenticated(res.data.status);
+      //       console.log(res);
+      //     });
+      // }
     };
     getUser();
   }, []);
+  useEffect(() => {
+    const coockie = Cookies.get("token");
+    console.log(coockie);
+    setFullName(coockie)
+  });
 
   useEffect(() => {
     if (person) setFullName(`${person?.firstName} ${person?.lastName}`);
