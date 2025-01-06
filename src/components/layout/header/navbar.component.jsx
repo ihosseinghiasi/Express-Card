@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-import axios from "axios";
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState("");
@@ -12,6 +11,13 @@ const NavbarComponent = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token")
+    const decodedToken = jwtDecode(token);
+    const currentTime = Date.now() / 1000;
+    if (decodedToken < currentTime) {
+      logOut()
+      return
+    }
     setPerson(localStorage.getItem("authenticatedPerson"));
   }, []);
 

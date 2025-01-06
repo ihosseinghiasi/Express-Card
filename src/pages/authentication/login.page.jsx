@@ -33,10 +33,12 @@ export const Login = () => {
       )
       .then((res) => {
         if (res.data) {
-          Cookies.set("commercial", res.data.token, {
+          const token = res.data.token;
+          Cookies.set("commercial", token, {
             expires: 7,
             secure: true,
           });
+          localStorage.setItem("token", token);
           localStorage.setItem(
             "authenticatedPerson",
             `${res.data.person.firstName} ${res.data.person.lastName}`
