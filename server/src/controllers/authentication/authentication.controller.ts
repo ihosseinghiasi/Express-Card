@@ -1,13 +1,12 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import Smsir from "sms-typescript/lib";
 // import Cookies from "js-cookie";
 import IUser from "../../interface/user.interface";
 // import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
 import { createToken, maxAge } from "../../middlewares/createToken";
-
+const { Smsir } = require("smsir-js");
 export default class UserAuthentication {
   private _phoneNumber!: string;
   private _verifySmsCode!: string;
@@ -59,22 +58,22 @@ export default class UserAuthentication {
 
   async setPhoneNumber(req: Request, res: Response) {
     try {
-      // const smsir = new Smsir(
-      //   "d8oGRzrQn4qishTuyrREWjRLLWpF6RhmJRdBa1216CeTROk7FKzQoFh7drV4mkvh",
-      //   30007732903087
-      // );
+      const smsir = new Smsir(
+        "d8oGRzrQn4qishTuyrREWjRLLWpF6RhmJRdBa1216CeTROk7FKzQoFh7drV4mkvh",
+        30007732903087
+      );
 
       const phoneNumber: string = req.body.phoneNumber;
       const code = Math.floor(100000 + Math.random() * 900000);
       this._phoneNumber = phoneNumber;
       this._verifySmsCode = code.toString();
 
-      // smsir.SendVerifyCode( phoneNumber, 930321,  [
-      //     {
-      //     "name": "code",
-      //     "value": code.toString()
-      //     }
-      // ])
+      smsir.SendVerifyCode(phoneNumber, 930321, [
+        {
+          name: "code",
+          value: code.toString(),
+        },
+      ]);
       res.json({ verifyCode: code });
     } catch (error: unknown) {
       throw new Error(error as string);
