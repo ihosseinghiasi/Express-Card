@@ -5,6 +5,7 @@ const ticketSchema = new mongoose.Schema({
   subject: { type: String },
   status: { type: String },
   sender: { type: String },
+  senderId: { type: String },
   targetDepartment: { type: String },
   ticketNumbers: { type: Number, default: 0 },
   userTicketsNumber: { type: Number, default: 0 },
@@ -15,4 +16,4 @@ const ticketSchema = new mongoose.Schema({
 });
 
 const Ticket = mongoose.model<ITicket>("Ticket", ticketSchema, "Ticket");
-export default Ticket
+export default Ticket;

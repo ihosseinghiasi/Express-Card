@@ -7,7 +7,7 @@ const AddTicket = () => {
   const [ticket, setTicket] = useState({
     targetDepartment: "مدیریت",
   });
-  const navigate = new useState()
+  const navigate = new useNavigate();
 
   const getPersianDate = async () => {
     // await axios.get("http://localhost:4000/persianDate").then((res) => {
@@ -15,15 +15,15 @@ const AddTicket = () => {
     // });
   };
 
-  const addTicket = async () => {
-    await axios.post("http://localhost:4000/userTickets/createTicket", {
-      ticket,
-    }).then(res => {
-      if (res.data) {
-        console.log(res.data)
-        navigate("/user/allTickets")
-      }
-    })
+  const addTicket = async (e) => {
+    e.preventDefault();
+    await axios
+      .post("http://localhost:4000/userTickets/createTicket", {
+        ticket,
+      })
+      .then((res) => {
+        navigate("/user/allTickets");
+      });
   };
 
   useEffect(() => {

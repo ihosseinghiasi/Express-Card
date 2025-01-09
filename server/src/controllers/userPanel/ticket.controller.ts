@@ -2,9 +2,9 @@ import { Request, Response } from "express";
 import TicketService from "../../services/adminPanel/ticket.service";
 import UserService from "../../services/adminPanel/user.service";
 import ITicket from "../../interface/ticket.interface";
-
+import { LocalStorage } from "node-localstorage";
+global.localStorage = new LocalStorage("./scratch");
 export default class TicketController {
-  
   private readonly ticketService: TicketService;
   private readonly userService: UserService;
   constructor() {
@@ -14,30 +14,35 @@ export default class TicketController {
 
   async createTicket(req: Request, res: Response) {
     try {
-      const user = await this.userService.findById("6708250112edf0c6da7755ff");
-      const tagIgnore = /(<([^>]+)>)/g;
-      const data: ITicket = {
-        subject: req.body.ticket.subject,
-        status: "ارسال کاربر",
-        targetDepartment: req.body.ticket.targetDepartment,
-        tickets: {},
-        sender: user?._id || "",
-        ticketNumbers: req.body.ticketNumbers,
-        userTicketsNumber: 1,
-        targetTicketsNumber: 0,
-        newUserTicketsNumber: 1,
-        newTargetTicketsNumber: 0,
-      };
-      const newTicket = req.body.ticket.tickets.replace(tagIgnore, "");
-      data.tickets = {
-        ticket1: {
-          sender: data.sender,
-          text: newTicket,
-          date: "27 mehr",
-        },
-      };
-      const ticket = await this.ticketService.create(data);
-      res.status(200).json(ticket);
+      const authenticatedId = localStorage.getItem("authenticatedId");
+      if (authenticatedId) {
+        const user = await this.userService.findById(authenticatedId);
+        const tagIgnore = /(<([^>]+)>)/g;
+        const userFullName = `${user?.firstName} ${user?.lastName}`;
+        const data: ITicket = {
+          subject: req.body.ticket.subject,
+          status: "ارسال کاربر",
+          targetDepartment: req.body.ticket.targetDepartment,
+          tickets: {},
+          sender: userFullName || "",
+          senderId: user?._id || "",
+          ticketNumbers: req.body.ticketNumbers,
+          userTicketsNumber: 1,
+          targetTicketsNumber: 0,
+          newUserTicketsNumber: 1,
+          newTargetTicketsNumber: 0,
+        };
+        const newTicket = req.body.ticket.tickets.replace(tagIgnore, "");
+        data.tickets = {
+          ticket1: {
+            sender: data.sender,
+            text: newTicket,
+            date: "27 mehr",
+          },
+        };
+        const ticket = await this.ticketService.create(data);
+        res.status(200).json(ticket);
+      }
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -45,8 +50,11 @@ export default class TicketController {
 
   async getAllTickets(req: Request, res: Response) {
     try {
+      const userAuthenticated = localStorage.getItem("authenticatedId");
       const allTickets = await this.ticketService.findAll();
-      const tickets = allTickets?.filter((ticket) => ticket.sender === "makan");
+      const tickets = allTickets?.filter(
+        (ticket) => ticket.senderId === userAuthenticated
+      );
       res.status(200).json(tickets);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -76,6 +84,7 @@ export default class TicketController {
         status: "پاسخ کاربر",
         targetDepartment: ticket?.targetDepartment || "",
         sender: ticket?.sender || "",
+        senderId: ticket?.senderId || "",
         tickets: {},
         ticketNumbers,
         targetTicketsNumber: ticket?.targetTicketsNumber || -1,

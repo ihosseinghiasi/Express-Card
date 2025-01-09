@@ -5,7 +5,9 @@ import IUser from "../../interface/user.interface";
 // import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
-import { createToken, maxAge } from "../../middlewares/createToken";
+import { createToken } from "../../middlewares/createToken";
+import { LocalStorage } from "node-localstorage";
+global.localStorage = new LocalStorage("./scratch");
 const { Smsir } = require("smsir-js");
 export default class UserAuthentication {
   private _phoneNumber!: string;
@@ -39,6 +41,7 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password);
         if (authentication) {
           const token = createToken(user._id);
+          localStorage.setItem("authenticatedId", user._id);
           res.status(201).json({ person: user, token });
         }
       } else {
@@ -47,6 +50,7 @@ export default class UserAuthentication {
           const authentication = await bcrypt.compare(password, admin.password);
           if (authentication) {
             const token = createToken(admin._id);
+            localStorage.setItem("authenticatedId", admin._id);
             res.status(201).json({ person: admin, token });
           }
         }
