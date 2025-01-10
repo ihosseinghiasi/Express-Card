@@ -1,6 +1,6 @@
 import express from "express"
-import profile from "./profile/profile"
-import ticket from "./ticket/ticket"
+import profile from "./profile/profile.route"
+import ticket from "./ticket/ticket.route"
 
 // const { checkUser } = require("../../../middlewares/checkUserAuthenticate");
 

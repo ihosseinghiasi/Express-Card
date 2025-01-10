@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt"
 import UserService from "../../services/adminPanel/user.service";
 import IUser from "../../interface/user.interface";
+const persianDate = require("../../date/persianDate.js")
 
 export default class userController {
   private readonly userService: UserService
@@ -25,7 +26,8 @@ export default class userController {
   async findAllUsers(req: Request, res: Response) {
     try {
       const users = await this.userService.findAll()
-      res.status(200).json(users)
+      console.log(persianDate)
+      res.status(200).json({users: users, persianDate: persianDate})
     } catch (error) {
       throw new Error(error as string)      
     }

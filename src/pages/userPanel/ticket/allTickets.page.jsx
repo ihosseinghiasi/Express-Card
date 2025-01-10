@@ -10,7 +10,7 @@ const AllTickets = () => {
   useEffect(() => {
     const getAllTickets = async () => {
       await axios
-        .get("http://localhost:4000/userTickets/getAllTickets")
+        .get("http://localhost:4000/userPanel/ticket/getAllTickets")
         .then((res) => {
           setTickets(res.data);
         });

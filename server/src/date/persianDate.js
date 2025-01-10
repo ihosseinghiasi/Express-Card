@@ -1,6 +1,6 @@
-const persianDate = require('persian-date')
+const persianDate = require("persian-date");
 
-persianDate.toLocale('fa');
-const newDate = new persianDate().format('dddd - DD MMMM YYYY')
+persianDate.toLocale("fa");
+const newDate = new persianDate().format("dddd - DD MMMM YYYY");
 
-module.exports = newDate
+module.exports = newDate;

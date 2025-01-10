@@ -1,8 +1,8 @@
 import express from "express"
 import authentication from "./authentication/authentication.route"
-import persianDate from "./persianDate"
-import adminPanel from "./adminPanel/adminPanel"
-import userPanel from "./userPanel/userPanel"
+import persianDate from "./persianDate.route"
+import adminPanel from "./adminPanel/adminPanel.route"
+import userPanel from "./userPanel/userPanel.route"
 
 const router = express.Router()
 

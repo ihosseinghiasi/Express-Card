@@ -13,7 +13,8 @@ const AllUsers = () => {
   useEffect(() => {
     const getAllUsers = () => {
       axios.get("http://localhost:4000/users/getAllUsers").then((res) => {
-        setUsers(res.data);
+        setUsers(res.data.users);
+        setPersianDate(res.data.persianDate);
       });
     };
 
@@ -26,8 +27,11 @@ const AllUsers = () => {
     getPersianDate();
   }, []);
 
+  useEffect(() => {
+    console.log(persianDate);
+  }, [persianDate]);
+
   async function handleDelete(id) {
-    console.log("id");
     await axios.delete(`http://localhost:4000/users/deleteUser/${id}`);
   }
 
@@ -70,7 +74,7 @@ const AllUsers = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {users.map((user, index) => (
+                    {users?.map((user, index) => (
                       <TableRow
                         index={index + 1}
                         id={user._id}
