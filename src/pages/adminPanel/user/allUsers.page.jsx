@@ -11,17 +11,20 @@ const AllUsers = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getAllUsers = () => {
-      axios.get("http://localhost:4000/users/getAllUsers").then((res) => {
-        setUsers(res.data.users);
-        setPersianDate(res.data.persianDate);
-      });
+    const getAllUsers = async () => {
+      await axios
+        .get("http://localhost:4000/adminPanel/user/getAllUsers")
+        .then((res) => {
+          setUsers(res.data.users);
+        });
     };
 
     const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
+      await axios
+        .get("http://localhost:4000/persianDate/getPersianDate")
+        .then((res) => {
+          setPersianDate(res.data);
+        });
     };
     getAllUsers();
     getPersianDate();
@@ -32,7 +35,9 @@ const AllUsers = () => {
   }, [persianDate]);
 
   async function handleDelete(id) {
-    await axios.delete(`http://localhost:4000/users/deleteUser/${id}`);
+    // await axios.delete(
+    //   `http://localhost:4000/adminPanel/user/deleteUser/${id}`
+    // );
   }
 
   return (

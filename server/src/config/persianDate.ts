@@ -1,25 +1,7 @@
 import { Request, Response } from "express";
-const persianDate = require("persian-date");
+const persianDate = require("../date/persianDate");
 
-class PersianDate {
-  constructor(public currentDate: string) {}
-
-  setPersianDate() {
-    persianDate.toLocal("fa");
-    this.currentDate = new persianDate().format("dddd - DD MMMM YYYY");
-  }
-
-  getPersianDate(req: Request, res: Response) {
-    try {
-      const persianDate: string = this.currentDate;
-      if (persianDate) {
-        res.status(200).json(persianDate);
-      }
-    } catch (err: unknown) {
-      throw Error(err as string);
-    }
-  }
+console.log(persianDate)
+export function setPersianDate(req: Request, res: Response) {
+  return setPersianDate
 }
-
-const persian = new PersianDate(persianDate);
-export default persian

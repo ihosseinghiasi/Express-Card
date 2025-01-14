@@ -1,7 +1,5 @@
-import express from "express"
-const router = express.Router()
-import PersianDate from "../../config/persianDate"
+import { Router, Request, Response } from "express";
+import { setPersianDate } from "../../config/persianDate";
 
-router.get('/', persianDate)
-
-export default router
+export const router = Router();
+// router.get("/persianDate", setPersianDate);

@@ -13,9 +13,9 @@ import dotenv from "dotenv";
 // import adminTicketRoute from "./routes/root/adminPanel/ticket/ticket.route";
 // import userTicketRoute from "./routes/root/userPanel/ticket/ticket.route";
 // import authenticationRoute from "./routes/root/authentication/authentication.route";
-import root from "./routes/root/root.route"
+import root from "./routes/root/root.route";
 import { urlencoded } from "body-parser";
-export default class App {
+class App {
   private readonly app: Application;
   private readonly port: number;
 
@@ -60,7 +60,7 @@ export default class App {
     // this.app.use("/cards", cardRoute);
     // this.app.use("/adminTickets", adminTicketRoute);
     // this.app.use("/userTickets", userTicketRoute);
-    this.app.use("/", root)
+    this.app.use("/", root);
   }
 
   initErrorHandling() {

@@ -3,6 +3,7 @@ import TicketService from "../../services/adminPanel/ticket.service";
 import UserService from "../../services/adminPanel/user.service";
 import ITicket from "../../interface/ticket.interface";
 import { LocalStorage } from "node-localstorage";
+import { setPersianDate } from "../../config/persianDate";
 global.localStorage = new LocalStorage("./scratch");
 export default class TicketController {
   private readonly ticketService: TicketService;
@@ -50,6 +51,8 @@ export default class TicketController {
 
   async getAllTickets(req: Request, res: Response) {
     try {
+      const pd = await setPersianDate
+      console.log(pd)
       const userAuthenticated = localStorage.getItem("authenticatedId");
       const allTickets = await this.ticketService.findAll();
       const tickets = allTickets?.filter(

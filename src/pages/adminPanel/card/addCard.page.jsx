@@ -47,7 +47,7 @@ const AddCard = () => {
   useEffect(() => {
     const getPersianDate = async () => {
       // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
+      //   console.log(res.data)
       // });
     };
 

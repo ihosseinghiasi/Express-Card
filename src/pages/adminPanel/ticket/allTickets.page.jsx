@@ -10,7 +10,7 @@ const AllTickets = () => {
   useEffect(() => {
     const getAllTickets = async () => {
       await axios
-        .get("http://localhost:4000/adminTickets/getAllTickets")
+        .get("http://localhost:4000/adminPanel/ticket/getAllTickets")
         .then((res) => {
           setTickets(res.data);
         });
@@ -31,7 +31,7 @@ const AllTickets = () => {
 
   async function handleDelete(id) {
     await axios
-      .delete(`http://localhost:4000/adminTickets/deleteTicket/${id}`)
+      .delete(`http://localhost:4000/adminPanel/ticket/deleteTicket/${id}`)
       .then((res) => {});
   }
 

@@ -12,9 +12,11 @@ const ShowUser = () => {
 
   useEffect(() => {
     const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
+      await axios
+        .get("http://localhost:4000/persianDate/persianDate")
+        .then((res) => {
+          // setPersianDate(res.data);
+        });
     };
     getPersianDate();
 
@@ -25,7 +27,7 @@ const ShowUser = () => {
 
   const getUser = async () => {
     await axios
-      .get(`http://localhost:4000/users/getUser/${params.id}`)
+      .get(`http://localhost:4000/adminPanel/user/getUser/${params.id}`)
       .then((res) => {
         setValues(res.data);
       });
@@ -34,7 +36,9 @@ const ShowUser = () => {
   const updateUser = async (e) => {
     e.preventDefault();
     await axios
-      .put(`http://localhost:4000/users/updateUser/${params.id}`, { values })
+      .put(`http://localhost:4000/adminPanel/user/updateUser/${params.id}`, {
+        values,
+      })
       .then((res) => {
         if (res?.data) {
           navigate("/admin/allUsers");
