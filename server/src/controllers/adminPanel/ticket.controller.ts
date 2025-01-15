@@ -43,7 +43,7 @@ export default class TicketController {
   async getAllTickets(req: Request, res: Response) {
     try {
       const tickets = await this.ticketService.findAll();
-      res.status(200).json(tickets);
+      res.status(200).json({tickets: tickets, pd: "persianDate"});
     } catch (error: unknown) {
       throw new Error(error as string);
     }

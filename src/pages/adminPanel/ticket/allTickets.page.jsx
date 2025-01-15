@@ -12,14 +12,16 @@ const AllTickets = () => {
       await axios
         .get("http://localhost:4000/adminPanel/ticket/getAllTickets")
         .then((res) => {
-          setTickets(res.data);
+          setTickets(res.data.tickets);
         });
     };
 
     const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
+      await axios
+        .get("http://localhost:4000/persianDate/getPersianDate")
+        .then((res) => {
+          setPersianDate(res.data);
+        });
     };
     getAllTickets();
     getPersianDate();

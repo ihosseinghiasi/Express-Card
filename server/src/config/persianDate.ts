@@ -1,7 +1,9 @@
 import { Request, Response } from "express";
-const persianDate = require("../date/persianDate");
+const pd = require("../date/persianDate");
 
-console.log(persianDate)
-export function setPersianDate(req: Request, res: Response) {
-  return setPersianDate
+export default class PersianDate {
+  getPersianDate(req: Request, res: Response) {
+    const persianDate = pd
+    res.json(persianDate)
+  }
 }
