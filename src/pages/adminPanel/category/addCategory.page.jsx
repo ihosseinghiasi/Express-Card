@@ -13,17 +13,20 @@ const AddCategory = () => {
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
 
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
   useEffect(() => {
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
     getPersianDate();
   }, []);
 
-  const handleImageUpload = (event) => {
-    event.preventDefault();
+  const handleImageUpload = (e) => {
+    e.preventDefault();
     fileUploadRef.current.click();
   };
 
@@ -42,9 +45,13 @@ const AddCategory = () => {
     formData.append("description", category.description);
 
     await axios
-      .post("http://localhost:4000/categories/createCategory", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
+      .post(
+        "http://localhost:4000/adminPanel/category/createCategory",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      )
       .then((res) => {
         navigate("/admin/allCategories");
       });

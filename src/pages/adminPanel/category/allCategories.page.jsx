@@ -7,27 +7,30 @@ const AllCategories = () => {
   const [categories, setCategories] = useState([]);
   const [persianDate, setPersianDate] = useState("");
 
-  useEffect(() => {
-    const getAllCategories = () => {
-      axios
-        .get("http://localhost:4000/categories/getAllCategories")
-        .then((res) => {
-          setCategories(res.data);
-        });
-    };
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
 
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
+  const getAllCategories = () => {
+    axios
+      .get("http://localhost:4000/adminPanel/category/getAllCategories")
+      .then((res) => {
+        setCategories(res.data);
+      });
+  };
+
+  useEffect(() => {
     getAllCategories();
     getPersianDate();
   }, []);
 
   async function handleDelete(id) {
     await axios
-      .delete(`http://localhost:4000/categories/deleteCategory/${id}`)
+      .delete(`http://localhost:4000/adminPanel/category/deleteCategory/${id}`)
       .then((res) => {});
   }
 

@@ -12,21 +12,24 @@ const ShowCategory = () => {
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
 
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
   const getCategory = async () => {
     await axios
-      .get(`http://localhost:4000/categories/getCategory/${params.id}`)
+      .get(`http://localhost:4000/adminPanel/category/getCategory/${params.id}`)
       .then((response) => {
         setCategory(response.data);
       });
   };
 
   useEffect(() => {
-    // const getPersianDate = async () => {
-    //   await axios.get("http://localhost:4000/persianDate").then((res) => {
-    //     setPersianDate(res.data);
-    //   });
-    // };
-    // getPersianDate();
+    getPersianDate();
     if (params) getCategory();
   }, []);
 
@@ -42,7 +45,7 @@ const ShowCategory = () => {
   };
 
   const updateCategory = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const formData = new FormData();
     if (categoryImage) formData.append("file", categoryImage);
     formData.append("id", category._id);
@@ -53,7 +56,7 @@ const ShowCategory = () => {
 
     await axios
       .put(
-        `http://localhost:4000/categories/updateCategory/${params.id}`,
+        `http://localhost:4000/adminPanel/category/updateCategory/${params.id}`,
         formData
       )
       .then((res) => {
