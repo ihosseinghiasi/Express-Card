@@ -2,34 +2,34 @@ import { useEffect, useState } from "react";
 import "../../../css/admin/admin.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
-import { useNavigate } from "react-router-dom";
 import Paging from "../../../components/layout/paging/paging";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);
-  const [adminId, setAdminId] = useState("");
   const [persianDate, setPersianDate] = useState("");
-  const navigate = useNavigate();
+
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
+  const getAllAdmins = () => {
+    axios.get("http://localhost:4000/adminPanel/admin/getAllAdmins").then((res) => {
+      setAdmins(res.data);
+    });
+  };
+
+  const handleDelete = async (id) => {
+    await axios.delete(`http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`);
+  };
 
   useEffect(() => {
-    const getAllAdmins = () => {
-      axios.get("http://localhost:4000/admins/getAllAdmins").then((res) => {
-        setAdmins(res.data);
-      });
-    };
-
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
     getPersianDate();
     getAllAdmins();
   }, []);
-
-  const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:4000/admins/deleteAdmin/${id}`);
-  };
 
   return (
     <>

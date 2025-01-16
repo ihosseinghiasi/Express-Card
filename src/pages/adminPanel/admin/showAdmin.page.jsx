@@ -2,7 +2,7 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import "../../../css/admin/admin.css";
 import { useParams, useNavigate } from "react-router-dom";
-import { getPersianDateService } from "../../../services/date.services";
+// import { getPersianDateService } from "../../../services/date.services";
 // import { adminServices } from "../../../services/admin.services";
 
 const ShowAdmin = () => {
@@ -13,23 +13,29 @@ const ShowAdmin = () => {
 
   const getAdmin = async () => {
     await axios
-      .get(`http://localhost:4000/admins/getAdmin/${params.id}`)
+      .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
       .then((res) => {
         setValues(res.data);
       });
   };
 
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
   useEffect(() => {
-    // getPersianDateService().then((res) => {
-    //   setPersianDate(res);
-    // });
+    getPersianDate();
     params && getAdmin();
   }, []);
 
   const updateAdmin = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     await axios
-      .put(`http://localhost:4000/admins/updateAdmin/${params.id}`, {
+      .put(`http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`, {
         values,
       })
       .then((res) => {
