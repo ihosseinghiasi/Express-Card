@@ -8,30 +8,31 @@ const AllProducts = () => {
   const [products, setProducts] = useState([]);
   const [persianDate, setPersianDate] = useState("");
 
-  useEffect(() => {
-    const getAllProducts = () => {
-      axios.get("http://localhost:4000/products/getAllProducts").then((res) => {
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
+  const getAllProducts = () => {
+    axios
+      .get("http://localhost:4000/adminPanel/product/getAllProducts")
+      .then((res) => {
         setProducts(res.data);
       });
-    };
+  };
 
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
+  useEffect(() => {
     getAllProducts();
     getPersianDate();
   }, []);
 
   async function handleDelete(id) {
-    await axios
-      .delete(`http://localhost:4000/products/deleteProduct/${id}`)
-      .then((res) => {
-        if (res.data) {
-          console.log(res.data);
-        }
-      });
+    await axios.delete(
+      `http://localhost:4000/adminPanel/product/deleteProduct/${id}`
+    );
   }
 
   return (

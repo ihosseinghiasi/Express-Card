@@ -16,33 +16,34 @@ const ShowProduct = () => {
   const params = useParams();
   const navigate = useNavigate();
 
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
+  const getCategories = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/category/getAllCategories")
+      .then((res) => {
+        setCategories(res.data);
+      });
+  };
+
+  const getProduct = async () => {
+    await axios
+      .get(`http://localhost:4000/adminPanel/product/getProduct/${params.id}`)
+      .then((response) => {
+        setProduct(response.data);
+        setFields(response.data.fields);
+      });
+  };
+
   useEffect(() => {
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
-
-    const getCategories = async () => {
-      await axios
-        .get("http://localhost:4000/categories/getAllCategories")
-        .then((res) => {
-          setCategories(res.data);
-        });
-    };
-
     getCategories();
     getPersianDate();
-
-    const getProduct = async () => {
-      await axios
-        .get(`http://localhost:4000/products/getProduct/${params.id}`)
-        .then((response) => {
-          setProduct(response.data);
-          setFields(response.data.fields);
-        });
-    };
-
     if (params) getProduct();
   }, []);
 
@@ -91,17 +92,13 @@ const ShowProduct = () => {
     formData.append("categoryTitle", product.categoryTitle);
     formData.append("fields", fields);
 
-    await axios
-      .put(
-        `http://localhost:4000/products/updateProduct/${params.id}`,
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      )
-      .then((res) => {
-        console.log(res.data);
-      });
+    await axios.put(
+      `http://localhost:4000/adminPanel/product/updateProduct/${params.id}`,
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
   };
 
   return (
