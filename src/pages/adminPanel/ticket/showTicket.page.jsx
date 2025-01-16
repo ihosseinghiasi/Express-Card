@@ -8,13 +8,22 @@ import axios from "axios";
 const ShowTicket = () => {
   const [ticket, setTicket] = useState();
   const [ticketDetail, setTicketDetail] = useState();
+  const [persianDate, setPersianDate] = useState();
   const [answer, setAnswer] = useState();
   const navigate = useNavigate();
   const params = useParams();
 
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
   const getTicket = async () => {
     await axios
-      .get(`http://localhost:4000/adminTickets/getTicket/${params.id}`)
+      .get(`http://localhost:4000/adminPanel/ticket/getTicket/${params.id}`)
       .then((res) => {
         setTicket(res.data);
       });
@@ -27,13 +36,12 @@ const ShowTicket = () => {
   }, [ticket]);
 
   const answerTicket = async (e) => {
-    axios
-      .put(`http://localhost:4000/adminTickets/answerTicket/${params.id}`, {
+    axios.put(
+      `http://localhost:4000/adminPanel/ticket/answerTicket/${params.id}`,
+      {
         answer,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+      }
+    );
   };
 
   useEffect(() => {

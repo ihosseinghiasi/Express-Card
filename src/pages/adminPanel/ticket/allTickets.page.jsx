@@ -7,34 +7,31 @@ const AllTickets = () => {
   const [tickets, setTickets] = useState([]);
   const [persianDate, setPersianDate] = useState("");
 
-  useEffect(() => {
-    const getAllTickets = async () => {
-      await axios
-        .get("http://localhost:4000/adminPanel/ticket/getAllTickets")
-        .then((res) => {
-          setTickets(res.data.tickets);
-        });
-    };
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
 
-    const getPersianDate = async () => {
-      await axios
-        .get("http://localhost:4000/persianDate/getPersianDate")
-        .then((res) => {
-          setPersianDate(res.data);
-        });
-    };
+  const getAllTickets = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/ticket/getAllTickets")
+      .then((res) => {
+        setTickets(res.data.tickets);
+      });
+  };
+
+  useEffect(() => {
     getAllTickets();
     getPersianDate();
   }, []);
 
-  useEffect(() => {
-    console.log(tickets);
-  }, [tickets]);
-
   async function handleDelete(id) {
-    await axios
-      .delete(`http://localhost:4000/adminPanel/ticket/deleteTicket/${id}`)
-      .then((res) => {});
+    await axios.delete(
+      `http://localhost:4000/adminPanel/ticket/deleteTicket/${id}`
+    );
   }
 
   return (
