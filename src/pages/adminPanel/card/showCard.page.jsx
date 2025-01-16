@@ -15,43 +15,45 @@ const ShowCard = () => {
   const [persianDate, setPersianDate] = useState("");
   const [firstProduct, setFirstProduct] = useState([]);
   const params = useParams();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
 
   const getCard = () => {
     axios
-      .get(`http://localhost:4000/cards/getCard/${params.id}`)
+      .get(`http://localhost:4000/adminPanel/card/getCard/${params.id}`)
       .then((res) => {
         setCard(res.data);
       });
   };
 
-  const getPersianDate = async () => {
-    // await axios.get("http://localhost:4000/persianDate").then((res) => {
-    //   setPersianDate(res.data);
-    // });
+  const getCategories = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/category/getAllCategories")
+      .then((res) => {
+        setCategories(res.data);
+      });
   };
 
-    const getCategories = async () => {
-      await axios
-        .get("http://localhost:4000/categories/getAllCategories")
-        .then((res) => {
-          setCategories(res.data);
-        });
-    };
-
-    const getProducts = async () => {
-      await axios
-        .get("http://localhost:4000/products/getAllProducts")
-        .then((res) => {
-          setProducts(res.data);
-        });
-    };
+  const getProducts = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/product/getAllProducts")
+      .then((res) => {
+        setProducts(res.data);
+      });
+  };
 
   useEffect(() => {
     getCard();
     getPersianDate();
-    getCategories()
-    getProducts()
+    getCategories();
+    getProducts();
   }, []);
 
   const getProductsOfSelectedCategory = () => {
@@ -138,13 +140,10 @@ const ShowCard = () => {
       fieldValues,
     };
     await axios
-      .put(
-        `http://localhost:4000/cards/updateCard/${params.id}`,
-        {data},
-      )
+      .put(`http://localhost:4000/adminPanel/card/updateCard/${params.id}`, { data })
       .then((res) => {
         if (res.data) {
-          navigate("/admin/allCards")
+          navigate("/admin/allCards");
         }
       });
   };

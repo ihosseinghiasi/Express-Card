@@ -8,25 +8,30 @@ const AllCards = () => {
   const [cards, setCards] = useState([]);
   const [persianDate, setPersianDate] = useState("");
 
-  useEffect(() => {
-    const getAllCards = () => {
-      axios.get("http://localhost:4000/cards/getAllCards").then((res) => {
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
+  const getAllCards = () => {
+    axios
+      .get("http://localhost:4000/adminPanel/card/getAllCards")
+      .then((res) => {
         setCards(res.data);
       });
-    };
+  };
 
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
+  useEffect(() => {
     getAllCards();
     getPersianDate();
   }, []);
 
   async function handleDelete(id) {
     await axios
-      .delete(`http://localhost:4000/cards/deleteCard/${id}`)
+      .delete(`http://localhost:4000/adminPanel/card/deleteCard/${id}`)
       .then((res) => {
         if (res.data) {
         }

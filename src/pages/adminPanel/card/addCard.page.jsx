@@ -12,6 +12,14 @@ const AddCard = () => {
   const [fieldValues, setFieldValues] = useState([]);
   const navigate = useNavigate();
 
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
+
   useEffect(() => {
     getProductsOfSelectedCategorie();
   }, [card.cardCategory]);
@@ -31,7 +39,7 @@ const AddCard = () => {
 
   const getfieldNamesOfProducts = () => {
     setFieldNames([]);
-    products.map((product) => {
+    products?.map((product) => {
       if (product.title === card.cardProduct) {
         setFieldNames(product.fields);
       }
@@ -44,31 +52,26 @@ const AddCard = () => {
     setFieldValues(newFields);
   };
 
+  const getCategories = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/category/getAllCategories")
+      .then((res) => {
+        setCategories(res.data);
+      });
+  };
+
+  const getProducts = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/product/getAllProducts")
+      .then((res) => {
+        setProducts(res.data);
+      });
+  };
+
   useEffect(() => {
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   console.log(res.data)
-      // });
-    };
-
-    const getCategories = async () => {
-      await axios
-        .get("http://localhost:4000/categories/getAllCategories")
-        .then((res) => {
-          setCategories(res.data);
-        });
-    };
-
-    const getProducts = async () => {
-      await axios.get("http://localhost:4000/products/getAllProducts")
-      .then(res => {
-        setProducts(res.data)
-      })
-    }
-
     getPersianDate();
     getCategories();
-    getProducts()
+    getProducts();
   }, []);
 
   const addCard = async (e) => {
@@ -80,7 +83,7 @@ const AddCard = () => {
     };
 
     await axios
-      .post("http://localhost:4000/cards/createCard", { data })
+      .post("http://localhost:4000/adminPanel/card/createCard", { data })
       .then((res) => {
         navigate("/admin/allCards");
       });
