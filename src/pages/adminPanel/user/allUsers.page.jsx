@@ -10,34 +10,32 @@ const AllUsers = () => {
   const [persianDate, setPersianDate] = useState("");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const getAllUsers = async () => {
-      await axios
-        .get("http://localhost:4000/adminPanel/user/getAllUsers")
-        .then((res) => {
-          setUsers(res.data.users);
-        });
-    };
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
+  };
 
-    const getPersianDate = async () => {
-      await axios
-        .get("http://localhost:4000/persianDate/getPersianDate")
-        .then((res) => {
-          setPersianDate(res.data);
-        });
-    };
+  const getAllUsers = async () => {
+    await axios
+      .get("http://localhost:4000/adminPanel/user/getAllUsers")
+      .then((res) => {
+        setUsers(res.data.users);
+      });
+  };
+
+  useEffect(() => {
     getAllUsers();
     getPersianDate();
   }, []);
 
-  useEffect(() => {
-    console.log(persianDate);
-  }, [persianDate]);
 
   async function handleDelete(id) {
-    // await axios.delete(
-    //   `http://localhost:4000/adminPanel/user/deleteUser/${id}`
-    // );
+    await axios.delete(
+      `http://localhost:4000/adminPanel/user/deleteUser/${id}`
+    );
   }
 
   return (
