@@ -4,12 +4,15 @@ import axios from "axios";
 const UserCounter = () => {
   const [persianDate, setPersianDate] = useState("");
 
-  useEffect(() => {
-    const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
         setPersianDate(res.data);
       });
-    };
+  };
+
+  useEffect(() => {
     getPersianDate();
   }, []);
   return (
@@ -24,8 +27,8 @@ const UserCounter = () => {
               <p>{persianDate}</p>
             </div>
           </div>
-          <h1>admin counter</h1>
-          <h2>lksdfjkldjlfjldjkljdflj</h2>
+          <h1>user counter</h1>
+          <h2>hosein ghiasi</h2>
         </div>
       </div>
     </>
