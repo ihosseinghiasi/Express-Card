@@ -4,12 +4,15 @@ import axios from "axios";
 const AdminCounter = () => {
   const [persianDate, setPersianDate] = useState("");
 
-  useEffect(() => {
-    const getPersianDate = async () => {
-      await axios.get("http://localhost:4000/persianDate").then((res) => {
+  const getPersianDate = async () => {
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
         setPersianDate(res.data);
       });
-    };
+  };
+
+  useEffect(() => {
     getPersianDate();
   }, []);
   return (

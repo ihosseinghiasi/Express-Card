@@ -7,13 +7,14 @@ const Profile = () => {
   const [user, setUser] = useState();
 
   const getPersianDate = async () => {
-    await axios.get("http://localhost:4000/persianDate").then((res) => {
-      setPersianDate(res.data);
-    });
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
   };
 
   const getUser = async () => {
-    // const user = await getAuthenticatedUser();
     await axios
       .post("http://localhost:4000/", {}, { withCredentials: true })
       .then((res) => {
