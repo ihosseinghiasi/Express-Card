@@ -1,40 +1,26 @@
-import express from "express"
-const router = express.Router()
-// const ProfileController = require("../../../../controllers/user/profile");
+import { Router } from "express";
+import UserController from "../../../../controllers/adminPanel/user.controller";
 
-/**
- * @swagger
- * /userPanel/user/updateUser/{id}:
- *   put:
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         type: string
- *         description: The User ID.
- *       - in: body
- *         name: User
- *         description: update An User
- *         schema:
- *          type: object
- *          properties:
- *           firstName:
- *            type: string
- *           lastName:
- *            type: string
- *           email:
- *            type: string
- *           phoneNumber:
- *             type: string
- *           password:
- *             type: string
- *     tags:
- *      - User Profile
- *     summary: Edit An User
- *     responses:
- *       200:
- *         description: Edit An User
- */
-// router.put("/:id", ProfileController.profile);
+class UserProfileRoute {
+  private readonly userController: UserController;
+  public readonly router: Router;
 
-export default router;
+  constructor() {
+    this.userController = new UserController();
+    this.router = Router();
+    this.initRoutes();
+  }
+
+  private initRoutes() {
+    this.router.get(
+      "/getUser/:id",
+      this.userController.findUser.bind(this.userController)
+    );
+    this.router.put(
+      "/updateUser/:id",
+      this.userController.updateUser.bind(this.userController)
+    );
+  }
+}
+
+export default new UserProfileRoute().router

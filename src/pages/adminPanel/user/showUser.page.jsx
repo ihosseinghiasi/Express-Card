@@ -5,7 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ShowUser = () => {
-  const [values, setValues] = useState({});
+  const [user, setUser] = useState({});
   const [persianDate, setPersianDate] = useState("");
   const params = useParams();
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const ShowUser = () => {
     await axios
       .get(`http://localhost:4000/adminPanel/user/getUser/${params.id}`)
       .then((res) => {
-        setValues(res.data);
+        setUser(res.data);
       });
   };
 
@@ -38,7 +38,7 @@ const ShowUser = () => {
     e.preventDefault();
     await axios
       .put(`http://localhost:4000/adminPanel/user/updateUser/${params.id}`, {
-        values,
+        user,
       })
       .then((res) => {
         if (res?.data) {
@@ -80,10 +80,10 @@ const ShowUser = () => {
                         className="form-control form-control mt-3"
                         placeholder="نام"
                         name="firstName"
-                        value={values.firstName}
+                        value={user.firstName}
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -93,10 +93,10 @@ const ShowUser = () => {
                         className="form-control form-control mt-3"
                         placeholder="نام خانوادگی"
                         name="lastName"
-                        value={values.lastName}
+                        value={user.lastName}
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -106,10 +106,10 @@ const ShowUser = () => {
                         className="form-control form-control mt-3"
                         placeholder="ایمیل"
                         name="email"
-                        value={values.email}
+                        value={user.email}
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -119,10 +119,10 @@ const ShowUser = () => {
                         className="form-control form-control mt-3"
                         placeholder="شماره همراه"
                         name="phoneNumber"
-                        value={values.phoneNumber}
+                        value={user.phoneNumber}
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -134,8 +134,8 @@ const ShowUser = () => {
                         name="password"
                         id="password"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setUser({
+                            ...user,
                             [e.target.name]: e.target.value,
                           })
                         }

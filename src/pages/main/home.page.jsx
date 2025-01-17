@@ -17,13 +17,7 @@ const HomePage = () => {
     // });
   };
 
-  useEffect(() => {
-    // getCategories();
-    // const token = "YOUR_JWT_TOKEN";
-    // Cookies.set("token", token, { expires: 7, secure: true });
-    // const coockie = Cookies.get('token')
-    // console.log(coockie)
-  }, []);
+
 
   return (
     <HomeWrapper>

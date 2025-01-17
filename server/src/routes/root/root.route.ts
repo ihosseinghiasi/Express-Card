@@ -6,7 +6,7 @@ import userPanel from "./userPanel/userPanel.route";
 
 const router = express.Router();
 
-router.use("/", authentication);
+router.use("/authentication", authentication);
 router.use("/persianDate", persianDate);
 router.use("/adminPanel", adminPanel);
 router.use("/userPanel", userPanel);

@@ -40,9 +40,10 @@ export const Login = () => {
           });
           localStorage.setItem("token", token);
           localStorage.setItem(
-            "authenticatedPerson",
+            "authenticatedFullName",
             `${res.data.person.firstName} ${res.data.person.lastName}`
           );
+          localStorage.setItem("authenticatedId", res.data.person._id);
           navigate("/");
         }
       });

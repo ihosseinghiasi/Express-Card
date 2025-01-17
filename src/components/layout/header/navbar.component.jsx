@@ -12,12 +12,14 @@ const NavbarComponent = () => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const decodedToken = jwtDecode(token);
-    const currentTime = Date.now() / 1000;
-    if (decodedToken < currentTime) {
-      logOut();
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const currentTime = Date.now() / 1000;
+      if (decodedToken < currentTime) {
+        logOut();
+      }
+      setPerson(localStorage.getItem("authenticatedFullName"));
     }
-    setPerson(localStorage.getItem("authenticatedPerson"));
   }, []);
 
   useEffect(() => {
@@ -37,7 +39,9 @@ const NavbarComponent = () => {
   const logOut = () => {
     Cookies.remove("commercial");
     localStorage.removeItem("userType");
-    localStorage.removeItem("authenticatedPerson");
+    localStorage.removeItem("authenticatedFullName");
+    localStorage.removeItem("authenticatedId");
+    localStorage.removeItem("token");
     navigate("/");
   };
   return (

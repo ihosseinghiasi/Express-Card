@@ -43,7 +43,7 @@ export default class userController {
 
   async updateUser(req: Request, res: Response) {
     try {
-      const data: IUser = req.body.values;
+      const data: IUser = req.body.user;
       const id: string = req.params.id;
       if (data.password.length <= 16) {
         const salt = await bcrypt.genSalt();

@@ -4,7 +4,7 @@ import axios from "axios";
 
 const Profile = () => {
   const [persianDate, setPersianDate] = useState();
-  const [user, setUser] = useState();
+  const [user, setValues] = useState();
 
   const getPersianDate = async () => {
     await axios
@@ -14,20 +14,26 @@ const Profile = () => {
       });
   };
 
-  const getUser = async () => {
+  useEffect(() => {
+    console.log(user?.password);
+  }, [user]);
+
+  const getUser = async (id) => {
     await axios
-      .post("http://localhost:4000/", {}, { withCredentials: true })
+      .get(`http://localhost:4000/userPanel/profile/getUser/${id}`, {
+        withCredentials: true,
+      })
       .then((res) => {
-        setUser(res.data.person);
+        setValues(res.data);
       });
   };
 
   const userUpdate = async (e) => {
     e.preventDefault();
-    console.log(`${user._id}`);
+    console.log(user._id);
     await axios.put(
-      "http://localhost:4000/userPanel/profile/" + user._id,
-      user,
+      `http://localhost:4000/userPanel/profile/updateUser/${user._id}`,
+      { user },
       {
         withCredentials: true,
       }
@@ -35,8 +41,9 @@ const Profile = () => {
   };
 
   useEffect(() => {
+    const userId = localStorage.getItem("authenticatedId");
     getPersianDate();
-    getUser();
+    getUser(userId);
   }, []);
   return (
     <>
@@ -73,7 +80,7 @@ const Profile = () => {
                         name="firstName"
                         value={user?.firstName}
                         onChange={(e) =>
-                          setUser({
+                          setValues({
                             ...user,
                             [e.target.name]: e.target.value,
                           })
@@ -86,7 +93,7 @@ const Profile = () => {
                         name="lastName"
                         value={user?.lastName}
                         onChange={(e) =>
-                          setUser({
+                          setValues({
                             ...user,
                             [e.target.name]: e.target.value,
                           })
@@ -99,7 +106,7 @@ const Profile = () => {
                         name="email"
                         value={user?.email}
                         onChange={(e) =>
-                          setUser({
+                          setValues({
                             ...user,
                             [e.target.name]: e.target.value,
                           })
@@ -112,7 +119,7 @@ const Profile = () => {
                         name="phoneNumber"
                         value={user?.phoneNumber}
                         onChange={(e) =>
-                          setUser({
+                          setValues({
                             ...user,
                             [e.target.name]: e.target.value,
                           })
@@ -125,7 +132,7 @@ const Profile = () => {
                         name="password"
                         id="password"
                         onChange={(e) =>
-                          setUser({
+                          setValues({
                             ...user,
                             [e.target.name]: e.target.value,
                           })
