@@ -126,7 +126,6 @@ const ShowAdmin = () => {
                       <input
                         type="password"
                         className="form-control mt-3 enField"
-                        value={values?.password}
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
@@ -145,7 +144,6 @@ const ShowAdmin = () => {
                       <input
                         type="password"
                         className="form-control mt-3 enField"
-                        value={values?.password}
                         placeholder="تکرار کلمه عبور"
                         name="confirmPassword"
                         id="confirmPassword"

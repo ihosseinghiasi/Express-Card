@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import "../../../css/admin/admin.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
-import Paging from "../../../components/layout/paging/paging";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);
@@ -17,13 +16,17 @@ const AllAdmins = () => {
   };
 
   const getAllAdmins = () => {
-    axios.get("http://localhost:4000/adminPanel/admin/getAllAdmins").then((res) => {
-      setAdmins(res.data);
-    });
+    axios
+      .get("http://localhost:4000/adminPanel/admin/getAllAdmins")
+      .then((res) => {
+        setAdmins(res.data);
+      });
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(`http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`);
+    await axios.delete(
+      `http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`
+    );
   };
 
   useEffect(() => {
@@ -44,7 +47,6 @@ const AllAdmins = () => {
                 {persianDate}
               </div>
             </div>
-            <Paging />
 
             <div className="addAdmin col-11 my-5 mx-5">
               <div className="addtitle my-3 mx-2 col-8 faField">
