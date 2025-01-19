@@ -4,6 +4,7 @@ import UserService from "../../services/adminPanel/user.service";
 import ITicket from "../../interface/ticket.interface";
 import { LocalStorage } from "node-localstorage";
 global.localStorage = new LocalStorage("./scratch");
+const persianDate = require("../../date/persianDate");
 export default class TicketController {
   private readonly ticketService: TicketService;
   private readonly userService: UserService;
@@ -37,7 +38,7 @@ export default class TicketController {
           ticket1: {
             sender: data.sender,
             text: newTicket,
-            date: "27 mehr",
+            date: persianDate,
           },
         };
         const ticket = await this.ticketService.create(data);
@@ -64,8 +65,12 @@ export default class TicketController {
   async getTicket(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const ticket = this.ticketService.findById(id);
-      res.status(200).json(ticket);
+      const ticket: ITicket | null = await this.ticketService.findById(id);
+      if (ticket) {
+        ticket.newTargetTicketsNumber = 0;
+        this.ticketService.update(id, ticket);
+      }
+      res.status(200).json([ticket]);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -98,7 +103,7 @@ export default class TicketController {
           {
             sender: "کاربر",
             text: answerTicket[0],
-            date: "11 aban",
+            date: persianDate,
           },
         ])
       );
@@ -117,6 +122,34 @@ export default class TicketController {
       const id: string = req.params.id;
       const ticket = await this.ticketService.delete(id);
       res.status(200).json(ticket);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+  async ticketReport(req: Request, res: Response) {
+    try {
+      const userId = localStorage.getItem("authenticatedId");
+      const allTickets = await this.ticketService.findAll();
+      let tickets = allTickets?.filter((ticket) => {
+        return ticket.senderId === userId;
+      });
+      console.log(tickets);
+      let userTicketsNumber: number = 0;
+      let userNewTicketsNumber: number = 0;
+      let targetTicketsNumber: number = 0;
+      let targetNewTicketsNumber: number = 0;
+      tickets?.forEach((ticket) => {
+        userTicketsNumber += ticket.userTicketsNumber;
+        userNewTicketsNumber += ticket.newUserTicketsNumber;
+        targetTicketsNumber += ticket.targetTicketsNumber;
+        targetNewTicketsNumber += ticket.newTargetTicketsNumber;
+      });
+      res.json({
+        userTicketsNumber,
+        userNewTicketsNumber,
+        targetTicketsNumber,
+        targetNewTicketsNumber,
+      });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

@@ -1,7 +1,22 @@
 import "../../../css/admin/general.css";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
-const AdminNavbarComponent = () => {
+const UserNavbarComponent = () => {
+  const [adminNewTicketNumber, setAdminNewTicketNumber] = useState(0);
+
+  const getTicketReport = async () => {
+    await axios
+      .get(`http://localhost:4000/userPanel/ticket/ticketReport`)
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
+  useEffect(() => {
+    getTicketReport();
+  }, []);
   return (
     <>
       <div className="container-fluid bg-light navbarPanel">
@@ -24,7 +39,7 @@ const AdminNavbarComponent = () => {
               alt="mail"
             />
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info my-3 text-light">
-              17
+              {adminNewTicketNumber}
               <span className="visually-hidden">unread messages</span>
             </span>
           </Link>
@@ -48,4 +63,4 @@ const AdminNavbarComponent = () => {
   );
 };
 
-export default AdminNavbarComponent;
+export default UserNavbarComponent;
