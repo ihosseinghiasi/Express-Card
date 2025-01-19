@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import TicketService from "../../services/adminPanel/ticket.service";
 import ITicket from "../../interface/ticket.interface";
-
+const persianDate = require("../../date/persianDate");
 export default class TicketController {
   private readonly ticketService: TicketService;
 
@@ -30,7 +30,7 @@ export default class TicketController {
         ticket1: {
           sender: "",
           text: newTicket,
-          date: "27 mehr",
+          date: persianDate,
         },
       };
       const ticket = await this.ticketService.create(data);
@@ -43,7 +43,7 @@ export default class TicketController {
   async getAllTickets(req: Request, res: Response) {
     try {
       const tickets = await this.ticketService.findAll();
-      res.status(200).json({ tickets: tickets, pd: "persianDate" });
+      res.status(200).json({ tickets });
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -52,7 +52,11 @@ export default class TicketController {
   async getTicket(req: Request, res: Response) {
     try {
       const id = req.params.id;
-      const ticket = await this.ticketService.findById(id);
+      const ticket: ITicket | null = await this.ticketService.findById(id);
+      if (ticket) {
+        ticket.newUserTicketsNumber = 0;
+        this.ticketService.update(id, ticket);
+      }
       res.status(200).json([ticket]);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -86,7 +90,7 @@ export default class TicketController {
           {
             sender: "مدیریت",
             text: answerTicket[0],
-            date: "11 aban",
+            date: persianDate,
           },
         ])
       );
