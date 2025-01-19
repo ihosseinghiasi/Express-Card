@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import ICategory from "../interface/category.interface";
+
 const categorySchema = new mongoose.Schema({
   categoryName: { type: String },
   title: { type: String },
