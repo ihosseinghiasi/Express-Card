@@ -43,7 +43,7 @@ export default class TicketController {
   async getAllTickets(req: Request, res: Response) {
     try {
       const tickets = await this.ticketService.findAll();
-      res.status(200).json({tickets: tickets, pd: "persianDate"});
+      res.status(200).json({ tickets: tickets, pd: "persianDate" });
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -105,6 +105,29 @@ export default class TicketController {
       const id: string = req.params.id;
       const ticket = await this.ticketService.delete(id);
       res.status(200).json(ticket);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+  async ticketReport(req: Request, res: Response) {
+    try {
+      const tickets = await this.ticketService.findAll();
+      let userTicketsNumber: number = 0;
+      let userNewTicketsNumber: number = 0;
+      let targetTicketsNumber: number = 0;
+      let targetNewTicketsNumber: number = 0;
+      tickets?.forEach((ticket) => {
+        userTicketsNumber += ticket.userTicketsNumber;
+        userNewTicketsNumber += ticket.newUserTicketsNumber;
+        targetTicketsNumber += ticket.targetTicketsNumber;
+        targetNewTicketsNumber += ticket.newTargetTicketsNumber;
+      });
+      res.json({
+        userTicketsNumber,
+        userNewTicketsNumber,
+        targetTicketsNumber,
+        targetNewTicketsNumber,
+      });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

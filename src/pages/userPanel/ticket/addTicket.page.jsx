@@ -10,15 +10,15 @@ const AddTicket = () => {
   const navigate = new useNavigate();
 
   const getPersianDate = async () => {
-    // await axios.get("http://localhost:4000/persianDate").then((res) => {
-    //   setPersianDate(res.data);
-    // });
+    await axios.get("http://localhost:4000/persianDate/getPersianDate").then((res) => {
+      setPersianDate(res.data);
+    });
   };
 
   const addTicket = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:4000/userTickets/createTicket", {
+      .post("http://localhost:4000/userPanel/ticket/createTicket", {
         ticket,
       })
       .then((res) => {

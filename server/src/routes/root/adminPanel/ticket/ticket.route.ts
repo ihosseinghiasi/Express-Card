@@ -28,6 +28,10 @@ class TicketRoute {
       "/deleteTicket/:id",
       this.ticketController.deleteTicket.bind(this.ticketController)
     );
+    this.router.get(
+      "/ticketReport",
+      this.ticketController.ticketReport.bind(this.ticketController)
+    );
   }
 }
 
