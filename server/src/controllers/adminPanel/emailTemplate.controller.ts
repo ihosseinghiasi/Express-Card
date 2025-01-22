@@ -22,7 +22,6 @@ export default class EmailTemplate {
   async findAllEmailTemplates(req: Request, res: Response) {
     try {
       const emails = await this.emailTemplateService.findAll();
-      console.log(emails);
       res.status(200).json(emails);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -32,7 +31,7 @@ export default class EmailTemplate {
   async findEmailTemplate(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const email = this.emailTemplateService.findOne(id);
+      const email = await this.emailTemplateService.findOne(id);
       res.status(200).json(email);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -43,7 +42,7 @@ export default class EmailTemplate {
     try {
       const id: string = req.params.id;
       const data: IEmail = req.body.email;
-      const emailUpdated = this.emailTemplateService.update(id, data);
+      const emailUpdated = await this.emailTemplateService.update(id, data);
       res.status(200).json(emailUpdated);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -53,7 +52,7 @@ export default class EmailTemplate {
   async deleteEmailTemplate(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const email = this.emailTemplateService.delete(id);
+      const email = await this.emailTemplateService.delete(id);
       res.status(200).json(email);
     } catch (error: unknown) {
       throw new Error(error as string);

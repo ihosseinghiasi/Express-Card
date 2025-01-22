@@ -25,6 +25,13 @@ class EmailRoute {
         this.emailTemplateController
       )
     );
+
+    this.router.get(
+      "/getEmailTemplate/:id",
+      this.emailTemplateController.findEmailTemplate.bind(
+        this.emailTemplateController
+      )
+    );
   }
 }
 
