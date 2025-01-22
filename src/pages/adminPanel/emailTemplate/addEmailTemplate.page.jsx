@@ -17,6 +17,16 @@ const AddEmailTemplate = () => {
     getPersianDate();
   }, []);
 
+  const AddEmail = async () => {
+    await axios
+      .post("http://localhost:4000/adminPanel/email/createEmailTemplate", {
+        email,
+      })
+      .then((res) => {
+        console.log(res);
+      });
+  };
+
   return (
     <>
       <div class="container-fluid">
@@ -33,12 +43,15 @@ const AddEmailTemplate = () => {
 
             <div class="addAdmin col-11 my-5 mx-5">
               <div class="addtitle my-3 mx-2 col-8">
-                <img src="/icons/plus-square-black.svg" alt="افزودن ایمیل  " />
+                <img
+                  src="/uploads/icons/plus-square-black.svg"
+                  alt="افزودن ایمیل  "
+                />
                 افزودن ایمیل
               </div>
 
               <div class="addBody col-8 mx-5">
-                <form action="/admin-cPanel/email/newEmail" method="post">
+                <form onSubmit={(e) => AddEmail(e)}>
                   <div class="row">
                     <div class="row mx-1 titleWidth">
                       <input

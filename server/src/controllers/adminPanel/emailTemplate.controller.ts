@@ -12,8 +12,9 @@ export default class EmailTemplate {
   async createEmailTemplate(req: Request, res: Response) {
     try {
       const data: IEmail = req.body.email;
-      const email = await this.emailTemplateService.create(data);
-      res.status(200).json(email);
+      console.log(data);
+      // const email = await this.emailTemplateService.create(data);
+      // res.status(200).json(email);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
