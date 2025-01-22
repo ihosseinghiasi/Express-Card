@@ -24,6 +24,7 @@ import ShowCard from "./pages/adminPanel/card/showCard.page";
 import AdminAddTicket from "./pages/adminPanel/ticket/addTicket.page";
 import AdminAllTickets from "./pages/adminPanel/ticket/allTickets.page";
 import AdminShowTicket from "./pages/adminPanel/ticket/showTicket.page";
+import AdminAddEmailTemplate from "pages/adminPanel/emailTemplate/addEmailTemplate.page";
 import Payment from "./pages/main/payment.page";
 import Category from "./pages/main/category.page";
 import UserCounter from "./pages/userPanel/counter.page";
@@ -214,6 +215,15 @@ const App = () => {
             element={
               <AdminPanelLayoutComponent>
                 <AdminShowTicket />
+              </AdminPanelLayoutComponent>
+            }
+          />
+
+          <Route
+            path="/admin/newEmailTemplate"
+            element={
+              <AdminPanelLayoutComponent>
+                <AdminAddEmailTemplate />
               </AdminPanelLayoutComponent>
             }
           />

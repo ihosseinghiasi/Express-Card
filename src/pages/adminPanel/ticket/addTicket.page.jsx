@@ -27,20 +27,20 @@ const AddTicket = () => {
   };
   return (
     <>
-      <div class="container-fluid">
-        <div class="row ">
-          <div class="col-12">
-            <div class="col-11 mx-5 counter">
-              <div class="titleCounter">
+      <div className="container-fluid">
+        <div className="row ">
+          <div className="col-12">
+            <div className="col-11 mx-5 counter">
+              <div className="titleCounter">
                 <p>پیشخوان / تیکت ها / افزودن تیکت</p>
               </div>
-              <div class="d-flex justify-content-start parsianDate">
+              <div className="d-flex justify-content-start parsianDate">
                 {persianDate}
               </div>
             </div>
 
-            <div class="addAdmin col-11 my-5 mx-5">
-              <div class="addtitle my-3 mx-2 col-8">
+            <div className="addAdmin col-11 my-5 mx-5">
+              <div className="addtitle my-3 mx-2 col-8">
                 <img
                   src="/uploads/icons/plus-square-black.svg"
                   alt=" افزودن تیکت "
@@ -48,10 +48,10 @@ const AddTicket = () => {
                 افزودن تیکت
               </div>
 
-              <div class="addBody col-8 mx-5">
+              <div className="addBody col-8 mx-5">
                 <form onSubmit={(e) => addTicket(e)}>
-                  <div class="row">
-                    <div class="col-6">
+                  <div className="row">
+                    <div className="col-6">
                       <input
                         type="text"
                         name="subject"
