@@ -32,6 +32,13 @@ class EmailRoute {
         this.emailTemplateController
       )
     );
+
+    this.router.put(
+      "/updateEmailTemplate/:id",
+      this.emailTemplateController.updateEmailTemplate.bind(
+        this.emailTemplateController
+      )
+    );
   }
 }
 

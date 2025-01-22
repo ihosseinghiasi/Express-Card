@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const ShowEmailTemplate = () => {
   const [email, setEmail] = useState();
   const [persianDate, setPersianDate] = useState("");
   const params = useParams();
+  const navigate = useNavigate();
 
   const getPersianDate = async () => {
     await axios
@@ -21,7 +22,6 @@ const ShowEmailTemplate = () => {
         `http://localhost:4000/adminPanel/email/getEmailTemplate/${params.id}`
       )
       .then((res) => {
-        console.log(res.data)
         setEmail(res.data);
       });
   };
@@ -32,6 +32,18 @@ const ShowEmailTemplate = () => {
       getEmailTemplate();
     }
   }, []);
+
+  const updateEmailTemplate = async (e) => {
+    e.preventDefault();
+    await axios
+      .put(
+        `http://localhost:4000/adminPanel/email/updateEmailTemplate/${params.id}`,
+        { email }
+      )
+      .then((res) => {
+        navigate("/admin/allEmailTemplates");
+      });
+  };
 
   return (
     <>
@@ -57,7 +69,7 @@ const ShowEmailTemplate = () => {
               </div>
 
               <div class="addBody col-8 mx-5">
-                <form>
+                <form onSubmit={(e) => updateEmailTemplate(e)}>
                   <div class="row">
                     <div class="row mx-1 titleWidth">
                       <input
