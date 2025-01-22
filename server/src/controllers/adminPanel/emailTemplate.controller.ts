@@ -21,7 +21,8 @@ export default class EmailTemplate {
 
   async findAllEmailTemplates(req: Request, res: Response) {
     try {
-      const emails = this.emailTemplateService.findAll();
+      const emails = await this.emailTemplateService.findAll();
+      console.log(emails);
       res.status(200).json(emails);
     } catch (error: unknown) {
       throw new Error(error as string);
