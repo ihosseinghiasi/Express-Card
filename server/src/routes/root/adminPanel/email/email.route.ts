@@ -39,6 +39,13 @@ class EmailRoute {
         this.emailTemplateController
       )
     );
+
+    this.router.delete(
+      "/deleteEmailTemplate/:id",
+      this.emailTemplateController.deleteEmailTemplate.bind(
+        this.emailTemplateController
+      )
+    );
   }
 }
 

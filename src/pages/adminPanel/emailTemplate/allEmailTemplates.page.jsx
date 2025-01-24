@@ -30,7 +30,7 @@ const AllEmailTemplates = () => {
 
   async function handleDelete(id) {
     await axios.delete(
-      `http://localhost:4000/adminPanel/ticket/deleteTicket/${id}`
+      `http://localhost:4000/adminPanel/email/deleteEmailtemplate/${id}`
     );
   }
 
