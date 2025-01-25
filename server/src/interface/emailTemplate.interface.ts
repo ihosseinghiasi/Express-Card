@@ -1,4 +1,4 @@
 export default interface IEmailTemplate {
-  title: String;
-  description: String;
+  title: string;
+  description: string;
 }

@@ -7,6 +7,7 @@ import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
 import { createToken } from "../../middlewares/createToken";
 import { LocalStorage } from "node-localstorage";
+import emailSender from "../../config/email";
 global.localStorage = new LocalStorage("./scratch");
 const { Smsir } = require("smsir-js");
 export default class UserAuthentication {
@@ -55,6 +56,12 @@ export default class UserAuthentication {
           }
         }
       }
+      emailSender(
+        "hossein ghiasi",
+        "hossein.ghiasi.info@gmail.com",
+        { title: "subject", description: "hgjgjgjgjgjgjgjg" },
+        []
+      );
     } catch (error: unknown) {
       throw new Error(error as string);
     }

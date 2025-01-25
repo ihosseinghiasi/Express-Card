@@ -1,26 +1,27 @@
 import nodemailer from "nodemailer";
+import IEmailTemplate from "../interface/emailTemplate.interface";
 
 const emailSender = function (
   userName: string,
   userEmail: string,
-  emailTemplate: string,
-  fields = []
+  emailTemplate: IEmailTemplate,
+  fields: string[]
 ) {
-  let fieldsDetail: string = "";
-  if (fields) {
-    Object.values(fields).forEach((field) => {
-      fieldsDetail += field.fieldName + " : " + field.fieldValue + "<br>";
-    });
-  }
+  // let fieldsDetail: string = "";
+  // if (fields) {
+  //   Object.values(fields).forEach((field) => {
+  //     fieldsDetail += field.fieldName + " : " + field.fieldValue + "<br>";
+  //   });
+  // }
 
-  const emailSubject = emailTemplate.title
-    .replaceAll("%%site_title%%", " اکسپرس کارت ")
-    .replaceAll("%%user_name%%", userName)
-    .replaceAll("%%sell_fields%%", fieldsDetail);
+  const emailSubject: string = emailTemplate.title
+    .replace("%%site_title%%", " اکسپرس کارت ")
+    .replace("%%user_name%%", userName);
+  // .replace("%%sell_fields%%", fieldsDetail);
   const emailDescription = emailTemplate.description
-    .replaceAll("%%user_name%%", userName)
-    .replaceAll("%%site_title%%", " اکسپرس کارت ")
-    .replaceAll("%%sell_fields%%", fieldsDetail);
+    .replace("%%user_name%%", userName)
+    .replace("%%site_title%%", " اکسپرس کارت ");
+  // .replace("%%sell_fields%%", fieldsDetail);
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -48,3 +49,5 @@ const emailSender = function (
 
   main().catch(console.error);
 };
+
+export default emailSender;
