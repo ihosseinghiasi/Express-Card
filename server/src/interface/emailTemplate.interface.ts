@@ -1,4 +1,4 @@
-export default interface IEmail {
+export default interface IEmailTemplate {
   title: String;
   description: String;
 }

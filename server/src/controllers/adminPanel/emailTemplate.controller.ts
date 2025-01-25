@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import EmailTemplateService from "../../services/adminPanel/EmailTemplate.service";
-import IEmail from "../../interface/emailTemplate.interface";
+import IEmailTemplate from "../../interface/emailTemplate.interface";
 
 export default class EmailTemplate {
   private readonly emailTemplateService: EmailTemplateService;
@@ -11,7 +11,7 @@ export default class EmailTemplate {
 
   async createEmailTemplate(req: Request, res: Response) {
     try {
-      const data: IEmail = req.body.email;
+      const data: IEmailTemplate = req.body.email;
       const email = await this.emailTemplateService.create(data);
       res.status(200).json(email);
     } catch (error: unknown) {
@@ -41,7 +41,7 @@ export default class EmailTemplate {
   async updateEmailTemplate(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const data: IEmail = req.body.email;
+      const data: IEmailTemplate = req.body.email;
       const emailUpdated = await this.emailTemplateService.update(id, data);
       res.status(200).json(emailUpdated);
     } catch (error: unknown) {

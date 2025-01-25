@@ -1,5 +1,5 @@
 import EmailTemplateRepository from "../../repository/emailTamplate.repository";
-import IEmail from "../../interface/emailTemplate.interface";
+import IEmailTemplate from "../../interface/emailTemplate.interface";
 
 export default class EmailTemplateService {
   private readonly emailTemplateRepository: EmailTemplateRepository;
@@ -8,23 +8,26 @@ export default class EmailTemplateService {
     this.emailTemplateRepository = new EmailTemplateRepository();
   }
 
-  async create(data: IEmail): Promise<IEmail> {
+  async create(data: IEmailTemplate): Promise<IEmailTemplate> {
     return this.emailTemplateRepository.create(data);
   }
 
-  async findAll(): Promise<IEmail[] | null> {
+  async findAll(): Promise<IEmailTemplate[] | null> {
     return this.emailTemplateRepository.findAll();
   }
 
-  async findOne(id: string): Promise<IEmail | null> {
+  async findOne(id: string): Promise<IEmailTemplate | null> {
     return this.emailTemplateRepository.findById(id);
   }
 
-  async update(id: string, data: IEmail): Promise<IEmail | null> {
+  async update(
+    id: string,
+    data: IEmailTemplate
+  ): Promise<IEmailTemplate | null> {
     return this.emailTemplateRepository.update(id, data);
   }
 
-  async delete(id: string): Promise<IEmail | null> {
+  async delete(id: string): Promise<IEmailTemplate | null> {
     return this.emailTemplateRepository.delete(id);
   }
 }

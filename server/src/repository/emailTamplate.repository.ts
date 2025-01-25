@@ -1,8 +1,8 @@
 import Email from "../models/emailTemplate";
-import IEmail from "../interface/emailTemplate.interface";
+import IEmailTemplate from "../interface/emailTemplate.interface";
 import GenericRepository from "./generic.repository";
 
-export default class EmailTemplateRepository extends GenericRepository<IEmail> {
+export default class EmailTemplateRepository extends GenericRepository<IEmailTemplate> {
   constructor() {
     super(Email)
   }
