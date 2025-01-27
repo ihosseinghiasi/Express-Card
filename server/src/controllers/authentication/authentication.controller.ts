@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-// import Cookies from "js-cookie";
 import IUser from "../../interface/user.interface";
-// import IAdmin from "../../interface/admin.interface";
+import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
+import EmailTemplateService from "../../services/adminPanel/EmailTemplate.service";
 import { createToken } from "../../middlewares/createToken";
 import { LocalStorage } from "node-localstorage";
 import emailSender from "../../config/email";
@@ -15,10 +15,12 @@ export default class UserAuthentication {
   private _verifySmsCode!: string;
   private readonly userService: UserService;
   private readonly adminService: AdminService;
+  private readonly emailTemplate: EmailTemplateService;
 
   constructor() {
     this.userService = new UserService();
     this.adminService = new AdminService();
+    this.emailTemplate = new EmailTemplateService();
   }
 
   async register(req: Request, res: Response) {
@@ -28,6 +30,13 @@ export default class UserAuthentication {
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
       const user = await this.userService.create(data);
+      const fullName = `${user.firstName} ${user.lastName}`;
+      const emailTemplate = await this.emailTemplate.findOne(
+        "679136dd9b82810ff9e5294c"
+      );
+      if (emailTemplate) {
+        emailSender(fullName, user.email, emailTemplate, []);
+      }
       res.status(201).json(user);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -37,7 +46,7 @@ export default class UserAuthentication {
   async login(req: Request, res: Response) {
     try {
       const { email, password } = req.body.data;
-      const user = await this.userService.login(email);
+      const user: IUser | null = await this.userService.login(email);
       if (user) {
         const authentication = await bcrypt.compare(password, user.password);
         if (authentication) {
@@ -46,7 +55,7 @@ export default class UserAuthentication {
           res.status(201).json({ person: user, token });
         }
       } else {
-        const admin = await this.adminService.login(email);
+        const admin: IAdmin | null = await this.adminService.login(email);
         if (admin) {
           const authentication = await bcrypt.compare(password, admin.password);
           if (authentication) {
@@ -56,12 +65,6 @@ export default class UserAuthentication {
           }
         }
       }
-      emailSender(
-        "hossein ghiasi",
-        "hossein.ghiasi.info@gmail.com",
-        { title: "subject", description: "hgjgjgjgjgjgjgjg" },
-        []
-      );
     } catch (error: unknown) {
       throw new Error(error as string);
     }
