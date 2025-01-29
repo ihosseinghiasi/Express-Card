@@ -8,7 +8,7 @@ const CategoryItem = ({ image, namak, title, id }) => {
         <Link to={`/${namak}/${id}`}>
           <div className="categoryItem">
             <img
-              src={require(`../../images/category/${image}`)}
+              src={require(`../../upload/images/${image}`)}
               alt="categoryImage"
             />
             <p className="enField"> {title} </p>

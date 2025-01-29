@@ -1,24 +1,48 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
-// import { getCategoryAndCategoryProductsService } from "../../services/category.services";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/categoryPage.css";
+import axios from "axios";
 
 const Category = () => {
   const params = useParams();
   const [category, setCategory] = useState();
-  const [categoryProducts, setCategoryProducts] = useState();
+  const [productsOfCategories, setProductOfCategories] = useState();
   const [cookies] = useCookies([]);
   const [navStatus, setNavStatus] = useState();
 
-  useEffect(() => {
-    // const { category } = getCategoryAndCategoryProductsService(params);
-    // setCategory(category);
-  }, []);
+  const getCategory = async () => {
+    await axios
+      .get(`http://localhost:4000/adminPanel/category/getCategory/${params.id}`)
+      .then((res) => {
+        setCategory(res.data);
+      });
+  };
 
   useEffect(() => {
-    console.log("category : ", category);
+    getCategory();
+  }, []);
+
+  const getProductsOfCategories = async () => {
+    const productsOfCategories = [];
+    await axios
+      .get(`http://localhost:4000/adminPanel/product/getAllProducts`)
+      .then((res) => {
+        Object.values(res.data).forEach((product) => {
+          console.log("category.title", category?.title);
+          console.log("categoryTitle", product.categoryTitle);
+          console.log(product?.categoryTitle === category?.title);
+          if (product?.categoryTitle === category?.title) {
+            productsOfCategories.push(product);
+          }
+        });
+        setProductOfCategories(productsOfCategories);
+      });
+  };
+
+  useEffect(() => {
+    getProductsOfCategories()
   }, [category]);
 
   return (
@@ -39,7 +63,7 @@ const Category = () => {
         </div>
 
         <div className="productFrame">
-          {categoryProducts?.map((product) => (
+          {productsOfCategories?.map((product) => (
             <>
               <Link to={`/payment/${product._id}`}>
                 <div
@@ -47,7 +71,7 @@ const Category = () => {
                   style={{ pointerEvents: product.count === 0 && "none" }}
                 >
                   <img
-                    src={require(`../../images/category/${product.image}`)}
+                    src={require(`../../upload/images/${product.image}`)}
                     alt="productImage"
                   />
                   <p>{product.title}</p>

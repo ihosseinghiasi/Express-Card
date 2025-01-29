@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryItem from "../../components/home/categoryItem.component";
-import Cookies from "js-cookie";
-import { getCategoriesServices } from "../../services/category.services";
+// import { getCategoriesServices } from "../../services/category.services";
+import axios from "axios";
 import "../../css/shop/mainPage.css";
 
 import { HomeWrapper } from "./home.styles";
@@ -11,13 +11,17 @@ const HomePage = () => {
   const [categories, setCategories] = useState();
   const navigate = useNavigate();
 
-  const getCategories = () => {
-    // getCategoriesServices().then((res) => {
-    //   console.log("res :>> ", res);
-    // });
+  const getCategories = async () => {
+    await axios(
+      "http://localhost:4000/adminPanel/category/getAllCategories"
+    ).then((res) => {
+      setCategories(res.data)
+    });
   };
 
-
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   return (
     <HomeWrapper>
@@ -56,7 +60,7 @@ const HomePage = () => {
           </div>
         </div>
         <div className="pCategories">
-          <p  >انتخاب دسته بندی</p>
+          <p>انتخاب دسته بندی</p>
         </div>
       </div>
       {categories?.map((category) => (
