@@ -3,6 +3,7 @@ import Footer from "../../components/layout/footer/footer.component";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Payment = () => {
   const params = useParams();
@@ -11,6 +12,17 @@ const Payment = () => {
   const [price, setPrice] = useState();
   const [count, setCount] = useState(1);
   const [tax, setTax] = useState();
+  const getProduct = async () => {
+    await axios
+      .get(`http://localhost:4000/adminPanel/product/getProduct/${params.id}`)
+      .then((res) => {
+        setProduct(res.data);
+      });
+  };
+
+  useEffect(() => {
+    getProduct();
+  }, []);
 
   const createArrayOfNumbers = () => {
     setArrayNumbers([]);

@@ -30,8 +30,6 @@ const Category = () => {
       .get(`http://localhost:4000/adminPanel/product/getAllProducts`)
       .then((res) => {
         Object.values(res.data).forEach((product) => {
-          console.log("category.title", category?.title);
-          console.log("categoryTitle", product.categoryTitle);
           console.log(product?.categoryTitle === category?.title);
           if (product?.categoryTitle === category?.title) {
             productsOfCategories.push(product);
@@ -42,7 +40,7 @@ const Category = () => {
   };
 
   useEffect(() => {
-    getProductsOfCategories()
+    getProductsOfCategories();
   }, [category]);
 
   return (
@@ -75,7 +73,7 @@ const Category = () => {
                     alt="productImage"
                   />
                   <p>{product.title}</p>
-                  <p className="price">
+                  <p className="price mb-4">
                     <img src="/uploads/icons/dollar-sign.svg" alt="price" />
                     قیمت : {product.price} تومان{" "}
                   </p>
