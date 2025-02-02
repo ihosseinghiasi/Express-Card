@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryItem from "../../components/home/categoryItem.component";
-// import { getCategoriesServices } from "../../services/category.services";
+import { getProductServices } from "services/product.services";
 import axios from "axios";
 import "../../css/shop/mainPage.css";
 
@@ -10,18 +10,28 @@ import { HomeWrapper } from "./home.styles";
 const HomePage = () => {
   const [categories, setCategories] = useState();
   const navigate = useNavigate();
+  const [aaaa, setaaaa] = useState();
 
   const getCategories = async () => {
     await axios(
       "http://localhost:4000/adminPanel/category/getAllCategories"
     ).then((res) => {
-      setCategories(res.data)
+      setCategories(res.data);
     });
   };
 
+  const abc = async () => {
+    setaaaa(await getProductServices());
+  };
+
   useEffect(() => {
+    abc();
     getCategories();
   }, []);
+
+  useEffect(() => {
+    console.log(aaaa);
+  }, [aaaa]);
 
   return (
     <HomeWrapper>
