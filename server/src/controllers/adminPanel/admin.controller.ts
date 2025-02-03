@@ -12,11 +12,11 @@ export default class AdminController {
 
   async createAdmin(req: Request, res: Response) {
     try {
-      // const data: IAdmin = req.body.admin;
-      // const salt = await bcrypt.genSalt();
-      // data.password = await bcrypt.hash(data.password, salt);
-      // const admin = await this.AdminService.create(data);
-      // res.status(201).json(admin);
+      const data: IAdmin = req.body.admin;
+      const salt = await bcrypt.genSalt();
+      data.password = await bcrypt.hash(data.password, salt);
+      const admin = await this.AdminService.create(data);
+      res.status(201).json(admin);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

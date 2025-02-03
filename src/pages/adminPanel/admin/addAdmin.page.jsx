@@ -26,11 +26,11 @@ const AddAdmin = () => {
   });
 
   const getPersianDate = async () => {
-    // await addAdmin().then((res) => {
-    //   if (res) {
-    //     navigate("/admin/allAdmins");
-    //   }
-    // });
+    await addAdmin().then((res) => {
+      if (res.data) {
+        navigate("/admin/allAdmins");
+      }
+    });
   };
 
   useEffect(() => {

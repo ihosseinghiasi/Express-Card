@@ -1,10 +1,10 @@
 import axios from "axios";
 
-// export const addAdmin = async (admin) => {
-//   return axios.post(`http://localhost:4000/adminPanel/admin/createAdmin`, {
-//     admin,
-//   });
-// };
+export const addAdmin = async (admin) => {
+  return axios.post(`http://localhost:4000/adminPanel/admin/createAdmin`, {
+    admin,
+  });
+};
 
 export const getAdmins = async () => {
   return await axios
