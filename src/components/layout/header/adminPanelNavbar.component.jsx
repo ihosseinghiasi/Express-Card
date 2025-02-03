@@ -10,7 +10,6 @@ const AdminNavbarComponent = () => {
     await axios
       .get(`http://localhost:4000/adminPanel/ticket/ticketReport`)
       .then((res) => {
-        console.log(res.data);
         setUserNewTicketsNumber(res.data.userNewTicketsNumber);
       });
   };

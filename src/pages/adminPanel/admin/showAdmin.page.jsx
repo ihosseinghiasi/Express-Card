@@ -3,7 +3,7 @@ import axios from "axios";
 import "../../../css/admin/admin.css";
 import { useParams, useNavigate } from "react-router-dom";
 // import { getPersianDateService } from "../../../services/date.services";
-// import { adminServices } from "../../../services/admin.services";
+import { adminServices } from "../../../services/admin.services";
 
 const ShowAdmin = () => {
   const [persianDate, setPersianDate] = useState("");

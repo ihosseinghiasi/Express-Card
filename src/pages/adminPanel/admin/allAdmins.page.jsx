@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../../../css/admin/admin.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
+import { getAdmins } from "services/admin.services";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);
@@ -15,12 +16,10 @@ const AllAdmins = () => {
       });
   };
 
-  const getAllAdmins = () => {
-    axios
-      .get("http://localhost:4000/adminPanel/admin/getAllAdmins")
-      .then((res) => {
-        setAdmins(res.data);
-      });
+  const getAllAdmins = async () => {
+    await getAdmins().then((data) => {
+      setAdmins(data)
+    });
   };
 
   const handleDelete = async (id) => {

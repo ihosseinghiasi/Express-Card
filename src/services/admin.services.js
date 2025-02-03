@@ -1,19 +1,18 @@
-const axios = require("axios");
+import axios from "axios";
 
-const adminServices = (params) => {
-  const myAdmin = {};
-  return {
-    params: params,
-    async getAdmin() {
-      await axios
-        .get(`http://localhost:4000/adminPanel/admin/showAdmin/${params.id}`)
-        .then((res) => {
-          res.send(res?.data?.admin)
-        });
-      return myAdmin;
-    },
-  };
+// export const addAdmin = async (admin) => {
+//   return axios.post(`http://localhost:4000/adminPanel/admin/createAdmin`, {
+//     admin,
+//   });
+// };
+
+export const getAdmins = async () => {
+  return await axios
+    .get("http://localhost:4000/adminPanel/admin/getAlladmins", {
+      withCredentials: true,
+      responseType: "json",
+    })
+    .then((res) => {
+      return res.data;
+    });
 };
-
-const admin = adminServices({ id: "66d0e731823475557dd710f6" });
-admin.getAdmin()

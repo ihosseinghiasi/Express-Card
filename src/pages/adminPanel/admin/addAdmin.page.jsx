@@ -2,12 +2,13 @@ import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { addAdmin } from "services/admin.services";
 import axios from "axios";
 
 const AddAdmin = () => {
   const [persianDate, setPersianDate] = useState("");
   const navigate = useNavigate();
-  const [values, setValues] = useState({
+  const [admin, setAdmin] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -25,11 +26,11 @@ const AddAdmin = () => {
   });
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    // await addAdmin().then((res) => {
+    //   if (res) {
+    //     navigate("/admin/allAdmins");
+    //   }
+    // });
   };
 
   useEffect(() => {
@@ -40,7 +41,7 @@ const AddAdmin = () => {
     e.preventDefault();
     await axios
       .post("http://localhost:4000/adminPanel/admin/createAdmin", {
-        values,
+        admin,
       })
       .then((res) => {
         if (res.data) {
@@ -82,8 +83,8 @@ const AddAdmin = () => {
                         placeholder="نام"
                         name="firstName"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -94,8 +95,8 @@ const AddAdmin = () => {
                         placeholder="نام خانوادگی"
                         name="lastName"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -106,8 +107,8 @@ const AddAdmin = () => {
                         placeholder="ایمیل"
                         name="email"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -116,8 +117,8 @@ const AddAdmin = () => {
                         className="form-select mt-3 faField"
                         name="department"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -132,8 +133,8 @@ const AddAdmin = () => {
                         name="password"
                         id="password"
                         onChange={(e) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -167,8 +168,8 @@ const AddAdmin = () => {
                           id="chkAdmin"
                           name="isAdmin"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -187,8 +188,8 @@ const AddAdmin = () => {
                           id="chkProduct"
                           name="isProduct"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -207,8 +208,8 @@ const AddAdmin = () => {
                           id="chkCard"
                           name="isCard"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -227,8 +228,8 @@ const AddAdmin = () => {
                           id="chkEmail"
                           name="isEmail"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -247,8 +248,8 @@ const AddAdmin = () => {
                           id="chkReport"
                           name="isReport"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -267,8 +268,8 @@ const AddAdmin = () => {
                           id="chkTicket"
                           name="isTicket"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -287,8 +288,8 @@ const AddAdmin = () => {
                           id="chkCategory"
                           name="isCategory"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -307,8 +308,8 @@ const AddAdmin = () => {
                           id="chkUser"
                           name="isUser"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
@@ -327,8 +328,8 @@ const AddAdmin = () => {
                           id="chkPayment"
                           name="isPayment"
                           onChange={(e) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [e.target.name]: e.target.checked,
                             })
                           }
