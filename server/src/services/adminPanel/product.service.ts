@@ -27,11 +27,4 @@ export default class ProductService {
   async delete(id: string): Promise<IProduct | null> {
     return this.productRepository.delete(id);
   }
-
-  async updateByName(
-    productName: string,
-    data: IProduct
-  ): Promise<IProduct | null> {
-    return this.productRepository.UpdateByName(productName, data);
-  }
 }

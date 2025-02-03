@@ -32,8 +32,6 @@ export default class CardController {
         cardFields: fields,
       };
       const card = await this.cardService.create(data);
-      if (card) {
-      }
       res.status(200).json(card);
     } catch (error: unknown) {
       throw new Error(error as string);
