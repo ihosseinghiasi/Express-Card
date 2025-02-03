@@ -21,7 +21,6 @@ export default class ProductController {
         accessible: req.body.accessible,
         image: req.file?.filename || "unimage.png",
         fields: req.body.fields.split(','),
-        count: req.body.count
       }
       const product = await this.productService.create(data)
       res.status(200).json(product)
@@ -63,7 +62,6 @@ export default class ProductController {
       accessible: req.body.accessible,
       image: req.file?.filename || oldProduct?.image || "",
       fields: req.body.fields.split(','),
-      count: req.body.count
       }
       const product = await this.productService.update(id, data)
       res.status(200).json(product)

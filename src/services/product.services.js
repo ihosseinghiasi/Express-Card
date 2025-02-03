@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export const getProductServices = async (params) => {
-  await axios
+export const getProductServices = async () => {
+  return await axios
     .get("http://localhost:4000/adminPanel/product/getAllProducts", {
       withCredentials: true,
+      responseType: "json",
     })
     .then((res) => {
-      console.log(res.data)
-      return res?.data;
+      return res.data;
     });
 };

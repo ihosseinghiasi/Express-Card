@@ -10,7 +10,6 @@ import { HomeWrapper } from "./home.styles";
 const HomePage = () => {
   const [categories, setCategories] = useState();
   const navigate = useNavigate();
-  const [aaaa, setaaaa] = useState();
 
   const getCategories = async () => {
     await axios(
@@ -20,18 +19,16 @@ const HomePage = () => {
     });
   };
 
-  const abc = async () => {
-    setaaaa(await getProductServices());
+  const service = async () => {
+    await getProductServices().then((res) => {
+      console.log(res);
+    });
   };
 
   useEffect(() => {
-    abc();
     getCategories();
+    service();
   }, []);
-
-  useEffect(() => {
-    console.log(aaaa);
-  }, [aaaa]);
 
   return (
     <HomeWrapper>
