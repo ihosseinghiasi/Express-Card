@@ -26,11 +26,11 @@ const AddAdmin = () => {
   });
 
   const getPersianDate = async () => {
-    await addAdmin().then((res) => {
-      if (res.data) {
-        navigate("/admin/allAdmins");
-      }
-    });
+    await axios
+      .get("http://localhost:4000/persianDate/getPersianDate")
+      .then((res) => {
+        setPersianDate(res.data);
+      });
   };
 
   useEffect(() => {
@@ -39,15 +39,11 @@ const AddAdmin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:4000/adminPanel/admin/createAdmin", {
-        admin,
-      })
-      .then((res) => {
-        if (res.data) {
-          navigate("/admin/allAdmins");
-        }
-      });
+    await addAdmin(admin).then((res) => {
+      if (res.data) {
+        navigate("/admin/allAdmins");
+      }
+    });
   };
 
   return (
