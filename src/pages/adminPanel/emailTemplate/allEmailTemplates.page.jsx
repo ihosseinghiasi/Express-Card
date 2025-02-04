@@ -4,7 +4,6 @@ import {
   getEmailTemplates,
   deleteEmailTemplate,
 } from "services/emailTemplate.service";
-import axios from "axios";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
 

@@ -1,30 +1,30 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { addEmailTemplate } from "services/emailTemplate.service";
+import { useNavigate } from "react-router-dom";
 
 const AddEmailTemplate = () => {
   const [email, setEmail] = useState();
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
+  const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
   }, []);
 
-  const AddEmail = async () => {
-    await axios
-      .post("http://localhost:4000/adminPanel/email/createEmailTemplate", {
-        email,
-      })
-      .then((res) => {
-        console.log(res);
-      });
+  const AddEmail = async (e) => {
+    e.preventDefault();
+    await addEmailTemplate(email).then((res) => {
+      if (res.data) {
+        navigate("/admin/allEmailTemplates");
+      }
+    });
   };
 
   return (
@@ -36,9 +36,7 @@ const AddEmailTemplate = () => {
               <div class="titleCounter">
                 <p>پیشخوان / ایمیل ها / افزودن ایمیل</p>
               </div>
-              <div class="d-flex justify-content-start parsianDate">
-                {persianDate}
-              </div>
+              <div class="d-flex justify-content-start parsianDate">{date}</div>
             </div>
 
             <div class="addAdmin col-11 my-5 mx-5">

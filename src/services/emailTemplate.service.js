@@ -1,9 +1,12 @@
 import axios from "axios";
 
-export const addAdmin = async (admin) => {
-  return axios.post(`http://localhost:4000/adminPanel/admin/createAdmin`, {
-    admin,
-  });
+export const addEmailTemplate = async (email) => {
+  return axios.post(
+    `http://localhost:4000/adminPanel/email/createEmailTemplate`,
+    {
+      email,
+    }
+  );
 };
 
 export const getEmailTemplates = async () => {
@@ -14,22 +17,22 @@ export const getEmailTemplates = async () => {
     });
 };
 
-export const getAdmin = async (params) => {
-  return await axios
-    .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
-    .then((res) => {
-      return res;
-    });
-};
+// export const getAdmin = async (params) => {
+//   return await axios
+//     .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
+//     .then((res) => {
+//       return res;
+//     });
+// };
 
-export const updateAdmin = async (params, admin) => {
-  return await axios.put(
-    `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
-    {
-      admin,
-    }
-  );
-};
+// export const updateAdmin = async (params, admin) => {
+//   return await axios.put(
+//     `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
+//     {
+//       admin,
+//     }
+//   );
+// };
 
 export const deleteEmailTemplate = async (id) => {
   return await axios.delete(
