@@ -1,12 +1,9 @@
 import axios from "axios";
 
-export const getProductServices = async () => {
+export const getProducts = async () => {
   return await axios
-    .get("http://localhost:4000/adminPanel/product/getAllProducts", {
-      withCredentials: true,
-      responseType: "json",
-    })
+    .get("http://localhost:4000/adminPanel/product/getAllProducts")
     .then((res) => {
-      return res.data;
+      return res;
     });
 };

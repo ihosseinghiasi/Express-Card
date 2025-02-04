@@ -1,27 +1,24 @@
 import { useEffect, useState } from "react";
-import "../../../css/admin/admin.css";
-import "../../../css/admin/general.css";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { getCards, deleteCard } from "services/card.services";
 import TableRow from "./tableRow.page";
+import "../../../css/admin/general.css";
+import "../../../css/admin/admin.css";
 
 const AllCards = () => {
   const [cards, setCards] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getAllCards = () => {
-    axios
-      .get("http://localhost:4000/adminPanel/card/getAllCards")
-      .then((res) => {
-        setCards(res.data);
-      });
+  const getAllCards = async () => {
+    await getCards().then((res) => {
+      setCards(res.data);
+    });
   };
 
   useEffect(() => {
@@ -30,12 +27,7 @@ const AllCards = () => {
   }, []);
 
   async function handleDelete(id) {
-    await axios
-      .delete(`http://localhost:4000/adminPanel/card/deleteCard/${id}`)
-      .then((res) => {
-        if (res.data) {
-        }
-      });
+    await deleteCard();
   }
 
   return (
@@ -48,7 +40,7 @@ const AllCards = () => {
                 <p>پیشخوان / کارت ها </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 

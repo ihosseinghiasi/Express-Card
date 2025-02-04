@@ -1,23 +1,25 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { persianDate } from "services/persianDate.services";
+import { getCategories } from "services/category.services";
+import { getProducts } from "services/product.services";
+import { addCard } from "services/card.services";
+import axios from "axios";
 
 const AddCard = () => {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
   const [card, setCard] = useState({});
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const [cardProduct, setCardProduct] = useState([]);
   const [fieldNames, setFieldNames] = useState([]);
   const [fieldValues, setFieldValues] = useState([]);
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
@@ -52,29 +54,25 @@ const AddCard = () => {
     setFieldValues(newFields);
   };
 
-  const getCategories = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/category/getAllCategories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
+      setCategories(res.data);
+    });
   };
 
-  const getProducts = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/product/getAllProducts")
-      .then((res) => {
-        setProducts(res.data);
-      });
+  const getAllProducts = async () => {
+    await getProducts().then((res) => {
+      setProducts(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
-    getCategories();
-    getProducts();
+    getAllCategories();
+    getAllProducts();
   }, []);
 
-  const addCard = async (e) => {
+  const addNewCard = async (e) => {
     e.preventDefault();
     const data = {
       card,
@@ -82,11 +80,9 @@ const AddCard = () => {
       fieldValues,
     };
 
-    await axios
-      .post("http://localhost:4000/adminPanel/card/createCard", { data })
-      .then((res) => {
-        navigate("/admin/allCards");
-      });
+    addCard(data).then((res) => {
+      navigate("/admin/allCards");
+    });
   };
   return (
     <>
@@ -98,7 +94,7 @@ const AddCard = () => {
                 <p>پیشخوان / کارت / افزودن کارت </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
@@ -111,7 +107,7 @@ const AddCard = () => {
                 افزودن کارت
               </div>
               <div className="col-8 mx-5 addBody">
-                <form onSubmit={(e) => addCard(e)}>
+                <form onSubmit={(e) => addNewCard(e)}>
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-7">

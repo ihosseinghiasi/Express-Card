@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CategoryItem from "../../components/home/categoryItem.component";
-import { getProductServices } from "services/product.services";
+import { getCategories } from "services/product.services";
 import axios from "axios";
 import "../../css/shop/mainPage.css";
 
@@ -19,15 +19,15 @@ const HomePage = () => {
     });
   };
 
-  const service = async () => {
-    await getProductServices().then((res) => {
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
       console.log(res);
     });
   };
 
   useEffect(() => {
     getCategories();
-    service();
+    getAllCategories();
   }, []);
 
   return (

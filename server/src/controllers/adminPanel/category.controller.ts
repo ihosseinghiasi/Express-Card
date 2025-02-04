@@ -35,7 +35,7 @@ export default class CategoryController {
 
   async getCategory(req: Request, res: Response) {
     try {
-      const id: string = req.params.id
+      const id: string = req.params._id
       const category = await this.categoryService.findById(id)
       res.status(200).json(category)
    } catch (error: unknown) {
