@@ -18,9 +18,9 @@ export const addCategory = async (formData) => {
   );
 };
 
-export const getCard = async (params) => {
+export const getCategory = async (params) => {
   return await axios
-    .get(`http://localhost:4000/adminPanel/card/getCard/${params.id}`)
+    .get(`http://localhost:4000/adminPanel/category/getCategory/${params.id}`)
     .then((res) => {
       return res;
     });

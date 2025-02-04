@@ -1,11 +1,13 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import { persianDate } from "services/persianDate.services";
+import { getCategory } from "services/category.services";
 import axios from "axios";
 import "../../../css/admin/category.css";
 
 const ShowCategory = () => {
   const params = useParams();
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const [category, setCategory] = useState({});
   const [UrlCategoryImage, setUrlCategoryImage] = useState("");
   const [categoryImage, setCategoryImage] = useState("");
@@ -13,24 +15,20 @@ const ShowCategory = () => {
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getCategory = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/category/getCategory/${params.id}`)
-      .then((response) => {
-        setCategory(response.data);
-      });
+  const getACategory = async () => {
+    await getCategory().then((res) => {
+      setCategory(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
-    if (params) getCategory();
+    if (params) getACategory();
   }, []);
 
   const handleImageUpload = (e) => {
@@ -74,7 +72,7 @@ const ShowCategory = () => {
                 <p> پیشخوان / دسته بندی ها / افزودن دسته بندی </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
