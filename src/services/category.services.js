@@ -8,10 +8,14 @@ export const getCategories = async () => {
     });
 };
 
-export const addCard = async (data) => {
-  return await axios.post("http://localhost:4000/adminPanel/card/createCard", {
-    data,
-  });
+export const addCategory = async (formData) => {
+  return await axios.post(
+    "http://localhost:4000/adminPanel/category/createCategory",
+    formData,
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+    }
+  );
 };
 
 export const getCard = async (params) => {

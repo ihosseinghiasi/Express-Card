@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import axios from "axios";
+import { addCategory } from "services/category.services";
 import "../../../css/admin/category.css";
 
 const AddCategory = () => {
@@ -43,17 +43,9 @@ const AddCategory = () => {
     formData.append("title", category.title);
     formData.append("description", category.description);
 
-    await axios
-      .post(
-        "http://localhost:4000/adminPanel/category/createCategory",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      )
-      .then((res) => {
-        navigate("/admin/allCategories");
-      });
+    await addCategory(formData).then((res) => {
+      navigate("/admin/allCategories");
+    });
   };
 
   return (
