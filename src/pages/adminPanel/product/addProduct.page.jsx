@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { getCategories } from "services/category.services";
+import { addProduct } from "services/product.services";
 import "../../../css/admin/general.css";
 import "../../../css/admin/product.css";
 // import { wordifyfa } from "../../public/wordifyfa/src/wordifyfa.ts";
@@ -13,28 +15,24 @@ const AddProduct = () => {
   const [UrlProductImage, setUrlProductImage] = useState(
     "/uploads/pictures/unimage.png"
   );
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getCategories = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/category/getAllCategories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
+      setCategories(res.data);
+    });
   };
 
   useEffect(() => {
-    getCategories();
+    getAllCategories();
     getPersianDate();
   }, []);
 
@@ -68,7 +66,7 @@ const AddProduct = () => {
     } else setFields([""]);
   };
 
-  const addProduct = async (e) => {
+  const addAProduct = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", productImage);
@@ -81,17 +79,9 @@ const AddProduct = () => {
     formData.append("categoryTitle", product.categoryTitle);
     formData.append("fields", fields);
 
-    await axios
-      .post(
-        "http://localhost:4000/adminPanel/product/createProduct",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      )
-      .then((res) => {
-        navigate("/admin/allProducts");
-      });
+    await addProduct(formData).then((res) => {
+      navigate("/admin/allProducts");
+    });
   };
 
   return (
@@ -104,7 +94,7 @@ const AddProduct = () => {
                 <p>پیشخوان / محصولات / افزودن محصول </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
@@ -119,7 +109,7 @@ const AddProduct = () => {
 
               <div className="addBody col-8 mx-5">
                 <form
-                  onSubmit={(e) => addProduct(e)}
+                  onSubmit={(e) => addAProduct(e)}
                   encType="multipart/form-data"
                 >
                   <div className="row">

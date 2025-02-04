@@ -5,7 +5,6 @@ import {
   getEmailTemplate,
   updateEmailTemplate,
 } from "services/emailTemplate.service";
-import axios from "axios";
 
 const ShowEmailTemplate = () => {
   const [email, setEmail] = useState();

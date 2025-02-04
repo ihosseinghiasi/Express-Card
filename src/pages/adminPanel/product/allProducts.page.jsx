@@ -1,27 +1,24 @@
 import { useEffect, useState } from "react";
+import TableRow from "./tableRow.page";
+import { persianDate } from "services/persianDate.services";
+import { getProducts, deleteProduct } from "services/product.services";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
-import axios from "axios";
-import TableRow from "./tableRow.page";
 
 const AllProducts = () => {
   const [products, setProducts] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getAllProducts = () => {
-    axios
-      .get("http://localhost:4000/adminPanel/product/getAllProducts")
-      .then((res) => {
-        setProducts(res.data);
-      });
+  const getAllProducts = async () => {
+    await getProducts().then((res) => {
+      setProducts(res.data);
+    });
   };
 
   useEffect(() => {
@@ -30,9 +27,7 @@ const AllProducts = () => {
   }, []);
 
   async function handleDelete(id) {
-    await axios.delete(
-      `http://localhost:4000/adminPanel/product/deleteProduct/${id}`
-    );
+    await deleteProduct(id);
   }
 
   return (
@@ -45,7 +40,7 @@ const AllProducts = () => {
                 <p>پیشخوان / محصولات </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 
