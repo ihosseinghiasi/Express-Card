@@ -2,23 +2,22 @@ import { useEffect, useState } from "react";
 import "../../../css/admin/admin.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
+import { persianDate } from "services/persianDate.services";
 import { getAdmins } from "services/admin.services";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   const getAllAdmins = async () => {
     await getAdmins().then((data) => {
-      setAdmins(data)
+      setAdmins(data);
     });
   };
 
@@ -43,7 +42,7 @@ const AllAdmins = () => {
                 <p>پیشخوان / مدیران سایت </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 
