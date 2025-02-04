@@ -18,19 +18,21 @@ export const addProduct = async (formData) => {
   );
 };
 
-export const getCard = async (params) => {
+export const getProduct = async (params) => {
   return await axios
-    .get(`http://localhost:4000/adminPanel/card/getCard/${params.id}`)
+    .get(`http://localhost:4000/adminPanel/product/getProduct/${params.id}`)
+
     .then((res) => {
       return res;
     });
 };
 
-export const updateCard = async (params, data) => {
+export const updateProduct = async (params, formData) => {
   return await axios.put(
-    `http://localhost:4000/adminPanel/card/updateCard/${params.id}`,
+    `http://localhost:4000/adminPanel/product/updateProduct/${params.id}`,
+    formData,
     {
-      data,
+      headers: { "Content-Type": "multipart/form-data" },
     }
   );
 };

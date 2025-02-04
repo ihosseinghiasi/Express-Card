@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { getCategories } from "services/category.services";
+import { getProduct, updateProduct } from "services/product.services";
 import "../../../css/admin/general.css";
 import "../../../css/admin/product.css";
 // import { wordifyfa } from "../../public/wordifyfa/src/wordifyfa.ts";
@@ -11,40 +13,34 @@ const ShowProduct = () => {
   const [categories, setCategories] = useState([]);
   const [productImage, setProductImage] = useState();
   const [UrlProductImage, setUrlProductImage] = useState();
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const fileUploadRef = useRef(null);
   const params = useParams();
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getCategories = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/category/getAllCategories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
+      setCategories(res.data);
+    });
   };
 
-  const getProduct = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/product/getProduct/${params.id}`)
-      .then((response) => {
-        setProduct(response.data);
-        setFields(response.data.fields);
-      });
+  const getAProduct = async () => {
+    await getProduct(params).then((res) => {
+      setProduct(res.data);
+      setFields(res.data.fields);
+    });
   };
 
   useEffect(() => {
-    getCategories();
+    getAllCategories();
     getPersianDate();
-    if (params) getProduct();
+    if (params) getAProduct();
   }, []);
 
   const handleImageUpload = (e) => {
@@ -92,13 +88,11 @@ const ShowProduct = () => {
     formData.append("categoryTitle", product.categoryTitle);
     formData.append("fields", fields);
 
-    await axios.put(
-      `http://localhost:4000/adminPanel/product/updateProduct/${params.id}`,
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
+    await updateProduct(params, formData).then((res) => {
+      if (res.data) {
+        navigate("/admin/allProducts");
       }
-    );
+    });
   };
 
   return (
@@ -111,7 +105,7 @@ const ShowProduct = () => {
                 <p>پیشخوان / محصولات / ویرایش محصول </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
