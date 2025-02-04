@@ -22,16 +22,15 @@ export const getCategory = async (params) => {
   return await axios
     .get(`http://localhost:4000/adminPanel/category/getCategory/${params.id}`)
     .then((res) => {
+      console.log(res);
       return res;
     });
 };
 
-export const updateCard = async (params, data) => {
+export const updateCategory = async (params, formData) => {
   return await axios.put(
-    `http://localhost:4000/adminPanel/card/updateCard/${params.id}`,
-    {
-      data,
-    }
+    `http://localhost:4000/adminPanel/category/updateCategory/${params.id}`,
+    formData
   );
 };
 

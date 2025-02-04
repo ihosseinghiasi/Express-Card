@@ -1,16 +1,15 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { persianDate } from "services/persianDate.services";
-import { getCategory } from "services/category.services";
-import axios from "axios";
+import { getCategory, updateCategory } from "services/category.services";
 import "../../../css/admin/category.css";
 
 const ShowCategory = () => {
-  const params = useParams();
   const [date, setDate] = useState("");
   const [category, setCategory] = useState({});
   const [UrlCategoryImage, setUrlCategoryImage] = useState("");
   const [categoryImage, setCategoryImage] = useState("");
+  const params = useParams();
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
 
@@ -21,7 +20,7 @@ const ShowCategory = () => {
   };
 
   const getACategory = async () => {
-    await getCategory().then((res) => {
+    await getCategory(params).then((res) => {
       setCategory(res.data);
     });
   };
@@ -42,7 +41,7 @@ const ShowCategory = () => {
     setUrlCategoryImage(URL.createObjectURL(uploadedFile));
   };
 
-  const updateCategory = async (e) => {
+  const updateACategory = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (categoryImage) formData.append("file", categoryImage);
@@ -52,14 +51,9 @@ const ShowCategory = () => {
     formData.append("description", category.description);
     formData.append("image", category.image);
 
-    await axios
-      .put(
-        `http://localhost:4000/adminPanel/category/updateCategory/${params.id}`,
-        formData
-      )
-      .then((res) => {
-        navigate("/admin/allCategories");
-      });
+    updateCategory(params, formData).then((res) => {
+      navigate("/admin/allCategories");
+    });
   };
 
   return (
@@ -89,7 +83,7 @@ const ShowCategory = () => {
                 <form
                   id="form"
                   enctype="multipart/form-data"
-                  onSubmit={(e) => updateCategory(e)}
+                  onSubmit={(e) => updateACategory(e)}
                 >
                   <div className="row">
                     <div className="col-8">
@@ -97,7 +91,7 @@ const ShowCategory = () => {
                         type="text"
                         name="categoryName"
                         id="categoryName"
-                        value={category.categoryName}
+                        value={category?.categoryName}
                         className="form-control mt-3 enField"
                         placeholder="نامک دسته بندی"
                         onChange={(e) =>
@@ -112,7 +106,7 @@ const ShowCategory = () => {
                         id="namak"
                       >
                         http://localhost/admin-cPanel/category/
-                        {category.categoryName}
+                        {category?.categoryName}
                       </span>
                       <p className="mt-5 text-secondary">
                         از نامک دسته بندی برای ساخت آدرس صفحه دسته بندی استفاده
@@ -123,7 +117,7 @@ const ShowCategory = () => {
                       </p>
                     </div>
                     <div className="col-4 fileUloadArea">
-                      {category.image &&
+                      {category?.image &&
                         (UrlCategoryImage ? (
                           <div className="imageUpload">
                             <img
@@ -169,7 +163,7 @@ const ShowCategory = () => {
                         type="text"
                         name="title"
                         className="form-control faField"
-                        value={category.title}
+                        value={category?.title}
                         id="categoryTitle"
                         placeholder="عنوان دسته بندی"
                         onChange={(e) =>
@@ -183,7 +177,7 @@ const ShowCategory = () => {
                         <textarea
                           name="description"
                           id="editor"
-                          value={category.description}
+                          value={category?.description}
                           className="form-control"
                           cols="30"
                           rows="10"
