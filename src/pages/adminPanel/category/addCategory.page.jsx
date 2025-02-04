@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { persianDate } from "services/persianDate.services";
 import axios from "axios";
 import "../../../css/admin/category.css";
 
@@ -9,16 +10,14 @@ const AddCategory = () => {
   const [UrlCategoryImage, setUrlCategoryImage] = useState(
     "/uploads/pictures/unimage.png"
   );
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
@@ -67,7 +66,7 @@ const AddCategory = () => {
                 <p> پیشخوان / دسته بندی ها / افزودن دسته بندی </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 

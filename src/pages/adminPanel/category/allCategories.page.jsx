@@ -1,26 +1,23 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { getCategories, deleteCategory } from "services/category.services";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
 
 const AllCategories = () => {
   const [categories, setCategories] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getAllCategories = () => {
-    axios
-      .get("http://localhost:4000/adminPanel/category/getAllCategories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
+      setCategories(res.data);
+    });
   };
 
   useEffect(() => {
@@ -29,9 +26,7 @@ const AllCategories = () => {
   }, []);
 
   async function handleDelete(id) {
-    await axios
-      .delete(`http://localhost:4000/adminPanel/category/deleteCategory/${id}`)
-      .then((res) => {});
+    deleteCategory(id);
   }
 
   return (
@@ -44,7 +39,7 @@ const AllCategories = () => {
                 <p>پیشخوان / دسته بندی ها </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 
