@@ -25,12 +25,10 @@ export const getEmailTemplate = async (params) => {
     });
 };
 
-export const updateAdmin = async (params, admin) => {
+export const updateEmailTemplate = async (params, email) => {
   return await axios.put(
-    `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
-    {
-      admin,
-    }
+    `http://localhost:4000/adminPanel/email/updateEmailTemplate/${params.id}`,
+    { email }
   );
 };
 

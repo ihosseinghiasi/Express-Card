@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import { getEmailTemplate } from "services/emailTemplate.service";
+import {
+  getEmailTemplate,
+  updateEmailTemplate,
+} from "services/emailTemplate.service";
 import axios from "axios";
 
 const ShowEmailTemplate = () => {
@@ -29,16 +32,11 @@ const ShowEmailTemplate = () => {
     }
   }, []);
 
-  const updateEmailTemplate = async (e) => {
+  const updateAnEmailTemplate = async (e) => {
     e.preventDefault();
-    await axios
-      .put(
-        `http://localhost:4000/adminPanel/email/updateEmailTemplate/${params.id}`,
-        { email }
-      )
-      .then((res) => {
-        navigate("/admin/allEmailTemplates");
-      });
+    await updateEmailTemplate(params, email).then((res) => {
+      navigate("/admin/allEmailTemplates");
+    });
   };
 
   return (
@@ -63,7 +61,7 @@ const ShowEmailTemplate = () => {
               </div>
 
               <div class="addBody col-8 mx-5">
-                <form onSubmit={(e) => updateEmailTemplate(e)}>
+                <form onSubmit={(e) => updateAnEmailTemplate(e)}>
                   <div class="row">
                     <div class="row mx-1 titleWidth">
                       <input
