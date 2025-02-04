@@ -13,6 +13,23 @@ export const getAdmins = async () => {
       responseType: "json",
     })
     .then((res) => {
-      return res.data;
+      return res;
     });
+};
+
+export const getAdmin = async (params) => {
+  return await axios
+    .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
+    .then((res) => {
+      return res;
+    });
+};
+
+export const updateAdmin = async (params, admin) => {
+  return await axios.put(
+    `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
+    {
+      admin,
+    }
+  );
 };

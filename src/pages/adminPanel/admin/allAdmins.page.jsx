@@ -16,8 +16,8 @@ const AllAdmins = () => {
   };
 
   const getAllAdmins = async () => {
-    await getAdmins().then((data) => {
-      setAdmins(data);
+    await getAdmins().then((res) => {
+      setAdmins(res.data);
     });
   };
 

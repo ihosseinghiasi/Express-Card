@@ -44,7 +44,7 @@ export default class AdminController {
   async updateAdmin(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const data: IAdmin = req.body.values;
+      const data: IAdmin = req.body.admin;
       if (data.password.length <= 16) {
         const salt = await bcrypt.genSalt();
         data.password = await bcrypt.hash(data.password, salt);

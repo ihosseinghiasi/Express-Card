@@ -2,45 +2,37 @@ import { React, useEffect, useState } from "react";
 import axios from "axios";
 import "../../../css/admin/admin.css";
 import { useParams, useNavigate } from "react-router-dom";
-// import { getPersianDateService } from "../../../services/date.services";
-import { adminServices } from "../../../services/admin.services";
+import { persianDate } from "services/persianDate.services";
+import { getAdmin, updateAdmin } from "../../../services/admin.services";
 
 const ShowAdmin = () => {
-  const [persianDate, setPersianDate] = useState("");
-  const [values, setValues] = useState({});
+  const [date, setDate] = useState("");
+  const [admin, setAdmin] = useState({});
   const params = useParams();
   const navigate = useNavigate();
 
-  const getAdmin = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
-      .then((res) => {
-        setValues(res.data);
-      });
+  const getAnAdmin = async () => {
+    await getAdmin(params).then((res) => {
+      setAdmin(res.data);
+    });
   };
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
-    params && getAdmin();
+    params && getAnAdmin();
   }, []);
 
-  const updateAdmin = async (e) => {
+  const updateAnAdmin = async (e) => {
     e.preventDefault();
-    await axios
-      .put(`http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`, {
-        values,
-      })
-      .then((res) => {
-        if (res?.data) navigate("/admin/allAdmins");
-      });
+    await updateAdmin(params, admin).then((res) => {
+      if (res?.data) navigate("/admin/allAdmins");
+    });
   };
 
   return (
@@ -53,7 +45,7 @@ const ShowAdmin = () => {
                 <p>پیشخوان / ویرایش مدیر</p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
             <div className="addAdmin col-11 my-5 mx-5">
@@ -67,18 +59,18 @@ const ShowAdmin = () => {
               </div>
 
               <div className="addBody col-9 mx-3">
-                <form onSubmit={(event) => updateAdmin(event)}>
+                <form onSubmit={(event) => updateAnAdmin(event)}>
                   <div className="row g-2">
                     <div className="mx-4 col-5">
                       <input
                         type="text"
                         className="form-control mt-3 faField"
-                        value={values?.firstName}
+                        value={admin?.firstName}
                         placeholder="نام"
                         name="firstName"
                         onChange={(event) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [event.target.name]: event.target.value,
                           })
                         }
@@ -86,12 +78,12 @@ const ShowAdmin = () => {
                       <input
                         type="text"
                         className="form-control mt-3 faField"
-                        value={values?.lastName}
+                        value={admin?.lastName}
                         placeholder="نام خانوادگی"
                         name="lastName"
                         onChange={(event) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [event.target.name]: event.target.value,
                           })
                         }
@@ -99,23 +91,23 @@ const ShowAdmin = () => {
                       <input
                         type="email"
                         className="form-control mt-3 enField"
-                        value={values?.email}
+                        value={admin?.email}
                         placeholder="ایمیل"
                         name="email"
                         onChange={(event) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [event.target.name]: event.target.value,
                           })
                         }
                       />
                       <select
                         className="form-select mt-3 faField"
-                        value={values?.department}
+                        value={admin?.department}
                         name="department"
                         onChange={(event) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [event.target.name]: event.target.value,
                           })
                         }
@@ -130,8 +122,8 @@ const ShowAdmin = () => {
                         name="password"
                         id="password"
                         onChange={(event) =>
-                          setValues({
-                            ...values,
+                          setAdmin({
+                            ...admin,
                             [event.target.name]: event.target.value,
                           })
                         }
@@ -164,10 +156,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkAdmin"
                           name="isAdmin"
-                          checked={values?.isAdmin}
+                          checked={admin?.isAdmin}
                           onChange={(event) => {
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             });
                           }}
@@ -185,10 +177,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkProduct"
                           name="isProduct"
-                          checked={values?.isProduct}
+                          checked={admin?.isProduct}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -206,10 +198,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkCard"
                           name="isCard"
-                          checked={values?.isCard}
+                          checked={admin?.isCard}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -227,10 +219,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkEmail"
                           name="isEmail"
-                          checked={values?.isEmail}
+                          checked={admin?.isEmail}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -248,10 +240,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkReport"
                           name="isReport"
-                          checked={values?.isReport}
+                          checked={admin?.isReport}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -269,10 +261,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkTicket"
                           name="isTicket"
-                          checked={values?.isTicket}
+                          checked={admin?.isTicket}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -290,10 +282,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkCategory"
                           name="isCategory"
-                          checked={values?.isCategory}
+                          checked={admin?.isCategory}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -311,10 +303,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkUser"
                           name="isUser"
-                          checked={values?.isUser}
+                          checked={admin?.isUser}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
@@ -332,10 +324,10 @@ const ShowAdmin = () => {
                           className="btn-check"
                           id="chkPayment"
                           name="isPayment"
-                          checked={values?.isPayment}
+                          checked={admin?.isPayment}
                           onChange={(event) =>
-                            setValues({
-                              ...values,
+                            setAdmin({
+                              ...admin,
                               [event.target.name]: event.target.checked,
                             })
                           }
