@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
+import { persianDate } from "services/persianDate.services";
+import {
+  getEmailTemplates,
+  deleteEmailTemplate,
+} from "services/emailTemplate.service";
 import axios from "axios";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
 
 const AllEmailTemplates = () => {
   const [emails, setEmails] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   const getAllEmails = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/email/getAllEmailTemplates")
-      .then((res) => {
-        setEmails(res.data);
-      });
+    await getEmailTemplates().then((res) => {
+      setEmails(res.data);
+    });
   };
 
   useEffect(() => {
@@ -29,9 +30,7 @@ const AllEmailTemplates = () => {
   }, []);
 
   async function handleDelete(id) {
-    await axios.delete(
-      `http://localhost:4000/adminPanel/email/deleteEmailtemplate/${id}`
-    );
+    await deleteEmailTemplate(id);
   }
 
   return (
@@ -44,7 +43,7 @@ const AllEmailTemplates = () => {
                 <p>پیشخوان / تیکت ها </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 
