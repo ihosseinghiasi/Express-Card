@@ -2,11 +2,11 @@ import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { persianDate } from "services/persianDate.services";
 import { addAdmin } from "services/admin.services";
-import axios from "axios";
 
 const AddAdmin = () => {
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const navigate = useNavigate();
   const [admin, setAdmin] = useState({
     firstName: "",
@@ -26,11 +26,9 @@ const AddAdmin = () => {
   });
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
@@ -56,7 +54,7 @@ const AddAdmin = () => {
                 <p> پیشخوان / افزودن مدیر </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
             <div className="addAdmin col-11 my-5 mx-5">
