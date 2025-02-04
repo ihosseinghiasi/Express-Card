@@ -33,3 +33,9 @@ export const updateAdmin = async (params, admin) => {
     }
   );
 };
+
+export const deleteAdmin = async (id) => {
+  return await axios.delete(
+    `http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`
+  );
+};

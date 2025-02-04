@@ -3,7 +3,7 @@ import "../../../css/admin/admin.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
 import { persianDate } from "services/persianDate.services";
-import { getAdmins } from "services/admin.services";
+import { getAdmins, deleteAdmin } from "services/admin.services";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);
@@ -22,9 +22,7 @@ const AllAdmins = () => {
   };
 
   const handleDelete = async (id) => {
-    await axios.delete(
-      `http://localhost:4000/adminPanel/admin/deleteAdmin/${id}`
-    );
+    await deleteAdmin(id);
   };
 
   useEffect(() => {

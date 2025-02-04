@@ -1,5 +1,4 @@
 import { React, useEffect, useState } from "react";
-import axios from "axios";
 import "../../../css/admin/admin.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
