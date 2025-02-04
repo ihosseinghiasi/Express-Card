@@ -14,19 +14,19 @@ export const getCards = async () => {
     });
 };
 
-export const getAdmin = async (params) => {
+export const getCard = async (params) => {
   return await axios
-    .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
+    .get(`http://localhost:4000/adminPanel/card/getCard/${params.id}`)
     .then((res) => {
       return res;
     });
 };
 
-export const updateAdmin = async (params, admin) => {
+export const updateCard = async (params, data) => {
   return await axios.put(
-    `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
+    `http://localhost:4000/adminPanel/card/updateCard/${params.id}`,
     {
-      admin,
+      data,
     }
   );
 };

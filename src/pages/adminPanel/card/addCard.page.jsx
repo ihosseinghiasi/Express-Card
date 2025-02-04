@@ -4,7 +4,6 @@ import { persianDate } from "services/persianDate.services";
 import { getCategories } from "services/category.services";
 import { getProducts } from "services/product.services";
 import { addCard } from "services/card.services";
-import axios from "axios";
 
 const AddCard = () => {
   const [categories, setCategories] = useState([]);

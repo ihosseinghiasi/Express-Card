@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { persianDate } from "services/persianDate.services";
+import { getCategories } from "services/category.services";
+import { getProducts } from "services/product.services";
+import { getCard, updateCard } from "services/card.services";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
 
 const ShowCard = () => {
   const [firstLoad, setFirstLoad] = useState(false);
@@ -12,48 +16,40 @@ const ShowCard = () => {
   const [cardProduct, setCardProduct] = useState([]);
   const [fieldNames, setFieldNames] = useState([]);
   const [fieldValues, setFieldValues] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
   const [firstProduct, setFirstProduct] = useState([]);
   const params = useParams();
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getCard = () => {
-    axios
-      .get(`http://localhost:4000/adminPanel/card/getCard/${params.id}`)
-      .then((res) => {
-        setCard(res.data);
-      });
+  const getACard = async () => {
+    await getCard(params).then((res) => {
+      setCard(res.data);
+    });
   };
 
-  const getCategories = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/category/getAllCategories")
-      .then((res) => {
-        setCategories(res.data);
-      });
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
+      setCategories(res.data);
+    });
   };
 
-  const getProducts = async () => {
-    await axios
-      .get("http://localhost:4000/adminPanel/product/getAllProducts")
-      .then((res) => {
-        setProducts(res.data);
-      });
+  const getAllProducts = async () => {
+    await getProducts().then((res) => {
+      setProducts(res.data);
+    });
   };
 
   useEffect(() => {
-    getCard();
+    getACard();
     getPersianDate();
-    getCategories();
-    getProducts();
+    getAllCategories();
+    getAllProducts();
   }, []);
 
   const getProductsOfSelectedCategory = () => {
@@ -94,7 +90,6 @@ const ShowCard = () => {
     setFieldNames([]);
     if (!firstLoad) {
       getFieldsFromCard();
-      console.log(firstLoad);
     }
     if (firstLoad) {
       setNewFieldsInCard();
@@ -132,20 +127,18 @@ const ShowCard = () => {
     setFieldValues(newFeildValues);
   };
 
-  const updateCard = async (e) => {
+  const updateACard = async (e) => {
     e.preventDefault();
     const data = {
       card,
       fieldNames,
       fieldValues,
     };
-    await axios
-      .put(`http://localhost:4000/adminPanel/card/updateCard/${params.id}`, { data })
-      .then((res) => {
-        if (res.data) {
-          navigate("/admin/allCards");
-        }
-      });
+    await updateCard(params, data).then((res) => {
+      if (res.data) {
+        navigate("/admin/allCards");
+      }
+    });
   };
 
   return (
@@ -158,7 +151,7 @@ const ShowCard = () => {
                 <p>پیشخوان / کارت / ویرایش کارت </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
@@ -171,7 +164,7 @@ const ShowCard = () => {
                 ویرایش کارت
               </div>
               <div className="col-8 mx-5 addBody">
-                <form onSubmit={(e) => updateCard(e)}>
+                <form onSubmit={(e) => updateACard(e)}>
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-7">
@@ -188,7 +181,7 @@ const ShowCard = () => {
                           className="form-select"
                           name="cardCategory"
                           id="cardCategory"
-                          value={card.cardCategory}
+                          value={card?.cardCategory}
                           onChange={(e) =>
                             changeSelectedCategory(
                               e.target.name,
@@ -197,7 +190,7 @@ const ShowCard = () => {
                           }
                         >
                           {categories.map((category, index) => (
-                            <option> {category.title} </option>
+                            <option> {category?.title} </option>
                           ))}
                         </select>
                       </div>
@@ -215,13 +208,13 @@ const ShowCard = () => {
                           className="form-select"
                           name="cardProduct"
                           id="cardProduct"
-                          value={card.cardProduct}
+                          value={card?.cardProduct}
                           onChange={(e) =>
                             changeSelectedProduct(e.target.name, e.target.value)
                           }
                         >
                           {cardProduct &&
-                            cardProduct.map((product, index) => (
+                            cardProduct?.map((product, index) => (
                               <option> {product} </option>
                             ))}
                         </select>
@@ -237,7 +230,7 @@ const ShowCard = () => {
                         </p>
                       </div>
                       <div className="col-5 my-3" id="formField">
-                        {fieldNames.map((fieldName, index) => (
+                        {fieldNames?.map((fieldName, index) => (
                           <input
                             type="text"
                             className="form-control"
@@ -263,7 +256,7 @@ const ShowCard = () => {
                           className="form-select"
                           name="cardStatus"
                           id="cardStatus"
-                          value={card.cardStatus}
+                          value={card?.cardStatus}
                           onChange={(e) =>
                             setCard({
                               ...card,
