@@ -1,7 +1,10 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { persianDate } from "services/persianDate.services";
-import { getCategory, updateCategory } from "services/category.services";
+import {
+  getCategory,
+  updateCategory,
+} from "services/adminPanel/category.services";
 import "../../../css/admin/category.css";
 
 const ShowCategory = () => {

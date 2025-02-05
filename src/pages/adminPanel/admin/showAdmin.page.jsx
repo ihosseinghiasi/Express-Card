@@ -2,7 +2,10 @@ import { React, useEffect, useState } from "react";
 import "../../../css/admin/admin.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import { getAdmin, updateAdmin } from "../../../services/admin.services";
+import {
+  getAdmin,
+  updateAdmin,
+} from "../../../services/adminPanel/admin.services";
 
 const ShowAdmin = () => {
   const [date, setDate] = useState("");

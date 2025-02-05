@@ -3,7 +3,7 @@ import { persianDate } from "services/persianDate.services";
 import {
   getEmailTemplates,
   deleteEmailTemplate,
-} from "services/emailTemplate.service";
+} from "services/adminPanel/emailTemplate.service";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
 

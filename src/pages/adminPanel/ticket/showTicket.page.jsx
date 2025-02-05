@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
 import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
 import { persianDate } from "services/persianDate.services";
-import { getTicket, updateTicket } from "services/ticket.services";
+import { getTicket, updateTicket } from "services/adminPanel/ticket.services";
 import "../../../css/admin/ticket.css";
 
 const ShowTicket = () => {

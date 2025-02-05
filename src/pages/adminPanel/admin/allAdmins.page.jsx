@@ -3,7 +3,7 @@ import "../../../css/admin/admin.css";
 import axios from "axios";
 import TableRow from "./tableRow.page";
 import { persianDate } from "services/persianDate.services";
-import { getAdmins, deleteAdmin } from "services/admin.services";
+import { getAdmins, deleteAdmin } from "services/adminPanel/admin.services";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);

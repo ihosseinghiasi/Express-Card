@@ -4,7 +4,7 @@ import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { getProduct } from "services/product.services";
+import { getProduct } from "services/adminPanel/product.services";
 
 const Payment = () => {
   const params = useParams();

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import { addUser } from "services/user.service";
+import { addUser } from "services/adminPanel/user.service";
 import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 

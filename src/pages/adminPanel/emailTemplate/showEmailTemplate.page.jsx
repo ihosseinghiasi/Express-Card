@@ -4,7 +4,7 @@ import { persianDate } from "services/persianDate.services";
 import {
   getEmailTemplate,
   updateEmailTemplate,
-} from "services/emailTemplate.service";
+} from "services/adminPanel/emailTemplate.service";
 
 const ShowEmailTemplate = () => {
   const [email, setEmail] = useState();

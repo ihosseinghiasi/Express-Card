@@ -1,8 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import { getCategories } from "services/category.services";
-import { getProduct, updateProduct } from "services/product.services";
+import { getCategories } from "services/adminPanel/category.services";
+import {
+  getProduct,
+  updateProduct,
+} from "services/adminPanel/product.services";
 import "../../../css/admin/general.css";
 import "../../../css/admin/product.css";
 // import { wordifyfa } from "../../public/wordifyfa/src/wordifyfa.ts";

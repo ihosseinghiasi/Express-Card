@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { getProducts } from "services/product.services";
-import { getCategory } from "services/category.services";
+import { getProducts } from "services/adminPanel/product.services";
+import { getCategory } from "services/adminPanel/category.services";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/categoryPage.css";
 
