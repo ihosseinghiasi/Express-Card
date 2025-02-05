@@ -3,7 +3,7 @@ import "../../../css/admin/general.css";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import { getUser, updateUser } from "services/adminPanel/user.service";
+import { getUser, updateUser } from "services/userPanel/user.service";
 
 const ShowUser = () => {
   const [user, setUser] = useState({});

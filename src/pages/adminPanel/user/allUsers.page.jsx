@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
 import { deleteUser, getUsers } from "services/adminPanel/user.service";
 import TableRow from "./tableRow.page";

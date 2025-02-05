@@ -1,44 +1,33 @@
-import "../../../css/user/general.css";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import "../../../css/user/general.css";
+import { persianDate } from "services/persianDate.services";
+import { getUser, updateUser } from "services/userPanel/user.service";
 
 const Profile = () => {
-  const [persianDate, setPersianDate] = useState();
+  const [date, setDate] = useState();
   const [user, setUser] = useState();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getUser = async (id) => {
-    await axios
-      .get(`http://localhost:4000/userPanel/profile/getUser/${id}`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setUser(res.data);
-      });
+  const getAnUser = async (id) => {
+    await getUser(id).then((res) => {
+      setUser(res.data);
+    });
   };
 
   const userUpdate = async (e) => {
     e.preventDefault();
-    await axios.put(
-      `http://localhost:4000/userPanel/profile/updateUser/${user._id}`,
-      { user },
-      {
-        withCredentials: true,
-      }
-    );
+    await updateUser();
   };
 
   useEffect(() => {
     const userId = localStorage.getItem("authenticatedId");
     getPersianDate();
-    getUser(userId);
+    getAnUser(userId);
   }, []);
   return (
     <>
@@ -50,7 +39,7 @@ const Profile = () => {
                 <p className="">پیشخوان / پروفایل کاربر</p>
               </div>
               <div className="d-flex justify-content-start parsianDate ms-3">
-                {persianDate}
+                {date}
               </div>
             </div>
 

@@ -1,10 +1,9 @@
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { getProduct } from "services/adminPanel/product.services";
 import Footer from "../../components/layout/footer/footer.component";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import { getProduct } from "services/adminPanel/product.services";
 
 const Payment = () => {
   const params = useParams();
@@ -13,6 +12,7 @@ const Payment = () => {
   const [price, setPrice] = useState();
   const [count, setCount] = useState(1);
   const [tax, setTax] = useState();
+
   const getAProduct = async () => {
     await getProduct(params).then((res) => {
       setProduct(res.data);
