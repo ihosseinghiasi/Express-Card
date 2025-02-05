@@ -1,8 +1,8 @@
-import "../../css/shop/smsForm.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Countdown from "react-countdown";
 import { getPhone, setCodeVerify } from "services/authenticationService";
+import "../../css/shop/smsForm.css";
 
 const ConfirmSms = () => {
   const [phoneNumber, setPhoneNumber] = useState();

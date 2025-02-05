@@ -1,42 +1,36 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { useCookies } from "react-cookie";
+import { getProducts } from "services/product.services";
+import { getCategory } from "services/category.services";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/categoryPage.css";
-import axios from "axios";
 
 const Category = () => {
   const params = useParams();
   const [category, setCategory] = useState();
   const [productsOfCategories, setProductOfCategories] = useState();
-  const [cookies] = useCookies([]);
-  const [navStatus, setNavStatus] = useState();
 
-  const getCategory = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/category/getCategory/${params.id}`)
-      .then((res) => {
-        setCategory(res.data);
-      });
+  const getACategory = async () => {
+    await getCategory(params).then((res) => {
+      setCategory(res.data);
+    });
   };
 
   useEffect(() => {
-    getCategory();
+    getACategory();
   }, []);
 
   const getProductsOfCategories = async () => {
     const productsOfCategories = [];
-    await axios
-      .get(`http://localhost:4000/adminPanel/product/getAllProducts`)
-      .then((res) => {
-        Object.values(res.data).forEach((product) => {
-          console.log(product?.categoryTitle === category?.title);
-          if (product?.categoryTitle === category?.title) {
-            productsOfCategories.push(product);
-          }
-        });
-        setProductOfCategories(productsOfCategories);
+    await getProducts().then((res) => {
+      Object.values(res.data).forEach((product) => {
+        console.log(product?.categoryTitle === category?.title);
+        if (product?.categoryTitle === category?.title) {
+          productsOfCategories.push(product);
+        }
       });
+      setProductOfCategories(productsOfCategories);
+    });
   };
 
   useEffect(() => {
