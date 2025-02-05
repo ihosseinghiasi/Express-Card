@@ -22,7 +22,8 @@ const ConfirmSms = () => {
 
   async function sendVerifyCode(e) {
     e.preventDefault();
-    await setCodeVerify().then((res) => {
+    await setCodeVerify(verifyCode).then((res) => {
+      console.log(res.data)
       if (res.data.status === "OK") {
         navigate("/register");
       }

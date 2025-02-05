@@ -1,18 +1,20 @@
 import "../../css/shop/smsForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { setPhoneNumber } from "services/authenticationService";
+import { AddPhoneNumber } from "services/authenticationService";
 
 const SmsForm = () => {
   const [phoneNumber, setPhoneNumber] = useState();
   const navigate = useNavigate();
 
-  async function sendPhoneNumber(event) {
-    event.preventDefault();
-    await setPhoneNumber().then((res) => {
-      navigate("/confirmSmsForm");
+  const sendPhoneNumber = async (e) => {
+    e.preventDefault();
+    await AddPhoneNumber(phoneNumber).then((res) => {
+      if (res) {
+        navigate("/confirmSmsForm");
+      }
     });
-  }
+  };
 
   return (
     <>
@@ -26,7 +28,7 @@ const SmsForm = () => {
             placeholder="شماره همراه"
             name="phoneNumber"
             id="phoneNumber"
-            onChange={(event) => setPhoneNumber(event.target.value)}
+            onChange={(e) => setPhoneNumber(e.target.value)}
           />
           <button type="submit" className="btn btn-danger mt-4">
             ارسال پیامک

@@ -1,12 +1,13 @@
 import axios from "axios";
 
-export const setPhoneNumber = async (phoneNumber) => {
-  return await axios.post(
-    "http://localhost:4000/authentication/setPhoneNumber",
-    {
+export const AddPhoneNumber = async (phoneNumber) => {
+  return await axios
+    .post("http://localhost:4000/authentication/setPhoneNumber", {
       phoneNumber,
-    }
-  );
+    })
+    .then((res) => {
+      return res;
+    });
 };
 
 export const getPhone = async () => {
