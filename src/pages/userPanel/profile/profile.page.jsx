@@ -6,6 +6,12 @@ import { getUser, updateUser } from "services/userPanel/user.service";
 const Profile = () => {
   const [date, setDate] = useState();
   const [user, setUser] = useState();
+  const [templatePassword, setTemplatePassword] = useState({
+    password: "*********",
+  });
+  const [templateRePassword, setTemplateRePassword] = useState({
+    confirmPassword: "*********",
+  });
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -21,7 +27,7 @@ const Profile = () => {
 
   const userUpdate = async (e) => {
     e.preventDefault();
-    await updateUser();
+    await updateUser(user.id, user, templatePassword);
   };
 
   useEffect(() => {
@@ -115,9 +121,10 @@ const Profile = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
+                        value={templatePassword.password}
                         onChange={(e) =>
-                          setUser({
-                            ...user,
+                          setTemplatePassword({
+                            ...templatePassword,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -132,6 +139,13 @@ const Profile = () => {
                         placeholder="تکرار کلمه عبور"
                         name="confirmPassword"
                         id="confirmPassword"
+                        value={templateRePassword.confirmPassword}
+                        onChange={(e) =>
+                          setTemplateRePassword({
+                            ...templateRePassword,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"

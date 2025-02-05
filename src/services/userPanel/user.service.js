@@ -10,15 +10,12 @@ export const getUser = async (id) => {
     });
 };
 
-export const updateUser = async (id, user) => {
+export const updateUser = async (id, user, templatePassword) => {
+  if (templatePassword.password !== "*********") {
+    user.password = templatePassword.password;
+  }
   return await axios
-    .put(
-      `http://localhost:4000/userPanel/profile/updateUser/${id}`,
-      { user },
-      {
-        withCredentials: true,
-      }
-    )
+    .put(`http://localhost:4000/userPanel/profile/updateUser/${id}`, { user })
     .then((res) => {
       return res;
     });

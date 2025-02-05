@@ -133,7 +133,6 @@ export default class TicketController {
       let tickets = allTickets?.filter((ticket) => {
         return ticket.senderId === userId;
       });
-      console.log(tickets);
       let userTicketsNumber: number = 0;
       let userNewTicketsNumber: number = 0;
       let targetTicketsNumber: number = 0;
