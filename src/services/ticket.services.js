@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const addAdmin = async (admin) => {
-  return axios.post(`http://localhost:4000/adminPanel/admin/createAdmin`, {
-    admin,
+export const addTicket = async (ticket) => {
+  return axios.post("http://locahost:4000/adminPanel/ticket/createTicket", {
+    ticket,
   });
 };
 

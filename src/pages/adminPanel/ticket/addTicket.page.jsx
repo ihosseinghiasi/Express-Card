@@ -1,29 +1,26 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { addTicket } from "services/ticket.services";
 
 const AddTicket = () => {
   const [ticket, setTicket] = useState();
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
   }, []);
 
-  const addTicket = async () => {
-    await axios
-      .post("http://locahost:4000/adminPanel/ticket/createTicket", { ticket })
-      .then((res) => {
-        setTicket(res.data);
-      });
+  const addATicket = async () => {
+    await addTicket().then((res) => {
+      setTicket(res.data);
+    });
   };
   return (
     <>
@@ -35,7 +32,7 @@ const AddTicket = () => {
                 <p>پیشخوان / تیکت ها / افزودن تیکت</p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 
@@ -49,7 +46,7 @@ const AddTicket = () => {
               </div>
 
               <div className="addBody col-8 mx-5">
-                <form onSubmit={(e) => addTicket(e)}>
+                <form onSubmit={(e) => addATicket(e)}>
                   <div className="row">
                     <div className="col-6">
                       <input
