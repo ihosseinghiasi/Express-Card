@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { register } from "services/authenticationService";
 import "../../css/shop/register.css";
-import axios from "axios";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
@@ -11,8 +11,8 @@ const Register = () => {
 
   const navigate = useNavigate();
 
-  function userRegister(event) {
-    event.preventDefault();
+  const userRegister = async (e) => {
+    e.preventDefault();
 
     const data = {
       firstName,
@@ -20,9 +20,9 @@ const Register = () => {
       email,
       password,
     };
-    axios.post("http://localhost:4000/authentication/register", {data});
+    await register(data)
     navigate("/");
-  }
+  };
   return (
     <>
       <div className="registerUserForm mb-3">
@@ -36,28 +36,28 @@ const Register = () => {
                 className="form-control mt-3"
                 placeholder="نام"
                 name="firstName"
-                onChange={(event) => setFirstName(event.target.value)}
+                onChange={(e) => setFirstName(e.target.value)}
               />
               <input
                 type="text"
                 className="form-control mt-3"
                 placeholder="نام خانوادگی"
                 name="lastName"
-                onChange={(event) => setLasttName(event.target.value)}
+                onChange={(e) => setLasttName(e.target.value)}
               />
               <input
                 type="email"
                 className="form-control mt-3"
                 placeholder="ایمیل"
                 name="email"
-                onChange={(event) => setEmail(event.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
                 className="form-control mt-3"
                 placeholder="کلمه عبور"
                 name="password"
-                onChange={(event) => setPasseord(event.target.value)}
+                onChange={(e) => setPasseord(e.target.value)}
               />
               <input
                 type="password"

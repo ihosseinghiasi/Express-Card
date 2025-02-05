@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import "../../css/shop/login.css";
 // import Home from "../main/home";
-import axios from "axios";
+import { login } from "services/authenticationService";
 
 export const Login = () => {
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
@@ -17,37 +17,29 @@ export const Login = () => {
       setPassword("1024");
     }
   }, [userType]);
-  async function userLogin(e) {
+  const userLogin = async (e) => {
     const data = {
       email,
       password,
     };
     e.preventDefault();
-    await axios
-      .post(
-        "http://localhost:4000/authentication/login",
-        { data },
-        {
-          withCredentials: true,
-        }
-      )
-      .then((res) => {
-        if (res.data) {
-          const token = res.data.token;
-          Cookies.set("commercial", token, {
-            expires: 7,
-            secure: true,
-          });
-          localStorage.setItem("token", token);
-          localStorage.setItem(
-            "authenticatedFullName",
-            `${res.data.person.firstName} ${res.data.person.lastName}`
-          );
-          localStorage.setItem("authenticatedId", res.data.person._id);
-          navigate("/");
-        }
-      });
-  }
+    await login(data).then((res) => {
+      if (res.data) {
+        const token = res.data.token;
+        Cookies.set("commercial", token, {
+          expires: 7,
+          secure: true,
+        });
+        localStorage.setItem("token", token);
+        localStorage.setItem(
+          "authenticatedFullName",
+          `${res.data.person.firstName} ${res.data.person.lastName}`
+        );
+        localStorage.setItem("authenticatedId", res.data.person._id);
+        navigate("/");
+      }
+    });
+  };
 
   return (
     <>

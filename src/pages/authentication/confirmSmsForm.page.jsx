@@ -2,7 +2,7 @@ import "../../css/shop/smsForm.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Countdown from "react-countdown";
-import axios from "axios";
+import { getPhone, setCodeVerify } from "services/authenticationService";
 
 const ConfirmSms = () => {
   const [phoneNumber, setPhoneNumber] = useState();
@@ -15,24 +15,18 @@ const ConfirmSms = () => {
   }, []);
 
   const getPhoneNumber = async () => {
-    axios
-      .get("http://localhost:4000/authentication/getPhoneNumber")
-      .then((res) => {
-        setPhoneNumber(res.data.phoneNumber);
-      });
+    await getPhone().then((res) => {
+      setPhoneNumber(res.data.phoneNumber);
+    });
   };
 
-  async function sendVerifyCode(event) {
-    event.preventDefault();
-    await axios
-      .post("http://localhost:4000/authentication/setVerifyCode", {
-        verifyCode,
-      })
-      .then((res) => {
-        if (res.data.status === "OK") {
-          navigate("/register");
-        }
-      });
+  async function sendVerifyCode(e) {
+    e.preventDefault();
+    await setCodeVerify().then((res) => {
+      if (res.data.status === "OK") {
+        navigate("/register");
+      }
+    });
   }
 
   const renderer = ({ minutes, seconds, completed }) => {
@@ -58,7 +52,7 @@ const ConfirmSms = () => {
             className="smsText form-control w-75 mt-2"
             name="code"
             id="code"
-            onChange={(event) => setVerifyCode(event.target.value)}
+            onChange={(e) => setVerifyCode(e.target.value)}
           />
           <button
             type="submit"

@@ -1,15 +1,13 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
 
 const AdminCounter = () => {
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
@@ -24,7 +22,7 @@ const AdminCounter = () => {
               <p>پیشخوان</p>
             </div>
             <div class="d-flex justify-content-start parsianDate">
-              <p>{persianDate}</p>
+              <p>{date}</p>
             </div>
           </div>
           <h1>admin counter</h1>
