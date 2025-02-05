@@ -1,41 +1,30 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { persianDate } from "services/persianDate.services";
+import { addUser } from "services/user.service";
 import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const AddUser = () => {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    phoneNumber: "",
-    email: "",
-    password: "",
-  });
-  const [persianDate, setPersianDate] = useState("");
+  const [user, setUser] = useState();
+  const [date, setDate] = useState("");
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
   }, []);
 
-  const handleSubmit = async (e) => {
+  const addNewUser = async (e) => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:4000/adminPanel/user/createUser", {
-        user,
-      })
-      .then((res) => {
-        if (res.status === 201) navigate("/admin/allUsers");
-      });
+    await addUser(user).then((res) => {
+      if (res.status === 201) navigate("/admin/allUsers");
+    });
   };
 
   return (
@@ -48,7 +37,7 @@ const AddUser = () => {
                 <p> پیشخوان / افزودن کاربر </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
@@ -63,7 +52,7 @@ const AddUser = () => {
               </div>
 
               <div className="addBody col-8 mx-5">
-                <form onSubmit={(e) => handleSubmit(e)} className="mx-5">
+                <form onSubmit={(e) => addNewUser(e)} className="mx-5">
                   <div className="row col-5 userForm">
                     <div>
                       <input

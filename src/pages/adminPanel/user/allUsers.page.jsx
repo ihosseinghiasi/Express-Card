@@ -1,16 +1,14 @@
 import { useEffect, useState } from "react";
-import "../../../css/admin/admin.css";
-import "../../../css/admin/general.css";
-import axios from "axios";
-import TableRow from "./tableRow.page";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
 import { deleteUser, getUsers } from "services/user.service";
+import TableRow from "./tableRow.page";
+import "../../../css/admin/admin.css";
+import "../../../css/admin/general.css";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [date, setDate] = useState("");
-  const navigate = useNavigate();
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
