@@ -27,7 +27,7 @@ export default class TicketController {
           tickets: {},
           sender: userFullName || "",
           senderId: user?._id || "",
-          ticketNumbers: req.body.ticketNumbers,
+          ticketNumbers: 1,
           userTicketsNumber: 1,
           targetTicketsNumber: 0,
           newUserTicketsNumber: 1,
@@ -85,11 +85,11 @@ export default class TicketController {
       const ticket = await this.ticketService.findById(id);
       const ticketNumbers: number = ticket ? ++ticket.ticketNumbers : -1;
       const data: ITicket = {
-        subject: ticket?.subject || "",
+        subject: ticket?.subject || "null",
         status: "پاسخ کاربر",
-        targetDepartment: ticket?.targetDepartment || "",
-        sender: ticket?.sender || "",
-        senderId: ticket?.senderId || "",
+        targetDepartment: ticket?.targetDepartment || "null",
+        sender: ticket?.sender || "null",
+        senderId: ticket?.senderId || "null",
         tickets: {},
         ticketNumbers,
         targetTicketsNumber: ticket?.targetTicketsNumber || -1,

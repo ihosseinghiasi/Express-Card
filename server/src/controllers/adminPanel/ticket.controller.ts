@@ -71,13 +71,14 @@ export default class TicketController {
       ] as const;
       const ticket = await this.ticketService.findById(id);
       const ticketNumbers: number = ticket ? ++ticket.ticketNumbers : -1;
+
       const data: ITicket = {
         subject: ticket?.subject || "",
         status: "پاسخ مدیریت",
         targetDepartment: ticket?.targetDepartment || "",
         sender: ticket?.sender || "",
-        senderId: "",
-        tickets: {},
+        senderId: ticket?.senderId || "null",
+        tickets: ticket?.tickets || {},
         ticketNumbers,
         targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : -1,
         newTargetTicketsNumber: ticket ? ++ticket.newTargetTicketsNumber : -1,

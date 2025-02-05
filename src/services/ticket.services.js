@@ -14,19 +14,19 @@ export const getTickets = async () => {
     });
 };
 
-export const getAdmin = async (params) => {
+export const getTicket = async (params) => {
   return await axios
-    .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
+    .get(`http://localhost:4000/adminPanel/ticket/getTicket/${params.id}`)
     .then((res) => {
       return res;
     });
 };
 
-export const updateAdmin = async (params, admin) => {
+export const updateTicket = async (params, answer) => {
   return await axios.put(
-    `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
+    `http://localhost:4000/adminPanel/ticket/answerTicket/${params.id}`,
     {
-      admin,
+      answer,
     }
   );
 };

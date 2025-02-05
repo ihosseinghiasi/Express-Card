@@ -2,31 +2,28 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
 import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
+import { persianDate } from "services/persianDate.services";
+import { getTicket, updateTicket } from "services/ticket.services";
 import "../../../css/admin/ticket.css";
-import axios from "axios";
 
 const ShowTicket = () => {
   const [ticket, setTicket] = useState();
   const [ticketDetail, setTicketDetail] = useState();
-  const [persianDate, setPersianDate] = useState();
+  const [date, setDate] = useState();
   const [answer, setAnswer] = useState();
   const navigate = useNavigate();
   const params = useParams();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getTicket = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/ticket/getTicket/${params.id}`)
-      .then((res) => {
-        setTicket(res.data);
-      });
+  const getATicket = async () => {
+    await getTicket(params).then((res) => {
+      setTicket(res.data);
+    });
   };
 
   useEffect(() => {
@@ -36,16 +33,12 @@ const ShowTicket = () => {
   }, [ticket]);
 
   const answerTicket = async (e) => {
-    axios.put(
-      `http://localhost:4000/adminPanel/ticket/answerTicket/${params.id}`,
-      {
-        answer,
-      }
-    );
+    await updateTicket(params, answer);
   };
 
   useEffect(() => {
-    getTicket();
+    getATicket();
+    getPersianDate();
   }, []);
   return (
     <div>
@@ -57,7 +50,7 @@ const ShowTicket = () => {
                 <p>پیشخوان / تیکت ها / مشاهده تیکت</p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {/* <p><%= persianDate %></p> */}
+                {date}
               </div>
             </div>
             <div className="col-11 mx-5 ticketHeaderAdmin">
