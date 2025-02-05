@@ -1,32 +1,19 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { getCategories } from "services/category.services";
 import CategoryItem from "../../components/home/categoryItem.component";
-import { getCategories } from "services/product.services";
-import axios from "axios";
-import "../../css/shop/mainPage.css";
-
 import { HomeWrapper } from "./home.styles";
+import "../../css/shop/mainPage.css";
 
 const HomePage = () => {
   const [categories, setCategories] = useState();
-  const navigate = useNavigate();
 
-  const getCategories = async () => {
-    await axios(
-      "http://localhost:4000/adminPanel/category/getAllCategories"
-    ).then((res) => {
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
       setCategories(res.data);
     });
   };
 
-  const getAllCategories = async () => {
-    await getCategories().then((res) => {
-      console.log(res);
-    });
-  };
-
   useEffect(() => {
-    getCategories();
     getAllCategories();
   }, []);
 
