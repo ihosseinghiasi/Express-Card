@@ -12,7 +12,7 @@ export default class UserController {
 
   async findUser(req: Request, res: Response) {
     try {
-      const id: string = req.body.id;
+      const id: string = req.params.id;
       const user = await this.userService.findById(id);
       res.status(200).json(user);
     } catch (error) {
@@ -23,7 +23,7 @@ export default class UserController {
   async updateUser(req: Request, res: Response) {
     try {
       const data: IUser = req.body.user;
-      const id: string = req.body.id;
+      const id: string = req.params.id;
       if (data.password.length <= 16) {
         const salt = await bcrypt.genSalt();
         data.password = await bcrypt.hash(data.password, salt);

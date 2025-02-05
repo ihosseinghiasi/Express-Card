@@ -1,5 +1,5 @@
 import { Router } from "express";
-import UserController from "../../../../controllers/adminPanel/user.controller";
+import UserController from "../../../../controllers/userPanel/user.controller";
 
 class UserProfileRoute {
   private readonly userController: UserController;
@@ -23,4 +23,4 @@ class UserProfileRoute {
   }
 }
 
-export default new UserProfileRoute().router
+export default new UserProfileRoute().router;

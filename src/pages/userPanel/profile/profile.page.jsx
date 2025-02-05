@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "../../../css/user/general.css";
 import { persianDate } from "services/persianDate.services";
 import { getUser, updateUser } from "services/userPanel/user.service";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const [date, setDate] = useState();
@@ -12,6 +13,7 @@ const Profile = () => {
   const [templateRePassword, setTemplateRePassword] = useState({
     confirmPassword: "*********",
   });
+  const navigate = useNavigate();
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -27,7 +29,11 @@ const Profile = () => {
 
   const userUpdate = async (e) => {
     e.preventDefault();
-    await updateUser(user.id, user, templatePassword);
+    await updateUser(user._id, user, templatePassword).then((res) => {
+      if (res.data) {
+        navigate("/user/counter");
+      }
+    });
   };
 
   useEffect(() => {
