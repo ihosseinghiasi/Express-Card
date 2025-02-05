@@ -2,38 +2,31 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
+import { persianDate } from "services/persianDate.services";
+import { getTickets } from "services/userPanel/ticket.service";
 
 const AllTickets = () => {
   const [tickets, setTickets] = useState([]);
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
+
+  const getPersianDate = async () => {
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
+  };
+
+  const getAllTickets = async () => {
+    await getTickets().then((res) => {
+      setTickets(res.data);
+    });
+  };
 
   useEffect(() => {
-    const getAllTickets = async () => {
-      await axios
-        .get("http://localhost:4000/userPanel/ticket/getAllTickets")
-        .then((res) => {
-          setTickets(res.data);
-        });
-    };
-
-    const getPersianDate = async () => {
-      // await axios.get("http://localhost:4000/persianDate").then((res) => {
-      //   setPersianDate(res.data);
-      // });
-    };
     getAllTickets();
     getPersianDate();
   }, []);
 
-  useEffect(() => {
-    console.log(tickets);
-  }, [tickets]);
-
-  async function handleDelete(id) {
-    await axios
-      .delete(`http://localhost:4000/userTickets/deleteTicket/${id}`)
-      .then((res) => {});
-  }
+  async function handleDelete(id) {}
 
   return (
     <>

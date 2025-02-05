@@ -8,7 +8,7 @@ export const addTicket = async (ticket) => {
 
 export const getTickets = async () => {
   return await axios
-    .get("http://localhost:4000/adminPanel/ticket/getAllTickets")
+    .get("http://localhost:4000/userPanel/ticket/getAllTickets")
     .then((res) => {
       return res;
     });
@@ -33,6 +33,6 @@ export const updateTicket = async (params, answer) => {
 
 export const deleteTicket = async (id) => {
   return await axios.delete(
-    `http://localhost:4000/adminPanel/ticket/deleteTicket/${id}`
+    `http://localhost:4000/userTickets/deleteTicket/${id}`
   );
 };
