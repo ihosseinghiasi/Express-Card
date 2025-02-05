@@ -5,7 +5,6 @@ import axios from "axios";
 import TableRow from "./tableRow.page";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "services/persianDate.services";
-import { deleteUser, getUsers } from "services/user.service";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
@@ -19,9 +18,11 @@ const AllUsers = () => {
   };
 
   const getAllUsers = async () => {
-    await getUsers().then((res) => {
-      setUsers(res.data.users);
-    });
+    await axios
+      .get("http://localhost:4000/adminPanel/user/getAllUsers")
+      .then((res) => {
+        setUsers(res.data.users);
+      });
   };
 
   useEffect(() => {
@@ -30,7 +31,9 @@ const AllUsers = () => {
   }, []);
 
   async function handleDelete(id) {
-    await deleteUser(id);
+    await axios.delete(
+      `http://localhost:4000/adminPanel/user/deleteUser/${id}`
+    );
   }
 
   return (
