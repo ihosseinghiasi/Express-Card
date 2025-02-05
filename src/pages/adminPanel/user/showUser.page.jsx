@@ -2,49 +2,49 @@ import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { getUser, updateUser } from "services/user.service";
 
 const ShowUser = () => {
   const [user, setUser] = useState({});
-  const [persianDate, setPersianDate] = useState("");
+  const [date, setDate] = useState("");
+  const [templatePassword, setTemplatePassword] = useState({
+    password: "*********",
+  });
+  const [templateRePassword, setTemplateRePassword] = useState({
+    confirmPassword: "*********",
+  });
   const params = useParams();
   const navigate = useNavigate();
 
   const getPersianDate = async () => {
-    await axios
-      .get("http://localhost:4000/persianDate/getPersianDate")
-      .then((res) => {
-        setPersianDate(res.data);
-      });
+    await persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
 
-  const getUser = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/user/getUser/${params.id}`)
-      .then((res) => {
-        setUser(res.data);
-      });
+  const getAnUser = async () => {
+    await getUser(params).then((res) => {
+      setUser(res.data);
+    });
   };
 
   useEffect(() => {
     getPersianDate();
 
     if (params) {
-      getUser();
+      getAnUser();
     }
   }, []);
 
-  const updateUser = async (e) => {
+  const updateAnUser = async (e) => {
     e.preventDefault();
-    await axios
-      .put(`http://localhost:4000/adminPanel/user/updateUser/${params.id}`, {
-        user,
-      })
-      .then((res) => {
-        if (res?.data) {
-          navigate("/admin/allUsers");
-        }
-      });
+
+    await updateUser(params, user, templatePassword).then((res) => {
+      if (res?.data) {
+        navigate("/admin/allUsers");
+      }
+    });
   };
 
   return (
@@ -57,7 +57,7 @@ const ShowUser = () => {
                 <p> پیشخوان / ویرایش کاربر </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                <p>{persianDate}</p>
+                <p>{date}</p>
               </div>
             </div>
 
@@ -72,7 +72,7 @@ const ShowUser = () => {
               </div>
 
               <div className="addBody col-8 mx-5">
-                <form onSubmit={(e) => updateUser(e)} className="mx-5">
+                <form onSubmit={(e) => updateAnUser(e)} className="mx-5">
                   <div className="row col-5 userForm">
                     <div>
                       <input
@@ -133,9 +133,10 @@ const ShowUser = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
+                        value={templatePassword.password}
                         onChange={(e) =>
-                          setUser({
-                            ...user,
+                          setTemplatePassword({
+                            ...templatePassword,
                             [e.target.name]: e.target.value,
                           })
                         }
@@ -151,6 +152,13 @@ const ShowUser = () => {
                         placeholder="تکرار کلمه عبور"
                         name="confirmPassword"
                         id="confirmPassword"
+                        value={templateRePassword.confirmPassword}
+                        onChange={(e) =>
+                          setTemplateRePassword({
+                            ...templateRePassword,
+                            [e.target.name]: e.target.value,
+                          })
+                        }
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"

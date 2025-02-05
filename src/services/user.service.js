@@ -14,19 +14,22 @@ export const getUsers = async () => {
     });
 };
 
-export const getAdmin = async (params) => {
+export const getUser = async (params) => {
   return await axios
-    .get(`http://localhost:4000/adminPanel/admin/getAdmin/${params.id}`)
+    .get(`http://localhost:4000/adminPanel/user/getUser/${params.id}`)
     .then((res) => {
       return res;
     });
 };
 
-export const updateAdmin = async (params, admin) => {
+export const updateUser = async (params, user, templatePassword) => {
+  if (templatePassword.password !== "*********") {
+    user.password = templatePassword.password;
+  }
   return await axios.put(
-    `http://localhost:4000/adminPanel/admin/updateAdmin/${params.id}`,
+    `http://localhost:4000/adminPanel/user/updateUser/${params.id}`,
     {
-      admin,
+      user,
     }
   );
 };
