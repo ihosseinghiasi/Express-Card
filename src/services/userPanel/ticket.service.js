@@ -16,7 +16,7 @@ export const getTickets = async () => {
 
 export const getTicket = async (params) => {
   return await axios
-    .get(`http://localhost:4000/adminPanel/ticket/getTicket/${params.id}`)
+    .get(`http://localhost:4000/userPanel/ticket/getTicket/${params.id}`)
     .then((res) => {
       return res;
     });
@@ -24,7 +24,7 @@ export const getTicket = async (params) => {
 
 export const updateTicket = async (params, answer) => {
   return await axios
-    .put(`http://localhost:4000/adminPanel/ticket/answerTicket/${params.id}`, {
+    .put(`http://localhost:4000/userPanel/ticket/answerTicket/${params.id}`, {
       answer,
     })
     .then((res) => {

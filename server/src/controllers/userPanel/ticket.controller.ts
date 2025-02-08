@@ -15,11 +15,9 @@ export default class TicketController {
 
   async createTicket(req: Request, res: Response) {
     try {
-      const authenticatedId = localStorage.getItem("authenticatedId");
-      console.log(authenticatedId);
+      const authenticatedId = localStorage.getItem("userAuthenticatedId");
       if (authenticatedId) {
         const user = await this.userService.findById(authenticatedId);
-        console.log(user);
         const tagIgnore = /(<([^>]+)>)/g;
         const userFullName = `${user?.firstName} ${user?.lastName}`;
         const data: ITicket = {
@@ -43,8 +41,8 @@ export default class TicketController {
             date: persianDate,
           },
         };
-        // const ticket = await this.ticketService.create(data);
-        // res.status(200).json(ticket);
+        const ticket = await this.ticketService.create(data);
+        res.status(200).json(ticket);
       }
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -53,7 +51,7 @@ export default class TicketController {
 
   async getAllTickets(req: Request, res: Response) {
     try {
-      const userAuthenticated = localStorage.getItem("authenticatedId");
+      const userAuthenticated = localStorage.getItem("userAuthenticatedId");
       const allTickets = await this.ticketService.findAll();
       const tickets = allTickets?.filter(
         (ticket) => ticket.senderId === userAuthenticated
@@ -130,7 +128,7 @@ export default class TicketController {
   }
   async ticketReport(req: Request, res: Response) {
     try {
-      const userId = localStorage.getItem("authenticatedId");
+      const userId = localStorage.getItem("userAuthenticatedId");
       const allTickets = await this.ticketService.findAll();
       let tickets = allTickets?.filter((ticket) => {
         return ticket.senderId === userId;

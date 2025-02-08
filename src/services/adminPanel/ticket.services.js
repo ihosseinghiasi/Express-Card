@@ -32,6 +32,7 @@ export const updateTicket = async (params, answer) => {
 };
 
 export const deleteTicket = async (id) => {
+  console.log("id");
   return await axios.delete(
     `http://localhost:4000/adminPanel/ticket/deleteTicket/${id}`
   );

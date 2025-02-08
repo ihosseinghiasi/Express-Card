@@ -25,9 +25,9 @@ const AllTickets = () => {
     getPersianDate();
   }, []);
 
-  async function handleDelete(id) {
+  const handleDelete = async (id) => {
     await deleteTicket(id);
-  }
+  };
 
   return (
     <>

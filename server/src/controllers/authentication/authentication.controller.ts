@@ -51,7 +51,7 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password);
         if (authentication) {
           const token = createToken(user._id);
-          localStorage.setItem("authenticatedId", user._id);
+          localStorage.setItem("userAuthenticatedId", user._id);
           res.status(201).json({ person: user, token });
         }
       } else {
@@ -60,7 +60,7 @@ export default class UserAuthentication {
           const authentication = await bcrypt.compare(password, admin.password);
           if (authentication) {
             const token = createToken(admin._id);
-            localStorage.setItem("authenticatedId", admin._id);
+            localStorage.setItem("adminAuthenticatedId", admin._id);
             res.status(201).json({ person: admin, token });
           }
         }
