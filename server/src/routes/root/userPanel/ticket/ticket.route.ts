@@ -20,9 +20,13 @@ class TicketRoute {
       "/getAllTickets",
       this.ticketController.getAllTickets.bind(this.ticketController)
     );
+    this.router.get(
+      "/getTicket/:id",
+      this.ticketController.getAllTickets.bind(this.ticketController)
+    );
     this.router.put(
       "/answerTicket/:id",
-      this.ticketController.updateTicket.bind(this.ticketController)
+      this.ticketController.getTicket.bind(this.ticketController)
     );
     this.router.delete(
       "/deleteTicket/:id",

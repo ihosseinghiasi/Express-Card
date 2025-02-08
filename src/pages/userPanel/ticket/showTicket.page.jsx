@@ -4,21 +4,33 @@ import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
 import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
 import "../../../css/user/ticket.css";
 import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { getTicket, updateTicket } from "services/userPanel/ticket.service";
 
 const ShowTicket = () => {
   const [ticket, setTicket] = useState();
   const [ticketDetail, setTicketDetail] = useState();
   const [answer, setAnswer] = useState();
+  const [date, setDate] = useState("");
   const navigate = useNavigate();
   const params = useParams();
 
-  const getTicket = async () => {
-    await axios
-      .get(`http://localhost:4000/adminTickets/getTicket/${params.id}`)
-      .then((res) => {
-        setTicket(res.data);
-      });
+  const getPersianDate = async () => {
+    persianDate().then((res) => {
+      setDate(res.data);
+    });
   };
+
+  const getATicket = async () => {
+    await getTicket(params).then((res) => {
+      setTicket(res.data);
+    });
+  };
+
+  useEffect(() => {
+    getPersianDate();
+    getATicket();
+  }, []);
 
   useEffect(() => {
     ticket?.map((detail) => {
@@ -27,18 +39,11 @@ const ShowTicket = () => {
   }, [ticket]);
 
   const answerTicket = async (e) => {
-    axios
-      .put(`http://localhost:4000/userTickets/answerTicket/${params.id}`, {
-        answer,
-      })
-      .then((res) => {
-        console.log(res.data);
-      });
+    await updateTicket(params, ticket).then((res) => {
+      console.log(res.data);
+    });
   };
 
-  useEffect(() => {
-    getTicket();
-  }, []);
   return (
     <div>
       <div className="container-fluid">
@@ -48,9 +53,7 @@ const ShowTicket = () => {
               <div className="titleCounter">
                 <p>پیشخوان / تیکت ها / مشاهده تیکت</p>
               </div>
-              <div className="d-flex justify-content-start parsianDate">
-                {/* <p><%= persianDate %></p> */}
-              </div>
+              <div className="d-flex justify-content-start parsianDate">{}</div>
             </div>
             <div className="col-11 mx-5 ticketHeaderUser">
               <div className="subject">
@@ -80,12 +83,12 @@ const ShowTicket = () => {
                 {ticket?.map((message) =>
                   Object.values(message.tickets).map((text) =>
                     text.sender === "مدیریت" || text.sender === "پشتیبانی" ? (
-                      <SendBoxTicket sender={message.sender} text={text.text} />
-                    ) : (
                       <ReceiveBoxTicket
                         sender={message.sender}
                         text={text.text}
                       />
+                    ) : (
+                      <SendBoxTicket sender={message.sender} text={text.text} />
                     )
                   )
                 )}
