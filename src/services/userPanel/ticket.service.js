@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const addTicket = async (ticket) => {
-  return axios.post("http://locahost:4000/adminPanel/ticket/createTicket", {
+  return axios.post("http://localhost:4000/userPanel/ticket/createTicket", {
     ticket,
   });
 };
@@ -23,16 +23,17 @@ export const getTicket = async (params) => {
 };
 
 export const updateTicket = async (params, answer) => {
-  return await axios.put(
-    `http://localhost:4000/adminPanel/ticket/answerTicket/${params.id}`,
-    {
+  return await axios
+    .put(`http://localhost:4000/adminPanel/ticket/answerTicket/${params.id}`, {
       answer,
-    }
-  );
+    })
+    .then((res) => {
+      return res;
+    });
 };
 
 export const deleteTicket = async (id) => {
   return await axios.delete(
-    `http://localhost:4000/userTickets/deleteTicket/${id}`
+    `http://localhost:4000/userPanel/ticket/deleteTicket/${id}`
   );
 };

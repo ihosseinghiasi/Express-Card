@@ -35,7 +35,11 @@ export const Login = () => {
           "authenticatedFullName",
           `${res.data.person.firstName} ${res.data.person.lastName}`
         );
-        localStorage.setItem("authenticatedId", res.data.person._id);
+        if (userType === "user") {
+          localStorage.setItem("userAuthenticatedId", res.data.person._id);
+        } else {
+          localStorage.setItem("adminAuthenticatedId", res.data.person._id);
+        }
         navigate("/");
       }
     });

@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import { persianDate } from "services/persianDate.services";
+import { deleteTicket, getTickets } from "services/userPanel/ticket.service";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
-import { persianDate } from "services/persianDate.services";
-import { getTickets } from "services/userPanel/ticket.service";
 
 const AllTickets = () => {
   const [tickets, setTickets] = useState([]);
@@ -26,7 +25,9 @@ const AllTickets = () => {
     getPersianDate();
   }, []);
 
-  async function handleDelete(id) {}
+  async function handleDelete(id) {
+    await deleteTicket(id);
+  }
 
   return (
     <>
@@ -38,7 +39,7 @@ const AllTickets = () => {
                 <p>پیشخوان / تیکت ها </p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
-                {persianDate}
+                {date}
               </div>
             </div>
 

@@ -16,8 +16,10 @@ export default class TicketController {
   async createTicket(req: Request, res: Response) {
     try {
       const authenticatedId = localStorage.getItem("authenticatedId");
+      console.log(authenticatedId);
       if (authenticatedId) {
         const user = await this.userService.findById(authenticatedId);
+        console.log(user);
         const tagIgnore = /(<([^>]+)>)/g;
         const userFullName = `${user?.firstName} ${user?.lastName}`;
         const data: ITicket = {
@@ -41,8 +43,8 @@ export default class TicketController {
             date: persianDate,
           },
         };
-        const ticket = await this.ticketService.create(data);
-        res.status(200).json(ticket);
+        // const ticket = await this.ticketService.create(data);
+        // res.status(200).json(ticket);
       }
     } catch (error: unknown) {
       throw new Error(error as string);

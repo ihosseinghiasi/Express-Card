@@ -33,7 +33,12 @@ const ShowTicket = () => {
   }, [ticket]);
 
   const answerTicket = async (e) => {
-    await updateTicket(params, answer);
+    e.preventDefault();
+    await updateTicket(params, answer).then((res) => {
+      if (res.data) {
+        navigate("/admin/allTickets");
+      }
+    });
   };
 
   useEffect(() => {
