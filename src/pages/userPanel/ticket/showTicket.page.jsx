@@ -39,8 +39,10 @@ const ShowTicket = () => {
   }, [ticket]);
 
   const answerTicket = async (e) => {
-    await updateTicket(params, ticket).then((res) => {
-      console.log(res.data);
+    await updateTicket(params, answer).then((res) => {
+       if (res.data) {
+         navigate("/user/allTickets");
+       }
     });
   };
 

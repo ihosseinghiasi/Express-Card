@@ -15,7 +15,7 @@ export default class TicketController {
 
   async createTicket(req: Request, res: Response) {
     try {
-      const data = await this.createTicketData(req, res);
+      const data = await this.createTicketData(req, res, null);
       const ticketContent = await this.createTicketContent(req, res, data);
       data.tickets = ticketContent;
       const ticket = await this.ticketService.create(data);
@@ -39,7 +39,7 @@ export default class TicketController {
     return tickets;
   }
 
-  async createTicketData(req: Request, res: Response) {
+  async createTicketData(req: Request, res: Response, ticket: ITicket | null) {
     let data!: ITicket;
     const authenticatedId = localStorage.getItem("userAuthenticatedId");
     if (authenticatedId) {
@@ -47,17 +47,19 @@ export default class TicketController {
       if (user) {
         const userFullName = `${user.firstName} ${user.lastName}`;
         data = {
-          subject: req.body.ticket.subject,
-          status: "ارسال کاربر",
-          targetDepartment: req.body.ticket.targetDepartment,
+          subject: ticket ? ticket?.subject : req.body.ticket.subject,
+          status: ticket ? "پاسخ کاربر" : "ارسال کاربر",
+          targetDepartment: ticket
+            ? ticket.targetDepartment
+            : req.body.ticket.targetDepartment,
           tickets: {},
-          sender: userFullName,
-          senderId: user._id,
-          ticketNumbers: 1,
-          userTicketsNumber: 1,
-          targetTicketsNumber: 0,
-          newUserTicketsNumber: 1,
-          newTargetTicketsNumber: 0,
+          sender: ticket ? ticket.sender : userFullName,
+          senderId: ticket ? ticket.senderId : user._id,
+          ticketNumbers: ticket ? ++ticket.ticketNumbers : 1,
+          userTicketsNumber: ticket ? ++ticket.userTicketsNumber : 1,
+          targetTicketsNumber: ticket ? ticket.targetTicketsNumber : 0,
+          newUserTicketsNumber: ticket ? ++ticket.newUserTicketsNumber : 1,
+          newTargetTicketsNumber: ticket ? ticket.newTargetTicketsNumber : 0,
         };
       }
     }
@@ -98,40 +100,44 @@ export default class TicketController {
         req.body.answer.newTicket.replace(tagIgnore, ""),
       ] as const;
       const ticket = await this.ticketService.findById(id);
-      const ticketNumbers: number = ticket ? ++ticket.ticketNumbers : -1;
-      const data: ITicket = {
-        subject: ticket?.subject || "null",
-        status: "پاسخ کاربر",
-        targetDepartment: ticket?.targetDepartment || "null",
-        sender: ticket?.sender || "null",
-        senderId: ticket?.senderId || "null",
-        tickets: {},
-        ticketNumbers,
-        targetTicketsNumber: ticket?.targetTicketsNumber || -1,
-        newTargetTicketsNumber: ticket?.newTargetTicketsNumber || -1,
-        userTicketsNumber: ticket ? ++ticket.userTicketsNumber : -1,
-        newUserTicketsNumber: ticket ? ++ticket.newUserTicketsNumber : -1,
-      };
-      const newTicket = Object.fromEntries(
-        answerTicket.map(() => [
-          `ticket${[ticketNumbers]}`,
-          {
-            sender: "کاربر",
-            text: answerTicket[0],
-            date: persianDate,
-          },
-        ])
-      );
       if (ticket) {
-        Object.assign(ticket.tickets, newTicket);
+        const data = await this.createTicketData(req, res, ticket);
+        const ticketContent = await this.createTicketContentForUpdate(
+          req,
+          res,
+          data,
+          answerTicket
+        );
+        Object.assign(ticket.tickets, ticketContent);
         data.tickets = ticket.tickets;
+
+        const updateTicket = await this.ticketService.update(id, data);
+        res.status(200).json(updateTicket);
       }
-      const updateTicket = await this.ticketService.update(id, data);
-      res.status(200).json(updateTicket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
   }
+
+  async createTicketContentForUpdate(
+    req: Request,
+    res: Response,
+    ticket: ITicket,
+    answerTicket: readonly [string]
+  ) {
+    const newTicket = Object.fromEntries(
+      answerTicket.map(() => [
+        `ticket${[ticket.ticketNumbers]}`,
+        {
+          sender: "مدیریت",
+          text: answerTicket[0],
+          date: persianDate,
+        },
+      ])
+    );
+    return newTicket;
+  }
+
   async deleteTicket(req: Request, res: Response) {
     try {
       const id: string = req.params.id;

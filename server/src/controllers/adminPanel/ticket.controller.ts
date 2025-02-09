@@ -10,34 +10,34 @@ export default class TicketController {
   }
 
   async createTicket(req: Request, res: Response) {
-    try {
-      const tagIgnore = /(<([^>]+)>)/g;
-      const data: ITicket = {
-        subject: req.body.ticket.subject,
-        status: "ارسال کاربر",
-        targetDepartment: req.body.ticket.targetDepartment,
-        tickets: {},
-        sender: "",
-        senderId: "",
-        ticketNumbers: req.body.ticketNumbers,
-        userTicketsNumber: 1,
-        targetTicketsNumber: 0,
-        newUserTicketsNumber: 1,
-        newTargetTicketsNumber: 0,
-      };
-      const newTicket = req.body.ticket.tickets.replace(tagIgnore, "");
-      data.tickets = {
-        ticket1: {
-          sender: "",
-          text: newTicket,
-          date: persianDate,
-        },
-      };
-      const ticket = await this.ticketService.create(data);
-      res.status(200).json(ticket);
-    } catch (error: unknown) {
-      throw new Error(error as string);
-    }
+    // try {
+    //   const tagIgnore = /(<([^>]+)>)/g;
+    //   const data: ITicket = {
+    //     subject: req.body.ticket.subject,
+    //     status: "ارسال کاربر",
+    //     targetDepartment: req.body.ticket.targetDepartment,
+    //     tickets: {},
+    //     sender: "",
+    //     senderId: "",
+    //     ticketNumbers: req.body.ticketNumbers,
+    //     userTicketsNumber: 1,
+    //     targetTicketsNumber: 0,
+    //     newUserTicketsNumber: 1,
+    //     newTargetTicketsNumber: 0,
+    //   };
+    //   const newTicket = req.body.ticket.tickets.replace(tagIgnore, "");
+    //   data.tickets = {
+    //     ticket1: {
+    //       sender: "",
+    //       text: newTicket,
+    //       date: persianDate,
+    //     },
+    //   };
+    //   const ticket = await this.ticketService.create(data);
+    //   res.status(200).json(ticket);
+    // } catch (error: unknown) {
+    //   throw new Error(error as string);
+    // }
   }
 
   async getAllTickets(req: Request, res: Response) {
@@ -69,41 +69,62 @@ export default class TicketController {
       const answerTicket = [
         req.body.answer.newTicket.replace(tagIgnore, ""),
       ] as const;
-      const ticket = await this.ticketService.findById(id);
-      const ticketNumbers: number = ticket ? ++ticket.ticketNumbers : -1;
 
-      const data: ITicket = {
-        subject: ticket?.subject || "",
-        status: "پاسخ مدیریت",
-        targetDepartment: ticket?.targetDepartment || "",
-        sender: ticket?.sender || "",
-        senderId: ticket?.senderId || "null",
-        tickets: ticket?.tickets || {},
-        ticketNumbers,
-        targetTicketsNumber: ticket ? ++ticket.targetTicketsNumber : -1,
-        newTargetTicketsNumber: ticket ? ++ticket.newTargetTicketsNumber : -1,
-        userTicketsNumber: ticket?.userTicketsNumber || -1,
-        newUserTicketsNumber: ticket?.newUserTicketsNumber || -1,
-      };
-      const newTicket = Object.fromEntries(
-        answerTicket.map(() => [
-          `ticket${[ticketNumbers]}`,
-          {
-            sender: "مدیریت",
-            text: answerTicket[0],
-            date: persianDate,
-          },
-        ])
-      );
+      const ticket = await this.ticketService.findById(id);
       if (ticket) {
-        Object.assign(ticket.tickets, newTicket);
+        const data = await this.createTicketData(req, res, ticket); 
+        const ticketContent = await this.createTicketContent(
+          req,
+          res,
+          data,
+          answerTicket
+        );
+
+        Object.assign(ticket.tickets, ticketContent);
         data.tickets = ticket.tickets;
+
+        const updateTicket = await this.ticketService.update(id, data);
+        res.status(200).json(updateTicket);
       }
-      const updateTicket = await this.ticketService.update(id, data);
-      res.status(200).json(updateTicket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
+  }
+
+  async createTicketContent(
+    req: Request,
+    res: Response,
+    ticket: ITicket,
+    answerTicket: readonly [string]
+  ) {
+    const newTicket = Object.fromEntries(
+      answerTicket.map(() => [
+        `ticket${[ticket.ticketNumbers]}`,
+        {
+          sender: "مدیریت",
+          text: answerTicket[0],
+          date: persianDate,
+        },
+      ])
+    );
+    return newTicket;
+  }
+
+  async createTicketData(req: Request, res: Response, ticket: ITicket) {
+    const data: ITicket = {
+      subject: ticket.subject,
+      status: "پاسخ مدیریت",
+      targetDepartment: ticket.targetDepartment,
+      sender: ticket.sender,
+      senderId: ticket.senderId,
+      tickets: ticket.tickets,
+      ticketNumbers: ++ticket.ticketNumbers,
+      targetTicketsNumber: ++ticket.targetTicketsNumber,
+      newTargetTicketsNumber: ++ticket.newTargetTicketsNumber,
+      userTicketsNumber: ticket.userTicketsNumber,
+      newUserTicketsNumber: ticket.newUserTicketsNumber,
+    };
+    return data;
   }
   async deleteTicket(req: Request, res: Response) {
     try {
