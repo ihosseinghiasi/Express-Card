@@ -1,7 +1,7 @@
 export default interface IPayment {
   tittle: string;
   count: number;
-  purePrice: number;
+  price: number;
   totalPrice: number;
   payment: boolean;
   resnumber: string;
