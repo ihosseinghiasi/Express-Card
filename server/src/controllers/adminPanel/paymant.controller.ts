@@ -10,6 +10,6 @@ export default class Payment {
   }
 
   async pay(req: Request, res: Response) {
-
+    console.log("payment");
   }
 }
