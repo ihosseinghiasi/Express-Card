@@ -6,12 +6,12 @@ import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
 
 const Payment = () => {
-  const params = useParams();
   const [product, setProduct] = useState();
   const [arrayNumbers, setArrayNumbers] = useState([]);
   const [price, setPrice] = useState();
   const [count, setCount] = useState(1);
   const [tax, setTax] = useState();
+  const params = useParams();
 
   const getAProduct = async () => {
     await getProduct(params).then((res) => {
