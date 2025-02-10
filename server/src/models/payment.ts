@@ -4,7 +4,7 @@ import IPayment from "../interface/payment.interface";
 const paymentSchema = new mongoose.Schema({
   count: { type: Number },
   title: { type: String },
-  price: { type: Number },
+  purePrice: { type: Number },
   totalPrice: { type: Number },
   periodOfTime: { type: Number },
   resnumber: { type: String },

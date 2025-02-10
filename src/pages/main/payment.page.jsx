@@ -8,9 +8,10 @@ import "../../css/shop/productPage.css";
 const Payment = () => {
   const [product, setProduct] = useState();
   const [arrayNumbers, setArrayNumbers] = useState([]);
-  const [price, setPrice] = useState();
+  const [tax, setTax] = useState(0);
+  const [price, setPrice] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(0);
   const [count, setCount] = useState(1);
-  const [tax, setTax] = useState();
   const params = useParams();
 
   const getAProduct = async () => {
@@ -20,12 +21,13 @@ const Payment = () => {
   };
 
   useEffect(() => {
+    setCount(1);
     getAProduct();
   }, []);
 
   const createArrayOfNumbers = () => {
     setArrayNumbers([]);
-    if (product.count <= 10) {
+    if (product?.count <= 10) {
       for (let i = 1; i <= product.count; i++) {
         setArrayNumbers((arrayNumbers) => [...arrayNumbers, i]);
       }
@@ -37,22 +39,31 @@ const Payment = () => {
   };
 
   useEffect(() => {
-    if (product) {
-      createArrayOfNumbers();
-      setPrice(product.price);
-    }
+    createArrayOfNumbers();
+    setPrice(product?.price);
   }, [product]);
 
   const taxCalculator = () => {
-    const tax = (product.price * 19) / 100;
+    const countValue = count;
+    const tax = (product?.price * countValue * 19) / 100;
     setTax(tax);
   };
 
+  const totalPriceCalculator = () => {
+    const taxValue = tax;
+    const countValue = count;
+    const priceValue = price;
+    const productsPrice = countValue * (priceValue + taxValue);
+    setTotalPrice(productsPrice);
+  };
+
   useEffect(() => {
-    if (product) {
-      taxCalculator();
-    }
-  }, [arrayNumbers]);
+    totalPriceCalculator();
+  }, [tax]);
+
+  useEffect(() => {
+    taxCalculator();
+  }, [count, price]);
 
   return (
     <>
@@ -147,7 +158,7 @@ const Payment = () => {
                         className="form-control noBorder"
                         id="price"
                         name="price"
-                        value={price * count + " تومان "}
+                        value={product.price + " تومان "}
                       />
                     </td>
                   )}
@@ -160,7 +171,7 @@ const Payment = () => {
                       className="form-control noBorder"
                       id="tax"
                       name="tax"
-                      value={count * tax + " تومان "}
+                      value={tax + " تومان "}
                     />
                   </td>
                 </tr>
@@ -173,7 +184,7 @@ const Payment = () => {
                         className="form-control noBorder"
                         name="totalPrice"
                         id="totalPrice"
-                        value={count * (price + tax) + " تومان "}
+                        value={totalPrice + " تومان "}
                       />
                     </strong>
                   </td>
