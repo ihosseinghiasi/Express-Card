@@ -2,11 +2,11 @@ import mongoose from "mongoose";
 import IPayment from "../interface/payment.interface";
 
 const paymentSchema = new mongoose.Schema({
-  count: { type: Number },
+  userFullName: { type: String },
+  userId: { type: String },
   title: { type: String },
   price: { type: Number },
   totalPrice: { type: Number },
-  periodOfTime: { type: Number },
   resnumber: { type: String },
   payment: { type: Boolean, default: false },
   isNewPaymentForAdmin: { type: Boolean, default: true },

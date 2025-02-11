@@ -5,3 +5,6 @@ export const pay = async (data) => {
     data,
   });
 };
+export const calback = async () => {
+  return await axios.get("http://localhost:4000/adminPanel/payment/callback");
+};

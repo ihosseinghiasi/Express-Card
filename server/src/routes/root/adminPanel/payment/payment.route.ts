@@ -16,6 +16,8 @@ class PaymentRoute {
       "/pay",
       this.paymentController.pay.bind(this.paymentController)
     );
+
+    // this.router.get("/callback", this.paymentController.callback.bind(this.paymentController));
   }
 }
 
