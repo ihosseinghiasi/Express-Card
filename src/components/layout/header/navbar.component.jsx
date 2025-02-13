@@ -1,13 +1,30 @@
-import "../../../css/shop/navbar.css";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import Cookies from "js-cookie";
+import {
+  HoverCard,
+  Anchor,
+  Text,
+  Group,
+  useMantineTheme,
+  NavLink,
+} from "@mantine/core";
+import {
+  IconHome2,
+  IconGauge,
+  IconChevronRight,
+  IconActivity,
+  IconCircleOff,
+} from "@tabler/icons-react";
+import "../../../css/shop/navbar.css";
+import "@mantine/core/styles.css";
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
+  const theme = useMantineTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -49,14 +66,6 @@ const NavbarComponent = () => {
       {userAuthenticated ? (
         <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
           <div className="container-fluid">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapsibleNavbar"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
               <ul className="navbar-nav me-5">
                 <li className="nav-item mx-2 my-3">
@@ -123,20 +132,28 @@ const NavbarComponent = () => {
       ) : (
         <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
           <div className="container-fluid">
-            <button
-              className="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#collapsibleNavbar"
-            >
-              <span className="navbar-toggler-icon"></span>
-            </button>
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
               <ul className="navbar-nav me-5">
-                <li className="nav-item mx-2 my-3">
-                  <Link className="nav-link text-light" to="/">
+                <Group justify="center">
+                  <Anchor href="/" underline="never" c="white" ms={50}>
                     صفحه اصلی
-                  </Link>
+                  </Anchor>
+
+                  <HoverCard width={180} shadow="md">
+                    <HoverCard.Target>
+                      <Anchor href="/" underline="never" c="white" ms={35}>
+                        دسته بندی ها
+                      </Anchor>
+                    </HoverCard.Target>
+                    <HoverCard.Dropdown>
+                      <Text size="sm">
+                        <NavLink label="Auto contrast" size={1} />
+                      </Text>
+                    </HoverCard.Dropdown>
+                  </HoverCard>
+                </Group>
+                {/* <li className="nav-item mx-2 my-3">
+                 
                 </li>
                 <li className="nav-item dropdown mx-2 my-3" dir="rtl">
                   <Link
@@ -170,7 +187,7 @@ const NavbarComponent = () => {
                   >
                     پنل مدیر
                   </Link>
-                </li>
+                </li> */}
               </ul>
 
               <ul className="navbar-nav me-auto me-5">
