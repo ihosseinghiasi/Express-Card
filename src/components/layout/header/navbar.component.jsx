@@ -10,13 +10,6 @@ import {
   useMantineTheme,
   NavLink,
 } from "@mantine/core";
-import {
-  IconHome2,
-  IconGauge,
-  IconChevronRight,
-  IconActivity,
-  IconCircleOff,
-} from "@tabler/icons-react";
 import "../../../css/shop/navbar.css";
 import "@mantine/core/styles.css";
 
@@ -134,41 +127,10 @@ const NavbarComponent = () => {
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
               <ul className="navbar-nav me-5">
-                <Group justify="center">
-                  <Anchor href="/" underline="never" c="white" ms={50}>
+                <li className="nav-item mx-2 my-3">
+                  <Link className="nav-link text-light" to="/">
                     صفحه اصلی
-                  </Anchor>
-
-                  <HoverCard width={180} shadow="md">
-                    <HoverCard.Target>
-                      <Anchor href="/" underline="never" c="white" ms={35}>
-                        دسته بندی ها
-                      </Anchor>
-                    </HoverCard.Target>
-                    <HoverCard.Dropdown>
-                      <Text size="sm">
-                        <NavLink label="Auto contrast" size={1} />
-                      </Text>
-                    </HoverCard.Dropdown>
-                  </HoverCard>
-                </Group>
-                {/* <li className="nav-item mx-2 my-3">
-                 
-                </li>
-                <li className="nav-item dropdown mx-2 my-3" dir="rtl">
-                  <Link
-                    className="nav-link dropdown-toggle text-light"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                  >
-                    دسته بندی ها
                   </Link>
-                  <ul className="dropdown-menu dropdownMenu">
-                    <li>
-                      <Link></Link>
-                    </li>
-                  </ul>
                 </li>
                 <li className="nav-item mx-2 my-3">
                   <Link
@@ -187,7 +149,7 @@ const NavbarComponent = () => {
                   >
                     پنل مدیر
                   </Link>
-                </li> */}
+                </li>
               </ul>
 
               <ul className="navbar-nav me-auto me-5">
