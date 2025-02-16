@@ -2,7 +2,56 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
+import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+import { Dropdown, Space } from "antd";
 import "../../../css/shop/navbar.css";
+
+const items = [
+  {
+    key: "1",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.antgroup.com"
+      >
+        1st menu item
+      </a>
+    ),
+  },
+  {
+    key: "2",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.aliyun.com"
+      >
+        2nd menu item (disabled)
+      </a>
+    ),
+    icon: <SmileOutlined />,
+    disabled: true,
+  },
+  {
+    key: "3",
+    label: (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.luohanacademy.com"
+      >
+        3rd menu item (disabled)
+      </a>
+    ),
+    disabled: true,
+  },
+  {
+    key: "4",
+    danger: true,
+    label: "a danger item",
+  },
+];
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState("");
@@ -47,72 +96,84 @@ const NavbarComponent = () => {
   return (
     <div>
       {userAuthenticated ? (
-        <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
-          <div className="container-fluid">
-            <div className="collapse navbar-collapse" id="collapsibleNavbar">
-              <ul className="navbar-nav me-5">
-                <li className="nav-item mx-2 my-3">
-                  <Link className="nav-link text-light" to="/">
-                    صفحه اصلی
-                  </Link>
-                </li>
-                <li className="nav-item dropdown mx-2 my-3" dir="rtl">
-                  <Link
-                    className="nav-link dropdown-toggle text-light"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    href="#"
-                  >
-                    دسته بندی ها{" "}
-                  </Link>
-                  <ul className="dropdown-menu dropdownMenu">
-                    <li>
-                      <Link></Link>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-
-              <ul className="navbar-nav me-auto me-5">
-                <li className="nav-item ms-3">
-                  {userType === "user" ? (
-                    <Link
-                      className="nav-link text-info navUser"
-                      to="/user/counter"
-                    >
-                      {person}
-                    </Link>
-                  ) : (
-                    <Link
-                      className="nav-link text-info navUser"
-                      to="/admin/counter"
-                    >
-                      {person}
-                    </Link>
-                  )}
-                </li>
-
-                <li className="nav-item ms-3">
-                  <Link
-                    onClick={() => logOut()}
-                    className="nav-link text-light"
-                    reloadDocument
-                  >
-                    خروج
-                  </Link>
-                </li>
-                <li className="nav-item ms-5">
-                  <button className="callButton">
-                    <a href="/" className="nav-link linkCallToMe text-light">
-                      تماس با ما
-                    </a>
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+        <Dropdown
+          menu={{
+            items,
+          }}
+        >
+          <a onClick={(e) => e.preventDefault()}>
+            <Space>
+              Hover me
+              <DownOutlined />
+            </Space>
+          </a>
+        </Dropdown>
       ) : (
+        // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
+        //   <div className="container-fluid">
+        //     <div className="collapse navbar-collapse" id="collapsibleNavbar">
+        //       <ul className="navbar-nav me-5">
+        //         <li className="nav-item mx-2 my-3">
+        //           <Link className="nav-link text-light" to="/">
+        //             صفحه اصلی
+        //           </Link>
+        //         </li>
+        //         <li className="nav-item dropdown mx-2 my-3" dir="rtl">
+        //           <Link
+        //             className="nav-link dropdown-toggle text-light"
+        //             role="button"
+        //             data-bs-toggle="dropdown"
+        //             href="#"
+        //           >
+        //             دسته بندی ها{" "}
+        //           </Link>
+        //           <ul className="dropdown-menu dropdownMenu">
+        //             <li>
+        //               <Link></Link>
+        //             </li>
+        //           </ul>
+        //         </li>
+        //       </ul>
+
+        //       <ul className="navbar-nav me-auto me-5">
+        //         <li className="nav-item ms-3">
+        //           {userType === "user" ? (
+        //             <Link
+        //               className="nav-link text-info navUser"
+        //               to="/user/counter"
+        //             >
+        //               {person}
+        //             </Link>
+        //           ) : (
+        //             <Link
+        //               className="nav-link text-info navUser"
+        //               to="/admin/counter"
+        //             >
+        //               {person}
+        //             </Link>
+        //           )}
+        //         </li>
+
+        //         <li className="nav-item ms-3">
+        //           <Link
+        //             onClick={() => logOut()}
+        //             className="nav-link text-light"
+        //             reloadDocument
+        //           >
+        //             خروج
+        //           </Link>
+        //         </li>
+        //         <li className="nav-item ms-5">
+        //           <button className="callButton">
+        //             <a href="/" className="nav-link linkCallToMe text-light">
+        //               تماس با ما
+        //             </a>
+        //           </button>
+        //         </li>
+        //       </ul>
+        //     </div>
+        //   </div>
+        // </nav>
         <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
           <div className="container-fluid">
             <div className="collapse navbar-collapse" id="collapsibleNavbar">
