@@ -2,22 +2,12 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import {
-  HoverCard,
-  Anchor,
-  Text,
-  Group,
-  useMantineTheme,
-  NavLink,
-} from "@mantine/core";
 import "../../../css/shop/navbar.css";
-import "@mantine/core/styles.css";
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
-  const theme = useMantineTheme();
   const navigate = useNavigate();
 
   useEffect(() => {
