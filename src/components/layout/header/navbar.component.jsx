@@ -2,62 +2,89 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
+// import { DownOutlined, SmileOutlined } from "@ant-design/icons";
+// import { Dropdown, Space } from "antd";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
 import "../../../css/shop/navbar.css";
 
-const items = [
-  {
-    key: "1",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        1st menu item
-      </a>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        2nd menu item (disabled)
-      </a>
-    ),
-    icon: <SmileOutlined />,
-    disabled: true,
-  },
-  {
-    key: "3",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.luohanacademy.com"
-      >
-        3rd menu item (disabled)
-      </a>
-    ),
-    disabled: true,
-  },
-  {
-    key: "4",
-    danger: true,
-    label: "a danger item",
-  },
-];
+// const items = [
+//   {
+//     key: "1",
+//     label: (
+//       <a
+//         target="_blank"
+//         rel="noopener noreferrer"
+//         href="https://www.antgroup.com"
+//       >
+//         1st menu item
+//       </a>
+//     ),
+//   },
+//   {
+//     key: "2",
+//     label: (
+//       <a
+//         target="_blank"
+//         rel="noopener noreferrer"
+//         href="https://www.aliyun.com"
+//       >
+//         2nd menu item (disabled)
+//       </a>
+//     ),
+//     icon: <SmileOutlined />,
+//     disabled: true,
+//   },
+//   {
+//     key: "3",
+//     label: (
+//       <a
+//         target="_blank"
+//         rel="noopener noreferrer"
+//         href="https://www.luohanacademy.com"
+//       >
+//         3rd menu item (disabled)
+//       </a>
+//     ),
+//     disabled: true,
+//   },
+//   {
+//     key: "4",
+//     danger: true,
+//     label: "a danger item",
+//   },
+// ];
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const navigate = useNavigate();
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
+  const [anchorTemp, setAnchrTemp] = useState();
+
+  function handleOpen(event) {
+    setAnchorEl(event.currentTarget);
+    setAnchrTemp(event.currentTarget);
+    setOpen(true);
+  }
+
+  function handleClose() {
+    setAnchorEl(null);
+    setOpen(false);
+  }
+
+  function handleMenu() {
+    setAnchorEl(anchorTemp);
+    setOpen(true);
+  }
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -96,18 +123,62 @@ const NavbarComponent = () => {
   return (
     <div>
       {userAuthenticated ? (
-        <Dropdown
-          menu={{
-            items,
-          }}
-        >
-          <a onClick={(e) => e.preventDefault()}>
-            <Space>
-              Hover me
-              <DownOutlined />
-            </Space>
-          </a>
-        </Dropdown>
+        <div w-50 color="danger">
+          {/* <div>
+            <Button
+              id="basic-button"
+              aria-owns={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              onMouseOver={handleOpen}
+              anchorEl={anchorEl}
+              open={open}
+            >
+              Dashboard
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              MenuListProps={{
+                onMouseLeave: handleClose,
+              }}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+          </div> */}
+          <div>
+            <Button
+              id="basic-button"
+              aria-owns={open ? "basic-menu" : undefined}
+              aria-haspopup="true"
+              onMouseOver={handleOpen}
+              onMouseLeave={handleClose}
+              anchorEl={anchorEl}
+              open={open}
+              style={{ zIndex: 1301 }}
+            >
+              Dashboard
+            </Button>
+            <Menu
+              id="basic-menu"
+              anchorEl={anchorEl}
+              open={open}
+              onMouseMove={handleMenu}
+              onClose={handleClose}
+              onMouseLeave={handleClose}
+              MenuListProps={{
+                onMouseLeave: handleClose,
+              }}
+            >
+              <MenuItem onClick={handleClose}>Profile</MenuItem>
+              <MenuItem onClick={handleClose}>My account</MenuItem>
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+          </div>
+        </div>
       ) : (
         // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
         //   <div className="container-fluid">
