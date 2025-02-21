@@ -2,15 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-// import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-// import { Dropdown, Space } from "antd";
 import * as React from "react";
-import Button from "@mui/material/Button";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import Popover from "@mui/material/Popover";
-import Typography from "@mui/material/Typography";
-import Tooltip from "@mui/material/Tooltip";
 import "../../../css/shop/navbar.css";
 
 // const items = [
@@ -123,62 +115,7 @@ const NavbarComponent = () => {
   return (
     <div>
       {userAuthenticated ? (
-        <div w-50 color="danger">
-          {/* <div>
-            <Button
-              id="basic-button"
-              aria-owns={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              onMouseOver={handleOpen}
-              anchorEl={anchorEl}
-              open={open}
-            >
-              Dashboard
-            </Button>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                onMouseLeave: handleClose,
-              }}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          </div> */}
-          <div>
-            <Button
-              id="basic-button"
-              aria-owns={open ? "basic-menu" : undefined}
-              aria-haspopup="true"
-              onMouseOver={handleOpen}
-              onMouseLeave={handleClose}
-              anchorEl={anchorEl}
-              open={open}
-              style={{ zIndex: 1301 }}
-            >
-              Dashboard
-            </Button>
-            <Menu
-              id="basic-menu"
-              anchorEl={anchorEl}
-              open={open}
-              onMouseMove={handleMenu}
-              onClose={handleClose}
-              onMouseLeave={handleClose}
-              MenuListProps={{
-                onMouseLeave: handleClose,
-              }}
-            >
-              <MenuItem onClick={handleClose}>Profile</MenuItem>
-              <MenuItem onClick={handleClose}>My account</MenuItem>
-              <MenuItem onClick={handleClose}>Logout</MenuItem>
-            </Menu>
-          </div>
-        </div>
+        <div></div>
       ) : (
         // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
         //   <div className="container-fluid">

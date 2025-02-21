@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getCategories } from "services/adminPanel/category.services";
 import CategoryItem from "../../components/home/categoryItem.component";
 import { HomeWrapper } from "./home.styles";
-// import "../../css/shop/mainPage.css";
+import "../../css/shop/mainPage.css";
 
 const HomePage = () => {
   const [categories, setCategories] = useState();
