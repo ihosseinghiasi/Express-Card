@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import TableRow from "./tableRow.page";
-import { persianDate } from "services/persianDate.services";
+import { persianDate } from "../../../services/persianDate.services";
 import {
   getProducts,
   deleteProduct,
-} from "services/adminPanel/product.services";
+} from "../../../services/adminPanel/product.services";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getProduct } from "services/adminPanel/product.services";
+import { getProduct } from "../../services/adminPanel/product.services";
+import { pay } from "../../services/adminPanel/payment.service";
 import Footer from "../../components/layout/footer/footer.component";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
-import { pay } from "services/adminPanel/payment.service";
 
 const Payment = () => {
   const [product, setProduct] = useState();

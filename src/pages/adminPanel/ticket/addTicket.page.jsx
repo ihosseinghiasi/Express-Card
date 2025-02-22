@@ -1,7 +1,6 @@
-import { useEffect } from "react";
-import { useState } from "react";
-import { persianDate } from "services/persianDate.services";
-import { addTicket } from "services/adminPanel/ticket.services";
+import { useEffect, useState } from "react";
+import { persianDate } from "../../../services/persianDate.services";
+import { addTicket } from "../../../services/adminPanel/ticket.services";
 
 const AddTicket = () => {
   const [ticket, setTicket] = useState();

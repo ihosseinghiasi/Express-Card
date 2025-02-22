@@ -1,8 +1,8 @@
+import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
-import * as React from "react";
 import "../../../css/shop/navbar.css";
 
 // const items = [
@@ -115,7 +115,7 @@ const NavbarComponent = () => {
   return (
     <div>
       {userAuthenticated ? (
-        <div></div>
+        <>gfg</>
       ) : (
         // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
         //   <div className="container-fluid">

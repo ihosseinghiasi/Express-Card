@@ -2,8 +2,8 @@ import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
-import { addAdmin } from "services/adminPanel/admin.services";
+import { persianDate } from "../../../services/persianDate.services";
+import { addAdmin } from "../../../services/adminPanel/admin.services";
 
 const AddAdmin = () => {
   const [date, setDate] = useState("");

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
-import { addCategory } from "services/adminPanel/category.services";
+import { persianDate } from "../../../services/persianDate.services";
+import { addCategory } from "../../../services/adminPanel/category.services";
 import "../../../css/admin/category.css";
 
 const AddCategory = () => {

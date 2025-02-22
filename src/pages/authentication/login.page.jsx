@@ -1,9 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { login } from "../../services/authenticationService";
 import Cookies from "js-cookie";
 import "../../css/shop/login.css";
 // import Home from "../main/home";
-import { login } from "services/authenticationService";
 
 export const Login = () => {
   const [userType, setUserType] = useState(localStorage.getItem("userType"));

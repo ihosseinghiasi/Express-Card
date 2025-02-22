@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
-import { persianDate } from "services/persianDate.services";
-import { deleteUser, getUsers } from "services/adminPanel/user.service";
+import { persianDate } from "../../../services/persianDate.services";
+import {
+  deleteUser,
+  getUsers,
+} from "../../../services/adminPanel/user.service";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";

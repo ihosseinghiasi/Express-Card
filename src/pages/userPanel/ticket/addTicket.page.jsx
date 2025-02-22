@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
-import { addTicket } from "services/userPanel/ticket.service";
+import { persianDate } from "../../../services/persianDate.services";
+import { addTicket } from "../../../services/userPanel/ticket.service";
 
 const AddTicket = () => {
   const [date, setDate] = useState();

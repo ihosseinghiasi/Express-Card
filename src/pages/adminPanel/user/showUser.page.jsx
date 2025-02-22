@@ -1,9 +1,9 @@
-import "../../../css/admin/admin.css";
-import "../../../css/admin/general.css";
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
-import { getUser, updateUser } from "services/userPanel/user.service";
+import { persianDate } from "../../../services/persianDate.services";
+import { getUser, updateUser } from "../../../services/userPanel/user.service";
+import "../../../css/admin/admin.css";
+import "../../../css/admin/general.css";
 
 const ShowUser = () => {
   const [user, setUser] = useState({});

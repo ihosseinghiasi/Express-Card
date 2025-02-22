@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "../../../css/user/general.css";
-import { persianDate } from "services/persianDate.services";
-import { getUser, updateUser } from "services/userPanel/user.service";
+import { persianDate } from "../../../services/persianDate.services";
+import { getUser, updateUser } from "../../../services/userPanel/user.service";
 import { useNavigate } from "react-router-dom";
+import "../../../css/user/general.css";
 
 const Profile = () => {
   const [date, setDate] = useState();

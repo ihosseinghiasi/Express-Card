@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SendBoxTicket from "components/layout/ticketTextBox/sendBox";
-import ReceiveBoxTicket from "components/layout/ticketTextBox/receiveBox";
+import SendBoxTicket from "../../../components/layout/ticketTextBox/sendBox";
+import ReceiveBoxTicket from "../../../components/layout/ticketTextBox/receiveBox";
+import { persianDate } from "../../../services/persianDate.services";
+import {
+  getTicket,
+  updateTicket,
+} from "../../../services/userPanel/ticket.service";
 import "../../../css/user/ticket.css";
-import axios from "axios";
-import { persianDate } from "services/persianDate.services";
-import { getTicket, updateTicket } from "services/userPanel/ticket.service";
 
 const ShowTicket = () => {
   const [ticket, setTicket] = useState();
@@ -40,9 +42,9 @@ const ShowTicket = () => {
 
   const answerTicket = async (e) => {
     await updateTicket(params, answer).then((res) => {
-       if (res.data) {
-         navigate("/user/allTickets");
-       }
+      if (res.data) {
+        navigate("/user/allTickets");
+      }
     });
   };
 

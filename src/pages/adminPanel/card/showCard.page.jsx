@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
-import { getCategories } from "services/adminPanel/category.services";
-import { getProducts } from "services/adminPanel/product.services";
-import { getCard, updateCard } from "services/adminPanel/card.services";
+import { persianDate } from "../../../services/persianDate.services";
+import { getCategories } from "../../../services/adminPanel/category.services";
+import { getProducts } from "../../../services/adminPanel/product.services";
+import {
+  getCard,
+  updateCard,
+} from "../../../services/adminPanel/card.services";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
-import axios from "axios";
 
 const ShowCard = () => {
   const [firstLoad, setFirstLoad] = useState(false);

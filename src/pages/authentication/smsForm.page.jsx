@@ -1,7 +1,7 @@
 import "../../css/shop/smsForm.css";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AddPhoneNumber } from "services/authenticationService";
+import { AddPhoneNumber } from "../../services/authenticationService";
 
 const SmsForm = () => {
   const [phoneNumber, setPhoneNumber] = useState();

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { persianDate } from "services/persianDate.services";
-import { addEmailTemplate } from "services/adminPanel/emailTemplate.service";
+import { persianDate } from "../../../services/persianDate.services";
+import { addEmailTemplate } from "../../../services/adminPanel/emailTemplate.service";
 import { useNavigate } from "react-router-dom";
 
 const AddEmailTemplate = () => {

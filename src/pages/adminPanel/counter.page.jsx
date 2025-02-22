@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { persianDate } from "services/persianDate.services";
+import { persianDate } from "../../services/persianDate.services";
 
 const AdminCounter = () => {
   const [date, setDate] = useState("");

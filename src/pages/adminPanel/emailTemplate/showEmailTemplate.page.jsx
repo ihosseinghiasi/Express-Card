@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
+import { persianDate } from "../../../services/persianDate.services";
 import {
   getEmailTemplate,
   updateEmailTemplate,
-} from "services/adminPanel/emailTemplate.service";
+} from "../../../services/adminPanel/emailTemplate.service";
 
 const ShowEmailTemplate = () => {
   const [email, setEmail] = useState();

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { persianDate } from "services/persianDate.services";
-import { getCategories } from "services/adminPanel/category.services";
-import { getProducts } from "services/adminPanel/product.services";
-import { addCard } from "services/adminPanel/card.services";
+import { persianDate } from "../../../services/persianDate.services";
+import { getCategories } from "../../../services/adminPanel/category.services";
+import { getProducts } from "../../../services/adminPanel/product.services";
+import { addCard } from "../../../services/adminPanel/card.services";
 
 const AddCard = () => {
   const [categories, setCategories] = useState([]);
