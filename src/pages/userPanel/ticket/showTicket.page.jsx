@@ -1,3 +1,5 @@
+/* eslint-disable array-callback-return */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendBoxTicket from "../../../components/layout/ticketTextBox/sendBox";
@@ -57,7 +59,9 @@ const ShowTicket = () => {
               <div className="titleCounter">
                 <p>پیشخوان / تیکت ها / مشاهده تیکت</p>
               </div>
-              <div className="d-flex justify-content-start parsianDate">{}</div>
+              <div className="d-flex justify-content-start parsianDate">
+                {date}
+              </div>
             </div>
             <div className="col-11 mx-5 ticketHeaderUser">
               <div className="subject">

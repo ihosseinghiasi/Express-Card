@@ -1,14 +1,18 @@
-// import * as React from "react";
-// import { ButtonGroup, Button } from "@mui/material";
+import SidebarItem from "./userSidebarItem.component";
+import { items } from "./data/sidebarItems";
+import "../../../css/user/userSidebar.css";
 
-// const UserSidebar = () => {
-//   return (
-//     <ButtonGroup variant="contained" aria-label="Basic button group">
-//       <Button>One</Button>
-//       <Button>Two</Button>
-//       <Button>Three</Button>
-//     </ButtonGroup>
-//   );
-// };
+const UserSidebar = () => {
+  return (
+    <div>
+      <div className="sidebar col-2">
+        <div className="sidebarPicture"></div>
+        {items.map((item, index) => (
+          <SidebarItem key={index} item={item} />
+        ))}
+      </div>
+    </div>
+  );
+};
 
-// export default UserSidebar;
+export default UserSidebar;

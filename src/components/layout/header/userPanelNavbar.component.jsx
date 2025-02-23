@@ -1,7 +1,7 @@
-import "../../../css/admin/general.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import "../../../css/admin/general.css";
 
 const UserNavbarComponent = () => {
   const [adminNewTicketNumber, setAdminNewTicketNumber] = useState(0);
