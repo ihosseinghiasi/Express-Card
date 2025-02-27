@@ -12,12 +12,23 @@ export const items = [
   {
     title: "تیکت ها",
     icon: "/uploads/icons/message-square.svg",
-    link: "/user/ticket",
+    links: [
+      {
+        title: "ایجاد تیکت",
+        icon: "/uploads/icons/message-square.svg",
+        link: "user/newTicket",
+      },
+      {
+        title: " تیکت ها",
+        icon: "/uploads/icons/message-square.svg",
+        link: "user/allTickets",
+      },
+    ],
   },
   {
     title: "ایمیل ها",
     icon: "/uploads/icons/inbox.svg",
-    link: "/user/email",
+    link: "/user/allEmails",
   },
   {
     title: "خروج",
