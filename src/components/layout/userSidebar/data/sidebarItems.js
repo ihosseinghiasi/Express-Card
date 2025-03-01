@@ -16,12 +16,12 @@ export const items = [
       {
         title: "ایجاد تیکت",
         icon: "/uploads/icons/message-square.svg",
-        link: "user/newTicket",
+        link: "/user/newTicket",
       },
       {
         title: " تیکت ها",
         icon: "/uploads/icons/message-square.svg",
-        link: "user/allTickets",
+        link: "/user/allTickets",
       },
     ],
   },

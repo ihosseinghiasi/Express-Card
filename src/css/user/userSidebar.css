@@ -40,3 +40,31 @@
   background-repeat: no-repeat;
   background-size: cover;
 }
+
+.sidebar-subItem {
+  font-size: 1em;
+  padding: 3px 20px;
+  transition: background-color 0.45s;
+  display: block;
+}
+
+.sidebar-subItem:hover {
+  background-color: rgb(59, 9, 51);
+  cursor: pointer;
+}
+
+.sidebar-subTitle {
+  height: 34px;
+  margin-bottom: 5px;
+  display: inline-block;
+  justify-content: space-between;
+}
+
+.sidebar-subTitle img {
+  width: 1.5em;
+}
+
+.sidebar-subTitle p {
+  display: inline-block;
+  margin-right: 5px;
+}

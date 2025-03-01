@@ -8,7 +8,7 @@ const UserSidebar = () => {
     <div>
       <div className="sidebar col-2">
         <div className="sidebarPicture"></div>
-        {items.map((item, index) =>
+        {items.map((item, index = 1) =>
           item.link ? (
             <SidebarItem key={index} item={item} />
           ) : (

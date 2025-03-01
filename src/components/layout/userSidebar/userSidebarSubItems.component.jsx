@@ -1,12 +1,13 @@
 import Accordion from "react-bootstrap/Accordion";
+import { Link } from "react-router-dom";
 
-const SidebarSubItems = ({ item }) => {
+const SidebarSubItems = ({ item, key }) => {
   return (
     <>
       <style type="text/css">
         {`
-             .accordion-item {
-           color: beige;
+          .accordion-item {
+            color: beige;
             background-color: rgb(0,0,0);
             border: 0px;
           }
@@ -18,14 +19,18 @@ const SidebarSubItems = ({ item }) => {
          }
 
          .accordion-button:hover {
-            color: beige;
-            background-color:  rgb(59, 9, 51);
-            border: 0px;
+            background-color: rgb(59, 9, 51);
          }
 
          .accordion-button:focus {
             box-shadow: none;
-            background-color:  rgb(59, 9, 51);
+            background-color: rgb(59, 9, 51);
+            color: gray;
+          }
+
+            .accordion-button:not(:focus) {
+            box-shadow: none;
+            background-color: rgb(59, 9, 51);
             color: gray;
           }
 
@@ -40,7 +45,18 @@ const SidebarSubItems = ({ item }) => {
             <img src={item.icon} alt="ticketIcon" className="ms-1" />
             <p className="ms-2">{item.title}</p>
           </Accordion.Header>
-          <Accordion.Body>Loremum.</Accordion.Body>
+          <Accordion.Body>
+            {item.links.map((link, index) => (
+              <Link to={link.link} style={{ color: "white" }}>
+                <div className="sidebar-subItem">
+                  <div className="sidebar-subTitle">
+                    <img src={link.icon} alt="counter" className="ms-1" />
+                    <p>{link.title}</p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </Accordion.Body>
         </Accordion.Item>
       </Accordion>
     </>

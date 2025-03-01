@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const SidebarItem = ({ item }) => {
+const SidebarItem = ({ item, key }) => {
   return (
     <Link to={item.link} style={{ color: "white" }}>
       <div className={"sidebar-item"}>
