@@ -1,5 +1,6 @@
 export const items = [
   {
+    id: "00",
     title: "پیشخوان",
     icon: "/uploads/icons/home.svg",
     link: "/user/counter",

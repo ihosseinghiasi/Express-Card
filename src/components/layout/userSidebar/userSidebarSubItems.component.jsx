@@ -1,7 +1,7 @@
 import Accordion from "react-bootstrap/Accordion";
 import { Link } from "react-router-dom";
 
-const SidebarSubItems = ({ item, key }) => {
+const SidebarSubItems = ({ item }) => {
   return (
     <>
       <style type="text/css">
@@ -28,7 +28,7 @@ const SidebarSubItems = ({ item, key }) => {
             color: gray;
           }
 
-            .accordion-button:not(:focus) {
+            .accordion-button:not(:active) {
             box-shadow: none;
             background-color: rgb(59, 9, 51);
             color: gray;

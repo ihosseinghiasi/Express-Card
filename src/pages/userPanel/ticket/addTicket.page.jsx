@@ -24,8 +24,9 @@ const AddTicket = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("pageId", "11");
     getPersianDate();
-  });
+  }, []);
 
   return (
     <div className="container-fluid">

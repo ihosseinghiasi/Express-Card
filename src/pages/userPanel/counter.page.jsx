@@ -13,6 +13,7 @@ const UserCounter = () => {
   };
 
   useEffect(() => {
+    localStorage.setItem("pageId", "00")
     getPersianDate();
   }, []);
   return (
