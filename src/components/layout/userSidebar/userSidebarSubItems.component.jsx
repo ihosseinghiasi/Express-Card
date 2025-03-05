@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const SidebarSubItems = ({ item }) => {
   return (
     <>
-      <style type="text/css">
+      {/* <style type="text/css">
         {`
           .accordion-item {
             color: beige;
@@ -38,7 +38,7 @@ const SidebarSubItems = ({ item }) => {
          background-color: rgb(59, 19, 61)}
 
     `}
-      </style>
+      </style> */}
       <Accordion>
         <Accordion.Item eventKey="0">
           <Accordion.Header>

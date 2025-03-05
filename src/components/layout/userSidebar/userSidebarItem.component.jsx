@@ -10,9 +10,9 @@ const SidebarItem = ({ item }) => {
   }, []);
 
   const getnew = () => {
-    localStorage.setItem("pageId", "00113");
-    const pid = localStorage.getItem("pageId");
-    console.log(pid);
+    // localStorage.setItem("pageId", "00113");
+    // const pid = localStorage.getItem("pageId");
+    // console.log(pid);
   };
   return pageId === item.id ? (
     <Link to={item.link} style={{ color: "red" }} onClick={getnew}>
