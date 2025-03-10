@@ -47,10 +47,12 @@ const SidebarSubItems = ({ item }) => {
           </Accordion.Header>
           <Accordion.Body>
             {item.links.map((link, index) => (
-              <Link key={index} to={link.link} style={{ color: "white" }}>
+              <Link key={index} to={link.link}>
                 <div className="sidebar-subItem">
+                  <div className="sidbar-subIcon">
+                    <img src={link.icon} alt="subItem" />
+                  </div>
                   <div className="sidebar-subTitle">
-                    <img src={link.icon} alt="counter" className="ms-1" />
                     <p>{link.title}</p>
                   </div>
                 </div>
