@@ -1,4 +1,4 @@
-/* .sidebar {
+.sidebar {
   height: 120vh;
   float: right;
   color: beige;
@@ -12,7 +12,7 @@
 }
 
 .sidebar-item:hover {
-  background-color: rgb(59, 9, 51);
+  background-color: rgb(26, 2, 20);
   cursor: pointer;
 }
 
@@ -44,12 +44,10 @@
 .sidebar-subItem {
   font-size: 1em;
   padding: 3px 20px;
-  transition: background-color 0.45s;
   display: block;
 }
 
 .sidebar-subItem:hover {
-  background-color: rgb(59, 9, 51);
   cursor: pointer;
 }
 
@@ -67,4 +65,4 @@
 .sidebar-subTitle p {
   display: inline-block;
   margin-right: 5px;
-} */
+}

@@ -7,13 +7,13 @@ const SidebarSubItems = ({ item }) => {
       <style type="text/css">
         {`
           .accordion-item {
-            color: beige;
+            color: white;
             background-color: rgb(0,0,0);
             border: 0px;
           }
           .accordion-button {
             height: 50px;
-            color: beige;
+            color: white;
             background-color: rgb(26, 2, 20);
             border: 0px;
          }
@@ -24,14 +24,14 @@ const SidebarSubItems = ({ item }) => {
 
          .accordion-button:focus {
             box-shadow: none;
-            background-color: rgb(59, 9, 51);
-            color: gray;
+            background-color: rgb(26, 2, 20);
+            color: white;
           }
 
             .accordion-button:not(:active) {
             box-shadow: none;
-            background-color: rgb(59, 9, 51);
-            color: gray;
+            background-color: rgb(26, 2, 20);
+            color: white;
           }
 
          .accordion-body {
@@ -47,7 +47,7 @@ const SidebarSubItems = ({ item }) => {
           </Accordion.Header>
           <Accordion.Body>
             {item.links.map((link, index) => (
-              <Link to={link.link} style={{ color: "white" }}>
+              <Link key={index} to={link.link} style={{ color: "white" }}>
                 <div className="sidebar-subItem">
                   <div className="sidebar-subTitle">
                     <img src={link.icon} alt="counter" className="ms-1" />
