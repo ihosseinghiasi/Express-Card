@@ -8,31 +8,31 @@ const SidebarSubItems = ({ item }) => {
         {`
           .accordion-item {
             color: white;
-            background-color: rgb(0,0,0);
             border: 0px;
           }
-          .accordion-button {
-            height: 50px;
-            color: white;
-            background-color: rgb(26, 2, 20);
-            border: 0px;
-         }
-
-         .accordion-button:hover {
-            background-color: rgb(59, 9, 51);
-         }
-
-         .accordion-button:focus {
-            box-shadow: none;
-            background-color: rgb(26, 2, 20);
-            color: white;
+          
+            .accordion-button {
+              height: 50px;
+              color: white;
+              background-color: rgb(26, 2, 20);
+              border: 0px;
           }
 
-            .accordion-button:not(:active) {
-            box-shadow: none;
-            background-color: rgb(26, 2, 20);
-            color: white;
+          .accordion-button:hover {
+              background-color: rgb(26, 20, 20);
           }
+
+          .accordion-button:focus {
+              box-shadow: none;
+              background-color: rgb(26, 2, 20);
+              color: white;
+            }
+
+              .accordion-button:not(:hover) {
+              box-shadow: none;
+              background-color: rgb(26, 2, 20);
+              color: white;
+            }
 
          .accordion-body {
          background-color: rgb(59, 19, 61)}
