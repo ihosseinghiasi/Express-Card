@@ -75,3 +75,7 @@
   display: inline-block;
   margin-right: 5px;
 }
+
+.defaltSelected {
+  background-color: rgb(46, 0, 36);
+}

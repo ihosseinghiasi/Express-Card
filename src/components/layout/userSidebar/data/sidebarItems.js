@@ -6,6 +6,7 @@ export const items = [
     link: "/user/counter",
   },
   {
+    id: "01",
     title: "پروفایل",
     icon: "/uploads/icons/users.svg",
     link: "/user/profile",
@@ -15,11 +16,13 @@ export const items = [
     icon: "/uploads/icons/message-square.svg",
     links: [
       {
+        id: "21",
         title: "ایجاد تیکت",
         icon: "/uploads/icons/message-square.svg",
         link: "/user/newTicket",
       },
       {
+        id: "22",
         title: " تیکت ها",
         icon: "/uploads/icons/message-square.svg",
         link: "/user/allTickets",
