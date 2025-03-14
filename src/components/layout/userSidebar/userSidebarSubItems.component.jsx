@@ -19,7 +19,7 @@ const SidebarSubItems = ({ item }) => {
           }
 
           .accordion-button:hover {
-              background-color: rgb(26, 20, 20);
+              background-color: rgb(46, 0, 36);
           }
 
           .accordion-button:focus {
@@ -35,7 +35,7 @@ const SidebarSubItems = ({ item }) => {
             }
 
          .accordion-body {
-         background-color: rgb(59, 19, 61)}
+         background-color: rgb(46, 0, 36)}
 
     `}
       </style>
