@@ -1,7 +1,7 @@
 import SidebarItem from "./userSidebarItem.component";
+import SidebarSubItems from "./userSidebarDropDown.component";
 import { items } from "./data/sidebarItems";
 import "../../../css/user/userSidebar.css";
-import SidebarSubItems from "./userSidebarSubItems.component";
 
 const UserSidebar = () => {
   return (

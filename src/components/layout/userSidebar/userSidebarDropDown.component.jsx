@@ -1,7 +1,6 @@
 import Accordion from "react-bootstrap/Accordion";
-import { Link } from "react-router-dom";
-
-const SidebarSubItems = ({ item }) => {
+import DropDownItem from "./dropDownItem.component";
+const SidebarDropDown = ({ item }) => {
   return (
     <>
       <style type="text/css">
@@ -47,16 +46,7 @@ const SidebarSubItems = ({ item }) => {
           </Accordion.Header>
           <Accordion.Body>
             {item.links.map((link, index) => (
-              <Link key={index} to={link.link}>
-                <div className="sidebar-subItem">
-                  <div className="sidbar-subIcon">
-                    <img src={link.icon} alt="subItem" />
-                  </div>
-                  <div className="sidebar-subTitle">
-                    <p>{link.title}</p>
-                  </div>
-                </div>
-              </Link>
+              <DropDownItem index={index} link={link.link} icon={link.icon} title={link.title} />
             ))}
           </Accordion.Body>
         </Accordion.Item>
@@ -65,4 +55,4 @@ const SidebarSubItems = ({ item }) => {
   );
 };
 
-export default SidebarSubItems;
+export default SidebarDropDown;
