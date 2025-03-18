@@ -1,10 +1,13 @@
 import { Link } from "react-router-dom";
 
 const DropDownItem = (props, index) => {
+  const setID = () => {
+    console.log(props.id);
+  };
   return (
     <div>
       <Link key={index} to={props.link}>
-        <div className="sidebar-subItem">
+        <div className="sidebar-subItem" onSubmit={setID}>
           <div className="sidbar-subIcon">
             <img src={props.icon} alt="subItem" />
           </div>
@@ -15,6 +18,6 @@ const DropDownItem = (props, index) => {
       </Link>
     </div>
   );
-}
- 
+};
+
 export default DropDownItem;

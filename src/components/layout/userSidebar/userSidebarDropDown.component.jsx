@@ -34,7 +34,8 @@ const SidebarDropDown = ({ item }) => {
             }
 
          .accordion-body {
-         background-color: rgb(46, 0, 36)}
+         background-color: rgb(46, 0, 36);
+         }
 
     `}
       </style>
@@ -46,7 +47,13 @@ const SidebarDropDown = ({ item }) => {
           </Accordion.Header>
           <Accordion.Body>
             {item.links.map((link, index) => (
-              <DropDownItem index={index} link={link.link} icon={link.icon} title={link.title} />
+              <DropDownItem
+                index={index}
+                link={link.link}
+                icon={link.icon}
+                title={link.title}
+                id={link.id}
+              />
             ))}
           </Accordion.Body>
         </Accordion.Item>
