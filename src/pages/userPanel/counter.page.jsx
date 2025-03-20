@@ -13,15 +13,14 @@ const UserCounter = () => {
   };
 
   useEffect(() => {
-    // localStorage.setItem("pageId", "00")
-    const id = localStorage.getItem("pageId")
-    console.log(id)
+    const id = localStorage.setItem("pageId", "00");
+    console.log(id);
     getPersianDate();
   }, []);
   return (
     <>
       <div class="container-fluid">
-        <div class="col-10 sss">
+        <div class="col-10 main-frame">
           <div class="col-11 mx-5 counter">
             <div class="titleCounter">
               <p>پیشخوان</p>
@@ -31,7 +30,7 @@ const UserCounter = () => {
             </div>
           </div>
           <h1>user counter</h1>
-          <h2>hosein ghiasi</h2>
+          <h2>hossein ghiasi</h2>
         </div>
       </div>
     </>

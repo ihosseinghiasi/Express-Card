@@ -7,6 +7,7 @@ const SidebarItem = ({ item }) => {
 
   const setID = () => {
     localStorage.setItem("pageId", item.id);
+    console.log(item.id)
   };
 
   return (
@@ -17,7 +18,7 @@ const SidebarItem = ({ item }) => {
         onSubmit={setID}
       >
         <div className="sidebar-title">
-          <img src={item.icon} alt="counter" className="ms-1" />
+          <img src={item.icon} alt="sidebar-item" className="ms-1" />
           <p>{item.title}</p>
         </div>
       </div>
