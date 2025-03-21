@@ -76,6 +76,10 @@
   margin-right: 5px;
 }
 
-.defaltSelected {
+.defaltSelectedItem {
   background-color: rgb(46, 0, 36);
+}
+
+.defaltSelectedSubItem {
+  background-color: rgb(26, 2, 20);
 }

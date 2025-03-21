@@ -1,13 +1,24 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const DropDownItem = (props, index) => {
+  const [pageId, setPageId] = useState(localStorage.getItem("pageId"));
+
   const setID = () => {
-    console.log(props.id);
+    localStorage.setItem("pageId", props.id);
+    const id = localStorage.getItem("pageId");
+    console.log(id);
+    window.location.reload();
   };
   return (
     <div>
       <Link key={index} to={props.link}>
-        <div className="sidebar-subItem" onSubmit={setID}>
+        <div
+          className={`sidebar-subItem ${
+            pageId === props.id ? "defaltSelectedSubItem" : ""
+          }`}
+          onClick={setID}
+        >
           <div className="sidbar-subIcon">
             <img src={props.icon} alt="subItem" />
           </div>

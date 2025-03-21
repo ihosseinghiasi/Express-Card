@@ -7,15 +7,19 @@ const SidebarItem = ({ item }) => {
 
   const setID = () => {
     localStorage.setItem("pageId", item.id);
-    console.log(item.id)
+    const id = localStorage.getItem("pageId");
+    console.log(id);
+    window.location.reload()
   };
 
   return (
     <Link to={item.link}>
       <div
-        className={`sidebar-item ${pageId === item.id ? "defaltSelected" : ""}`}
+        className={`sidebar-item ${
+          pageId === item.id ? "defaltSelectedItem" : ""
+        }`}
         style={{ color: "white" }}
-        onSubmit={setID}
+        onClick={setID}
       >
         <div className="sidebar-title">
           <img src={item.icon} alt="sidebar-item" className="ms-1" />
