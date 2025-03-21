@@ -1,5 +1,5 @@
 import SidebarItem from "./userSidebarItem.component";
-import SidebarSubItems from "./userSidebarDropDown.component";
+import SidebarDropDown from "./userSidebarDropDown.component";
 import { items } from "./data/sidebarItems";
 import "../../../css/user/userSidebar.css";
 
@@ -12,7 +12,7 @@ const UserSidebar = () => {
           item.link ? (
             <SidebarItem key={index} item={item} />
           ) : (
-            <SidebarSubItems key={index} item={item} />
+            <SidebarDropDown key={index} item={item} />
           )
         )}
       </div>
