@@ -1,82 +1,17 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import "../../../css/shop/navbar.css";
-
-const items = [
-  {
-    key: "1",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        1st menu item
-      </a>
-    ),
-  },
-  {
-    key: "2",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        2nd menu item (disabled)
-      </a>
-    ),
-    icon: "",
-    disabled: true,
-  },
-  {
-    key: "3",
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.luohanacademy.com"
-      >
-        3rd menu item (disabled)
-      </a>
-    ),
-    disabled: true,
-  },
-  {
-    key: "4",
-    danger: true,
-    label: "a danger item",
-  },
-];
 
 const NavbarComponent = () => {
   const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const navigate = useNavigate();
-
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [open, setOpen] = useState(false);
-  const [anchorTemp, setAnchrTemp] = useState();
-
-  function handleOpen(event) {
-    setAnchorEl(event.currentTarget);
-    setAnchrTemp(event.currentTarget);
-    setOpen(true);
-  }
-
-  function handleClose() {
-    setAnchorEl(null);
-    setOpen(false);
-  }
-
-  function handleMenu() {
-    setAnchorEl(anchorTemp);
-    setOpen(true);
-  }
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -112,10 +47,53 @@ const NavbarComponent = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
+
+  const handleMouseEnter = () => {
+    setDropdownOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setDropdownOpen(false);
+  };
   return (
     <div>
       {userAuthenticated ? (
-        <>gfg</>
+        <Navbar bg="light" expand="lg">
+          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="mr-auto">
+              <Nav.Link as={Link} to="/home">
+                Home
+              </Nav.Link>
+              <Nav.Link as={Link} to="/link">
+                Link
+              </Nav.Link>
+              <NavDropdown
+                title="Dropdown"
+                id="basic-nav-dropdown"
+                className="dropdown-hover"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                show={dropdownOpen}
+              >
+                <NavDropdown.Item as={Link} to="/action1">
+                  Action
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/action2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/action3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item as={Link} to="/action4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
       ) : (
         // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
         //   <div className="container-fluid">
