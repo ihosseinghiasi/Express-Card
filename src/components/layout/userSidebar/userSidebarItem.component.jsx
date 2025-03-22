@@ -7,9 +7,9 @@ const SidebarItem = ({ item }) => {
 
   const setID = () => {
     localStorage.setItem("pageId", item.id);
+    localStorage.setItem("eventKey", "00");
     const id = localStorage.getItem("pageId");
     console.log(id);
-    window.location.reload();
   };
 
   return (

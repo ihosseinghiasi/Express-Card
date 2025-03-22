@@ -6,9 +6,9 @@ const DropDownItem = (props, index) => {
 
   const setID = () => {
     localStorage.setItem("pageId", props.id);
+    localStorage.setItem("eventKey", "20")
     const id = localStorage.getItem("pageId");
     console.log(id);
-    window.location.reload();
   };
   return (
     <div>
