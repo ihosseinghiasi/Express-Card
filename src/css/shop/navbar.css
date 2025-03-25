@@ -1,14 +1,14 @@
-.linkColor {
+.link-color {
   font-size: 1.1em;
-  color: white;
+  color: #fff !important;
 }
 
-.linkColor:hover {
+.link-color:hover {
   color: white;
   cursor: pointer;
 }
 
-.linkColor:visited {
+.link-color:visited {
   color: white;
 }
 
@@ -41,6 +41,7 @@
 
 .navColor {
   background-color: #020720;
+  color: #fff;
 }
 
 .navUser {
@@ -49,5 +50,5 @@
 }
 
 Link {
-  color: white
+  color: white;
 }

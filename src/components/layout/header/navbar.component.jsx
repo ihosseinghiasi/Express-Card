@@ -10,8 +10,8 @@ const NavbarComponent = () => {
   const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
-  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -57,20 +57,26 @@ const NavbarComponent = () => {
   };
   return (
     <div>
+      <style type="text/css">
+        {`
+        #basic-nav-dropdown {
+          color: white;
+        }
+      `}
+      </style>
       {userAuthenticated ? (
-        <Navbar bg="light" expand="lg">
-          <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar expand="sm" fixed="top" className="navbar navColor">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/home">
-                Home
+              <Nav.Link as={Link} to="/" className="link-color me-5">
+                صفحه اصلی
               </Nav.Link>
-              <Nav.Link as={Link} to="/link">
+              <Nav.Link as={Link} to="/link" className="link-color me-2">
                 Link
               </Nav.Link>
               <NavDropdown
-                title="Dropdown"
+                title="دسته بندی ها  "
                 id="basic-nav-dropdown"
                 className="dropdown-hover"
                 onMouseEnter={handleMouseEnter}
