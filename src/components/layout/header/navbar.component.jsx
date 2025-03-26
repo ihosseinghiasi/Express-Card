@@ -2,6 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { getCategories } from "../../../services/adminPanel/category.services";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import "../../../css/shop/navbar.css";
@@ -11,7 +12,14 @@ const NavbarComponent = () => {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
+
+  const getAllCategories = async () => {
+    await getCategories().then((res) => {
+      setCategories(res.data);
+    });
+  };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -23,6 +31,7 @@ const NavbarComponent = () => {
       }
       setPerson(localStorage.getItem("authenticatedFullName"));
     }
+    getAllCategories();
   }, []);
 
   useEffect(() => {
@@ -31,13 +40,13 @@ const NavbarComponent = () => {
     }
   }, [person]);
 
-  function userLogin() {
+  const userLogin = () => {
     localStorage.setItem("userType", "user");
-  }
+  };
 
-  function adminLogin() {
+  const adminLogin = () => {
     localStorage.setItem("userType", "admin");
-  }
+  };
 
   const logOut = () => {
     Cookies.remove("commercial");
@@ -55,6 +64,7 @@ const NavbarComponent = () => {
   const handleMouseLeave = () => {
     setDropdownOpen(false);
   };
+
   return (
     <div>
       <style type="text/css">
@@ -64,6 +74,7 @@ const NavbarComponent = () => {
         }
       `}
       </style>
+
       {userAuthenticated ? (
         <Navbar expand="sm" fixed="top" className="navbar navColor">
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -72,30 +83,23 @@ const NavbarComponent = () => {
               <Nav.Link as={Link} to="/" className="link-color me-5">
                 صفحه اصلی
               </Nav.Link>
-              <Nav.Link as={Link} to="/link" className="link-color me-2">
-                Link
-              </Nav.Link>
               <NavDropdown
                 title="دسته بندی ها  "
                 id="basic-nav-dropdown"
-                className="dropdown-hover"
+                menuVariant="dark"
+                className="dropdown-hover me-4"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 show={dropdownOpen}
               >
-                <NavDropdown.Item as={Link} to="/action1">
-                  Action
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/action2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/action3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item as={Link} to="/action4">
-                  Separated link
-                </NavDropdown.Item>
+                {categories.map((category) => (
+                  <NavDropdown.Item
+                    as={Link}
+                    to={`/${category.categoryName}/${category._id}`}
+                  >
+                    {category.title}
+                  </NavDropdown.Item>
+                ))}
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
