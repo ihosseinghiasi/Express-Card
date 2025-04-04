@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { getCategories } from "../../../services/adminPanel/category.services";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
@@ -11,7 +11,8 @@ const NavbarComponent = () => {
   const [person, setPerson] = useState("");
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [categoriesDropdown, setCategoriesDropdown] = useState(false);
+  const [accessDropdown, setAccessDropdown] = useState(false);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
@@ -58,11 +59,11 @@ const NavbarComponent = () => {
   };
 
   const handleMouseEnter = () => {
-    setDropdownOpen(true);
+    setCategoriesDropdown(true);
   };
 
   const handleMouseLeave = () => {
-    setDropdownOpen(false);
+    setCategoriesDropdown(false);
   };
 
   return (
@@ -76,33 +77,59 @@ const NavbarComponent = () => {
       </style>
 
       {userAuthenticated ? (
-        <Navbar expand="sm" fixed="top" className="navbar navColor">
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="mr-auto">
-              <Nav.Link as={Link} to="/" className="link-color me-5">
-                صفحه اصلی
-              </Nav.Link>
-              <NavDropdown
-                title="دسته بندی ها  "
-                id="basic-nav-dropdown"
-                menuVariant="dark"
-                className="dropdown-hover me-4"
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-                show={dropdownOpen}
-              >
-                {categories.map((category) => (
-                  <NavDropdown.Item
-                    as={Link}
-                    to={`/${category.categoryName}/${category._id}`}
-                  >
-                    {category.title}
+        <Navbar expand="sm" fixed="top" className="navColor">
+          <Container fluid>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto">
+                <Nav.Link as={Link} to="/" className="link-color me-5">
+                  صفحه اصلی
+                </Nav.Link>
+                <NavDropdown
+                  title="دسته بندی ها  "
+                  id="categories-nav-dropdown"
+                  menuVariant="dark"
+                  className="dropdown-hover me-4"
+                  onMouseEnter={handleMouseEnter}
+                  onMouseLeave={handleMouseLeave}
+                  show={categoriesDropdown}
+                >
+                  {categories.map((category) => (
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/${category.categoryName}/${category._id}`}
+                    >
+                      {category.title}
+                    </NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+                <NavDropdown
+                  title="دسترسی ها"
+                  id="access-nav-dropdown"
+                  menuVariant="dark"
+                  className="dropdown-hover me-5 text-light"
+                  // onMouseEnter={handleMouseEnter}
+                  // onMouseLeave={handleMouseLeave}
+                  // show={categoriesDropdown}
+                >
+                  <NavDropdown.Item as={Link} to="/user-access">
+                    دسترسی کاربر
                   </NavDropdown.Item>
-                ))}
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
+                  <NavDropdown.Item as={Link} to="/admin-access">
+                    دسترسی مدیر
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
+              <Nav className="me-auto">
+                <Nav.Link as={Link} to="/smsForm" className="ms-4 link-color">
+                  <img src={"/uploads/icons/user.svg"} alt="icon" />
+                </Nav.Link>
+                <Nav.Link as={Link} to="/" className="ms-5 link-color">
+                  تماس با ما
+                </Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
         </Navbar>
       ) : (
         // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
