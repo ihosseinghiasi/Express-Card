@@ -12,7 +12,7 @@ const NavbarComponent = () => {
   const [userAuthenticated, setUserAuthenticated] = useState(false);
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [categoriesDropdown, setCategoriesDropdown] = useState(false);
-  const [accessDropdown, setAccessDropdown] = useState(false);
+  const [panelsDropdown, setPanelsDropdown] = useState(false);
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 
@@ -53,26 +53,42 @@ const NavbarComponent = () => {
     Cookies.remove("commercial");
     localStorage.removeItem("userType");
     localStorage.removeItem("authenticatedFullName");
-    localStorage.removeItem("authenticatedId");
     localStorage.removeItem("token");
+    userType === "user"
+      ? localStorage.removeItem("userAuthenticatedId")
+      : localStorage.removeItem("adminAuthenticatedId");
     navigate("/");
   };
 
-  const handleMouseEnter = () => {
+  const categoriesMouseEnter = () => {
     setCategoriesDropdown(true);
   };
 
-  const handleMouseLeave = () => {
+  const categoriesMouseLeave = () => {
     setCategoriesDropdown(false);
+  };
+
+  const panelsMouseEnter = () => {
+    setPanelsDropdown(true);
+  };
+
+  const panelsMouseLeave = () => {
+    setPanelsDropdown(false);
   };
 
   return (
     <div>
       <style type="text/css">
         {`
-        #basic-nav-dropdown {
-          color: white;
-        }
+          #nav-dropdown {
+            color: white;
+          }
+          
+          #user-nav-dropdown {
+            color: #663399;
+            font-size: 0.9em;
+            font-weight: bold;
+          }
       `}
       </style>
 
@@ -87,11 +103,79 @@ const NavbarComponent = () => {
                 </Nav.Link>
                 <NavDropdown
                   title="دسته بندی ها  "
-                  id="categories-nav-dropdown"
+                  id="nav-dropdown"
                   menuVariant="dark"
                   className="dropdown-hover me-4"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
+                  onMouseEnter={categoriesMouseEnter}
+                  onMouseLeave={categoriesMouseLeave}
+                  show={categoriesDropdown}
+                >
+                  {categories.map((category) => (
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/${category.categoryName}/${category._id}`}
+                    >
+                      {category.title}
+                    </NavDropdown.Item>
+                  ))}
+                </NavDropdown>
+              </Nav>
+              <Nav className="me-auto">
+                <NavDropdown
+                  title={person + " "}
+                  id="user-nav-dropdown"
+                  menuVariant="dark"
+                  className="dropdown-hover ms-5"
+                >
+                  {userType && userType === "user" ? (
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/user/counter`}
+                      className="d-flex end"
+                    >
+                      ناحبه کاربری
+                    </NavDropdown.Item>
+                  ) : (
+                    <NavDropdown.Item
+                      as={Link}
+                      to={`/admin/counter`}
+                      className="d-flex end"
+                    >
+                      ناحبه کاربری
+                    </NavDropdown.Item>
+                  )}
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/"
+                    onClick={logOut}
+                    className="d-flex end"
+                  >
+                    خروج
+                  </NavDropdown.Item>
+                </NavDropdown>
+                <Nav.Link as={Link} to="/" className="ms-5 link-color">
+                  تماس با ما
+                </Nav.Link>
+              </Nav>
+            </Navbar.Collapse>
+          </Container>
+        </Navbar>
+      ) : (
+        <Navbar expand="sm" fixed="top" className="navColor">
+          <Container fluid>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+              <Nav className="ms-auto">
+                <Nav.Link as={Link} to="/" className="link-color me-5">
+                  صفحه اصلی
+                </Nav.Link>
+                <NavDropdown
+                  title="دسته بندی ها  "
+                  id="nav-dropdown"
+                  menuVariant="dark"
+                  className="dropdown-hover me-4"
+                  onMouseEnter={categoriesMouseEnter}
+                  onMouseLeave={categoriesMouseLeave}
                   show={categoriesDropdown}
                 >
                   {categories.map((category) => (
@@ -104,19 +188,29 @@ const NavbarComponent = () => {
                   ))}
                 </NavDropdown>
                 <NavDropdown
-                  title="دسترسی ها"
-                  id="access-nav-dropdown"
+                  title="ناحبه های کاربری "
+                  id="nav-dropdown"
                   menuVariant="dark"
-                  className="dropdown-hover me-5 text-light"
-                  // onMouseEnter={handleMouseEnter}
-                  // onMouseLeave={handleMouseLeave}
-                  // show={categoriesDropdown}
+                  className="dropdown-hover me-4"
+                  onMouseEnter={panelsMouseEnter}
+                  onMouseLeave={panelsMouseLeave}
+                  show={panelsDropdown}
                 >
-                  <NavDropdown.Item as={Link} to="/user-access">
-                    دسترسی کاربر
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/login"
+                    className="d-flex end"
+                    onClick={userLogin}
+                  >
+                    ناحبه کاربر
                   </NavDropdown.Item>
-                  <NavDropdown.Item as={Link} to="/admin-access">
-                    دسترسی مدیر
+                  <NavDropdown.Item
+                    as={Link}
+                    to="/login"
+                    className="d-flex end"
+                    onClick={adminLogin}
+                  >
+                    ناحبه مدیر
                   </NavDropdown.Item>
                 </NavDropdown>
               </Nav>
@@ -131,7 +225,7 @@ const NavbarComponent = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-      ) : (
+
         // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
         //   <div className="container-fluid">
         //     <div className="collapse navbar-collapse" id="collapsibleNavbar">
@@ -141,50 +235,34 @@ const NavbarComponent = () => {
         //             صفحه اصلی
         //           </Link>
         //         </li>
-        //         <li className="nav-item dropdown mx-2 my-3" dir="rtl">
+        //         <li className="nav-item mx-2 my-3">
         //           <Link
-        //             className="nav-link dropdown-toggle text-light"
-        //             role="button"
-        //             data-bs-toggle="dropdown"
-        //             href="#"
+        //             className="nav-link text-light"
+        //             to="/login"
+        //             onClick={userLogin}
         //           >
-        //             دسته بندی ها{" "}
+        //             پنل کاربر
         //           </Link>
-        //           <ul className="dropdown-menu dropdownMenu">
-        //             <li>
-        //               <Link></Link>
-        //             </li>
-        //           </ul>
+        //         </li>
+        //         <li className="nav-item mx-2 my-3">
+        //           <Link
+        //             className="nav-link text-light"
+        //             to="/login"
+        //             onClick={adminLogin}
+        //           >
+        //             پنل مدیر
+        //           </Link>
         //         </li>
         //       </ul>
 
         //       <ul className="navbar-nav me-auto me-5">
         //         <li className="nav-item ms-3">
-        //           {userType === "user" ? (
-        //             <Link
-        //               className="nav-link text-info navUser"
-        //               to="/user/counter"
-        //             >
-        //               {person}
-        //             </Link>
-        //           ) : (
-        //             <Link
-        //               className="nav-link text-info navUser"
-        //               to="/admin/counter"
-        //             >
-        //               {person}
-        //             </Link>
-        //           )}
-        //         </li>
-
-        //         <li className="nav-item ms-3">
-        //           <Link
-        //             onClick={() => logOut()}
-        //             className="nav-link text-light"
-        //             reloadDocument
-        //           >
-        //             خروج
+        //           <Link to="/smsForm" className="nav-link text-light">
+        //             <img src={"/uploads/icons/user.svg"} alt="icon" />
         //           </Link>
+        //         </li>
+        //         <li className="nav-item ms-3">
+        //           <Link href="" className="nav-link text-light"></Link>
         //         </li>
         //         <li className="nav-item ms-5">
         //           <button className="callButton">
@@ -197,55 +275,6 @@ const NavbarComponent = () => {
         //     </div>
         //   </div>
         // </nav>
-        <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
-          <div className="container-fluid">
-            <div className="collapse navbar-collapse" id="collapsibleNavbar">
-              <ul className="navbar-nav me-5">
-                <li className="nav-item mx-2 my-3">
-                  <Link className="nav-link text-light" to="/">
-                    صفحه اصلی
-                  </Link>
-                </li>
-                <li className="nav-item mx-2 my-3">
-                  <Link
-                    className="nav-link text-light"
-                    to="/login"
-                    onClick={userLogin}
-                  >
-                    پنل کاربر
-                  </Link>
-                </li>
-                <li className="nav-item mx-2 my-3">
-                  <Link
-                    className="nav-link text-light"
-                    to="/login"
-                    onClick={adminLogin}
-                  >
-                    پنل مدیر
-                  </Link>
-                </li>
-              </ul>
-
-              <ul className="navbar-nav me-auto me-5">
-                <li className="nav-item ms-3">
-                  <Link to="/smsForm" className="nav-link text-light">
-                    <img src={"/uploads/icons/user.svg"} alt="icon" />
-                  </Link>
-                </li>
-                <li className="nav-item ms-3">
-                  <Link href="" className="nav-link text-light"></Link>
-                </li>
-                <li className="nav-item ms-5">
-                  <button className="callButton">
-                    <a href="/" className="nav-link linkCallToMe text-light">
-                      تماس با ما
-                    </a>
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
       )}
     </div>
   );
