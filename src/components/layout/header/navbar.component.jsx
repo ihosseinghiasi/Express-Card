@@ -225,56 +225,6 @@ const NavbarComponent = () => {
             </Navbar.Collapse>
           </Container>
         </Navbar>
-
-        // <nav className="navbar navbar-expand-sm sticky-top navColor" dir="rtl">
-        //   <div className="container-fluid">
-        //     <div className="collapse navbar-collapse" id="collapsibleNavbar">
-        //       <ul className="navbar-nav me-5">
-        //         <li className="nav-item mx-2 my-3">
-        //           <Link className="nav-link text-light" to="/">
-        //             صفحه اصلی
-        //           </Link>
-        //         </li>
-        //         <li className="nav-item mx-2 my-3">
-        //           <Link
-        //             className="nav-link text-light"
-        //             to="/login"
-        //             onClick={userLogin}
-        //           >
-        //             پنل کاربر
-        //           </Link>
-        //         </li>
-        //         <li className="nav-item mx-2 my-3">
-        //           <Link
-        //             className="nav-link text-light"
-        //             to="/login"
-        //             onClick={adminLogin}
-        //           >
-        //             پنل مدیر
-        //           </Link>
-        //         </li>
-        //       </ul>
-
-        //       <ul className="navbar-nav me-auto me-5">
-        //         <li className="nav-item ms-3">
-        //           <Link to="/smsForm" className="nav-link text-light">
-        //             <img src={"/uploads/icons/user.svg"} alt="icon" />
-        //           </Link>
-        //         </li>
-        //         <li className="nav-item ms-3">
-        //           <Link href="" className="nav-link text-light"></Link>
-        //         </li>
-        //         <li className="nav-item ms-5">
-        //           <button className="callButton">
-        //             <a href="/" className="nav-link linkCallToMe text-light">
-        //               تماس با ما
-        //             </a>
-        //           </button>
-        //         </li>
-        //       </ul>
-        //     </div>
-        //   </div>
-        // </nav>
       )}
     </div>
   );
