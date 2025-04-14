@@ -1,6 +1,7 @@
 .sidebar {
   height: 120vh;
   float: right;
+  margin-right: -5px;
   color: beige;
   background-color: rgb(26, 2, 20);
 }
@@ -18,7 +19,9 @@
 
 .sidebar-title {
   height: 34px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
+  margin-top: 8px;
+  margin-right: 20px;
   display: inline-block;
   justify-content: space-between;
 }
@@ -42,7 +45,7 @@
 }
 
 .sidebar-subItem {
-  margin: 0px -20px;
+  margin: -10px -20px;
   color: white;
   font-size: 1em;
   display: block;

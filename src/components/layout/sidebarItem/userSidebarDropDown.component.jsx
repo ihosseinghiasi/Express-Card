@@ -1,6 +1,8 @@
 import Accordion from "react-bootstrap/Accordion";
-import DropDownItem from "../userSidebar/dropDownItem.component";
+import DropDownItem from "./dropDownItem.component";
 import { useEffect, useState } from "react";
+import "../../../css/user/userSidebar.css"
+
 const SidebarDropDown = ({ item }) => {
   const [eventKey, setEventKey] = useState(localStorage.getItem("eventKey"));
 
