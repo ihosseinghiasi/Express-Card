@@ -43,6 +43,7 @@ const NavbarComponent = () => {
 
   const userLogin = () => {
     localStorage.setItem("userType", "user");
+    localStorage.setItem("pageId", "00")
   };
 
   const adminLogin = () => {
