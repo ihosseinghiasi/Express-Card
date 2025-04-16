@@ -28,13 +28,17 @@ export const setCodeVerify = async (verifyCode) => {
 };
 
 export const login = async (data) => {
-  return await axios.post(
-    "http://localhost:4000/authentication/login",
-    { data },
-    {
-      withCredentials: true,
-    }
-  );
+  return await axios
+    .post(
+      "http://localhost:4000/authentication/login",
+      { data },
+      {
+        withCredentials: true,
+      }
+    )
+    .then((res) => {
+      return res;
+    });
 };
 
 export const register = async (data) => {

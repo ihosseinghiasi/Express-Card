@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@emotion/styled": "^11.14.0",
+    "@hookform/resolvers": "^5.0.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -22,11 +23,14 @@
     "react-cookie": "^7.2.1",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.3.1",
+    "react-hook-form": "^7.55.0",
     "react-router-dom": "^6.23.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.0.5",
     "recharts": "^2.15.1",
     "web-vitals": "^2.1.4",
-    "wordifyfa": "^1.4.1"
+    "wordifyfa": "^1.4.1",
+    "yup": "^1.6.1"
   },
   "scripts": {
     "start": "react-scripts start",

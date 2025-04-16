@@ -2,6 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { login } from "../../services/authenticationService";
 import Cookies from "js-cookie";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 import "../../css/shop/login.css";
 // import Home from "../main/home";
 
@@ -11,38 +15,57 @@ export const Login = () => {
   const [password, setPassword] = useState("1024");
   const navigate = useNavigate();
 
+  const schema = object({
+    email: string()
+      .email("فرمت ایمبل معتبر نمی باشد")
+      .required("فیلد ایمیل اجباری است"),
+    password: string().required("فیلد پسورد اجباری است"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(schema) });
+
   useEffect(() => {
     if (userType === "admin") {
       setEmail("sara@gmail.com");
       setPassword("1024");
     }
   }, [userType]);
-  const userLogin = async (e) => {
-    const data = {
-      email,
-      password,
-    };
-    e.preventDefault();
+  const userLogin = async (data) => {
     await login(data).then((res) => {
-      if (res.data) {
-        const token = res.data.token;
-        Cookies.set("commercial", token, {
-          expires: 7,
-          secure: true,
-        });
-        localStorage.setItem("token", token);
-        localStorage.setItem(
-          "authenticatedFullName",
-          `${res.data.person.firstName} ${res.data.person.lastName}`
-        );
-        if (userType === "user") {
-          localStorage.setItem("userAuthenticatedId", res.data.person._id);
-        } else {
-          localStorage.setItem("adminAuthenticatedId", res.data.person._id);
-        }
-        navigate("/");
+      if (res?.data?.person) {
+        // const token = res.data.token;
+        // Cookies.set("commercial", token, {
+        //   expires: 7,
+        //   secure: true,
+        // });
+        // localStorage.setItem("token", token);
+        // localStorage.setItem(
+        //   "authenticatedFullName",
+        //   `${res.data.person.firstName} ${res.data.person.lastName}`
+        // );
+        // if (userType === "user") {
+        //   localStorage.setItem("userAuthenticatedId", res.data.person._id);
+        // } else {
+        //   localStorage.setItem("adminAuthenticatedId", res.data.person._id);
+        // }
+        // navigate("/");
+        console.log(res);
       }
     });
+  };
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
+
+  const n = () => {
+    toast.warn("jhfjhkjhfdkhkfh");
   };
 
   return (
@@ -61,15 +84,17 @@ export const Login = () => {
         </div>
         <div className="loginForm">
           <h2 className="mt-5">ورود به سایت</h2>
-          <form onSubmit={(e) => userLogin(e)}>
+          <form onSubmit={handleSubmit(userLogin)}>
             <div className="mb-3 mt-5">
               <input
-                type="email"
+                type="text"
                 className="form-control mt-5"
                 placeholder="ایمیل"
                 name="email"
                 value={email}
-                onChange={(event) => setEmail(event.target.value)}
+                {...register("email", {
+                  onChange: (event) => setEmail(event.target.value),
+                })}
               />
               <input
                 type="password"
@@ -77,14 +102,21 @@ export const Login = () => {
                 placeholder="کلمه عبور"
                 name="password"
                 value={password}
-                onChange={(event) => setPassword(event.target.value)}
+                {...register("password", {
+                  onChange: (event) => setPassword(event.target.value),
+                })}
               />
             </div>
             <div className="row">
               <div className="d-grid gap-2 col-10 mx-auto float-end mt-3">
-                <button type="submit" className="btn btn-success">
+                <button
+                  type="submit"
+                  className="btn btn-success"
+                  onClick={notify}
+                >
                   ورود به سایت
                 </button>
+                <ToastContainer rtl={true} theme="colored" />
               </div>
             </div>
             <div className="row mt-2">
