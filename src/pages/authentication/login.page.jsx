@@ -37,23 +37,22 @@ export const Login = () => {
   const userLogin = async (data) => {
     await login(data).then((res) => {
       if (res?.data?.person) {
-        // const token = res.data.token;
-        // Cookies.set("commercial", token, {
-        //   expires: 7,
-        //   secure: true,
-        // });
-        // localStorage.setItem("token", token);
-        // localStorage.setItem(
-        //   "authenticatedFullName",
-        //   `${res.data.person.firstName} ${res.data.person.lastName}`
-        // );
-        // if (userType === "user") {
-        //   localStorage.setItem("userAuthenticatedId", res.data.person._id);
-        // } else {
-        //   localStorage.setItem("adminAuthenticatedId", res.data.person._id);
-        // }
-        // navigate("/");
-        console.log(res);
+        const token = res.data.token;
+        Cookies.set("commercial", token, {
+          expires: 7,
+          secure: true,
+        });
+        localStorage.setItem("token", token);
+        localStorage.setItem(
+          "authenticatedFullName",
+          `${res.data.person.firstName} ${res.data.person.lastName}`
+        );
+        if (userType === "user") {
+          localStorage.setItem("userAuthenticatedId", res.data.person._id);
+        } else {
+          localStorage.setItem("adminAuthenticatedId", res.data.person._id);
+        }
+        navigate("/");
       }
     });
   };
