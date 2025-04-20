@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {
-  getPhone,
-  setCodeVerify,
-} from "../../services/authenticationService";
+import { getPhone, setCodeVerify } from "../../services/authenticationService";
 import Countdown from "react-countdown";
 import "../../css/shop/smsForm.css";
 
@@ -26,7 +23,6 @@ const ConfirmSms = () => {
   async function sendVerifyCode(e) {
     e.preventDefault();
     await setCodeVerify(verifyCode).then((res) => {
-      console.log(res.data)
       if (res.data.status === "OK") {
         navigate("/register");
       }
@@ -38,7 +34,7 @@ const ConfirmSms = () => {
       setTimer(false);
     } else {
       return (
-        <span>
+        <span style={{ border: "0px" }}>
           {minutes}:{seconds}
         </span>
       );

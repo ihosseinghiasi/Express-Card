@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { AddPhoneNumber } from "../../services/authenticationService";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { number, object, string } from "yup";
+import { object, string } from "yup";
 import { ToastContainer, toast } from "react-toastify";
 
 const SmsForm = () => {
@@ -25,7 +25,7 @@ const SmsForm = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(phone) });
 
-  const n = () => {
+  const notify = () => {
     Object.values(errors).map((err) => {
       toast.error(err.message);
     });
@@ -55,7 +55,11 @@ const SmsForm = () => {
               onChange: (e) => setPhoneNumber(e.target.value),
             })}
           />
-          <button type="submit" className="btn btn-danger mt-4" onClick={n}>
+          <button
+            type="submit"
+            className="btn btn-danger mt-4"
+            onClick={notify}
+          >
             ارسال پیامک
           </button>
         </form>
