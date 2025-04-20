@@ -63,10 +63,6 @@ export const Login = () => {
     });
   };
 
-  const n = () => {
-    toast.warn("jhfjhkjhfdkhkfh");
-  };
-
   return (
     <>
       <div className="registerForm">
@@ -92,7 +88,7 @@ export const Login = () => {
                 name="email"
                 value={email}
                 {...register("email", {
-                  onChange: (event) => setEmail(event.target.value),
+                  onChange: (e) => setEmail(e.target.value),
                 })}
               />
               <input
@@ -102,7 +98,7 @@ export const Login = () => {
                 name="password"
                 value={password}
                 {...register("password", {
-                  onChange: (event) => setPassword(event.target.value),
+                  onChange: (e) => setPassword(e.target.value),
                 })}
               />
             </div>
