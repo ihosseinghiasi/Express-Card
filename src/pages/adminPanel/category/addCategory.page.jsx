@@ -4,7 +4,7 @@ import { persianDate } from "../../../services/persianDate.services";
 import { addCategory } from "../../../services/adminPanel/category.services";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { object, string, mixed } from "yup";
+import { object, string } from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "../../../css/admin/category.css";
 
