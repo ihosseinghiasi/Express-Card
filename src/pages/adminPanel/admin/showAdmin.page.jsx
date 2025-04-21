@@ -1,17 +1,53 @@
 import { React, useEffect, useState } from "react";
-import "../../../css/admin/admin.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
 import {
   getAdmin,
   updateAdmin,
 } from "../../../services/adminPanel/admin.services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, ref, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
+
+import "../../../css/admin/admin.css";
 
 const ShowAdmin = () => {
   const [date, setDate] = useState("");
   const [admin, setAdmin] = useState({});
   const params = useParams();
   const navigate = useNavigate();
+
+  const registerSchema = object({
+    firstName: string().required("فیلد نام نمی تواند خالی باشد"),
+    lastName: string().required("فیلد نام خانوادگی نمی تواند خالی باشد"),
+    email: string()
+      .email("فرمت ایمبل معتبر نمی باشد")
+      .required("فیلد ایمیل اجباری است"),
+    password: string().required("فیلد پسورد اجباری است"),
+    confirm: string().oneOf([ref("password")], "پسورد هماهنگی ندارد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "firstName",
+      lastName: "lastName",
+      email: "email@gmail.com",
+      password: "password",
+      confirm: "password",
+    },
+    resolver: yupResolver(registerSchema),
+  });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getAnAdmin = async () => {
     await getAdmin(params).then((res) => {
@@ -30,8 +66,7 @@ const ShowAdmin = () => {
     params && getAnAdmin();
   }, []);
 
-  const updateAnAdmin = async (e) => {
-    e.preventDefault();
+  const updateAnAdmin = async () => {
     await updateAdmin(params, admin).then((res) => {
       if (res?.data) navigate("/admin/allAdmins");
     });
@@ -61,7 +96,7 @@ const ShowAdmin = () => {
               </div>
 
               <div className="addBody col-9 mx-3">
-                <form onSubmit={(event) => updateAnAdmin(event)}>
+                <form onSubmit={handleSubmit(updateAnAdmin)}>
                   <div className="row g-2">
                     <div className="mx-4 col-5">
                       <input
@@ -70,12 +105,13 @@ const ShowAdmin = () => {
                         value={admin?.firstName}
                         placeholder="نام"
                         name="firstName"
-                        onChange={(event) =>
-                          setAdmin({
-                            ...admin,
-                            [event.target.name]: event.target.value,
-                          })
-                        }
+                        {...register("firstName", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="text"
@@ -83,12 +119,13 @@ const ShowAdmin = () => {
                         value={admin?.lastName}
                         placeholder="نام خانوادگی"
                         name="lastName"
-                        onChange={(event) =>
-                          setAdmin({
-                            ...admin,
-                            [event.target.name]: event.target.value,
-                          })
-                        }
+                        {...register("lastName", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="email"
@@ -96,12 +133,13 @@ const ShowAdmin = () => {
                         value={admin?.email}
                         placeholder="ایمیل"
                         name="email"
-                        onChange={(event) =>
-                          setAdmin({
-                            ...admin,
-                            [event.target.name]: event.target.value,
-                          })
-                        }
+                        {...register("email", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <select
                         className="form-select mt-3 faField"
@@ -123,12 +161,13 @@ const ShowAdmin = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
-                        onChange={(event) =>
-                          setAdmin({
-                            ...admin,
-                            [event.target.name]: event.target.value,
-                          })
-                        }
+                        {...register("password", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <i
                         className="bi bi-eye-slash passwordEye"
@@ -139,8 +178,9 @@ const ShowAdmin = () => {
                         type="password"
                         className="form-control mt-3 enField"
                         placeholder="تکرار کلمه عبور"
-                        name="confirmPassword"
-                        id="confirmPassword"
+                        name="confirm"
+                        id="confirm"
+                        {...register("confirm")}
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"
@@ -347,6 +387,7 @@ const ShowAdmin = () => {
                             type="submit"
                             value="ثبت نام"
                             className="mt-3 btn btn-success w-100 faField"
+                            onClick={notify}
                           />
                         </div>
                       </div>
@@ -358,6 +399,7 @@ const ShowAdmin = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
