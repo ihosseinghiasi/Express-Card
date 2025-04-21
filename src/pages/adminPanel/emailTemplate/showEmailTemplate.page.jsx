@@ -5,12 +5,39 @@ import {
   getEmailTemplate,
   updateEmailTemplate,
 } from "../../../services/adminPanel/emailTemplate.service";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 
 const ShowEmailTemplate = () => {
   const [email, setEmail] = useState();
   const [date, setDate] = useState("");
   const params = useParams();
   const navigate = useNavigate();
+
+  const emailTemplateSchema = object({
+    title: string().required("فیلد عنوان دسته بندی نمی تواند خالی باشد"),
+    description: string().required("فیلد توضیحات نمی تواند خالی باشد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      title: "title",
+      description: "description",
+    },
+    resolver: yupResolver(emailTemplateSchema),
+  });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -60,7 +87,7 @@ const ShowEmailTemplate = () => {
               </div>
 
               <div class="addBody col-8 mx-5">
-                <form onSubmit={(e) => updateAnEmailTemplate(e)}>
+                <form onSubmit={handleSubmit(updateAnEmailTemplate)}>
                   <div class="row">
                     <div class="row mx-1 titleWidth">
                       <input
@@ -70,12 +97,13 @@ const ShowEmailTemplate = () => {
                         id="emailTitle"
                         placeholder="عنوان ایمیل"
                         value={email?.title}
-                        onChange={(e) =>
-                          setEmail({
-                            ...email,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("title", {
+                          onChange: (e) =>
+                            setEmail({
+                              ...email,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                     </div>
                     <div class="row">
@@ -87,12 +115,13 @@ const ShowEmailTemplate = () => {
                           cols="30"
                           rows="10"
                           value={email?.description}
-                          onChange={(e) =>
-                            setEmail({
-                              ...email,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          {...register("description", {
+                            onChange: (e) =>
+                              setEmail({
+                                ...email,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         ></textarea>
                       </div>
                       <div class="mt-1 mx-5">
@@ -100,7 +129,8 @@ const ShowEmailTemplate = () => {
                           <input
                             type="submit"
                             value="ثبت ایمیل"
-                            class="mt-3 btn btn-success w-100 "
+                            class="mt-3 btn btn-success w-100"
+                            onClick={notify}
                           />
                         </div>
                       </div>
@@ -112,6 +142,7 @@ const ShowEmailTemplate = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
