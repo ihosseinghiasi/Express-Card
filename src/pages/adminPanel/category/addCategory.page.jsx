@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
 import { addCategory } from "../../../services/adminPanel/category.services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string, mixed } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 import "../../../css/admin/category.css";
 
 const AddCategory = () => {
@@ -13,6 +17,24 @@ const AddCategory = () => {
   const [date, setDate] = useState("");
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
+
+  const categorySchema = object({
+    categoryName: string().required("فیلد نامک دسته بندی نمی تواند خالی باشد"),
+    title: string().required("فیلد عنوان دسته بندی نمی تواند خالی باشد"),
+    description: string().required("فیلد توضیحات نمی تواند خالی باشد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(categorySchema) });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -35,7 +57,7 @@ const AddCategory = () => {
     setUrlCategoryImage(URL.createObjectURL(uploadedFile));
   };
 
-  const submitHandler = async (e) => {
+  const submitCategory = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append("file", categoryImage);
@@ -75,7 +97,7 @@ const AddCategory = () => {
                 <form
                   id="form"
                   enctype="multipart/form-data"
-                  onSubmit={(e) => submitHandler(e)}
+                  onSubmit={handleSubmit(submitCategory)}
                 >
                   <div className="row">
                     <div className="col-8">
@@ -85,12 +107,13 @@ const AddCategory = () => {
                         id="categoryName"
                         className="form-control mt-3 enField"
                         placeholder="نامک دسته بندی"
-                        onChange={(e) =>
-                          setCategory({
-                            ...category,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("categoryName", {
+                          onChange: (e) =>
+                            setCategory({
+                              ...category,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <span
                         className="badge bg-secondary nemeAddressBadge"
@@ -131,6 +154,7 @@ const AddCategory = () => {
                         id="submit"
                         className="btn btn-success mt-1 btnSubmit"
                         value="ذخیره دسته بندی"
+                        onClick={notify}
                       />
                     </div>
                     <div className="row mt-3">
@@ -138,14 +162,15 @@ const AddCategory = () => {
                         type="text"
                         name="title"
                         className="form-control faField"
-                        id="categoryTitle"
+                        id="title"
                         placeholder="عنوان دسته بندی"
-                        onChange={(e) =>
-                          setCategory({
-                            ...category,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("title", {
+                          onChange: (e) =>
+                            setCategory({
+                              ...category,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <div className="form-group mt-3">
                         <textarea
@@ -154,12 +179,13 @@ const AddCategory = () => {
                           className="form-control"
                           cols="30"
                           rows="10"
-                          onChange={(e) =>
-                            setCategory({
-                              ...category,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          {...register("description", {
+                            onChange: (e) =>
+                              setCategory({
+                                ...category,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         ></textarea>
                       </div>
                     </div>
@@ -170,6 +196,7 @@ const AddCategory = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
