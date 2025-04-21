@@ -1,13 +1,16 @@
-import "../../../css/admin/general.css";
-import "../../../css/admin/admin.css";
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
 import { addAdmin } from "../../../services/adminPanel/admin.services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, ref, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
+import "../../../css/admin/general.css";
+import "../../../css/admin/admin.css";
 
 const AddAdmin = () => {
   const [date, setDate] = useState("");
-  const navigate = useNavigate();
   const [admin, setAdmin] = useState({
     firstName: "",
     lastName: "",
@@ -24,6 +27,29 @@ const AddAdmin = () => {
     isReport: false,
     isPayment: false,
   });
+  const navigate = useNavigate();
+
+  const registerSchema = object({
+    firstName: string().required("فیلد نام نمی تواند خالی باشد"),
+    lastName: string().required("فیلد نام خانوادگی نمی تواند خالی باشد"),
+    email: string()
+      .email("فرمت ایمبل معتبر نمی باشد")
+      .required("فیلد ایمیل اجباری است"),
+    password: string().required("فیلد پسورد اجباری است"),
+    confirm: string().oneOf([ref("password")], "پسورد هماهنگی ندارد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(registerSchema) });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -35,8 +61,7 @@ const AddAdmin = () => {
     getPersianDate();
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const addUser = async () => {
     await addAdmin(admin).then((res) => {
       if (res.data) {
         navigate("/admin/allAdmins");
@@ -68,7 +93,7 @@ const AddAdmin = () => {
               </div>
 
               <div className="addBody col-9 mx-3">
-                <form onSubmit={(e) => handleSubmit(e)}>
+                <form onSubmit={handleSubmit(addUser)}>
                   <div className="row g-2">
                     <div className="mx-4 col-5">
                       <input
@@ -76,36 +101,39 @@ const AddAdmin = () => {
                         className="form-control mt-3 faField"
                         placeholder="نام"
                         name="firstName"
-                        onChange={(e) =>
-                          setAdmin({
-                            ...admin,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("firstName", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="text"
                         className="form-control mt-3 faField"
                         placeholder="نام خانوادگی"
                         name="lastName"
-                        onChange={(e) =>
-                          setAdmin({
-                            ...admin,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("lastName", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="email"
                         className="form-control mt-3 enField"
                         placeholder="ایمیل"
                         name="email"
-                        onChange={(e) =>
-                          setAdmin({
-                            ...admin,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("email", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <select
                         className="form-select mt-3 faField"
@@ -126,12 +154,13 @@ const AddAdmin = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
-                        onChange={(e) =>
-                          setAdmin({
-                            ...admin,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("password", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <i
                         className="bi bi-eye-slash passwordEye"
@@ -142,8 +171,9 @@ const AddAdmin = () => {
                         type="password"
                         className="form-control mt-3 enField"
                         placeholder="تکرار کلمه عبور"
-                        name="confirmPassword"
-                        id="confirmPassword"
+                        name="confirm"
+                        id="confirm"
+                        {...register("confirm")}
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"
@@ -341,6 +371,7 @@ const AddAdmin = () => {
                             type="submit"
                             value="ثبت نام"
                             className="mt-3 btn btn-success w-100 faField"
+                            onClick={notify}
                           />
                         </div>
                       </div>
@@ -352,6 +383,7 @@ const AddAdmin = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
