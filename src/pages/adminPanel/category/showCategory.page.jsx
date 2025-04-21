@@ -5,6 +5,10 @@ import {
   getCategory,
   updateCategory,
 } from "../../../services/adminPanel/category.services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 import "../../../css/admin/category.css";
 
 const ShowCategory = () => {
@@ -15,6 +19,31 @@ const ShowCategory = () => {
   const params = useParams();
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
+
+  const categorySchema = object({
+    categoryName: string().required("فیلد نامک دسته بندی نمی تواند خالی باشد"),
+    title: string().required("فیلد عنوان دسته بندی نمی تواند خالی باشد"),
+    description: string().required("فیلد توضیحات نمی تواند خالی باشد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      categoryName: "categoryName",
+      title: "title",
+      description: "description",
+    },
+    resolver: yupResolver(categorySchema),
+  });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -86,7 +115,7 @@ const ShowCategory = () => {
                 <form
                   id="form"
                   enctype="multipart/form-data"
-                  onSubmit={(e) => updateACategory(e)}
+                  onSubmit={handleSubmit(updateACategory)}
                 >
                   <div className="row">
                     <div className="col-8">
@@ -97,12 +126,13 @@ const ShowCategory = () => {
                         value={category?.categoryName}
                         className="form-control mt-3 enField"
                         placeholder="نامک دسته بندی"
-                        onChange={(e) =>
-                          setCategory({
-                            ...category,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("categoryName", {
+                          onChange: (e) =>
+                            setCategory({
+                              ...category,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <span
                         className="badge bg-secondary nemeAddressBadge"
@@ -159,6 +189,7 @@ const ShowCategory = () => {
                         id="submit"
                         className="btn btn-success mt-1 mb-1 btnSubmit"
                         value="ذخیره دسته بندی"
+                        onClick={notify}
                       />
                     </div>
                     <div className="row mt-3">
@@ -167,14 +198,15 @@ const ShowCategory = () => {
                         name="title"
                         className="form-control faField"
                         value={category?.title}
-                        id="categoryTitle"
+                        id="title"
                         placeholder="عنوان دسته بندی"
-                        onChange={(e) =>
-                          setCategory({
-                            ...category,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("title", {
+                          onChange: (e) =>
+                            setCategory({
+                              ...category,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <div className="form-group mt-3">
                         <textarea
@@ -184,12 +216,13 @@ const ShowCategory = () => {
                           className="form-control"
                           cols="30"
                           rows="10"
-                          onChange={(e) =>
-                            setCategory({
-                              ...category,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          {...register("description", {
+                            onChange: (e) =>
+                              setCategory({
+                                ...category,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         ></textarea>
                       </div>
                     </div>
@@ -200,6 +233,7 @@ const ShowCategory = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
