@@ -2,11 +2,32 @@ import { useEffect, useState } from "react";
 import { persianDate } from "../../../services/persianDate.services";
 import { addEmailTemplate } from "../../../services/adminPanel/emailTemplate.service";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 
 const AddEmailTemplate = () => {
   const [email, setEmail] = useState();
   const [date, setDate] = useState("");
   const navigate = useNavigate();
+
+  const emailTemplateSchema = object({
+    title: string().required("فیلد عنوان دسته بندی نمی تواند خالی باشد"),
+    description: string().required("فیلد توضیحات نمی تواند خالی باشد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(emailTemplateSchema) });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -49,7 +70,7 @@ const AddEmailTemplate = () => {
               </div>
 
               <div class="addBody col-8 mx-5">
-                <form onSubmit={(e) => AddEmail(e)}>
+                <form onSubmit={handleSubmit(AddEmail)}>
                   <div class="row">
                     <div class="row mx-1 titleWidth">
                       <input
@@ -58,12 +79,13 @@ const AddEmailTemplate = () => {
                         class="form-control"
                         id="emailTitle"
                         placeholder="عنوان ایمیل"
-                        onChange={(e) =>
-                          setEmail({
-                            ...email,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("title", {
+                          onChange: (e) =>
+                            setEmail({
+                              ...email,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                     </div>
                     <div class="row">
@@ -74,12 +96,13 @@ const AddEmailTemplate = () => {
                           class="form-control"
                           cols="30"
                           rows="10"
-                          onChange={(e) =>
-                            setEmail({
-                              ...email,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          {...register("description", {
+                            onChange: (e) =>
+                              setEmail({
+                                ...email,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         ></textarea>
                       </div>
                       <div class="mt-1 mx-5">
@@ -87,7 +110,8 @@ const AddEmailTemplate = () => {
                           <input
                             type="submit"
                             value="ثبت ایمیل"
-                            class="mt-3 btn btn-success w-100 "
+                            class="mt-3 btn btn-success w-100"
+                            onClick={notify}
                           />
                         </div>
                       </div>
@@ -99,6 +123,7 @@ const AddEmailTemplate = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
