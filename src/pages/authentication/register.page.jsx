@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register } from "../../services/authenticationService";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, ref, string } from "yup";
@@ -11,7 +10,7 @@ const Register = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLasttName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPasseord] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const registerSchema = object({
@@ -65,7 +64,7 @@ const Register = () => {
                 placeholder="نام خانوادگی"
                 name="lastName"
                 {...register("lastName", {
-                  onChange: (e) => setFirstName(e.target.value),
+                  onChange: (e) => setLasttName(e.target.value),
                 })}
               />
               <input
@@ -74,7 +73,7 @@ const Register = () => {
                 placeholder="ایمیل"
                 name="email"
                 {...register("email", {
-                  onChange: (e) => setFirstName(e.target.value),
+                  onChange: (e) => setEmail(e.target.value),
                 })}
               />
               <input
@@ -83,7 +82,7 @@ const Register = () => {
                 placeholder="کلمه عبور"
                 name="password"
                 {...register("password", {
-                  onChange: (e) => setFirstName(e.target.value),
+                  onChange: (e) => setPassword(e.target.value),
                 })}
               />
               <input
