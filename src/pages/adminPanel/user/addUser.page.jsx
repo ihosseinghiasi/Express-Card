@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
 import { addUser } from "../../../services/adminPanel/user.service";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string, ref } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 
@@ -9,6 +13,35 @@ const AddUser = () => {
   const [user, setUser] = useState();
   const [date, setDate] = useState("");
   const navigate = useNavigate();
+
+  const userSchema = object({
+    firstName: string().required("فیلد نام نمی تواند خالی باشد"),
+    lastName: string().required("فیلد نام خانوادگی نمی تواند خالی باشد"),
+    phoneNumber: string()
+      .required("فیلد شماره همراه نمی تواند خالی باشد")
+      .min(11, "طول شماره همراه 11 رقم می باشد")
+      .max(11, "طول شماره همراه 11 رقم می باشد")
+      .matches(/^[0-9]/, "شماره همراه باید از ارقام ایجاد شود"),
+    email: string()
+      .email("فرمت ایمبل معتبر نمی باشد")
+      .required("فیلد ایمیل اجباری است"),
+    password: string().required("فیلد پسورد اجباری است"),
+    confirm: string()
+      .oneOf([ref("password")], "پسورد هماهنگی ندارد")
+      .required("فیلد پسورد اجباری است"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(userSchema) });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -52,7 +85,7 @@ const AddUser = () => {
               </div>
 
               <div className="addBody col-8 mx-5">
-                <form onSubmit={(e) => addNewUser(e)} className="mx-5">
+                <form onSubmit={handleSubmit(addNewUser)} className="mx-5">
                   <div className="row col-5 userForm">
                     <div>
                       <input
@@ -60,48 +93,52 @@ const AddUser = () => {
                         className="form-control form-control mt-3"
                         placeholder="نام"
                         name="firstName"
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("firstName", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="text"
                         className="form-control form-control mt-3"
                         placeholder="نام خانوادگی"
                         name="lastName"
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("lastName", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="email"
                         className="form-control form-control mt-3"
                         placeholder="ایمیل"
                         name="email"
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("email", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="text"
                         className="form-control form-control mt-3"
                         placeholder="شماره همراه"
                         name="phoneNumber"
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("phoneNumber", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="password"
@@ -109,12 +146,13 @@ const AddUser = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("password", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <i
                         className="bi bi-eye-slash passwordEye"
@@ -125,8 +163,9 @@ const AddUser = () => {
                         type="password"
                         className="form-control mt-3 enField"
                         placeholder="تکرار کلمه عبور"
-                        name="confirmPassword"
-                        id="confirmPassword"
+                        name="confirm"
+                        id="confirm"
+                        {...register("confirm")}
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"
@@ -139,6 +178,7 @@ const AddUser = () => {
                         type="submit"
                         value="ثبت کاربر"
                         className="mt-3 btn btn-success w-100"
+                        onClick={notify}
                       />
                     </div>
                   </div>
@@ -148,6 +188,7 @@ const AddUser = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
