@@ -6,9 +6,11 @@ const DropDownItem = (props, index) => {
 
   const setID = () => {
     localStorage.setItem("pageId", props.id);
-    localStorage.setItem("eventKey", "20");
+    localStorage.setItem("eventKey", props.eventKey);
+    const eventKey = localStorage.getItem("eventKey");
+    console.log(eventKey);
   };
-  
+
   return (
     <div>
       <Link key={index} to={props.link}>

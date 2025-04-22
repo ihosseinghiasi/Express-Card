@@ -1,10 +1,14 @@
 import Accordion from "react-bootstrap/Accordion";
 import DropDownItem from "./dropDownItem.component";
 import { useEffect, useState } from "react";
-import "../../../css/user/userSidebar.css"
+import "../../../css/user/userSidebar.css";
 
 const SidebarDropDown = ({ item }) => {
   const [eventKey, setEventKey] = useState(localStorage.getItem("eventKey"));
+
+  useEffect(() => {
+    console.log(eventKey);
+  }, []);
 
   return (
     <>
@@ -45,7 +49,7 @@ const SidebarDropDown = ({ item }) => {
     `}
       </style>
       <Accordion defaultActiveKey={eventKey}>
-        <Accordion.Item eventKey="20">
+        <Accordion.Item eventKey={item.eventKey}>
           <Accordion.Header>
             <img src={item.icon} alt="ticketIcon" className="ms-1" />
             <p className="ms-2">{item.title}</p>
@@ -58,6 +62,7 @@ const SidebarDropDown = ({ item }) => {
                 icon={link.icon}
                 title={link.title}
                 id={link.id}
+                eventKey={link.eventKey}
               />
             ))}
           </Accordion.Body>
