@@ -13,16 +13,19 @@ export const items = [
   },
   {
     title: "تیکت ها",
+    eventKey: "020",
     icon: "/uploads/icons/message-square.svg",
     links: [
       {
         id: "021",
+        eventKey: "020",
         title: "ایجاد تیکت",
         icon: "/uploads/icons/message-square.svg",
         link: "/user/newTicket",
       },
       {
         id: "022",
+        eventKey: "020",
         title: " تیکت ها",
         icon: "/uploads/icons/message-square.svg",
         link: "/user/allTickets",
