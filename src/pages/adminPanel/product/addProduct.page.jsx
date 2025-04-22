@@ -3,6 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
 import { getCategories } from "../../../services/adminPanel/category.services";
 import { addProduct } from "../../../services/adminPanel/product.services";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 import "../../../css/admin/general.css";
 import "../../../css/admin/product.css";
 // import { wordifyfa } from "../../public/wordifyfa/src/wordifyfa.ts";
@@ -18,6 +22,30 @@ const AddProduct = () => {
   const [date, setDate] = useState("");
   const fileUploadRef = useRef(null);
   const navigate = useNavigate();
+
+  const productSchema = object({
+    productName: string().required("فیلد نامک محصول نمی تواند خالی باشد"),
+    title: string().required("فیلد عنوان محصول نمی تواند خالی باشد"),
+    cycle: string()
+      .required("فیلد دوره مصرف محصول نمی توند خالی باشد")
+      .matches(/^[0-9]/, " فیلد دوره مصرف باید از ارقام ایجاد شود"),
+    price: string()
+      .required("فیلد قیمت محصول نمی توند خالی باشد")
+      .matches(/^[0-9]/, " فیلد قیمت محصول باید از ارقام ایجاد شود"),
+    description: string().required("فیلد توضیحات نمی توند خالی باشد"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({ resolver: yupResolver(productSchema) });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -109,7 +137,7 @@ const AddProduct = () => {
 
               <div className="addBody col-8 mx-5">
                 <form
-                  onSubmit={(e) => addAProduct(e)}
+                  onSubmit={handleSubmit(addAProduct)}
                   encType="multipart/form-data"
                 >
                   <div className="row">
@@ -121,12 +149,13 @@ const AddProduct = () => {
                         list="productNameList"
                         className="form-control mt-3 list enField"
                         placeholder="نامک محصول"
-                        onChange={(e) =>
-                          setProduct({
-                            ...product,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("productName", {
+                          onChange: (e) =>
+                            setProduct({
+                              ...product,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <span
                         className="badge bg-secondary nameAddressBadge"
@@ -160,11 +189,12 @@ const AddProduct = () => {
                         className="form-control"
                         onChange={uploadImageDisplay}
                         hidden
-                      />{" "}
+                      />
                       <button
                         type="submit"
                         id="submit"
                         className="btn btn-success mt-2 btnSubmit"
+                        onClick={notify}
                       >
                         ذخیره محصول
                       </button>
@@ -174,14 +204,15 @@ const AddProduct = () => {
                         type="text"
                         name="title"
                         className="form-control"
-                        id="categoryTitle"
+                        id="title"
                         placeholder="عنوان محصول"
-                        onChange={(e) =>
-                          setProduct({
-                            ...product,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("title", {
+                          onChange: (e) =>
+                            setProduct({
+                              ...product,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <div className="form-group mt-3">
                         <textarea
@@ -190,12 +221,13 @@ const AddProduct = () => {
                           className="form-control"
                           cols="30"
                           rows="10"
-                          onChange={(e) =>
-                            setProduct({
-                              ...product,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          {...register("description", {
+                            onChange: (e) =>
+                              setProduct({
+                                ...product,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         ></textarea>
                       </div>
                     </div>
@@ -233,13 +265,14 @@ const AddProduct = () => {
                           type="text"
                           className="me-2 form-control textPrice w-75 faField"
                           name="price"
-                          id="productPrice"
-                          onChange={(e) =>
-                            setProduct({
-                              ...product,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          id="price"
+                          {...register("price", {
+                            onChange: (e) =>
+                              setProduct({
+                                ...product,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         />
                         <p className="mt-2 me-2" id="persianPrice"></p>
                       </div>
@@ -248,37 +281,34 @@ const AddProduct = () => {
                     <div className="row">
                       <div className="col-6 mt-4 me-3 productOptions2">
                         <label className="me-5" for="productPrice">
-                          {" "}
-                          اکانت مدت دار :{" "}
+                          اکانت مدت دار :
                         </label>
                         <p className="mx-5 mt-1">
-                          {" "}
                           درصورتی که میخواهید مدت زمان فعال داشته باشد و پس از
                           مدت مشخصی غیرفعال شود ، تعداد روز های مورد نظر را وارد
                           کنید مثلا برای اکانت ماهانه بر روی 30 بگذارید.
                         </p>
                         <p className="mx-5">
-                          {" "}
                           در صورتی که نمیخواهید از این قابلیت استفاده کنید آن را
-                          بر روی 0 تنظیم کنید.{" "}
+                          بر روی 0 تنظیم کنید.
                         </p>
                         <input
                           type="text"
                           className="me-5 form-control textPrice w-75"
                           name="cycle" // cycle of expire
                           id="cycle"
-                          onChange={(e) =>
-                            setProduct({
-                              ...product,
-                              [e.target.name]: e.target.value,
-                            })
-                          }
+                          {...register("cycle", {
+                            onChange: (e) =>
+                              setProduct({
+                                ...product,
+                                [e.target.name]: e.target.value,
+                              }),
+                          })}
                         />
                       </div>
                       <div className="col-5 mt-4 me-3 productOptions2">
                         <label className="me-5" for="productPrice">
-                          {" "}
-                          دسترسی در سایت :{" "}
+                          دسترسی در سایت :
                         </label>
                         <p className="mx-5 mt-2">
                           با انتخاب گزینه غیرقابل دسترسی ، بازدیدکنندگان
@@ -314,23 +344,20 @@ const AddProduct = () => {
                         id="addField"
                       >
                         <label className="me-5" for="newfild">
-                          {" "}
-                          تنظیمات مربوط به فیلد های کارت های محصول :{" "}
+                          تنظیمات مربوط به فیلد های کارت های محصول :
                         </label>
                         <p className="mx-5 mt-2">
-                          {" "}
                           در این بخش فیلد های مرتبط با کارت های این محصول را
                           انتخاب میکنید ، مثلا درصورتی که قصد فروش اکانت های
                           کریو را دارید میتوانید سه فیلد آدرس سرور ، نام کاربری
-                          ، پسورد را قرار دهید.{" "}
+                          ، پسورد را قرار دهید.
                         </p>
                         <div className="my-3 position-absolute col-10">
                           <table className="table table-borderless mx-5 col-12 text-center align-middle">
                             <thead>
                               <tr>
                                 <th className="col-8" scope="col">
-                                  {" "}
-                                  فیلد های محصول{" "}
+                                  فیلد های محصول
                                 </th>
                               </tr>
                             </thead>
@@ -409,6 +436,7 @@ const AddProduct = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
