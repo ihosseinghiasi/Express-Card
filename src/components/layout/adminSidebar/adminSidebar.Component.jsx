@@ -1,5 +1,5 @@
-import SidebarItem from "../sidebarItem/userSidebarItem.component";
-import SidebarDropDown from "../sidebarItem/userSidebarDropDown.component";
+import SidebarItem from "../sidebarItem/sidebarItem.component";
+import SidebarDropDown from "../sidebarItem/sidebarDropDown.component";
 import { items } from "./data/sidebarItems";
 import "../../../css/user/userSidebar.css";
 
