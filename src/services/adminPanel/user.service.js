@@ -22,10 +22,7 @@ export const getUser = async (params) => {
     });
 };
 
-export const updateUser = async (params, user, templatePassword) => {
-  if (templatePassword.password !== "*********") {
-    user.password = templatePassword.password;
-  }
+export const updateUser = async (params, user) => {
   return await axios.put(
     `http://localhost:4000/adminPanel/user/updateUser/${params.id}`,
     {

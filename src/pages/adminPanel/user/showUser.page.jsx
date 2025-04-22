@@ -1,21 +1,58 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
-import { getUser, updateUser } from "../../../services/userPanel/user.service";
+import { getUser, updateUser } from "../../../services/adminPanel/user.service";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { object, string, ref } from "yup";
+import { ToastContainer, toast } from "react-toastify";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 
 const ShowUser = () => {
   const [user, setUser] = useState({});
   const [date, setDate] = useState("");
-  const [templatePassword, setTemplatePassword] = useState({
-    password: "*********",
-  });
-  const [templateRePassword, setTemplateRePassword] = useState({
-    confirmPassword: "*********",
-  });
   const params = useParams();
   const navigate = useNavigate();
+
+  const userSchema = object({
+    firstName: string().required("فیلد نام نمی تواند خالی باشد"),
+    lastName: string().required("فیلد نام خانوادگی نمی تواند خالی باشد"),
+    phoneNumber: string()
+      .required("فیلد شماره همراه نمی تواند خالی باشد")
+      .min(11, "طول شماره همراه 11 رقم می باشد")
+      .max(11, "طول شماره همراه 11 رقم می باشد")
+      .matches(/^[0-9]/, "شماره همراه باید از ارقام ایجاد شود"),
+    email: string()
+      .email("فرمت ایمبل معتبر نمی باشد")
+      .required("فیلد ایمیل اجباری است"),
+    password: string().required("فیلد پسورد اجباری است"),
+    confirm: string()
+      .oneOf([ref("password")], "پسورد هماهنگی ندارد")
+      .required("فیلد پسورد اجباری است"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "firstName",
+      lastName: "lastName",
+      phoneNumber: "09192300017",
+      email: "email@gmail.com",
+      password: "password",
+      confirm: "password",
+    },
+    resolver: yupResolver(userSchema),
+  });
+
+  const notify = () => {
+    Object.values(errors).map((err) => {
+      toast.error(err.message);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
@@ -40,7 +77,7 @@ const ShowUser = () => {
   const updateAnUser = async (e) => {
     e.preventDefault();
 
-    await updateUser(params, user, templatePassword).then((res) => {
+    await updateUser(params, user).then((res) => {
       if (res?.data) {
         navigate("/admin/allUsers");
       }
@@ -72,7 +109,7 @@ const ShowUser = () => {
               </div>
 
               <div className="addBody col-8 mx-5">
-                <form onSubmit={(e) => updateAnUser(e)} className="mx-5">
+                <form onSubmit={handleSubmit(updateAnUser)} className="mx-5">
                   <div className="row col-5 userForm">
                     <div>
                       <input
@@ -81,12 +118,13 @@ const ShowUser = () => {
                         placeholder="نام"
                         name="firstName"
                         value={user.firstName}
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("firstName", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="text"
@@ -94,12 +132,13 @@ const ShowUser = () => {
                         placeholder="نام خانوادگی"
                         name="lastName"
                         value={user.lastName}
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("lastName", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="email"
@@ -107,12 +146,13 @@ const ShowUser = () => {
                         placeholder="ایمیل"
                         name="email"
                         value={user.email}
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("email", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="text"
@@ -120,12 +160,13 @@ const ShowUser = () => {
                         placeholder="شماره همراه"
                         name="phoneNumber"
                         value={user.phoneNumber}
-                        onChange={(e) =>
-                          setUser({
-                            ...user,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("phoneNumber", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <input
                         type="password"
@@ -133,13 +174,13 @@ const ShowUser = () => {
                         placeholder="کلمه عبور"
                         name="password"
                         id="password"
-                        value={templatePassword.password}
-                        onChange={(e) =>
-                          setTemplatePassword({
-                            ...templatePassword,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        {...register("password", {
+                          onChange: (e) =>
+                            setUser({
+                              ...user,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
                       />
                       <i
                         className="bi bi-eye-slash passwordEye"
@@ -150,15 +191,9 @@ const ShowUser = () => {
                         type="password"
                         className="form-control mt-3 enField"
                         placeholder="تکرار کلمه عبور"
-                        name="confirmPassword"
-                        id="confirmPassword"
-                        value={templateRePassword.confirmPassword}
-                        onChange={(e) =>
-                          setTemplateRePassword({
-                            ...templateRePassword,
-                            [e.target.name]: e.target.value,
-                          })
-                        }
+                        name="confirm"
+                        id="confirm"
+                        {...register("confirm")}
                       />
                       <i
                         className="bi bi-eye-slash confirmPasswordEye"
@@ -171,6 +206,7 @@ const ShowUser = () => {
                         type="submit"
                         value="ثبت کاربر"
                         className="mt-3 btn btn-success w-100"
+                        onClick={notify}
                       />
                     </div>
                   </div>
@@ -180,6 +216,7 @@ const ShowUser = () => {
           </div>
         </div>
       </div>
+      <ToastContainer rtl={true} theme="colored" />
     </>
   );
 };
