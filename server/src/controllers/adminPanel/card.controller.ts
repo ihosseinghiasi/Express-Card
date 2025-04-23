@@ -93,4 +93,16 @@ export default class CardController {
       throw new Error(error as string);
     }
   }
+
+  async cardReport(req: Request, res: Response) {
+    try {
+      const cards = await this.cardService.findAll();
+      const productTitle = "";
+      let filterdCards = cards?.filter((card) => {
+        return card.cardProduct === productTitle;
+      });
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
 }

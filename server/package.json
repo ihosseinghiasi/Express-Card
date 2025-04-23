@@ -1,5 +1,5 @@
 {
-  "name": "online-shop",
+  "name": "Express-Card",
   "version": "1.0.0",
   "description": "online shop with nodejs and react",
   "main": "app.ts",

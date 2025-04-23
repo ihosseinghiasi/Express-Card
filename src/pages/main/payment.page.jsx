@@ -251,9 +251,6 @@ const Payment = () => {
           </form>
         </div>
       </div>
-      <footer>
-        <Footer />
-      </footer>
     </>
   );
 };
