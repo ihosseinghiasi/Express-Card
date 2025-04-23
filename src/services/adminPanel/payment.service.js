@@ -9,6 +9,8 @@ export const payment = async (data) => {
       return res;
     });
 };
-export const calback = async () => {
-  return await axios.get("http://localhost:4000/adminPanel/payment/callback");
+export const getPayments = async () => {
+  return await axios.get(
+    "http://localhost:4000/adminPanel/payment/getAllPayments"
+  );
 };

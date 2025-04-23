@@ -18,4 +18,33 @@ export default class PaymentController {
       throw new Error(error as string);
     }
   }
+
+  async findAllPayments(req: Request, res: Response) {
+    try {
+      const payments = await this.paymentService.findAll();
+      res.status(200).json(payments);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+
+  async findPayment(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id;
+      const email = await this.paymentService.findById(id);
+      res.status(200).json(email);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+
+  async deletePayment(req: Request, res: Response) {
+    try {
+      const id: string = req.params.id;
+      const email = await this.paymentService.delete(id);
+      res.status(200).json(email);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
 }

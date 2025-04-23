@@ -16,6 +16,10 @@ class PaymentRoute {
       "/pay",
       this.paymentController.payment.bind(this.paymentController)
     );
+    this.router.get(
+      "/getAllPayments",
+      this.paymentController.findAllPayments.bind(this.paymentController)
+    );
   }
 }
 
