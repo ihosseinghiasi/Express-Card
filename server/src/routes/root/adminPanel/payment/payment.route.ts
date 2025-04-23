@@ -13,7 +13,7 @@ class PaymentRoute {
 
   private initRoutes() {
     this.router.post(
-      "/paymant",
+      "/pay",
       this.paymentController.payment.bind(this.paymentController)
     );
   }

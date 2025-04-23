@@ -2,8 +2,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../../services/adminPanel/product.services";
-import { pay } from "../../services/adminPanel/payment.service";
-import Footer from "../../components/layout/footer/footer.component";
+import { payment } from "../../services/adminPanel/payment.service";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
 
@@ -67,14 +66,17 @@ const Payment = () => {
     taxCalculator();
   }, [count, price]);
 
-  const payment = async () => {
+  const pay = async () => {
     const data = {
+      userFullName: localStorage.getItem("authenticatedFullName"),
+      userId: localStorage.getItem("userAuthenticatedId"),
       title: product.title,
       price,
       count,
       totalPrice,
+
     };
-    await pay(data).then((res) => {
+    await payment(data).then((res) => {
       if (res.data) {
         console.log(res.data);
       }
@@ -95,7 +97,7 @@ const Payment = () => {
           </div>
         </div>
         <div className="row col-12">
-          <form onSubmit={(e) => payment(e)}>
+          <form onSubmit={(e) => pay(e)}>
             <div className="col-7 buyDetails my-1">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

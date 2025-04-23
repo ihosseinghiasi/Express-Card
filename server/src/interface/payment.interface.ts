@@ -3,9 +3,6 @@ export default interface IPayment {
   userId: string;
   title: string;
   price: number;
+  count: number;
   totalPrice: number;
-  payment: boolean;
-  resnumber: string;
-  isNewPaymentForAdmin: boolean;
-  isNewPaymentForUser: boolean;
 }

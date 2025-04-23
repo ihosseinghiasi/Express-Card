@@ -11,7 +11,9 @@ export default class PaymentController {
 
   async payment(req: Request, res: Response) {
     try {
-      console.log("create payment");
+      const data: IPayment = req.body.data;
+      const payment = await this.paymentService.create(data);
+      res.status(200).json(payment);
     } catch (error) {
       throw new Error(error as string);
     }
