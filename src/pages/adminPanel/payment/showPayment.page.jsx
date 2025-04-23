@@ -79,8 +79,8 @@ const ShowCategory = () => {
                         <tr>
                           <td className="col-3">{payment.title}</td>
                           <td className="col-1">{payment.count}</td>
-                          <td className="col-1">{payment.price}</td>
-                          <td className="col-2">{payment.totalPrice}</td>
+                          <td className="col-3">{payment.price} تومان</td>
+                          <td className="col-3">{payment.totalPrice} تومان</td>
                         </tr>
                       </tbody>
                     </table>
