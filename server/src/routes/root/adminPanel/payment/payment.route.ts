@@ -24,6 +24,10 @@ class PaymentRoute {
       "/getPayment/:id",
       this.paymentController.findPayment.bind(this.paymentController)
     );
+    this.router.delete(
+      "/deletePayment/:id",
+      this.paymentController.deletePayment.bind(this.paymentController)
+    );
   }
 }
 

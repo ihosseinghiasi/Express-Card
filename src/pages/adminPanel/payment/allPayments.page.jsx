@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import TableRow from "./tableRow.page";
 import { persianDate } from "../../../services/persianDate.services";
 import {
-  getAllPayments,
+  deletePayment,
   getPayments,
 } from "../../../services/adminPanel/payment.service";
 import "../../../css/admin/admin.css";
@@ -23,9 +23,9 @@ const AllAdmins = () => {
     });
   };
 
-  // const handleDelete = async (id) => {
-  //   await deleteAdmin(id);
-  // };
+  const handleDelete = async (id) => {
+    await deletePayment(id);
+  };
 
   useEffect(() => {
     getPersianDate();
@@ -81,7 +81,7 @@ const AllAdmins = () => {
                         fullName={payment.userFullName}
                         title={payment.title}
                         totalPrice={payment.totalPrice}
-                        // handleDelete={handleDelete}
+                        handleDelete={handleDelete}
                       />
                     ))}
                   </tbody>

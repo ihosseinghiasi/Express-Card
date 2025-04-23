@@ -41,8 +41,8 @@ export default class PaymentController {
   async deletePayment(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const email = await this.paymentService.delete(id);
-      res.status(200).json(email);
+      const payment = await this.paymentService.delete(id);
+      res.status(200).json(payment);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

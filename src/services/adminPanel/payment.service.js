@@ -21,3 +21,8 @@ export const getPayment = async (params) => {
       return res;
     });
 };
+export const deletePayment = async (id) => {
+  return await axios.delete(
+    `http://localhost:4000/adminPanel/payment/deletePayment/${id}`
+  );
+};
