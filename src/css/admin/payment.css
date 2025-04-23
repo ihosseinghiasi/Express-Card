@@ -1,38 +1,57 @@
 .addAdmin {
-    height: 120vh;
-    box-shadow: 1px 1px 70px lightgray;
+  height: 120vh;
+  box-shadow: 1px 1px 70px lightgray;
 }
 
 .addtitle {
-    position: absolute;
+  position: absolute;
 }
 
 .addBody {
-    position: absolute;
-    margin-top: 80px;
-
+  position: absolute;
+  margin-top: 80px;
 }
 
 .titleWidth {
-    width: 892px;
+  width: 892px;
 }
 
 .expressCard {
-    margin-top: 55px;
-    text-align: center;
+  margin-top: 55px;
+  text-align: center;
 }
 
 .paymentFrame {
-    height: 100vh;
-    width: 65%;
-    margin: 50px 250px 0 0;
-    box-shadow: 1px 1px 70px lightgray;
+  height: 100vh;
+  width: 65%;
+  margin: 50px 250px 0 0;
+  box-shadow: 1px 1px 70px lightgray;
 }
 
 .description {
-   position: absolute;
-   height: 90vh;
-   width: 57%;
-   font-size: 1.2em;
-   margin: 50px 50px;
+  position: absolute;
+  height: 90vh;
+  width: 57%;
+  font-size: 1.2em;
+  margin: 50px 50px;
+}
+
+.paymentFrame {
+  width: 90%;
+  float: right;
+  margin: 0px 50px;
+  height: 600px;
+  box-shadow: 1px 1px 70px lightgray;
+}
+
+h3 {
+  text-align: center;
+  margin: 20px 50px;
+  padding: 30px;
+}
+
+p.factor {
+  float: right;
+  padding: 0px 20px;
+  font-size: 1.1em;
 }
