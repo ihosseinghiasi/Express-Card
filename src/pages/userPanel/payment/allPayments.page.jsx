@@ -23,10 +23,6 @@ const AllAdmins = () => {
     });
   };
 
-  const handleDelete = async (id) => {
-    await deletePayment(id);
-  };
-
   useEffect(() => {
     getPersianDate();
     getAllPayments();
@@ -81,7 +77,6 @@ const AllAdmins = () => {
                         fullName={payment.userFullName}
                         title={payment.title}
                         totalPrice={payment.totalPrice}
-                        handleDelete={handleDelete}
                       />
                     ))}
                   </tbody>
