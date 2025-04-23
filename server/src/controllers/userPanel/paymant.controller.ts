@@ -31,14 +31,4 @@ export default class PaymentController {
       throw new Error(error as string);
     }
   }
-
-  async deletePayment(req: Request, res: Response) {
-    try {
-      const id: string = req.params.id;
-      const payment = await this.paymentService.delete(id);
-      res.status(200).json(payment);
-    } catch (error: unknown) {
-      throw new Error(error as string);
-    }
-  }
 }
