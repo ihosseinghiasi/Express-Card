@@ -36,6 +36,7 @@ import Profile from "./pages/userPanel/profile/profile.page";
 import UserAddTicket from "./pages/userPanel/ticket/addTicket.page";
 import UserShowTicket from "./pages/userPanel/ticket/showTicket.page";
 import UserAllTickets from "./pages/userPanel/ticket/allTickets.page";
+import UserAllPayments from "./pages/userPanel/payment/allPayments.page";
 import HomePage from "./pages/main/home.page";
 import MainLayoutComponent from "./components/layout/main-layout.component";
 import AdminPanelLayoutComponent from "./components/layout/adminPanel-layout.component";
@@ -310,6 +311,15 @@ const App = () => {
             element={
               <UserLayoutComponent>
                 <UserAllTickets />
+              </UserLayoutComponent>
+            }
+          />
+
+          <Route
+            path="/user/allPayments"
+            element={
+              <UserLayoutComponent>
+                <UserAllPayments />
               </UserLayoutComponent>
             }
           />
