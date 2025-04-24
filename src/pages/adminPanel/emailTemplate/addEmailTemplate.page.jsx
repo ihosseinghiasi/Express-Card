@@ -39,8 +39,7 @@ const AddEmailTemplate = () => {
     getPersianDate();
   }, []);
 
-  const AddEmail = async (e) => {
-    e.preventDefault();
+  const AddEmail = async () => {
     await addEmailTemplate(email).then((res) => {
       if (res.data) {
         navigate("/admin/allEmailTemplates");

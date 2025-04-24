@@ -6,7 +6,7 @@ import category from "./category/category.route";
 import product from "./product/product.route";
 import card from "./card/card.route";
 import ticket from "./ticket/ticket.route";
-import email from "./email/email.route";
+import email from "./emailTemplate/emailTemplate.route";
 import payment from "./payment/payment.route";
 
 const router = express.Router();

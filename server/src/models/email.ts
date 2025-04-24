@@ -1,16 +1,12 @@
 import mongoose from "mongoose";
 import IEmail from "../interface/email.interface";
 
-const emailTemplateSchema = new mongoose.Schema({
+const emailSchema = new mongoose.Schema({
   title: { type: String },
   description: { type: String },
   target: { type: String },
 });
 
-const Email = mongoose.model<IEmail>(
-  "emailTemplate",
-  emailTemplateSchema,
-  "emailTemplate"
-);
+const Email = mongoose.model<IEmail>("email", emailSchema, "email");
 
 export default Email;

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import EmailTemplateController from "../../../../controllers/adminPanel/emailTemplate.controller";
 
-class EmailRoute {
+class EmailTemplateRoute {
   private readonly emailTemplateController: EmailTemplateController;
   public readonly router: Router;
 
@@ -49,4 +49,4 @@ class EmailRoute {
   }
 }
 
-export default new EmailRoute().router;
+export default new EmailTemplateRoute().router;
