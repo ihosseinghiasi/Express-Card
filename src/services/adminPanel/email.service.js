@@ -1,12 +1,9 @@
 import axios from "axios";
 
 export const addEmail = async (email) => {
-  return axios.post(
-    `http://localhost:4000/adminPanel/email/createEmail`,
-    {
-      email,
-    }
-  );
+  return axios.post(`http://localhost:4000/adminPanel/email/createEmail`, {
+    email,
+  });
 };
 
 export const getEmailTemplates = async () => {

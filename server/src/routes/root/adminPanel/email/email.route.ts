@@ -19,4 +19,4 @@ class EmailRoute {
   }
 }
 
-export default new EmailRoute().router
+export default new EmailRoute().router;

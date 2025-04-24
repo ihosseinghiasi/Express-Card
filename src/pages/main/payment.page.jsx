@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { getProduct } from "../../services/adminPanel/product.services";
 import { payment } from "../../services/adminPanel/payment.service";
+import { addEmail } from "../../services/adminPanel/email.service";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
 
@@ -74,13 +75,8 @@ const Payment = () => {
       price,
       count,
       totalPrice,
-
     };
-    await payment(data).then((res) => {
-      if (res.data) {
-        console.log(res.data);
-      }
-    });
+    const buyEvents = await Promise.all([payment(data), addEmail(data)]);
   };
 
   return (

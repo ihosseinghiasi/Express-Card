@@ -1,5 +1,5 @@
 import { Router } from "express";
-import PaymentController from "../../../../controllers/adminPanel/paymant.controller";
+import PaymentController from "../../../../controllers/adminPanel/payment.controller";
 
 class PaymentRoute {
   private readonly paymentController: PaymentController;

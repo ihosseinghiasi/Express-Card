@@ -11,7 +11,8 @@ export default class EmailController {
 
   async create(req: Request, res: Response) {
     try {
-      console.log("create email");
+      const paymentData = req.body.email;
+      console.log(paymentData);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
