@@ -13,7 +13,6 @@ const emailSender = function (
   //     fieldsDetail += field.fieldName + " : " + field.fieldValue + "<br>";
   //   });
   // }
-
   const emailSubject: string = emailTemplate.title
     .replace("%%site_title%%", " اکسپرس کارت ")
     .replace("%%user_name%%", userName);

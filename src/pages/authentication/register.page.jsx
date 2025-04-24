@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { object, ref, string } from "yup";
 import { ToastContainer, toast } from "react-toastify";
+import { registerUser } from "../../services/authenticationService";
 import "../../css/shop/register.css";
 
 const Register = () => {
@@ -38,7 +39,7 @@ const Register = () => {
   };
 
   const userRegister = async (data) => {
-    await register(data);
+    await registerUser(data);
     navigate("/");
   };
   return (

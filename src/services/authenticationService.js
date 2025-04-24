@@ -41,7 +41,7 @@ export const login = async (data) => {
     });
 };
 
-export const register = async (data) => {
+export const registerUser = async (data) => {
   return await axios.post("http://localhost:4000/authentication/register", {
     data,
   });

@@ -15,12 +15,12 @@ export default class UserAuthentication {
   private _verifySmsCode!: string;
   private readonly userService: UserService;
   private readonly adminService: AdminService;
-  private readonly emailTemplate: EmailTemplateService;
+  private readonly emailTemplateService: EmailTemplateService;
 
   constructor() {
     this.userService = new UserService();
     this.adminService = new AdminService();
-    this.emailTemplate = new EmailTemplateService();
+    this.emailTemplateService = new EmailTemplateService();
   }
 
   async register(req: Request, res: Response) {
@@ -31,9 +31,10 @@ export default class UserAuthentication {
       data.password = await bcrypt.hash(data.password, salt);
       const user = await this.userService.create(data);
       const fullName = `${user.firstName} ${user.lastName}`;
-      const emailTemplate = await this.emailTemplate.findOne(
+      const emailTemplate = await this.emailTemplateService.findOne(
         "679136dd9b82810ff9e5294c"
       );
+      console.log(emailTemplate);
       if (emailTemplate) {
         emailSender(fullName, user.email, emailTemplate, []);
       }
