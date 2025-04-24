@@ -34,7 +34,6 @@ export default class UserAuthentication {
       const emailTemplate = await this.emailTemplateService.findOne(
         "679136dd9b82810ff9e5294c"
       );
-      console.log(emailTemplate);
       if (emailTemplate) {
         emailSender(fullName, user.email, emailTemplate, []);
       }
