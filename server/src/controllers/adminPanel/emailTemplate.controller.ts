@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import EmailTemplateService from "../../services/adminPanel/EmailTemplate.service";
+import EmailTemplateService from "../../services/adminPanel/emailTemplate.service";
 import IEmailTemplate from "../../interface/emailTemplate.interface";
 
 export default class EmailTemplate {

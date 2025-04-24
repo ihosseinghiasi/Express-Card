@@ -4,7 +4,7 @@ import IUser from "../../interface/user.interface";
 import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
 import AdminService from "../../services/adminPanel/admin.service";
-import EmailTemplateService from "../../services/adminPanel/EmailTemplate.service";
+import EmailTemplateService from "../../services/adminPanel/emailTemplate.service";
 import { createToken } from "../../middlewares/createToken";
 import { LocalStorage } from "node-localstorage";
 import emailSender from "../../config/email";
