@@ -71,8 +71,7 @@ const AddCard = () => {
     getAllProducts();
   }, []);
 
-  const addNewCard = async (e) => {
-    e.preventDefault();
+  const addNewCard = async () => {
     const data = {
       card,
       fieldNames,
@@ -106,7 +105,7 @@ const AddCard = () => {
                 افزودن کارت
               </div>
               <div className="col-8 mx-5 addBody">
-                <form onSubmit={(e) => addNewCard(e)}>
+                <form onSubmit={addNewCard()}>
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-7">

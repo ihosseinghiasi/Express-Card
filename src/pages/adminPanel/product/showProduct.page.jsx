@@ -113,8 +113,7 @@ const ShowProduct = () => {
     } else setFields([""]);
   };
 
-  const updateAProduct = async (e) => {
-    e.preventDefault();
+  const updateAProduct = async () => {
     const formData = new FormData();
     if (productImage) formData.append("file", productImage);
     formData.append("productName", product.productName);

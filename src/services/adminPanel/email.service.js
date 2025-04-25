@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const addEmail = async (email) => {
+export const addEmail = async (data) => {
   return axios.post(`http://localhost:4000/adminPanel/email/createEmail`, {
-    email,
+    data,
   });
 };
 

@@ -129,8 +129,7 @@ const ShowCard = () => {
     setFieldValues(newFeildValues);
   };
 
-  const updateACard = async (e) => {
-    e.preventDefault();
+  const updateACard = async () => {
     const data = {
       card,
       fieldNames,
@@ -166,7 +165,7 @@ const ShowCard = () => {
                 ویرایش کارت
               </div>
               <div className="col-8 mx-5 addBody">
-                <form onSubmit={(e) => updateACard(e)}>
+                <form onSubmit={updateACard()}>
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-7">
