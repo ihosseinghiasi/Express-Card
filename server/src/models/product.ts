@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   description: { type: String },
   price: { type: Number },
   cycle: { type: Number }, // cycle Of Time
+  count: { type: Number },
   accessible: { type: String },
   fields: [],
   image: { type: String },

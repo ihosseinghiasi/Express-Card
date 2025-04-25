@@ -4,6 +4,7 @@ export default interface IProduct {
   description: string;
   price: number;
   cycle: number; // cycle Of Time
+  count: number;
   accessible: string;
   fields: [];
   image: string;
