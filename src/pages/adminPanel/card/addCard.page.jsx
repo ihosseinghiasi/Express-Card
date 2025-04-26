@@ -71,16 +71,15 @@ const AddCard = () => {
     getAllProducts();
   }, []);
 
-  const addNewCard = async () => {
+  const addNewCard = async (e) => {
     const data = {
       card,
       fieldNames,
       fieldValues,
     };
 
-    addCard(data).then((res) => {
-      navigate("/admin/allCards");
-    });
+    addCard(data).then((res) => {});
+    navigate("/admin/allCards");
   };
   return (
     <>
@@ -105,7 +104,7 @@ const AddCard = () => {
                 افزودن کارت
               </div>
               <div className="col-8 mx-5 addBody">
-                <form onSubmit={addNewCard()}>
+                <form onSubmit={(e) => addNewCard(e)}>
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-7">

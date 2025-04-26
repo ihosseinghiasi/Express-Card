@@ -30,7 +30,7 @@ const AllCards = () => {
   }, []);
 
   async function handleDelete(id) {
-    await deleteCard();
+    await deleteCard(id);
   }
 
   return (

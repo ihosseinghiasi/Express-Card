@@ -165,7 +165,7 @@ const ShowCard = () => {
                 ویرایش کارت
               </div>
               <div className="col-8 mx-5 addBody">
-                <form onSubmit={updateACard()}>
+                <form onSubmit={(e) => updateACard(e)}>
                   <div className="container-fluid">
                     <div className="row">
                       <div className="col-7">
