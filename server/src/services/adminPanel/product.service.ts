@@ -27,4 +27,8 @@ export default class ProductService {
   async delete(id: string): Promise<IProduct | null> {
     return this.productRepository.delete(id);
   }
+
+  async findByTitle(title: string): Promise<IProduct | null> {
+    return this.productRepository.findBytitle(title);
+  }
 }
