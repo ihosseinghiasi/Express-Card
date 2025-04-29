@@ -17,7 +17,7 @@ export default class CardController {
     try {
       const fieldValues = req.body.data.fieldValues;
       const fieldNames = req.body.data.fieldNames;
-      const fields = this.setFields(fieldNames, fieldValues);
+      const fields = await this.setFields(fieldNames, fieldValues);
 
       const data: ICard = {
         cardCategory: req.body.data.card.cardCategory,
@@ -85,9 +85,9 @@ export default class CardController {
     }
   }
 
-  async setFields(fieldValues: string, fieldNames: string[]) {
+  async setFields(fieldNames: string[], fieldValues: string[]) {
     let fields = {};
-    if (fieldValues !== "") {
+    if (fieldValues.length !== 0) {
       fields = Object.fromEntries(
         fieldNames.map((fieldName: string, index: number) => [
           `field${[index]}`,
@@ -111,7 +111,7 @@ export default class CardController {
           title: product.title,
           categoryTitle: product.categoryTitle,
           cycle: product.cycle,
-          count: ++product.count,
+          count: product.count + 1,
           price: product.price,
           description: product.description,
           accessible: product.accessible,
@@ -138,7 +138,7 @@ export default class CardController {
           title: product.title,
           categoryTitle: product.categoryTitle,
           cycle: product.cycle,
-          count: --product.count,
+          count: product.count - 1,
           price: product.price,
           description: product.description,
           accessible: product.accessible,
@@ -156,7 +156,7 @@ export default class CardController {
     try {
       const cards = await this.cardService.findAll();
       const productTitle = "";
-      let filterdCards = cards?.filter((card) => {
+      const filterdCards = cards?.filter((card) => {
         return card.cardProduct === productTitle;
       });
     } catch (error: unknown) {

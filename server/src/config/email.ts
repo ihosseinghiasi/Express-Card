@@ -5,18 +5,18 @@ const emailSender = function (
   userName: string,
   userEmail: string,
   emailTemplate: IEmailTemplate,
-  fields: string[]
+  fields: { fieldName: string; fieldValue: string }[]
 ) {
-  // let fieldsDetail: string = "";
-  // if (fields) {
-  //   Object.values(fields).forEach((field) => {
-  //     fieldsDetail += field.fieldName + " : " + field.fieldValue + "<br>";
-  //   });
-  // }
+  let fieldsDetail: string = "";
+  if (fields) {
+    Object.values(fields).forEach((field) => {
+      fieldsDetail += field.fieldName + " : " + field.fieldValue + "<br>";
+    });
+  }
   const emailSubject: string = emailTemplate.title
     .replace("%%site_title%%", " اکسپرس کارت ")
-    .replace("%%user_name%%", userName);
-  // .replace("%%sell_fields%%", fieldsDetail);
+    .replace("%%user_name%%", userName)
+    .replace("%%sell_fields%%", fieldsDetail);
   const emailDescription = emailTemplate.description
     .replace("%%user_name%%", userName)
     .replace("%%site_title%%", " اکسپرس کارت ");

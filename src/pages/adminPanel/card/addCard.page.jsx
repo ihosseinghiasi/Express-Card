@@ -72,14 +72,18 @@ const AddCard = () => {
   }, []);
 
   const addNewCard = async (e) => {
+    e.preventDefault();
     const data = {
       card,
       fieldNames,
       fieldValues,
     };
 
-    addCard(data).then((res) => {});
-    navigate("/admin/allCards");
+    addCard(data).then((res) => {
+      if (res.data) {
+        navigate("/admin/allCards");
+      }
+    });
   };
   return (
     <>
