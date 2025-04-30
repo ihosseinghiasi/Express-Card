@@ -51,6 +51,13 @@ export default class EmailController {
                   emailPatterns.emailSubject,
                   emailPatterns.emailDescription
                 );
+                const data = {
+                  title: emailPatterns.emailSubject,
+                  description: emailPatterns.emailDescription,
+                  target: "hosseinghiasi.dev@gmail.com",
+                };
+                const email = await this.emailService.create(data);
+                res.status(200).json(email);
               }
             })
           );
