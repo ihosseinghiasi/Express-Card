@@ -8,6 +8,7 @@ import EmailTemplateService from "../../services/adminPanel/emailTemplate.servic
 import { createToken } from "../../middlewares/createToken";
 import { LocalStorage } from "node-localstorage";
 import emailSender from "../../config/email";
+import { replaceEmailTemplatePatterns } from "../../config/replaceEmailTemplatePattern";
 global.localStorage = new LocalStorage("./scratch");
 const { Smsir } = require("smsir-js");
 export default class UserAuthentication {
@@ -35,7 +36,16 @@ export default class UserAuthentication {
         "679136dd9b82810ff9e5294c"
       );
       if (emailTemplate) {
-        emailSender(fullName, user.email, emailTemplate, []);
+        const emailPatterns = await replaceEmailTemplatePatterns(
+          fullName,
+          emailTemplate,
+          []
+        );
+        emailSender(
+          user.email,
+          emailPatterns.emailSubject,
+          emailPatterns.emailDescription
+        );
       }
       res.status(201).json(user);
     } catch (error: unknown) {

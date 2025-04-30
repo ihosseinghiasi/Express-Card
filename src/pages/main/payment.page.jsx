@@ -76,7 +76,7 @@ const Payment = () => {
       count,
       totalPrice,
     };
-    const buyEvents = await Promise.all([payment(data), addEmail(data)]);
+    await Promise.all([payment(data), addEmail(data)]);
   };
 
   return (

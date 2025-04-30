@@ -5,6 +5,8 @@ import EmailService from "../../services/adminPanel/email.service";
 import EmailTemplateService from "../../services/adminPanel/emailTemplate.service";
 import CardService from "../../services/adminPanel/card.service";
 import emailSender from "../../config/email";
+import ICard from "../../interface/card.interface";
+import { replaceEmailTemplatePatterns } from "../../config/replaceEmailTemplatePattern";
 
 export default class EmailController {
   private readonly emailService: EmailService;
@@ -23,38 +25,52 @@ export default class EmailController {
       const emailTemplate: IEmailTemplate | null =
         await this.emailTemplateService.findOne("680a33ec507f5517e73dd5f9");
       const cards = await this.cardService.findAll();
-      const selectedCards = cards?.filter((card) => {
-        return (
-          card.cardProduct === paymentData.title && card.cardStatus === "فعال"
+      if (cards) {
+        const selectedCardsForSelling = await this.selectCardsForSelling(
+          cards,
+          paymentData.title,
+          paymentData.count
         );
-      });
-      const selectedCardsForSelling = selectedCards?.slice(
-        0,
-        paymentData.count
-      );
-      if (selectedCardsForSelling) {
-        Object.values(selectedCardsForSelling).forEach((card) => {
-          const fields: string[] = [];
-          console.log(card);
-          // Object.values(card.cardFields).forEach((field) => {
-          //   console.log(field);
-          //   fields.push(field);
-          // });
+        if (selectedCardsForSelling) {
+          await Promise.all(
+            Object.values(selectedCardsForSelling).map(async (card) => {
+              const fields: { fieldName: string; fieldValue: string }[] = [];
+              Object.values(card.cardFields).forEach((field) => {
+                fields.push(field);
+              });
 
-          console.log(fields);
-          // if (fields && emailTemplate) {
-          //   emailSender(
-          //     paymentData.userFullName,
-          //     "hosseinghiasi.dev@gmail.com",
-          //     emailTemplate,
-          //     fields,
-          //   );
-          // }
-        });
+              if (fields && emailTemplate) {
+                const emailPatterns = await replaceEmailTemplatePatterns(
+                  paymentData.userFullName,
+                  emailTemplate,
+                  fields
+                );
+
+                emailSender(
+                  "hosseinghiasi.dev@gmail.com",
+                  emailPatterns.emailSubject,
+                  emailPatterns.emailDescription
+                );
+              }
+            })
+          );
+        }
       }
     } catch (error: unknown) {
       throw new Error(error as string);
     }
+  }
+
+  async selectCardsForSelling(
+    cards: ICard[],
+    title: string,
+    count: number
+  ): Promise<ICard[] | null> {
+    const selectedCards = cards?.filter((card) => {
+      return card.cardProduct === title && card.cardStatus === "فعال";
+    });
+    const selectedCardsForSelling = selectedCards?.slice(0, count);
+    return selectedCardsForSelling;
   }
 
   async findAllAdmins(req: Request, res: Response) {
