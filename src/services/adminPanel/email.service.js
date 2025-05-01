@@ -6,9 +6,9 @@ export const addEmail = async (data) => {
   });
 };
 
-export const getEmailTemplates = async () => {
+export const getEmails = async () => {
   return await axios
-    .get("http://localhost:4000/adminPanel/emailTemplate/getAllEmailTemplates")
+    .get("http://localhost:4000/adminPanel/email/getAllEmails")
     .then((res) => {
       return res;
     });
@@ -24,15 +24,8 @@ export const getEmailTemplate = async (params) => {
     });
 };
 
-export const updateEmailTemplate = async (params, email) => {
-  return await axios.put(
-    `http://localhost:4000/adminPanel/emailTemplate/updateEmailTemplate/${params.id}`,
-    { email }
-  );
-};
-
-export const deleteEmailTemplate = async (id) => {
+export const deleteEmail = async (id) => {
   return await axios.delete(
-    `http://localhost:4000/adminPanel/emailTemplate/deleteEmailtemplate/${id}`
+    `http://localhost:4000/adminPanel/email/deleteEmail/${id}`
   );
 };

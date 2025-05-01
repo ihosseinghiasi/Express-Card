@@ -80,21 +80,23 @@ export default class EmailController {
     return selectedCardsForSelling;
   }
 
-  async findAllAdmins(req: Request, res: Response) {
+  async findAllEmails(req: Request, res: Response) {
+    try {
+      const emails = await this.emailService.findAll();
+      res.status(200).json(emails);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+
+  async findEmail(req: Request, res: Response) {
     try {
     } catch (error: unknown) {
       throw new Error(error as string);
     }
   }
 
-  async findAdmin(req: Request, res: Response) {
-    try {
-    } catch (error: unknown) {
-      throw new Error(error as string);
-    }
-  }
-
-  async deleteAdmin(req: Request, res: Response) {
+  async deleteEmail(req: Request, res: Response) {
     try {
     } catch (error: unknown) {
       throw new Error(error as string);

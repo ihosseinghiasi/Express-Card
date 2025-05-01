@@ -29,6 +29,7 @@ import AdminShowPayment from "./pages/adminPanel/payment/showPayment.page";
 import AddEmailTemplate from "./pages/adminPanel/emailTemplate/addEmailTemplate.page";
 import AllEmailTemplates from "./pages/adminPanel/emailTemplate/allEmailTemplates.page";
 import ShowEmailTemplate from "./pages/adminPanel/emailTemplate/showEmailTemplate.page";
+import AllEmails from "./pages/adminPanel/email/allEmails.page";
 import Payment from "./pages/main/payment.page";
 import Category from "./pages/main/category.page";
 import UserCounter from "./pages/userPanel/counter.page";
@@ -266,6 +267,15 @@ const App = () => {
             element={
               <AdminPanelLayoutComponent>
                 <AdminShowPayment />
+              </AdminPanelLayoutComponent>
+            }
+          />
+
+          <Route
+            path="/admin/allEmails"
+            element={
+              <AdminPanelLayoutComponent>
+                <AllEmails />
               </AdminPanelLayoutComponent>
             }
           />
