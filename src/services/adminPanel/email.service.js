@@ -14,11 +14,9 @@ export const getEmails = async () => {
     });
 };
 
-export const getEmailTemplate = async (params) => {
+export const getEmail = async (params) => {
   return await axios
-    .get(
-      `http://localhost:4000/adminPanel/emailTemplate/getEmailTemplate/${params.id}`
-    )
+    .get(`http://localhost:4000/adminPanel/email/getEmail/${params.id}`)
     .then((res) => {
       return res;
     });

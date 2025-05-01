@@ -4,7 +4,7 @@ import { persianDate } from "../../../services/persianDate.services";
 import { getPayment } from "../../../services/adminPanel/payment.service";
 import "../../../css/admin/payment.css";
 
-const ShowCategory = () => {
+const ShowPayment = () => {
   const [date, setDate] = useState("");
   const [payment, setPayment] = useState({});
   const params = useParams();
@@ -95,4 +95,4 @@ const ShowCategory = () => {
   );
 };
 
-export default ShowCategory;
+export default ShowPayment;

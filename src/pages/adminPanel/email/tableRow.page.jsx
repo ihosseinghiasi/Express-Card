@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 
@@ -11,6 +12,15 @@ const TableRow = ({ index, id, title, target, handleDelete }) => {
         <td>
           <div class="container">
             <div class="row justify-content-center">
+              <div class="col-4">
+                <Link
+                  to={`/admin/showEmail/${id}`}
+                  class="btn btn-success"
+                  role="button"
+                >
+                  <img src={"/uploads/icons/edit.svg"} alt="edit" />
+                </Link>
+              </div>
               <div class="col-4">
                 <form onSubmit={() => handleDelete(id)}>
                   <button type="submit" class="btn btn-danger">
