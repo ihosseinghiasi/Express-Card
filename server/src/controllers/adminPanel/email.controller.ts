@@ -101,6 +101,8 @@ export default class EmailController {
 
   async deleteEmail(req: Request, res: Response) {
     try {
+      const emailID: string = req.params.id;
+      await this.emailService.delete(emailID);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

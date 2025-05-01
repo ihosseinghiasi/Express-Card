@@ -20,14 +20,14 @@ class EmailRoute {
       "/getAllEmails",
       this.emailControllser.findAllEmails.bind(this.emailControllser)
     );
-     this.router.get(
-       "/getEmail/:id",
-       this.emailControllser.findEmail.bind(this.emailControllser)
-     );
-     this.router.delete(
-       "/deleteEmail",
-       this.emailControllser.deleteEmail.bind(this.emailControllser)
-     );
+    this.router.get(
+      "/getEmail/:id",
+      this.emailControllser.findEmail.bind(this.emailControllser)
+    );
+    this.router.delete(
+      "/deleteEmail/:id",
+      this.emailControllser.deleteEmail.bind(this.emailControllser)
+    );
   }
 }
 

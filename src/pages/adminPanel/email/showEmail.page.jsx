@@ -55,8 +55,6 @@ const ShowEmail = () => {
                 <div className="paymentFrame">
                   <h3>{email.title}</h3>
                   <pre className="factor mx-3">{email.description}</pre>
-
-                  <div className="my-3 position-absolute col-8"></div>
                 </div>
               </div>
             </div>

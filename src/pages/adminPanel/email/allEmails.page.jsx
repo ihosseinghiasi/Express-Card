@@ -29,9 +29,9 @@ const AllEmails = () => {
     getPersianDate();
   }, []);
 
-  async function handleDelete(id) {
+  const handleDelete = async (id) => {
     await deleteEmail(id);
-  }
+  };
 
   return (
     <>
