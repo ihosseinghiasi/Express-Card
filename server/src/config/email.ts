@@ -1,10 +1,10 @@
 import nodemailer from "nodemailer";
 
-const emailSender = function (
+const emailSender = (
   userEmail: string,
   emailSubject: string,
   emailDescription: string
-) {
+) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.gmail.com",

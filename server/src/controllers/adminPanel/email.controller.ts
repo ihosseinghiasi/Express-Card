@@ -51,7 +51,7 @@ export default class EmailController {
                   emailPatterns.emailSubject,
                   emailPatterns.emailDescription
                 );
-                const data = {
+                const data: IEmail = {
                   title: emailPatterns.emailSubject,
                   description: emailPatterns.emailDescription,
                   target: "hosseinghiasi.dev@gmail.com",
