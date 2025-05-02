@@ -12,7 +12,7 @@ export default class PaymentController {
   async findAllPayments(req: Request, res: Response) {
     try {
       const userID = localStorage.getItem("userAuthenticatedId");
-      const payments = await this.paymentService.findAll();
+      const payments: IPayment[] | null = await this.paymentService.findAll();
       const userPayments = payments?.filter((payment) => {
         return payment.userId === userID;
       });
