@@ -1,7 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { persianDate } from "../../../services/persianDate.services";
-import { getPayment } from "../../../services/adminPanel/payment.service";
+import { getPayment } from "../../../services/userPanel/payment.service";
 import "../../../css/admin/payment.css";
 
 const ShowCategory = () => {

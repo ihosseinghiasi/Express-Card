@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import TableRow from "./tableRow.page";
 import { persianDate } from "../../../services/persianDate.services";
-import {
-  deletePayment,
-  getPayments,
-} from "../../../services/adminPanel/payment.service";
+import { getPayments } from "../../../services/userPanel/payment.service";
 import "../../../css/admin/admin.css";
 
 const AllAdmins = () => {

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../../../css/admin/admin.css";
 
-const TableRow = ({ index, id, fullName, title, totalPrice, handleDelete }) => {
+const TableRow = ({ index, id, fullName, title, totalPrice }) => {
   return (
     <>
       <tr>
