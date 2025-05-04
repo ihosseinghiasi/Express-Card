@@ -81,4 +81,20 @@ export default class ProductController {
       throw new Error(error as string);
     }
   }
+
+  async ProductStoreReport(req: Request, res: Response) {
+    try {
+      const products: IProduct[] | null = await this.productService.findAll();
+      const productTitles: string[] = [];
+      const productCount: number[] = [];
+      Object.values(products!).forEach((product) => {
+        productTitles.push(product.title);
+        productCount.push(product.count);
+      });
+      console.log(productTitles);
+      console.log(productCount);
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
 }
