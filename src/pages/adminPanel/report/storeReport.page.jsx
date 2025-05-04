@@ -1,6 +1,7 @@
 import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
+import { getStoreReport } from "../../../services/adminPanel/storeReport";
 import "../../../css/admin/admin.css";
 
 const StoreReport = () => {
@@ -9,11 +10,11 @@ const StoreReport = () => {
   const [storeVales, setStoreValues] = useState({});
   const navigate = useNavigate();
 
-  // const getAnAdmin = async () => {
-  //   await getAdmin(params).then((res) => {
-  //     setAdmin(res.data);
-  //   });
-  // };
+  const getProductsStore = async () => {
+    await getProductsStore().then((res) => {
+      console.log(res);
+    });
+  };
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
