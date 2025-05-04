@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
 import { getEmail } from "../../../services/userPanel/email.service";
 import "../../../css/admin/admin.css";
@@ -9,7 +9,6 @@ const ShowEmail = () => {
   const [email, setEmail] = useState([]);
   const [date, setDate] = useState("");
   const params = useParams();
-  const navigate = useNavigate();
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
