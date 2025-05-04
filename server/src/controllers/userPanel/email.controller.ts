@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import EmailService from "../../services/adminPanel/email.service";
 import IEmail from "../../interface/email.interface";
 
-export default class PaymentController {
+export default class EmailController {
   private readonly emailService: EmailService;
 
   constructor() {
     this.emailService = new EmailService();
   }
 
-  async findAllPayments(req: Request, res: Response) {
+  async findAllEmails(req: Request, res: Response) {
     try {
       const userID = localStorage.getItem("userAuthenticatedId");
       res.status(200).json();
@@ -18,7 +18,7 @@ export default class PaymentController {
     }
   }
 
-  async findPayment(req: Request, res: Response) {
+  async findEmail(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
     } catch (error: unknown) {
