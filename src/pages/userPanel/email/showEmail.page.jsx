@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { persianDate } from "../../../services/persianDate.services";
-import { getEmail } from "../../../services/adminPanel/email.service";
+import { getEmail } from "../../../services/userPanel/email.service";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 
