@@ -86,13 +86,12 @@ export default class ProductController {
     try {
       const products: IProduct[] | null = await this.productService.findAll();
       const productTitles: string[] = [];
-      const productCount: number[] = [];
+      const productValues: number[] = [];
       Object.values(products!).forEach((product) => {
         productTitles.push(product.title);
-        productCount.push(product.count);
+        productValues.push(product.count);
       });
-      console.log(productTitles);
-      console.log(productCount);
+      res.status(200).json({ titels: productTitles, values: productValues });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

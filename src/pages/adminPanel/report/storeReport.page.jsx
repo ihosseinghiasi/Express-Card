@@ -6,13 +6,14 @@ import "../../../css/admin/admin.css";
 
 const StoreReport = () => {
   const [date, setDate] = useState("");
-  const [storeTitels, setStoreTitles] = useState({});
-  const [storeVales, setStoreValues] = useState({});
+  const [storeTitels, setStoreTitles] = useState([]);
+  const [storeVales, setStoreValues] = useState([]);
   const navigate = useNavigate();
 
   const getProductsStore = async () => {
-    await getProductsStore().then((res) => {
-      console.log(res);
+    await getStoreReport().then((res) => {
+      setStoreTitles(res.data.titels);
+      setStoreValues(res.data.values);
     });
   };
 
@@ -22,10 +23,10 @@ const StoreReport = () => {
     });
   };
 
-  // useEffect(() => {
-  //   getPersianDate();
-  //   params && getAnAdmin();
-  // }, []);
+  useEffect(() => {
+    getPersianDate();
+    getProductsStore();
+  }, []);
 
   return (
     <>
