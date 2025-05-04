@@ -47,4 +47,24 @@ export default class PaymentController {
       throw new Error(error as string);
     }
   }
+
+  async paymentReport(req: Request, res: Response) {
+    try {
+      const payments: IPayment[] | null = await this.paymentService.findAll();
+      const paymentTitles: string[] = [];
+      const paymentValues: number[] = [];
+      const colors: string[] = [];
+      Object.values(payments!).forEach((payment) => {
+        paymentTitles.push(payment.title);
+        paymentValues.push(payment.totalPrice);
+        const hexLetter = (Math.random() * 0xfffff * 1000000).toString(16);
+        colors.push(`#${hexLetter.slice(0, 6)}`);
+      });
+      res
+        .status(200)
+        .json({ titels: paymentTitles, values: paymentValues, colors });
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
 }
