@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "../../../css/admin/admin.css";
 import "../../../css/admin/general.css";
 
-const TableRow = ({ index, id, title, target, handleDelete }) => {
+const TableRow = ({ index, id, title, target }) => {
   return (
     <>
       <tr>
@@ -20,13 +20,6 @@ const TableRow = ({ index, id, title, target, handleDelete }) => {
                 >
                   <img src={"/uploads/icons/edit.svg"} alt="edit" />
                 </Link>
-              </div>
-              <div class="col-4">
-                <form onSubmit={() => handleDelete(id)}>
-                  <button type="submit" class="btn btn-danger">
-                    <img src={"/uploads/icons/trash-2.svg"} alt="remove" />
-                  </button>
-                </form>
               </div>
             </div>
           </div>

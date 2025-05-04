@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { persianDate } from "../../../services/persianDate.services";
-import {
-  getEmails,
-  deleteEmail,
-} from "../../../services/adminPanel/email.service";
+import { getEmails } from "../../../services/userPanel/email.service";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
@@ -29,10 +26,6 @@ const AllEmails = () => {
     getPersianDate();
   }, []);
 
-  const handleDelete = async (id) => {
-    await deleteEmail(id);
-  };
-
   return (
     <>
       <div className="container-fluid">
@@ -50,7 +43,7 @@ const AllEmails = () => {
             <div className="addAdmin col-11 my-5 mx-5">
               <div className="addtitle my-3 mx-2 col-8 faField">
                 <img src={"/uploads/icons/users-black.svg"} alt="products" />
-                کارت ها
+                ایمیل ها
               </div>
 
               <div className="my-3 position-absolute col-8">
@@ -79,7 +72,6 @@ const AllEmails = () => {
                         id={email._id}
                         title={email.title}
                         target={email.target}
-                        handleDelete={handleDelete}
                       />
                     ))}
                   </tbody>

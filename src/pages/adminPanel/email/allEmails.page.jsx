@@ -50,7 +50,7 @@ const AllEmails = () => {
             <div className="addAdmin col-11 my-5 mx-5">
               <div className="addtitle my-3 mx-2 col-8 faField">
                 <img src={"/uploads/icons/users-black.svg"} alt="products" />
-                کارت ها
+                ایمیل ها
               </div>
 
               <div className="my-3 position-absolute col-8">
