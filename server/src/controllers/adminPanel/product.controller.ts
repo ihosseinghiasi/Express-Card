@@ -87,11 +87,16 @@ export default class ProductController {
       const products: IProduct[] | null = await this.productService.findAll();
       const productTitles: string[] = [];
       const productValues: number[] = [];
+      const colors: string[] = [];
       Object.values(products!).forEach((product) => {
         productTitles.push(product.title);
         productValues.push(product.count);
+        const hexLetter = (Math.random() * 0xfffff * 1000000).toString(16);
+        colors.push(`#${hexLetter.slice(0, 6)}`);
       });
-      res.status(200).json({ titels: productTitles, values: productValues });
+      res
+        .status(200)
+        .json({ titels: productTitles, values: productValues, colors });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

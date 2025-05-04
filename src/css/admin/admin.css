@@ -1,32 +1,37 @@
 .addAdmin {
-    height: 500px;
-    box-shadow: 1px 1px 70px lightgray;
+  height: 500px;
+  box-shadow: 1px 1px 70px lightgray;
 }
 
 .addtitle {
-    position: absolute;
+  position: absolute;
 }
 
 .addBody {
-    position: absolute;
-    margin-top: 80px;
-
+  position: absolute;
+  margin-top: 80px;
 }
 
 .passwordEye {
-    position: absolute;
-    font-size: 1.3em;
-    top: 237px;
-    right: 410px;
-    cursor: pointer;
-    color: gray;
+  position: absolute;
+  font-size: 1.3em;
+  top: 237px;
+  right: 410px;
+  cursor: pointer;
+  color: gray;
 }
 
 .confirmPasswordEye {
-    position: absolute;
-    font-size: 1.3em;
-    top: 292px;
-    right: 410px;
-    cursor: pointer;
-    color: gray;
+  position: absolute;
+  font-size: 1.3em;
+  top: 292px;
+  right: 410px;
+  cursor: pointer;
+  color: gray;
+}
+
+.chart {
+  height: 600px;
+  width: 600px;
+  margin: 2px 200px;
 }
