@@ -32,7 +32,7 @@ import ShowEmailTemplate from "./pages/adminPanel/emailTemplate/showEmailTemplat
 import AllEmails from "./pages/adminPanel/email/allEmails.page";
 import ShowEmail from "./pages/adminPanel/email/showEmail.page";
 import StoreReport from "./pages/adminPanel/report/storeReport.page";
-
+import PaymentReport from "./pages/adminPanel/report/paymentReport.page";
 import Payment from "./pages/main/payment.page";
 import Category from "./pages/main/category.page";
 import UserCounter from "./pages/userPanel/counter.page";
@@ -299,6 +299,15 @@ const App = () => {
             element={
               <AdminPanelLayoutComponent>
                 <StoreReport />
+              </AdminPanelLayoutComponent>
+            }
+          />
+
+          <Route
+            path="/admin/paymentReport"
+            element={
+              <AdminPanelLayoutComponent>
+                <PaymentReport />
               </AdminPanelLayoutComponent>
             }
           />

@@ -2,9 +2,9 @@ import { React, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Chart } from "chart.js/auto";
 import { CategoryScale } from "chart.js";
-import { Doughnut, Pie } from "react-chartjs-2";
+import { Bar, Doughnut, Pie } from "react-chartjs-2";
 import { persianDate } from "../../../services/persianDate.services";
-import { getStoreReport } from "../../../services/adminPanel/report.service";
+import { getPaymentReport } from "../../../services/adminPanel/report.service";
 import "../../../css/admin/admin.css";
 Chart.register(CategoryScale);
 
@@ -26,8 +26,8 @@ const PaymentReport = () => {
     ],
   };
 
-  const getProductsStore = async () => {
-    await getProductsStore().then((res) => {
+  const report = async () => {
+    await getPaymentReport().then((res) => {
       setStoreTitles(res.data.titels);
       setStoreValues(res.data.values);
       setColors(res.data.colors);
@@ -42,7 +42,7 @@ const PaymentReport = () => {
 
   useEffect(() => {
     getPersianDate();
-    getProductsStore();
+    report();
   }, []);
 
   return (
@@ -70,7 +70,7 @@ const PaymentReport = () => {
 
               <div className="addBody col-9 mx-3">
                 <div className="chart">
-                  {storeTitels && <Doughnut data={data} />}
+                  {storeTitels && <Bar data={data} />}
                 </div>
               </div>
             </div>

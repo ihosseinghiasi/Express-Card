@@ -1,12 +1,16 @@
 import { Request, Response } from "express";
 import PaymentService from "../../services/adminPanel/payment.service";
 import IPayment from "../../interface/payment.interface";
+import ProductService from "../../services/adminPanel/product.service";
+import IProduct from "../../interface/product.interface";
 
 export default class PaymentController {
   private readonly paymentService: PaymentService;
+  private readonly productService: ProductService;
 
   constructor() {
     this.paymentService = new PaymentService();
+    this.productService = new ProductService();
   }
 
   async payment(req: Request, res: Response) {
@@ -51,18 +55,27 @@ export default class PaymentController {
   async paymentReport(req: Request, res: Response) {
     try {
       const payments: IPayment[] | null = await this.paymentService.findAll();
-      const paymentTitles: string[] = [];
+      const products: IProduct[] | null = await this.productService.findAll();
+      const productTitles: string[] = [];
       const paymentValues: number[] = [];
       const colors: string[] = [];
-      Object.values(payments!).forEach((payment) => {
-        paymentTitles.push(payment.title);
-        paymentValues.push(payment.totalPrice);
+      Object.values(products!).forEach((product) => {
+        let totalPayment = 0;
+        Object.values(payments!).forEach((payment) => {
+          if (product.title === payment.title) {
+            totalPayment += payment.totalPrice;
+            console.log(totalPayment);
+          }
+        });
+        productTitles.push(product.title);
+        paymentValues.push(totalPayment);
         const hexLetter = (Math.random() * 0xfffff * 1000000).toString(16);
         colors.push(`#${hexLetter.slice(0, 6)}`);
       });
+
       res
         .status(200)
-        .json({ titels: paymentTitles, values: paymentValues, colors });
+        .json({ titels: productTitles, values: paymentValues, colors });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

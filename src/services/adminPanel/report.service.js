@@ -7,3 +7,11 @@ export const getStoreReport = async () => {
       return res;
     });
 };
+
+export const getPaymentReport = async () => {
+  return axios
+    .get(`http://localhost:4000/adminPanel/payment/paymentReport`)
+    .then((res) => {
+      return res;
+    });
+};
