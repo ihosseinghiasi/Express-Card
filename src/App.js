@@ -45,6 +45,7 @@ import UserAllPayments from "./pages/userPanel/payment/allPayments.page";
 import UserShowPayment from "./pages/userPanel/payment/showPayment.page";
 import UserAllEmails from "./pages/userPanel/email/allEmails.page";
 import UserShowEmail from "./pages/userPanel/email/showEmail.page";
+
 import HomePage from "./pages/main/home.page";
 import MainLayoutComponent from "./components/layout/main-layout.component";
 import AdminPanelLayoutComponent from "./components/layout/adminPanel-layout.component";

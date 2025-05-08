@@ -1,16 +1,8 @@
 import axios from "axios";
 
-export const getStoreReport = async () => {
-  return axios
-    .get(`http://localhost:4000/adminPanel/product/storeReport`)
-    .then((res) => {
-      return res;
-    });
-};
-
 export const getPaymentReport = async () => {
   return axios
-    .get(`http://localhost:4000/adminPanel/payment/paymentReport`)
+    .get(`http://localhost:4000/userPanel/payment/paymentReport`)
     .then((res) => {
       return res;
     });
