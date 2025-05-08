@@ -1,7 +1,7 @@
-import "../../../css/admin/general.css";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getTicketReport } from "../../../services/adminPanel/report.service";
+import "../../../css/admin/general.css";
 
 const AdminNavbarComponent = () => {
   const [userNewTicketsNumber, setUserNewTicketsNumber] = useState(0);
