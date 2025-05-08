@@ -31,9 +31,9 @@ export default class EmailController {
 
   async findEmail(req: Request, res: Response) {
     try {
-      // const id: string = req.params.id;
-      // const email = await this.emailService.findOne(id)
-      // res.status(200).json(email)
+      const id: string = req.params.id;
+      const email = await this.emailService.findOne(id);
+      res.status(200).json(email);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
