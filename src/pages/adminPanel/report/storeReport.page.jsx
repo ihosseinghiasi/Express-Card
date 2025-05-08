@@ -10,13 +10,13 @@ Chart.register(CategoryScale);
 
 const StoreReport = () => {
   const [date, setDate] = useState("");
-  const [storeTitels, setStoreTitles] = useState([]);
+  const [storeTitles, setStoreTitles] = useState([]);
   const [storeVales, setStoreValues] = useState([]);
   const [colors, setColors] = useState([]);
   const navigate = useNavigate();
 
   const data = {
-    labels: storeTitels,
+    labels: storeTitles,
     datasets: [
       {
         data: storeVales,
@@ -52,7 +52,7 @@ const StoreReport = () => {
           <div className="col-12">
             <div className="col-11 mx-5 counter">
               <div className="titleCounter">
-                <p>محصولات / گزارشات محصولات</p>
+                <p>پرداختی ها / گزارشات پرداختی ها</p>
               </div>
               <div className="d-flex justify-content-start parsianDate">
                 <p>{date}</p>
@@ -65,12 +65,12 @@ const StoreReport = () => {
                   src={"/uploads/icons/plus-square-black.svg"}
                   alt="addAdmin"
                 />
-                گزارشات محصولات
+                گزارشات پرداختی ها
               </div>
 
               <div className="addBody col-9 mx-3">
                 <div className="chart">
-                  {storeTitels && <Doughnut data={data} />}
+                  {storeTitles && <Doughnut data={data} />}
                 </div>
               </div>
             </div>

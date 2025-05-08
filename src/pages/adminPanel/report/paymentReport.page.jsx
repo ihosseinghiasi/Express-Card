@@ -10,13 +10,13 @@ Chart.register(CategoryScale);
 
 const PaymentReport = () => {
   const [date, setDate] = useState("");
-  const [paymentTitels, setPaymentTitles] = useState([]);
+  const [paymentTitles, setPaymentTitles] = useState([]);
   const [paymentVales, setPaymentValues] = useState([]);
   const [colors, setColors] = useState([]);
   const navigate = useNavigate();
 
   const data = {
-    labels: paymentTitels,
+    labels: paymentTitles,
     datasets: [
       {
         data: paymentVales,
@@ -70,7 +70,7 @@ const PaymentReport = () => {
 
               <div className="addBody col-9 mx-3">
                 <div className="chart">
-                  {paymentTitels && <Bar data={data} />}
+                  {paymentTitles && <Bar data={data} />}
                 </div>
               </div>
             </div>
