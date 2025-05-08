@@ -8,7 +8,7 @@ const UserNavbarComponent = () => {
 
   const ticketReport = async () => {
     await getTicketReport().then((res) => {
-      setAdminNewTicketNumber(res.data.targetNewTicketNumber);
+      setAdminNewTicketNumber(res.data.values[3]);
     });
   };
 

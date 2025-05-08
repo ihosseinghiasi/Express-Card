@@ -352,7 +352,6 @@ const App = () => {
               </UserLayoutComponent>
             }
           />
-
           <Route
             path="/user/showTicket/:id"
             element={
