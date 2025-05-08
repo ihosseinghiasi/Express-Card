@@ -1,20 +1,18 @@
 import "../../../css/admin/general.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import { getTicketReport } from "../../../services/adminPanel/report.service";
 
 const AdminNavbarComponent = () => {
   const [userNewTicketsNumber, setUserNewTicketsNumber] = useState(0);
 
-  const getTicketReport = async () => {
-    await axios
-      .get(`http://localhost:4000/adminPanel/ticket/ticketReport`)
-      .then((res) => {
-        setUserNewTicketsNumber(res.data.userNewTicketsNumber);
-      });
+  const ticketReport = async () => {
+    await getTicketReport().then((res) => {
+      setUserNewTicketsNumber(res.data.userNewTicketsNumber);
+    });
   };
   useEffect(() => {
-    getTicketReport();
+    ticketReport();
   }, []);
   return (
     <>

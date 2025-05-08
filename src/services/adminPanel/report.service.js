@@ -15,3 +15,11 @@ export const getPaymentReport = async () => {
       return res;
     });
 };
+
+export const getTicketReport = async () => {
+  return axios
+    .get(`http://localhost:4000/adminPanel/ticket/ticketReport`)
+    .then((res) => {
+      return res;
+    });
+};
