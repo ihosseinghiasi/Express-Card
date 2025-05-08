@@ -59,23 +59,28 @@ export default class PaymentController {
       const productTitles: string[] = [];
       const paymentValues: number[] = [];
       const colors: string[] = [];
+      const hexLetter = (Math.random() * 0xfffff * 1000000).toString(16);
+      colors.push(`#${hexLetter.slice(0, 6)}`);
+      let totalPrice = 0;
+      productTitles.push("تمام پرداختی ها");
+      paymentValues.push(totalPrice);
       Object.values(products!).forEach((product) => {
-        let totalPayment = 0;
+        let totalProduct = 0;
         Object.values(payments!).forEach((payment) => {
           if (product.title === payment.title) {
-            totalPayment += payment.totalPrice;
-            console.log(totalPayment);
+            totalProduct += payment.totalPrice;
           }
         });
         productTitles.push(product.title);
-        paymentValues.push(totalPayment);
+        paymentValues.push(totalProduct);
+        totalPrice += totalProduct;
         const hexLetter = (Math.random() * 0xfffff * 1000000).toString(16);
         colors.push(`#${hexLetter.slice(0, 6)}`);
       });
-
+      paymentValues[0] = totalPrice;
       res
         .status(200)
-        .json({ titels: productTitles, values: paymentValues, colors });
+        .json({ titles: productTitles, values: paymentValues, colors });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

@@ -10,16 +10,16 @@ Chart.register(CategoryScale);
 
 const PaymentReport = () => {
   const [date, setDate] = useState("");
-  const [storeTitels, setStoreTitles] = useState([]);
-  const [storeVales, setStoreValues] = useState([]);
+  const [paymentTitels, setPaymentTitles] = useState([]);
+  const [paymentVales, setPaymentValues] = useState([]);
   const [colors, setColors] = useState([]);
   const navigate = useNavigate();
 
   const data = {
-    labels: storeTitels,
+    labels: paymentTitels,
     datasets: [
       {
-        data: storeVales,
+        data: paymentVales,
         backgroundColor: colors,
         borderWidth: 7,
       },
@@ -28,8 +28,8 @@ const PaymentReport = () => {
 
   const report = async () => {
     await getPaymentReport().then((res) => {
-      setStoreTitles(res.data.titels);
-      setStoreValues(res.data.values);
+      setPaymentTitles(res.data.titles);
+      setPaymentValues(res.data.values);
       setColors(res.data.colors);
     });
   };
@@ -70,7 +70,7 @@ const PaymentReport = () => {
 
               <div className="addBody col-9 mx-3">
                 <div className="chart">
-                  {storeTitels && <Bar data={data} />}
+                  {paymentTitels && <Bar data={data} />}
                 </div>
               </div>
             </div>

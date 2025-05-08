@@ -96,7 +96,7 @@ export default class ProductController {
       });
       res
         .status(200)
-        .json({ titels: productTitles, values: productValues, colors });
+        .json({ titles: productTitles, values: productValues, colors });
     } catch (error: unknown) {
       throw new Error(error as string);
     }

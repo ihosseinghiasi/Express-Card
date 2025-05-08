@@ -28,7 +28,7 @@ const StoreReport = () => {
 
   const getProductsStore = async () => {
     await getStoreReport().then((res) => {
-      setStoreTitles(res.data.titels);
+      setStoreTitles(res.data.titles);
       setStoreValues(res.data.values);
       setColors(res.data.colors);
     });
