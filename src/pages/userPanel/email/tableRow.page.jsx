@@ -14,7 +14,7 @@ const TableRow = ({ index, id, title, target }) => {
             <div class="row justify-content-center">
               <div class="col-4">
                 <Link
-                  to={`/admin/showEmail/${id}`}
+                  // to={`/user/showEmail/${id}`}
                   class="btn btn-success"
                   role="button"
                 >

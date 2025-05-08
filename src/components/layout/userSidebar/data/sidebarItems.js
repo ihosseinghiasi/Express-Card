@@ -33,10 +33,39 @@ export const items = [
     ],
   },
   {
+    id: "02",
     title: "ایمیل ها",
     icon: "/uploads/icons/inbox.svg",
     link: "/user/allEmails",
   },
+  {
+    id: "03",
+    title: "پرداختی ها",
+    icon: "/uploads/icons/check-circle.svg",
+    link: "/user/allPayments",
+  },
+  {
+    title: " گزارشات ",
+    eventKey: "030",
+    icon: "/uploads/icons/pie-chart.svg",
+    links: [
+      {
+        id: "031",
+        eventKey: "030",
+        title: "گزارش پرداخت ها",
+        icon: "/uploads/icons/pie-chart.svg",
+        link: "/user/paymentReport",
+      },
+      {
+        id: "032",
+        eventKey: "030",
+        title: " گزارش تیکت ها",
+        icon: "/uploads/icons/pie-chart.svg",
+        link: "/user/ticketReport",
+      },
+    ],
+  },
+
   {
     title: "خروج",
     icon: "/uploads/icons/log-out.svg",
