@@ -188,12 +188,12 @@ export default class TicketController {
     ];
 
     const colors: string[] = [
-      "#00897b",
-      "#69f0ae",
-      "#00e676",
-      "#d50000",
-      "#f50057",
-      "#d32f2f",
+      "#9EC6F3",
+      "#9EC7F3",
+      "#9EC8F3",
+      "#F75A5A",
+      "#F75A5B",
+      "#F75A5C",
     ];
     const ticketValues: number[] = [
       userTicketsNumber,
