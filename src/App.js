@@ -46,6 +46,7 @@ import UserShowPayment from "./pages/userPanel/payment/showPayment.page";
 import UserAllEmails from "./pages/userPanel/email/allEmails.page";
 import UserShowEmail from "./pages/userPanel/email/showEmail.page";
 import UserPaymentReport from "./pages/userPanel/report/paymentReport.page";
+import UserTicketReport from "./pages/userPanel/report/ticketReport.page";
 import HomePage from "./pages/main/home.page";
 import MainLayoutComponent from "./components/layout/main-layout.component";
 import AdminPanelLayoutComponent from "./components/layout/adminPanel-layout.component";
@@ -410,6 +411,15 @@ const App = () => {
             element={
               <UserLayoutComponent>
                 <UserPaymentReport />
+              </UserLayoutComponent>
+            }
+          />
+
+          <Route
+            path="/user/ticketReport"
+            element={
+              <UserLayoutComponent>
+                <UserTicketReport />
               </UserLayoutComponent>
             }
           />

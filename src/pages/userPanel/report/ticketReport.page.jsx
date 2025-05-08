@@ -4,7 +4,7 @@ import { Chart } from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Bar, Doughnut, Pie } from "react-chartjs-2";
 import { persianDate } from "../../../services/persianDate.services";
-import { getTicketReport } from "../../../services/adminPanel/report.service";
+import { getTicketReport } from "../../../services/userPanel/report.service";
 import "../../../css/admin/admin.css";
 Chart.register(CategoryScale);
 

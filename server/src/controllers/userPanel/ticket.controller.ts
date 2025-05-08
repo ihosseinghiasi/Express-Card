@@ -68,15 +68,20 @@ export default class TicketController {
 
   async getAllTickets(req: Request, res: Response) {
     try {
-      const userAuthenticated = localStorage.getItem("userAuthenticatedId");
-      const allTickets = await this.ticketService.findAll();
-      const tickets = allTickets?.filter(
-        (ticket) => ticket.senderId === userAuthenticated
-      );
+      const tickets = await this.getUsetTickets();
       res.status(200).json(tickets);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
+  }
+
+  async getUsetTickets() {
+    const userAuthenticated = localStorage.getItem("userAuthenticatedId");
+    const allTickets = await this.ticketService.findAll();
+    const tickets = allTickets?.filter(
+      (ticket) => ticket.senderId === userAuthenticated
+    );
+    return tickets;
   }
 
   async getTicket(req: Request, res: Response) {
@@ -149,11 +154,7 @@ export default class TicketController {
   }
   async ticketReport(req: Request, res: Response) {
     try {
-      const userId = localStorage.getItem("userAuthenticatedId");
-      const allTickets = await this.ticketService.findAll();
-      let tickets = allTickets?.filter((ticket) => {
-        return ticket.senderId === userId;
-      });
+      const tickets = await this.getUsetTickets();
       let userTicketsNumber: number = 0;
       let userNewTicketsNumber: number = 0;
       let targetTicketsNumber: number = 0;
@@ -164,14 +165,61 @@ export default class TicketController {
         targetTicketsNumber += ticket.targetTicketsNumber;
         targetNewTicketsNumber += ticket.newTargetTicketsNumber;
       });
+
+      const { ticketTitles, ticketValues, colors } =
+        await this.setTicketReportValues(
+          userTicketsNumber,
+          userNewTicketsNumber,
+          targetTicketsNumber,
+          targetNewTicketsNumber
+        );
+
       res.json({
-        userTicketsNumber,
-        userNewTicketsNumber,
-        targetTicketsNumber,
-        targetNewTicketsNumber,
+        titles: ticketTitles,
+        values: ticketValues,
+        colors,
       });
     } catch (error: unknown) {
       throw new Error(error as string);
     }
+  }
+
+  async setTicketReportValues(
+    userTicketsNumber: number,
+    userNewTicketsNumber: number,
+    targetTicketsNumber: number,
+    targetNewTicketsNumber: number
+  ) {
+    const userReadTicketsNumber: number =
+      userTicketsNumber - userNewTicketsNumber;
+    const targetReadTicketsNumber: number =
+      targetTicketsNumber - targetNewTicketsNumber;
+
+    const ticketTitles: string[] = [
+      "تیکت های ارسالی شما",
+      "تیکت های خوانده نشده شما",
+      "تیکت های خوانده شده شما",
+      "تیکت های ارسالی ادمین",
+      "تیکت های خوانده نشده ادمین",
+      "تیکت های خوانده شده ادمین",
+    ];
+
+    const colors: string[] = [
+      "#9EC6F3",
+      "#9EC7F3",
+      "#9EC8F3",
+      "#F75A5A",
+      "#F75A5B",
+      "#F75A5C",
+    ];
+    const ticketValues: number[] = [
+      userTicketsNumber,
+      userNewTicketsNumber,
+      userReadTicketsNumber,
+      targetTicketsNumber,
+      targetNewTicketsNumber,
+      targetReadTicketsNumber,
+    ];
+    return { ticketTitles, ticketValues, colors };
   }
 }
