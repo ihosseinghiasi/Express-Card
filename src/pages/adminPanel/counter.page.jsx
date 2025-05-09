@@ -16,7 +16,7 @@ const AdminCounter = () => {
   return (
     <>
       <div class="container-fluid">
-        <div class="col-10 sss">
+        <div class="col-10 main-frame">
           <div class="col-11 mx-5 counter">
             <div class="titleCounter">
               <p>پیشخوان</p>
@@ -25,8 +25,22 @@ const AdminCounter = () => {
               <p>{date}</p>
             </div>
           </div>
-          <h1>admin counter</h1>
-          <h2>lksdfjkldjlfjldjkljdflj</h2>
+          <div className="addAdmin col-11 my-5 mx-5">
+            <div className="addtitle my-3 mx-2 col-8">
+              <img
+                className="px-1 faField"
+                src={"/uploads/icons/plus-square-black.svg"}
+                alt="addAdmin"
+              />
+              گزارشات
+            </div>
+
+            <div className="addBody col-9 mx-3">
+              <div className="paymentArea"></div>
+              <div className="storeArea"></div>
+              <div className="ticketArea"></div>
+            </div>
+          </div>
         </div>
       </div>
     </>
