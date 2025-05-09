@@ -1,7 +1,8 @@
 .sidebar {
-  height: 120vh;
+  height: auto;
   float: right;
   margin-right: -5px;
+  padding-bottom: 5px;
   color: beige;
   background-color: rgb(26, 2, 20);
 }

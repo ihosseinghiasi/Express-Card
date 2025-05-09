@@ -132,9 +132,65 @@ export const items = [
     ],
   },
   {
+    id: "170",
     title: "ایمیل ها",
-    icon: "/uploads/icons/inbox.svg",
+    icon: "/uploads/icons/home.svg",
     link: "/admin/allEmails",
+  },
+  {
+    id: "180",
+    title: "پرداختی ها",
+    icon: "/uploads/icons/home.svg",
+    link: "/admin/allPayments",
+  },
+  {
+    title: "قالب های ایمبل",
+    eventKey: "190",
+    icon: "/uploads/icons/message-square.svg",
+    links: [
+      {
+        id: "191",
+        eventKey: "190",
+        title: "ایجاد قالب ایمیل",
+        icon: "/uploads/icons/message-square.svg",
+        link: "/admin/newEmailTemplate",
+      },
+      {
+        id: "192",
+        eventKey: "190",
+        title: "قالب های ایمیل",
+        icon: "/uploads/icons/message-square.svg",
+        link: "/admin/allEmailTemplates",
+      },
+    ],
+  },
+  {
+    title: " گزارشات",
+    eventKey: "200",
+    icon: "/uploads/icons/message-square.svg",
+    links: [
+      {
+        id: "201",
+        eventKey: "200",
+        title: "گزارش پرداختی ها",
+        icon: "/uploads/icons/message-square.svg",
+        link: "/admin/paymentReport",
+      },
+      {
+        id: "202",
+        eventKey: "200",
+        title: "گزارش موجودی انبار ",
+        icon: "/uploads/icons/message-square.svg",
+        link: "/admin/storeReport",
+      },
+      {
+        id: "203",
+        eventKey: "200",
+        title: "گزارش تیکت ها",
+        icon: "/uploads/icons/message-square.svg",
+        link: "/admin/ticketReport",
+      },
+    ],
   },
   {
     title: "خروج",
