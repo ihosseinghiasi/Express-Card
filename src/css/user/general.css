@@ -136,7 +136,7 @@ a {
   margin: 25px 0 0 0;
 }
 
-.paymentArea {
+.userPaymentArea {
   position: absolute;
   display: inline-block;
   margin: 0 30px;
@@ -145,7 +145,7 @@ a {
   box-shadow: 1px 1px 70px lightgray;
 }
 
-.ticketArea {
+.userTicketArea {
   position: relative;
   display: inline-block;
   margin: 230px 460px 0 0;
@@ -154,7 +154,7 @@ a {
   box-shadow: 1px 1px 70px lightgray;
 }
 
-.chart {
+.userChart {
   height: 500px;
   width: 400px;
   margin: 2px 50px;

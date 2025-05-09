@@ -13,7 +13,6 @@ const PaymentReport = () => {
   const [paymentTitles, setPaymentTitles] = useState([]);
   const [paymentVales, setPaymentValues] = useState([]);
   const [colors, setColors] = useState([]);
-  const navigate = useNavigate();
 
   const data = {
     labels: paymentTitles,

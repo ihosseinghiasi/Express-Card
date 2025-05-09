@@ -88,13 +88,13 @@ const UserCounter = () => {
             </div>
 
             <div className="addBody col-9 mx-3">
-              <div className="paymentArea">
-                <div className="chart">
+              <div className="userPaymentArea">
+                <div className="userChart">
                   {paymentTitles && <Doughnut data={paymentData} />}
                 </div>
               </div>
-              <div className="ticketArea">
-                <div className="chart">
+              <div className="userTicketArea">
+                <div className="userChart">
                   {paymentTitles && <Pie data={ticketData} />}
                 </div>
               </div>

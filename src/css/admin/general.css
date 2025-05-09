@@ -103,7 +103,11 @@ a {
 
 .sideMenu .subItems:hover {
   background-color: rgb(1, 12, 11);
-  transition: 0.5s;
+  transition: 0.5s;.BChart {
+  height: 250px;
+  width: 850px;
+  margin: 5px 200px;
+}
   cursor: pointer;
 }
 
@@ -149,15 +153,41 @@ a {
   width: 50px;
 }
 
-.counter {
-  position: relative;
-  height: 70px;
-  margin: 30px 100px 0px 0px;
-  font-size: 1.1em;
-  box-shadow: 1px 1px 70px lightgray;
-}
-
 .main-frame {
   width: 80%;
   margin: 0 230px 0 0;
+}
+
+.paymentArea {
+  display: inline-block;
+  margin: 0 60px;
+  height: 350px;
+  width: 400px;
+  box-shadow: 1px 1px 70px lightgray;
+}
+
+.storeArea {
+  display: inline-block;
+  height: 350px;
+  width: 400px;
+  box-shadow: 1px 1px 70px lightgray;
+}
+
+.ticketArea {
+  height: 280px;
+  width: 800px;
+  margin: 10px 50px 0 0;
+  box-shadow: 1px 1px 70px lightgray;
+}
+
+.DChart {
+  height: 350px;
+  width: 350px;
+  margin: 0px 20px;
+}
+
+.BChart {
+  height: 250px;
+  width: 750px;
+  margin: 5px 200px;
 }
