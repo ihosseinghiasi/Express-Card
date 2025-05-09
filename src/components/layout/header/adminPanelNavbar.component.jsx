@@ -26,10 +26,7 @@ const AdminNavbarComponent = () => {
             src={"/uploads/pictures/menProfile.svg"}
             alt="profile"
           />
-          <Link
-            href="/admin-cPanel/ticket/showTickets"
-            className="position-relative my-2"
-          >
+          <Link to={"/admin/allTickets"} className="position-relative my-2">
             <img
               className="mt-3 ms-5"
               src={"/uploads/icons/mail.svg"}
@@ -40,10 +37,7 @@ const AdminNavbarComponent = () => {
               <span className="visually-hidden">unread messages</span>
             </span>
           </Link>
-          <Link
-            href="/admin-cPanel/report/sell"
-            className="position-relative my-2"
-          >
+          <Link to={"/admin/allPayments"} className="position-relative my-2">
             <img
               className="mt-3 ms-4"
               src={"/uploads/icons/shopping-bag.svg"}
