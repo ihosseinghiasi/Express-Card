@@ -169,8 +169,8 @@ export default class CardController {
   async cardReport(req: Request, res: Response) {
     try {
       const cards = await this.cardService.findAll();
-      const productTitle = "";
-      const filterdCards = cards?.filter((card) => {
+      const productTitle: string = "";
+      cards?.filter((card) => {
         return card.cardProduct === productTitle;
       });
     } catch (error: unknown) {
