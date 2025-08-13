@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import "../../../css/admin/admin.css";
 import TableRow from "./tableRow.page";
 import { persianDate } from "../../../services/persianDate.services";
-import { getAdmins, deleteAdmin } from "../../../services/adminPanel/admin.services";
+import {
+  getAdmins,
+  deleteAdmin,
+} from "../../../services/adminPanel/admin.services";
+import "../../../css/admin/admin.css";
 
 const AllAdmins = () => {
   const [admins, setAdmins] = useState([]);
@@ -16,7 +19,8 @@ const AllAdmins = () => {
 
   const getAllAdmins = async () => {
     await getAdmins().then((res) => {
-      setAdmins(res.data);
+      console.log(res);
+      if (res.status === 200) setAdmins(res.data.data);
     });
   };
 

@@ -61,7 +61,7 @@ const AddAdmin = () => {
     getPersianDate();
   }, []);
 
-  const addUser = async () => {
+  const addNewAdmin = async () => {
     await addAdmin(admin).then((res) => {
       if (res.data) {
         navigate("/admin/allAdmins");
@@ -93,7 +93,7 @@ const AddAdmin = () => {
               </div>
 
               <div className="addBody col-9 mx-3">
-                <form onSubmit={handleSubmit(addUser)}>
+                <form onSubmit={handleSubmit(addNewAdmin)}>
                   <div className="row g-2">
                     <div className="mx-4 col-5">
                       <input
