@@ -76,7 +76,10 @@ export default class CardController {
         cardFields: fields,
       };
       const card = await this.cardService.update(id, data);
-      res.status(200).json(card);
+      if (!card) {
+        return response(res, 400, "Card Not Successfuly Updated.");
+      }
+      return response(res, 200, "Card Successfuly Updated.", card);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
