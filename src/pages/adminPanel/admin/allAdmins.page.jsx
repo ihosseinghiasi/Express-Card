@@ -19,7 +19,6 @@ const AllAdmins = () => {
 
   const getAllAdmins = async () => {
     await getAdmins().then((res) => {
-      console.log(res);
       if (res.status === 200) setAdmins(res.data.data);
     });
   };
