@@ -51,7 +51,9 @@ const ShowAdmin = () => {
 
   const getAnAdmin = async () => {
     await getAdmin(params).then((res) => {
-      setAdmin(res.data.data);
+      if (res.status === 200) {
+        setAdmin(res.data.data);
+      }
     });
   };
 
@@ -68,7 +70,7 @@ const ShowAdmin = () => {
 
   const updateAnAdmin = async () => {
     await updateAdmin(params, admin).then((res) => {
-      if (res?.status === 200) navigate("/admin/allAdmins");
+      if (res.status === 200) navigate("/admin/allAdmins");
     });
   };
 
