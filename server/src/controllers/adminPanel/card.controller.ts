@@ -3,6 +3,7 @@ import ICard from "../../interface/card.interface";
 import IProduct from "../../interface/product.interface";
 import CardService from "../../services/adminPanel/card.service";
 import ProductService from "../../services/adminPanel/product.service";
+import response from "../../config/response";
 
 export default class CardController {
   private readonly cardService: CardService;
@@ -26,8 +27,11 @@ export default class CardController {
         cardFields: fields,
       };
       const card = await this.cardService.create(data);
+      if (!card) {
+        return response(res, 400, "Card Not Successfuly Created.");
+      }
       this.IncreaseProductCount(data.cardProduct);
-      res.status(200).json(card);
+      return response(res, 201, "Card Successfuly Created.", card);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
