@@ -89,10 +89,11 @@ export default class CardController {
     try {
       const id: string = req.params.id;
       const card = await this.cardService.delete(id);
-      if (card) {
-        this.DecreaseProductCount(card.cardProduct);
+      if (!card) {
+        return response(res, 400, "Card Not Successfuly Deleted .");
       }
-      res.status(200).json(card);
+      this.DecreaseProductCount(card.cardProduct);
+      return response(res, 200, "Card Successfuly Deleted .", card);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
