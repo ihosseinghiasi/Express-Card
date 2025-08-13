@@ -41,9 +41,9 @@ export default class CardController {
     try {
       const cards = await this.cardService.findAll();
       if (!cards) {
-        return response(res, 404, "Find Not Any Cards From DB.");
+        return response(res, 404, "Card/Cards Find Not Successfuly.");
       }
-      return response(res, 200, "Find Card/Cards From DB.", cards);
+      return response(res, 200, "Card/Cards Find Successfuly.", cards);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -53,7 +53,10 @@ export default class CardController {
     try {
       const id: string = req.params.id;
       const card = await this.cardService.findById(id);
-      res.status(200).json(card);
+      if (!card) {
+        return response(res, 404, "Card Not Successfuly Find.");
+      }
+      return response(res, 200, "Card/Cards Successfuly Find.", card);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
