@@ -138,7 +138,7 @@ const ShowCard = () => {
       fieldValues,
     };
     await updateCard(params, data).then((res) => {
-      if (res.data) {
+      if (res.status === 200) {
         navigate("/admin/allCards");
       }
     });
