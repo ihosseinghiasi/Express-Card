@@ -80,7 +80,7 @@ const AddCard = () => {
     };
 
     addCard(data).then((res) => {
-      if (res.data) {
+      if (res.status === 201) {
         navigate("/admin/allCards");
       }
     });
