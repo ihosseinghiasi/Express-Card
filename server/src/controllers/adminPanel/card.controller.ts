@@ -40,7 +40,10 @@ export default class CardController {
   async getAllCards(req: Request, res: Response) {
     try {
       const cards = await this.cardService.findAll();
-      res.status(200).json(cards);
+      if (!cards) {
+        return response(res, 404, "Find Not Any Cards From DB.");
+      }
+      return response(res, 200, "Find Card/Cards From DB.", cards);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
