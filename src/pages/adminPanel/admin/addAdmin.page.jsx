@@ -63,7 +63,7 @@ const AddAdmin = () => {
 
   const addNewAdmin = async () => {
     await addAdmin(admin).then((res) => {
-      if (res.data) {
+      if (res.status === 200) {
         navigate("/admin/allAdmins");
       }
     });
