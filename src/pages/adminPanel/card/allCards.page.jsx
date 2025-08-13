@@ -20,7 +20,9 @@ const AllCards = () => {
 
   const getAllCards = async () => {
     await getCards().then((res) => {
-      setCards(res.data);
+      if (res.status === 200) {
+        setCards(res.data);
+      }
     });
   };
 
