@@ -14,7 +14,6 @@ export default class AdminController {
   async createAdmin(req: Request, res: Response) {
     try {
       const data: IAdmin = req.body.admin;
-
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
       const admin = await this.AdminService.create(data);
@@ -61,7 +60,9 @@ export default class AdminController {
         data.password = await bcrypt.hash(data.password, salt);
       }
       const admin = await this.AdminService.update(id, data);
-      if (!admin) return response(res, 400, "Admin Not Updated.");
+      if (!admin) {
+        return response(res, 400, "Admin Not Updated.");
+      }
       return response(res, 200, "Admin Successfuly Updated !", admin);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -72,7 +73,9 @@ export default class AdminController {
     try {
       const id: string = req.params.id;
       const admin = await this.AdminService.delete(id);
-      if (!admin) return response(res, 400, "Admin Not Deleted.");
+      if (!admin) {
+        return response(res, 400, "Admin Not Deleted.");
+      }
       return response(res, 200, "Admin Successfuly Deleted !", admin);
     } catch (error: unknown) {
       throw new Error(error as string);
