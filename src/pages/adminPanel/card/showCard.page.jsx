@@ -31,19 +31,21 @@ const ShowCard = () => {
 
   const getACard = async () => {
     await getCard(params).then((res) => {
-      setCard(res.data);
+      if (res.status === 200) {
+        setCard(res.data.data);
+      }
     });
   };
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      setCategories(res.data.data);
     });
   };
 
   const getAllProducts = async () => {
     await getProducts().then((res) => {
-      setProducts(res.data);
+      setProducts(res.data.data);
     });
   };
 
