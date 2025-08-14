@@ -14,7 +14,7 @@ const AllCards = () => {
 
   const getPersianDate = async () => {
     await persianDate().then((res) => {
-      setDate(res.data);
+      setDate(res.data.data);
     });
   };
 

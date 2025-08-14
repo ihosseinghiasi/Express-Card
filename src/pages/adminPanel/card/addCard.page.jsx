@@ -55,13 +55,13 @@ const AddCard = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      setCategories(res.data.data);
     });
   };
 
   const getAllProducts = async () => {
     await getProducts().then((res) => {
-      setProducts(res.data);
+      setProducts(res.data.data);
     });
   };
 

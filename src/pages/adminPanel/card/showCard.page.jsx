@@ -97,7 +97,6 @@ const ShowCard = () => {
     }
     if (firstLoad) {
       setNewFieldsInCard();
-      console.log(card);
     }
   }, [card.cardProduct]);
 
