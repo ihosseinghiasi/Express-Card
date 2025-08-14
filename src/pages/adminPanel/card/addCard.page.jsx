@@ -55,13 +55,13 @@ const AddCard = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data.data);
+      setCategories(res.data);
     });
   };
 
   const getAllProducts = async () => {
     await getProducts().then((res) => {
-      setProducts(res.data.data);
+      setProducts(res.data);
     });
   };
 
@@ -72,7 +72,6 @@ const AddCard = () => {
   }, []);
 
   const addNewCard = async (e) => {
-    e.preventDefault();
     const data = {
       card,
       fieldNames,

@@ -21,7 +21,7 @@ const AllCards = () => {
   const getAllCards = async () => {
     await getCards().then((res) => {
       if (res.status === 200) {
-        setCards(res.data);
+        setCards(res.data.data);
       }
     });
   };
