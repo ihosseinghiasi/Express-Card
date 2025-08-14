@@ -53,7 +53,7 @@ const ShowCategory = () => {
 
   const getACategory = async () => {
     await getCategory(params).then((res) => {
-      setCategory(res.data);
+      setCategory(res.data.data);
     });
   };
 

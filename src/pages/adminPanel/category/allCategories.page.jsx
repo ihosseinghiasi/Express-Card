@@ -19,7 +19,7 @@ const AllCategories = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      setCategories(res.data.data);
     });
   };
 

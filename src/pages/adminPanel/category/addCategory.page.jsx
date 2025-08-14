@@ -66,7 +66,9 @@ const AddCategory = () => {
     formData.append("description", category.description);
 
     await addCategory(formData).then((res) => {
-      navigate("/admin/allCategories");
+      if (res.status === 201) {
+        navigate("/admin/allCategories");
+      }
     });
   };
 
