@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ICategory from "../../interface/category.interface";
 import CategoryService from "../../services/adminPanel/category.service";
+import response from "../../config/response";
 
 export default class CategoryController {
   private readonly categoryService: CategoryService;
@@ -18,7 +19,10 @@ export default class CategoryController {
         image: req.file?.filename || "unimage.png",
       };
       const category = await this.categoryService.create(data);
-      res.status(200).json(category);
+      if (!category) {
+        return response(res, 400, "Card Not Successfuly Created.");
+      }
+      return response(res, 201, "Card Successfuly Created.", category);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -27,7 +31,10 @@ export default class CategoryController {
   async getAllCategories(req: Request, res: Response) {
     try {
       const categories = await this.categoryService.findAll();
-      res.status(200).json(categories);
+      if (!categories) {
+        return response(res, 400, "Categories Not Successfuly Finded.");
+      }
+      return response(res, 200, "Categories Successfuly Finded.", categories);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -37,7 +44,10 @@ export default class CategoryController {
     try {
       const id: string = req.params.id;
       const category = await this.categoryService.findById(id);
-      res.status(200).json(category);
+      if (!category) {
+        return response(res, 404, "Category Not Successfuly Finded.");
+      }
+      return response(res, 200, "Category Successfuly Finded.", category);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -47,6 +57,9 @@ export default class CategoryController {
     try {
       const id: string = req.params.id;
       const oldCategory = await this.categoryService.findById(id);
+      if (!oldCategory) {
+        return response(res, 404, "Category Not Successfuly Finded.");
+      }
       const data: ICategory = {
         categoryName: req.body.categoryName,
         title: req.body.title,
@@ -54,7 +67,10 @@ export default class CategoryController {
         image: req.file?.filename || oldCategory?.image || "",
       };
       const category = await this.categoryService.update(id, data);
-      res.status(200).json(category);
+      if (!category) {
+        return response(res, 400, "Category Not Successfuly Updated.");
+      }
+      return response(res, 200, "Category Successfuly Updated.", category);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -64,7 +80,10 @@ export default class CategoryController {
     try {
       const id: string = req.params.id;
       const category = await this.categoryService.delete(id);
-      res.status(200).json(category);
+      if (!category) {
+        return response(res, 400, "Category Not Successfuly Deleted.");
+      }
+      return response(res, 200, "Category Successfuly Deleted.");
     } catch (error: unknown) {
       throw new Error(error as string);
     }
