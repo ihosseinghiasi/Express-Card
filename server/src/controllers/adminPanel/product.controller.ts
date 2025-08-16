@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import ProductService from "../../services/adminPanel/product.service";
 import IProduct from "../../interface/product.interface";
+import response from "../../config/response";
 
 export default class ProductController {
   private readonly productService: ProductService;
@@ -24,7 +25,10 @@ export default class ProductController {
         fields: req.body.fields.split(","),
       };
       const product = await this.productService.create(data);
-      res.status(200).json(product);
+      if (!product) {
+        return response(res, 400, "Product Not Successfuly Created.");
+      }
+      return response(res, 201, "Product Successfuly Created.", product);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -33,7 +37,10 @@ export default class ProductController {
   async getAllProducts(req: Request, res: Response) {
     try {
       const products = await this.productService.findAll();
-      res.status(200).json(products);
+      if (!products) {
+        return response(res, 400, "Products Not Successfuly Finded.");
+      }
+      return response(res, 200, "Products Successfuly Finded.", products);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -43,7 +50,10 @@ export default class ProductController {
     try {
       const id: string = req.params.id;
       const product = await this.productService.findById(id);
-      res.status(200).json(product);
+      if (!product) {
+        return response(res, 404, "Product Not Successfuly Finded.");
+      }
+      return response(res, 200, "Product Successfuly Finded.", product);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -53,6 +63,9 @@ export default class ProductController {
     try {
       const id: string = req.params.id;
       const oldProduct = await this.productService.findById(id);
+      if (!oldProduct) {
+        return response(res, 400, "Product Not Successfuly Finded.");
+      }
       const data: IProduct = {
         productName: req.body.productName,
         title: req.body.title,
@@ -66,7 +79,10 @@ export default class ProductController {
         fields: req.body.fields.split(","),
       };
       const product = await this.productService.update(id, data);
-      res.status(200).json(product);
+      if (!product) {
+        return response(res, 400, "Product Not Successfuly Updated.");
+      }
+      return response(res, 200, "Product Successfuly Updated.", product);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -76,7 +92,10 @@ export default class ProductController {
     try {
       const id: string = req.params.id;
       const product = await this.productService.delete(id);
-      res.status(200).json(product);
+      if (!product) {
+        return response(res, 400, "Product Not Successfuly deleted.");
+      }
+      return response(res, 200, "Product Successfuly deleted.", product);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
