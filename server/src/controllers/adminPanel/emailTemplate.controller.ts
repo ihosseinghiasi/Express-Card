@@ -27,9 +27,9 @@ export default class EmailTemplate {
     try {
       const emails = await this.emailTemplateService.findAll();
       if (!emails) {
-        return response(res, 400, "Email Template Not Successfuly Finded.");
+        return response(res, 400, "Emails Template Not Successfuly Finded.");
       }
-      return response(res, 200, "Email Template Successfuly Created.", emails);
+      return response(res, 200, "Emails Template Successfuly Finded.", emails);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

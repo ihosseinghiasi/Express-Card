@@ -26,11 +26,11 @@ export default class EmailController {
       const emailTemplate: IEmailTemplate | null =
         await this.emailTemplateService.findOne("680a33ec507f5517e73dd5f9");
       if (!emailTemplate) {
-        return response(res, 404, "Email Template Not Successfuly Founded.");
+        return response(res, 404, "Email Template Not Successfuly Finded.");
       }
       const cards = await this.cardService.findAll();
       if (!cards) {
-        return response(res, 404, "Card Not Successfully Founded.");
+        return response(res, 404, "Card Not Successfully Finded.");
       }
       const selectedCardsForSelling = await this.selectCardsForSelling(
         cards,
@@ -38,7 +38,7 @@ export default class EmailController {
         paymentData.count
       );
       if (!selectedCardsForSelling) {
-        return response(res, 404, "Cards Not Successfuly Found");
+        return response(res, 404, "Cards Not Successfuly Find");
       }
       await Promise.all(
         Object.values(selectedCardsForSelling).map(async (card) => {
@@ -95,9 +95,9 @@ export default class EmailController {
     try {
       const emails = await this.emailService.findAll();
       if (!emails) {
-        return response(res, 400, "Emails Not Successfuly Founded.");
+        return response(res, 400, "Emails Not Successfuly Finded.");
       }
-      return response(res, 200, "Emails Successfuly Founded.", emails);
+      return response(res, 200, "Emails Successfuly Finded.", emails);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -108,9 +108,9 @@ export default class EmailController {
       const emailID: string = req.params.id;
       const email = await this.emailService.findOne(emailID);
       if (!email) {
-        return response(res, 404, "Email Not Successfuly Founded.");
+        return response(res, 404, "Email Not Successfuly Finded.");
       }
-      return response(res, 200, "Email Successfuly Founded.", email);
+      return response(res, 200, "Email Successfuly Finded.", email);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

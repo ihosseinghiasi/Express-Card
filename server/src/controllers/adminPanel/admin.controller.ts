@@ -30,9 +30,9 @@ export default class AdminController {
     try {
       const admins = await this.AdminService.findAll();
       if (!admins) {
-        return response(res, 400, "Admins Not Found.");
+        return response(res, 400, "Admins Not Finded.");
       }
-      return response(res, 200, "Admins Successfuly Founded !", admins);
+      return response(res, 200, "Admins Successfuly Finded !", admins);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -43,9 +43,9 @@ export default class AdminController {
       const id: string = req.params.id;
       const admin = await this.AdminService.findById(id);
       if (!admin) {
-        return response(res, 400, "Admin Not Founded.");
+        return response(res, 400, "Admin Not Finded.");
       }
-      return response(res, 200, "Admin Successfuly Founded !", admin);
+      return response(res, 200, "Admin Successfuly Finded !", admin);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
