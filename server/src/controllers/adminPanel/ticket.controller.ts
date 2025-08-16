@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import TicketService from "../../services/adminPanel/ticket.service";
 import ITicket from "../../interface/ticket.interface";
+import response from "../../config/response";
 const persianDate = require("../../date/persianDate");
 export default class TicketController {
   private readonly ticketService: TicketService;
@@ -34,7 +35,10 @@ export default class TicketController {
         },
       };
       const ticket = await this.ticketService.create(data);
-      res.status(200).json(ticket);
+      if (!ticket) {
+        return response(res, 400, "Ticket Not Successfuly Created.");
+      }
+      return response(res, 201, "Ticket Successfuly Created.", ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -43,7 +47,10 @@ export default class TicketController {
   async getAllTickets(req: Request, res: Response) {
     try {
       const tickets = await this.ticketService.findAll();
-      res.status(200).json({ tickets });
+      if (!tickets) {
+        return response(res, 400, "Tickets Not Successfuly Finded.");
+      }
+      return response(res, 200, "Tickets Successfuly Finded.", tickets);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -53,11 +60,12 @@ export default class TicketController {
     try {
       const id = req.params.id;
       const ticket: ITicket | null = await this.ticketService.findById(id);
-      if (ticket) {
-        ticket.newUserTicketsNumber = 0;
-        this.ticketService.update(id, ticket);
+      if (!ticket) {
+        return response(res, 404, "Ticket Not Successfuly Finded.");
       }
-      res.status(200).json([ticket]);
+      ticket.newUserTicketsNumber = 0;
+      this.ticketService.update(id, ticket);
+      return response(res, 200, "Tickets Successfuly Finded.", ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -71,21 +79,25 @@ export default class TicketController {
       ] as const;
 
       const ticket = await this.ticketService.findById(id);
-      if (ticket) {
-        const data = await this.createTicketData(req, res, ticket);
-        const ticketContent = await this.createTicketContent(
-          req,
-          res,
-          data,
-          answerTicket
-        );
-
-        Object.assign(ticket.tickets, ticketContent);
-        data.tickets = ticket.tickets;
-
-        const updateTicket = await this.ticketService.update(id, data);
-        res.status(200).json(updateTicket);
+      if (!ticket) {
+        return response(res, 400, "Ticket Not Successfuly Finded.");
       }
+      const data = await this.createTicketData(req, res, ticket);
+      const ticketContent = await this.createTicketContent(
+        req,
+        res,
+        data,
+        answerTicket
+      );
+
+      Object.assign(ticket.tickets, ticketContent);
+      data.tickets = ticket.tickets;
+
+      const updateTicket = await this.ticketService.update(id, data);
+      if (!updateTicket) {
+        return response(res, 400, "Ticket Not Successfuly Updated.");
+      }
+      return response(res, 200, "Ticket Successfuly Updated.", updateTicket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -130,7 +142,10 @@ export default class TicketController {
     try {
       const id: string = req.params.id;
       const ticket = await this.ticketService.delete(id);
-      res.status(200).json(ticket);
+      if (!ticket) {
+        return response(res, 400, "Ticket Not Successfuly Deleted.");
+      }
+      return response(res, 200, "Ticket Successfuly Deleted.", ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
