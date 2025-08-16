@@ -3,6 +3,7 @@ import PaymentService from "../../services/adminPanel/payment.service";
 import IPayment from "../../interface/payment.interface";
 import ProductService from "../../services/adminPanel/product.service";
 import IProduct from "../../interface/product.interface";
+import response from "../../config/response";
 
 export default class PaymentController {
   private readonly paymentService: PaymentService;
@@ -17,7 +18,10 @@ export default class PaymentController {
     try {
       const data: IPayment = req.body.data;
       const payment = await this.paymentService.create(data);
-      res.status(200).json(payment);
+      if (!payment) {
+        return response(res, 400, "Payment Not Successfuly Finded.");
+      }
+      return response(res, 201, "Payment Successfuly Finded.", payment);
     } catch (error) {
       throw new Error(error as string);
     }
@@ -26,7 +30,10 @@ export default class PaymentController {
   async findAllPayments(req: Request, res: Response) {
     try {
       const payments = await this.paymentService.findAll();
-      res.status(200).json(payments);
+      if (!payments) {
+        return response(res, 400, "Payment Not Successfuly Finded.");
+      }
+      return response(res, 200, "Payment Successfuly Finded.", payments);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -36,7 +43,10 @@ export default class PaymentController {
     try {
       const id: string = req.params.id;
       const payment = await this.paymentService.findById(id);
-      res.status(200).json(payment);
+      if (!payment) {
+        return response(res, 404, "Payment Not Successfuly Finded.");
+      }
+      return response(res, 200, "Payment Successfuly Finded.", payment);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -46,7 +56,10 @@ export default class PaymentController {
     try {
       const id: string = req.params.id;
       const payment = await this.paymentService.delete(id);
-      res.status(200).json(payment);
+      if (!payment) {
+        return response(res, 400, "Payment Not Successfuly Deleted.");
+      }
+      return response(res, 201, "Payment Successfuly Deleted.", payment);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
