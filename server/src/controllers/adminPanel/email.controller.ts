@@ -7,6 +7,7 @@ import CardService from "../../services/adminPanel/card.service";
 import emailSender from "../../config/email";
 import ICard from "../../interface/card.interface";
 import { replaceEmailTemplatePatterns } from "../../config/replaceEmailTemplatePattern";
+import response from "../../config/response";
 
 export default class EmailController {
   private readonly emailService: EmailService;
@@ -24,45 +25,55 @@ export default class EmailController {
       const paymentData = req.body.data;
       const emailTemplate: IEmailTemplate | null =
         await this.emailTemplateService.findOne("680a33ec507f5517e73dd5f9");
-      const cards = await this.cardService.findAll();
-      if (cards) {
-        const selectedCardsForSelling = await this.selectCardsForSelling(
-          cards,
-          paymentData.title,
-          paymentData.count
-        );
-        if (selectedCardsForSelling) {
-          await Promise.all(
-            Object.values(selectedCardsForSelling).map(async (card) => {
-              const fields: { fieldName: string; fieldValue: string }[] = [];
-              Object.values(card.cardFields).forEach((field) => {
-                fields.push(field);
-              });
-
-              if (fields && emailTemplate) {
-                const emailPatterns = await replaceEmailTemplatePatterns(
-                  paymentData.userFullName,
-                  emailTemplate,
-                  fields
-                );
-
-                emailSender(
-                  "hosseinghiasi.dev@gmail.com",
-                  emailPatterns.emailSubject,
-                  emailPatterns.emailDescription
-                );
-                const data: IEmail = {
-                  title: emailPatterns.emailSubject,
-                  description: emailPatterns.emailDescription,
-                  target: "hosseinghiasi.dev@gmail.com",
-                };
-                const email = await this.emailService.create(data);
-                res.status(200).json(email);
-              }
-            })
-          );
-        }
+      if (!emailTemplate) {
+        return response(res, 404, "Email Template Not Successfuly Founded.");
       }
+      const cards = await this.cardService.findAll();
+      if (!cards) {
+        return response(res, 404, "Card Not Successfully Founded.");
+      }
+      const selectedCardsForSelling = await this.selectCardsForSelling(
+        cards,
+        paymentData.title,
+        paymentData.count
+      );
+      if (!selectedCardsForSelling) {
+        return response(res, 404, "Cards Not Successfuly Found");
+      }
+      await Promise.all(
+        Object.values(selectedCardsForSelling).map(async (card) => {
+          const fields: { fieldName: string; fieldValue: string }[] = [];
+          Object.values(card.cardFields).forEach((field) => {
+            fields.push(field);
+          });
+
+          if (!fields) {
+            return response(res, 404, "Fields In Cards Not Successfuly Found");
+          }
+
+          const emailPatterns = await replaceEmailTemplatePatterns(
+            paymentData.userFullName,
+            emailTemplate,
+            fields
+          );
+
+          emailSender(
+            "hosseinghiasi.dev@gmail.com",
+            emailPatterns.emailSubject,
+            emailPatterns.emailDescription
+          );
+          const data: IEmail = {
+            title: emailPatterns.emailSubject,
+            description: emailPatterns.emailDescription,
+            target: "hosseinghiasi.dev@gmail.com",
+          };
+          const email = await this.emailService.create(data);
+          if (!email) {
+            return response(res, 400, "Email Not Successfuly Created.");
+          }
+          return response(res, 201, "Email Successfuly Created.", email);
+        })
+      );
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -83,7 +94,10 @@ export default class EmailController {
   async findAllEmails(req: Request, res: Response) {
     try {
       const emails = await this.emailService.findAll();
-      res.status(200).json(emails);
+      if (!emails) {
+        return response(res, 400, "Emails Not Successfuly Founded.");
+      }
+      return response(res, 200, "Emails Successfuly Founded.");
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -93,7 +107,10 @@ export default class EmailController {
     try {
       const emailID: string = req.params.id;
       const email = await this.emailService.findOne(emailID);
-      res.status(200).json(email);
+      if (!email) {
+        return response(res, 404, "Email Not Successfuly Founded.");
+      }
+      return response(res, 400, "Email Successfuly Founded.");
     } catch (error: unknown) {
       throw new Error(error as string);
     }
