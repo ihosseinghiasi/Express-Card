@@ -47,7 +47,9 @@ const ShowEmailTemplate = () => {
 
   const getAnEmailTemplate = async () => {
     await getEmailTemplate(params).then((res) => {
-      setEmail(res.data);
+      if (res.status === 200) {
+        setEmail(res.data.data);
+      }
     });
   };
 
@@ -61,7 +63,9 @@ const ShowEmailTemplate = () => {
   const updateAnEmailTemplate = async (e) => {
     e.preventDefault();
     await updateEmailTemplate(params, email).then((res) => {
-      navigate("/admin/allEmailTemplates");
+      if (res.status === 200) {
+        navigate("/admin/allEmailTemplates");
+      }
     });
   };
 
