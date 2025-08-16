@@ -9,7 +9,7 @@ import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 
 const AllEmails = () => {
-  const [Emails, setEmails] = useState([]);
+  const [emails, setEmails] = useState([]);
   const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
@@ -20,7 +20,9 @@ const AllEmails = () => {
 
   const getAllEmails = async () => {
     await getEmails().then((res) => {
-      setEmails(res.data);
+      if (res.status === 200) {
+        setEmails(res.data.data);
+      }
     });
   };
 
@@ -73,7 +75,7 @@ const AllEmails = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Emails.map((email, index) => (
+                    {emails.map((email, index) => (
                       <TableRow
                         index={++index}
                         id={email._id}

@@ -6,7 +6,7 @@ import "../../../css/admin/general.css";
 import "../../../css/admin/admin.css";
 
 const AllEmails = () => {
-  const [Emails, setEmails] = useState([]);
+  const [emails, setEmails] = useState([]);
   const [date, setDate] = useState("");
 
   const getPersianDate = async () => {
@@ -66,7 +66,7 @@ const AllEmails = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {Emails.map((email, index) => (
+                    {emails?.map((email, index) => (
                       <TableRow
                         index={++index}
                         id={email._id}
