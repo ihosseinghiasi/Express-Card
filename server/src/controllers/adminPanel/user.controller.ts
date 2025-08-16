@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import UserService from "../../services/adminPanel/user.service";
 import IUser from "../../interface/user.interface";
+import response from "../../config/response";
 
 export default class userController {
   private readonly userService: UserService;
@@ -16,7 +17,10 @@ export default class userController {
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
       const user = await this.userService.create(data);
-      res.status(201).json(user);
+      if (!user) {
+        return response(res, 400, "User Not Successfuly Created.");
+      }
+      return response(res, 201, "User Successfuly Created.", user);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -25,7 +29,10 @@ export default class userController {
   async findAllUsers(req: Request, res: Response) {
     try {
       const users = await this.userService.findAll();
-      res.status(200).json({ users });
+      if (!users) {
+        return response(res, 400, "Users Not Successfuly Finded.");
+      }
+      return response(res, 200, "Users Successfuly Finded.", users);
     } catch (error) {
       throw new Error(error as string);
     }
@@ -35,7 +42,10 @@ export default class userController {
     try {
       const id: string = req.params.id;
       const user = await this.userService.findById(id);
-      res.status(200).json(user);
+      if (!user) {
+        return response(res, 400, "User Not Successfuly Finded.");
+      }
+      return response(res, 200, "User Successfuly Finded.", user);
     } catch (error) {
       throw new Error(error as string);
     }
@@ -50,7 +60,10 @@ export default class userController {
         data.password = await bcrypt.hash(data.password, salt);
       }
       const user = await this.userService.update(id, data);
-      res.status(201).json(user);
+      if (!user) {
+        return response(res, 400, "User Not Successfuly Updated.");
+      }
+      return response(res, 200, "User Successfuly Updated.", user);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -60,7 +73,10 @@ export default class userController {
     try {
       const id: string = req.params.id;
       const user = await this.userService.delete(id);
-      res.status(201).json(user);
+      if (!user) {
+        return response(res, 400, "User Not Successfuly Deleted.");
+      }
+      return response(res, 201, "User Successfuly Deleted.", user);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
