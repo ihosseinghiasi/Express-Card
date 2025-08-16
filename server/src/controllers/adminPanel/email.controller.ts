@@ -97,7 +97,7 @@ export default class EmailController {
       if (!emails) {
         return response(res, 400, "Emails Not Successfuly Founded.");
       }
-      return response(res, 200, "Emails Successfuly Founded.");
+      return response(res, 200, "Emails Successfuly Founded.", emails);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -110,7 +110,7 @@ export default class EmailController {
       if (!email) {
         return response(res, 404, "Email Not Successfuly Founded.");
       }
-      return response(res, 400, "Email Successfuly Founded.");
+      return response(res, 200, "Email Successfuly Founded.", email);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
