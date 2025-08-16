@@ -19,7 +19,9 @@ const AllEmailTemplates = () => {
 
   const getAllEmails = async () => {
     await getEmailTemplates().then((res) => {
-      setEmails(res.data);
+      if (res.status === 200) {
+        setEmails(res.data.data);
+      }
     });
   };
 
