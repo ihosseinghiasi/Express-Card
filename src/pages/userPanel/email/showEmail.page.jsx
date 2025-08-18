@@ -18,7 +18,9 @@ const ShowEmail = () => {
 
   const getAnEmail = async () => {
     await getEmail(params).then((res) => {
-      setEmail(res.data);
+      if (res.status === 200) {
+        setEmail(res.data.data);
+      }
     });
   };
 

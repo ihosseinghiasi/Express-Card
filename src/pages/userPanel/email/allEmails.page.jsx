@@ -17,7 +17,9 @@ const AllEmails = () => {
 
   const getAllEmails = async () => {
     await getEmails().then((res) => {
-      setEmails(res.data);
+      if (res.status === 200) {
+        setEmails(res.data.data);
+      }
     });
   };
 
