@@ -33,8 +33,10 @@ const SmsForm = () => {
 
   const sendPhoneNumber = async () => {
     await AddPhoneNumber(phoneNumber).then((res) => {
-      if (res) {
+      if (res.status === 200) {
         navigate("/confirmSmsForm");
+      } else if (res.status === 206) {
+        toast.error("اتصال اینترنت خود را چک کنید");
       }
     });
   };

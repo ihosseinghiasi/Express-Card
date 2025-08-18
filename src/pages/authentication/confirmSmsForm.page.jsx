@@ -16,14 +16,16 @@ const ConfirmSms = () => {
 
   const getPhoneNumber = async () => {
     await getPhone().then((res) => {
-      setPhoneNumber(res.data.phoneNumber);
+      if (res.status === 200) {
+        setPhoneNumber(res.data.data.phoneNumber);
+      }
     });
   };
 
   async function sendVerifyCode(e) {
     e.preventDefault();
     await setCodeVerify(verifyCode).then((res) => {
-      if (res.data.status === "OK") {
+      if (res.status === 200) {
         navigate("/register");
       }
     });
