@@ -2,9 +2,15 @@ import axios from "axios";
 
 export const AddPhoneNumber = async (phoneNumber) => {
   return await axios
-    .post("http://localhost:4000/authentication/setPhoneNumber", {
-      phoneNumber,
-    })
+    .post(
+      "http://localhost:4000/authentication/setPhoneNumber",
+      {
+        phoneNumber,
+      },
+      {
+        withCredentials: true,
+      }
+    )
     .then((res) => {
       return res;
     });
