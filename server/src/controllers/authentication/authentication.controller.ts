@@ -10,6 +10,7 @@ import { LocalStorage } from "node-localstorage";
 import emailSender from "../../config/email";
 import { replaceEmailTemplatePatterns } from "../../config/replaceEmailTemplatePattern";
 import response from "../../config/response";
+import dns from "dns";
 global.localStorage = new LocalStorage("./scratch");
 const { Smsir } = require("smsir-js");
 export default class UserAuthentication {
@@ -103,23 +104,39 @@ export default class UserAuthentication {
 
   async setPhoneNumber(req: Request, res: Response) {
     try {
-      const smsir = new Smsir(
-        "d8oGRzrQn4qishTuyrREWjRLLWpF6RhmJRdBa1216CeTROk7FKzQoFh7drV4mkvh",
-        30007732903087
+      dns.lookup(
+        "www.google.com",
+        async (
+          err: NodeJS.ErrnoException | null,
+          address: string,
+          family: number
+        ) => {
+          if (!err) {
+            const smsir = new Smsir(
+              "d8oGRzrQn4qishTuyrREWjRLLWpF6RhmJRdBa1216CeTROk7FKzQoFh7drV4mkvh",
+              30007732903087
+            );
+
+            const phoneNumber: string = req.body.phoneNumber;
+            const code = Math.floor(100000 + Math.random() * 900000);
+            this._phoneNumber = phoneNumber;
+            this._verifySmsCode = code.toString();
+
+            const isSend = await smsir.SendVerifyCode(phoneNumber, 930321, [
+              {
+                name: "code",
+                value: code.toString(),
+              },
+            ]);
+            if (isSend.data.status === 1) {
+              return response(res, 200, "Verify Code Sended.", {
+                verfyCode: code,
+              });
+            }
+          }
+          return response(res, 206, "no internet connection ");
+        }
       );
-
-      const phoneNumber: string = req.body.phoneNumber;
-      const code = Math.floor(100000 + Math.random() * 900000);
-      this._phoneNumber = phoneNumber;
-      this._verifySmsCode = code.toString();
-
-      smsir.SendVerifyCode(phoneNumber, 930321, [
-        {
-          name: "code",
-          value: code.toString(),
-        },
-      ]);
-      res.json({ verifyCode: code });
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -127,7 +144,9 @@ export default class UserAuthentication {
 
   async getPhoneNumber(req: Request, res: Response) {
     try {
-      res.json({ phoneNumber: this._phoneNumber });
+      return response(res, 200, "Phone Number Sended.", {
+        phoneNumber: this._phoneNumber,
+      });
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -137,7 +156,7 @@ export default class UserAuthentication {
     try {
       const verifyCode: string = req.body.verifyCode;
       if (verifyCode === this._verifySmsCode) {
-        res.json({ status: "OK" });
+        return response(res, 200, "Verify Code Correct.")
       }
     } catch (error: unknown) {
       throw new Error(error as string);
