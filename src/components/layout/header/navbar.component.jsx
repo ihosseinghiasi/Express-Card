@@ -18,7 +18,9 @@ const NavbarComponent = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      if (res.status === 200) {
+        setCategories(res.data.data);
+      }
     });
   };
 
@@ -43,7 +45,7 @@ const NavbarComponent = () => {
 
   const userLogin = () => {
     localStorage.setItem("userType", "user");
-    localStorage.setItem("pageId", "00")
+    localStorage.setItem("pageId", "00");
   };
 
   const adminLogin = () => {

@@ -9,7 +9,9 @@ const HomePage = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      if (res.status === 200) {
+      }
+      setCategories(res.data.data);
     });
   };
 
