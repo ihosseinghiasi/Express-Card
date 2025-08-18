@@ -3,6 +3,7 @@ import PaymentService from "../../services/adminPanel/payment.service";
 import ProductService from "../../services/adminPanel/product.service";
 import IPayment from "../../interface/payment.interface";
 import IProduct from "../../interface/product.interface";
+import response from "../../config/response";
 
 export default class PaymentController {
   private readonly paymentService: PaymentService;
@@ -16,7 +17,14 @@ export default class PaymentController {
   async findAllPayments(req: Request, res: Response) {
     try {
       const userPayments = await this.getUserPayments();
-      res.status(200).json(userPayments);
+      if (!userPayments) {
+        return response(
+          res,
+          400,
+          "Payments Of The User Not Successfuly Finded."
+        );
+      }
+      return response(res, 200, "Payments Of The User Successfuly Finded.", userPayments);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -26,7 +34,20 @@ export default class PaymentController {
     try {
       const id: string = req.params.id;
       const payment = await this.paymentService.findById(id);
-      res.status(200).json(payment);
+            if (!payment) {
+              return response(
+                res,
+                400,
+                "Payments Of The User Not Successfuly Finded."
+              );
+            }
+            return response(
+              res,
+              200,
+              "Payments Of The User Successfuly Finded.",
+              payment
+            );
+
     } catch (error: unknown) {
       throw new Error(error as string);
     }
