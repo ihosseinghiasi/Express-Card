@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import EmailService from "../../services/adminPanel/email.service";
 import UserService from "../../services/adminPanel/user.service";
 import IEmail from "../../interface/email.interface";
+import response from "../../config/response";
 
 export default class EmailController {
   private readonly emailService: EmailService;
@@ -17,12 +18,23 @@ export default class EmailController {
       const userID = localStorage.getItem("userAuthenticatedId");
       if (userID) {
         const user = await this.userService.findById(userID);
+        if (!user) {
+          return response(res, 400, "User Not Successfuly Finded.");
+        }
         const userEmail = user?.email;
         const emails: IEmail[] | null = await this.emailService.findAll();
+        if (!emails) {
+          return response(res, 400, "Email/Emails Not Successfuly Finded.");
+        }
         const userEmails = emails?.filter((email) => {
           return email.target === userEmail;
         });
-        res.status(200).json(userEmails);
+        return response(
+          res,
+          200,
+          "Emails Of The User Successfuly Finded",
+          userEmails
+        );
       }
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -33,7 +45,10 @@ export default class EmailController {
     try {
       const id: string = req.params.id;
       const email = await this.emailService.findOne(id);
-      res.status(200).json(email);
+      if (!email) {
+        return response(res, 400, "Email Not Successfuly Finded.");
+      }
+      return response(res, 200, "Email Successfuly Finded.", email);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
