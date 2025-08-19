@@ -12,7 +12,9 @@ const Category = () => {
 
   const getACategory = async () => {
     await getCategory(params).then((res) => {
-      setCategory(res.data);
+      if (res.status === 200) {
+        setCategory(res.data.data);
+      }
     });
   };
 
@@ -23,8 +25,7 @@ const Category = () => {
   const getProductsOfCategories = async () => {
     const productsOfCategories = [];
     await getProducts().then((res) => {
-      Object.values(res.data).forEach((product) => {
-        console.log(product?.categoryTitle === category?.title);
+      Object.values(res.data.data).forEach((product) => {
         if (product?.categoryTitle === category?.title) {
           productsOfCategories.push(product);
         }

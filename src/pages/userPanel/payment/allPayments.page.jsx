@@ -16,7 +16,9 @@ const AllAdmins = () => {
 
   const getAllPayments = async () => {
     await getPayments().then((res) => {
-      setPayments(res.data);
+      if (res.status === 200) {
+        setPayments(res.data.data);
+      }
     });
   };
 

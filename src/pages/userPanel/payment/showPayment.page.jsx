@@ -18,7 +18,9 @@ const ShowCategory = () => {
 
   const getAPayment = async () => {
     await getPayment(params).then((res) => {
-      setPayment(res.data);
+      if (res.status === 200) {
+        setPayment(res.data.data);
+      }
     });
   };
 

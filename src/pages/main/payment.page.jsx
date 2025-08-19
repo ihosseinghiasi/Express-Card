@@ -18,7 +18,9 @@ const Payment = () => {
 
   const getAProduct = async () => {
     await getProduct(params).then((res) => {
-      setProduct(res.data);
+      if (res.status === 200) {
+        setProduct(res.data.data);
+      }
     });
   };
 
