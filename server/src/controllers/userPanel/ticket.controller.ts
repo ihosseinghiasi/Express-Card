@@ -17,7 +17,17 @@ export default class TicketController {
   async createTicket(req: Request, res: Response) {
     try {
       const data = await this.createTicketData(req, res, null);
+      if (!data) {
+        return response(
+          res,
+          400,
+          "Structure Of Ticket Not Successfuly Created."
+        );
+      }
       const ticketContent = await this.createTicketContent(req, res, data);
+      if (!ticketContent) {
+        return response(res, 400, "Content Of Ticket Not Successfuly Created");
+      }
       data.tickets = ticketContent;
       const ticket = await this.ticketService.create(data);
       if (!ticket) {
@@ -48,38 +58,42 @@ export default class TicketController {
     const authenticatedId = localStorage.getItem("userAuthenticatedId");
     if (authenticatedId) {
       const user = await this.userService.findById(authenticatedId);
-      if (user) {
-        const userFullName = `${user.firstName} ${user.lastName}`;
-        data = {
-          subject: ticket ? ticket?.subject : req.body.ticket.subject,
-          status: ticket ? "پاسخ کاربر" : "ارسال کاربر",
-          targetDepartment: ticket
-            ? ticket.targetDepartment
-            : req.body.ticket.targetDepartment,
-          tickets: {},
-          sender: ticket ? ticket.sender : userFullName,
-          senderId: ticket ? ticket.senderId : user._id,
-          ticketNumbers: ticket ? ++ticket.ticketNumbers : 1,
-          userTicketsNumber: ticket ? ++ticket.userTicketsNumber : 1,
-          targetTicketsNumber: ticket ? ticket.targetTicketsNumber : 0,
-          newUserTicketsNumber: ticket ? ++ticket.newUserTicketsNumber : 1,
-          newTargetTicketsNumber: ticket ? ticket.newTargetTicketsNumber : 0,
-        };
+      if (!user) {
+        return response(res, 400, "User Not Successfuly Finded.");
       }
+      const userFullName = `${user.firstName} ${user.lastName}`;
+      data = {
+        subject: ticket ? ticket?.subject : req.body.ticket.subject,
+        status: ticket ? "پاسخ کاربر" : "ارسال کاربر",
+        targetDepartment: ticket
+          ? ticket.targetDepartment
+          : req.body.ticket.targetDepartment,
+        tickets: {},
+        sender: ticket ? ticket.sender : userFullName,
+        senderId: ticket ? ticket.senderId : user._id,
+        ticketNumbers: ticket ? ++ticket.ticketNumbers : 1,
+        userTicketsNumber: ticket ? ++ticket.userTicketsNumber : 1,
+        targetTicketsNumber: ticket ? ticket.targetTicketsNumber : 0,
+        newUserTicketsNumber: ticket ? ++ticket.newUserTicketsNumber : 1,
+        newTargetTicketsNumber: ticket ? ticket.newTargetTicketsNumber : 0,
+      };
     }
     return data;
   }
 
   async getAllTickets(req: Request, res: Response) {
     try {
-      const tickets = await this.getUsetTickets();
-      res.status(200).json(tickets);
+      const tickets = await this.getUserTickets();
+      if (!tickets) {
+        return response(res, 400, "Ticket/s Not Successfuly Finded.");
+      }
+      return response(res, 200, "Ticket/s Successfuly Finded.");
     } catch (error: unknown) {
       throw new Error(error as string);
     }
   }
 
-  async getUsetTickets() {
+  async getUserTickets() {
     const userAuthenticated = localStorage.getItem("userAuthenticatedId");
     const allTickets = await this.ticketService.findAll();
     const tickets = allTickets?.filter(
@@ -92,11 +106,12 @@ export default class TicketController {
     try {
       const id: string = req.params.id;
       const ticket: ITicket | null = await this.ticketService.findById(id);
-      if (ticket) {
-        ticket.newTargetTicketsNumber = 0;
-        this.ticketService.update(id, ticket);
+      if (!ticket) {
+        return response(res, 400, "Ticket Not Successfuly Finded.");
       }
-      res.status(200).json([ticket]);
+      ticket.newTargetTicketsNumber = 0;
+      this.ticketService.update(id, ticket);
+      return response(res, 200, "Ticket Successfuly Finded.", ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -111,6 +126,9 @@ export default class TicketController {
       const ticket = await this.ticketService.findById(id);
       if (ticket) {
         const data = await this.createTicketData(req, res, ticket);
+        if (!data) {
+          return response(res, 400, "Data Message Not Successfuly Created.");
+        }
         const ticketContent = await this.createTicketContentForUpdate(
           req,
           res,
@@ -121,7 +139,10 @@ export default class TicketController {
         data.tickets = ticket.tickets;
 
         const updateTicket = await this.ticketService.update(id, data);
-        res.status(200).json(updateTicket);
+        if (!updateTicket) {
+          return response(res, 400, "Ticket Not Successfuly Updated.");
+        }
+        return response(res, 200, "Ticket Successfuly Updated.", updateTicket);
       }
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -151,14 +172,17 @@ export default class TicketController {
     try {
       const id: string = req.params.id;
       const ticket = await this.ticketService.delete(id);
-      res.status(200).json(ticket);
+      if (!ticket) {
+        return response(res, 400, "Ticket Not Successfuly Deleted.");
+      }
+      return response(res, 200, "Ticket Successfuly Deleted.", ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
   }
   async ticketReport(req: Request, res: Response) {
     try {
-      const tickets = await this.getUsetTickets();
+      const tickets = await this.getUserTickets();
       let userTicketsNumber: number = 0;
       let userNewTicketsNumber: number = 0;
       let targetTicketsNumber: number = 0;
