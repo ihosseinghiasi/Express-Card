@@ -1,5 +1,3 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import SendBoxTicket from "../../../components/layout/ticketTextBox/sendBox";
