@@ -27,7 +27,9 @@ const ShowTicket = () => {
 
   const getATicket = async () => {
     await getTicket(params).then((res) => {
-      setTicket(res.data);
+      if (res.status === 200) {
+        setTicket(res.data.data);
+      }
     });
   };
 
@@ -44,7 +46,7 @@ const ShowTicket = () => {
 
   const answerTicket = async (e) => {
     await updateTicket(params, answer).then((res) => {
-      if (res.data) {
+      if (res.status === 200) {
         navigate("/user/allTickets");
       }
     });

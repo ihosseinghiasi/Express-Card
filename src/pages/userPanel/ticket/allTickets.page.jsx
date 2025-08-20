@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { persianDate } from "../../../services/persianDate.services";
-import { deleteTicket, getTickets } from "../../../services/userPanel/ticket.service";
+import {
+  deleteTicket,
+  getTickets,
+} from "../../../services/userPanel/ticket.service";
 import TableRow from "./tableRow.page";
 import "../../../css/admin/category.css";
 
@@ -16,7 +19,9 @@ const AllTickets = () => {
 
   const getAllTickets = async () => {
     await getTickets().then((res) => {
-      setTickets(res.data);
+      if (res.status === 200) {
+        setTickets(res.data.data);
+      }
     });
   };
 

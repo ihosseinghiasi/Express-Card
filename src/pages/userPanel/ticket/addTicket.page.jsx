@@ -19,12 +19,13 @@ const AddTicket = () => {
   const addATicket = async (e) => {
     e.preventDefault();
     await addTicket(ticket).then((res) => {
-      navigate("/user/allTickets");
+      if (res.status === 201) {
+        navigate("/user/allTickets");
+      }
     });
   };
 
   useEffect(() => {
-    // localStorage.setItem("pageId", "11");
     getPersianDate();
   }, []);
 
