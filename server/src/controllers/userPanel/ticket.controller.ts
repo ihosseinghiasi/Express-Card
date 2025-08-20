@@ -3,6 +3,7 @@ import TicketService from "../../services/adminPanel/ticket.service";
 import UserService from "../../services/adminPanel/user.service";
 import ITicket from "../../interface/ticket.interface";
 import { LocalStorage } from "node-localstorage";
+import response from "../../config/response";
 global.localStorage = new LocalStorage("./scratch");
 const persianDate = require("../../date/persianDate");
 export default class TicketController {
@@ -19,7 +20,10 @@ export default class TicketController {
       const ticketContent = await this.createTicketContent(req, res, data);
       data.tickets = ticketContent;
       const ticket = await this.ticketService.create(data);
-      res.status(200).json(ticket);
+      if (!ticket) {
+        return response(res, 400, "Ticket Not Successfuly Created.");
+      }
+      return response(res, 201, "Ticket Successfuly Created.", ticket);
     } catch (error: unknown) {
       throw new Error(error as string);
     }

@@ -60,7 +60,9 @@ const Profile = () => {
 
   const getAnUser = async (id) => {
     await getUser(id).then((res) => {
-      setUser(res.data);
+      if (res.status === 200) {
+        setUser(res.data.data);
+      }
     });
   };
 
