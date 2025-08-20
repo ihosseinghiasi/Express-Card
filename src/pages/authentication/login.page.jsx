@@ -36,8 +36,8 @@ export const Login = () => {
   }, [userType]);
   const userLogin = async (data) => {
     await login(data).then((res) => {
-      if (res?.data?.person) {
-        const token = res.data.token;
+      if (res?.data?.data.person) {
+        const token = res.data.data.token;
         Cookies.set("commercial", token, {
           expires: 7,
           secure: true,
@@ -45,12 +45,15 @@ export const Login = () => {
         localStorage.setItem("token", token);
         localStorage.setItem(
           "authenticatedFullName",
-          `${res.data.person.firstName} ${res.data.person.lastName}`
+          `${res.data.data.person.firstName} ${res.data.data.person.lastName}`
         );
         if (userType === "user") {
-          localStorage.setItem("userAuthenticatedId", res.data.person._id);
+          localStorage.setItem("userAuthenticatedId", res.data.data.person._id);
         } else {
-          localStorage.setItem("adminAuthenticatedId", res.data.person._id);
+          localStorage.setItem(
+            "adminAuthenticatedId",
+            res.data.data.person._id
+          );
         }
         navigate("/");
       }

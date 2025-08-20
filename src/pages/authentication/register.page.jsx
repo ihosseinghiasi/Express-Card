@@ -39,8 +39,11 @@ const Register = () => {
   };
 
   const userRegister = async (data) => {
-    await registerUser(data);
-    navigate("/");
+    await registerUser(data).then((res) => {
+      if (res.status === 200) {
+        navigate("/");
+      }
+    });
   };
   return (
     <>
