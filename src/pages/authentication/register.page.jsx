@@ -8,10 +8,7 @@ import { registerUser } from "../../services/authenticationService";
 import "../../css/shop/register.css";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLasttName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState();
   const navigate = useNavigate();
 
   const registerSchema = object({
@@ -59,7 +56,11 @@ const Register = () => {
                 placeholder="نام"
                 name="firstName"
                 {...register("firstName", {
-                  onChange: (e) => setFirstName(e.target.value),
+                  onChange: (e) =>
+                    setUser({
+                      ...user,
+                      [e.target.name]: e.target.value,
+                    }),
                 })}
               />
               <input
@@ -68,7 +69,11 @@ const Register = () => {
                 placeholder="نام خانوادگی"
                 name="lastName"
                 {...register("lastName", {
-                  onChange: (e) => setLasttName(e.target.value),
+                  onChange: (e) =>
+                    setUser({
+                      ...user,
+                      [e.target.name]: e.target.value,
+                    }),
                 })}
               />
               <input
@@ -77,7 +82,11 @@ const Register = () => {
                 placeholder="ایمیل"
                 name="email"
                 {...register("email", {
-                  onChange: (e) => setEmail(e.target.value),
+                  onChange: (e) =>
+                    setUser({
+                      ...user,
+                      [e.target.name]: e.target.value,
+                    }),
                 })}
               />
               <input
@@ -86,7 +95,11 @@ const Register = () => {
                 placeholder="کلمه عبور"
                 name="password"
                 {...register("password", {
-                  onChange: (e) => setPassword(e.target.value),
+                  onChange: (e) =>
+                    setUser({
+                      ...user,
+                      [e.target.name]: e.target.value,
+                    }),
                 })}
               />
               <input
