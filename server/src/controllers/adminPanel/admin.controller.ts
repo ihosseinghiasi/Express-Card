@@ -75,10 +75,10 @@ export default class AdminController {
     try {
       const id: string = req.params.id;
       const admin = await this.userService.delete(id);
-      // if (!admin || !admin.isAdmin) {
-      //   return response(res, 400, "Admin Not Deleted.");
-      // }
-      // return response(res, 200, "Admin Successfuly Deleted !", admin);
+      if (!admin || !admin.isAdmin) {
+        return response(res, 400, "Admin Not Deleted.");
+      }
+      return response(res, 200, "Admin Successfuly Deleted !", admin);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
