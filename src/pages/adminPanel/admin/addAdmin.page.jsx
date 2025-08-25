@@ -175,7 +175,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkAdmin"
-                          name="isAdmin"
+                          name="permissionAdmin"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -195,7 +195,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkProduct"
-                          name="isProduct"
+                          name="permissionProduct"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -215,7 +215,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkCard"
-                          name="isCard"
+                          name="permissionCard"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -235,7 +235,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkEmail"
-                          name="isEmail"
+                          name="permissionEmail"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -255,7 +255,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkReport"
-                          name="isReport"
+                          name="permissionReport"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -275,7 +275,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkTicket"
-                          name="isTicket"
+                          name="permissionTicket"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -295,7 +295,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkCategory"
-                          name="isCategory"
+                          name="permissionCategory"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -315,7 +315,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkUser"
-                          name="isUser"
+                          name="permissionUser"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
@@ -335,7 +335,7 @@ const AddAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkPayment"
-                          name="isPayment"
+                          name="permissionPayment"
                           onChange={(e) =>
                             setAdmin({
                               ...admin,
