@@ -62,7 +62,7 @@ export default class AdminController {
         data.password = await bcrypt.hash(data.password, salt);
       }
       const admin = await this.userService.update(id, data);
-      if (!admin) {
+      if (!admin || !admin.isAdmin) {
         return response(res, 400, "Admin Not Updated.");
       }
       return response(res, 200, "Admin Successfuly Updated !", admin);
@@ -75,10 +75,10 @@ export default class AdminController {
     try {
       const id: string = req.params.id;
       const admin = await this.userService.delete(id);
-      if (!admin) {
-        return response(res, 400, "Admin Not Deleted.");
-      }
-      return response(res, 200, "Admin Successfuly Deleted !", admin);
+      // if (!admin || !admin.isAdmin) {
+      //   return response(res, 400, "Admin Not Deleted.");
+      // }
+      // return response(res, 200, "Admin Successfuly Deleted !", admin);
     } catch (error: unknown) {
       throw new Error(error as string);
     }
