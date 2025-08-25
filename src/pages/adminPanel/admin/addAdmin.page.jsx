@@ -11,22 +11,7 @@ import "../../../css/admin/admin.css";
 
 const AddAdmin = () => {
   const [date, setDate] = useState("");
-  const [admin, setAdmin] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    department: "مدیریت",
-    password: "",
-    isAdmin: false,
-    isProduct: false,
-    isCard: false,
-    isCategory: false,
-    isUser: false,
-    isEmail: false,
-    isTicket: false,
-    isReport: false,
-    isPayment: false,
-  });
+  const [admin, setAdmin] = useState();
   const navigate = useNavigate();
 
   const registerSchema = object({
