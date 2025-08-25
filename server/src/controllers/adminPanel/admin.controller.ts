@@ -44,7 +44,7 @@ export default class AdminController {
     try {
       const id: string = req.params.id;
       const admin = await this.userService.findById(id);
-      if (!admin) {
+      if (!admin || !admin.isAdmin) {
         return response(res, 400, "Admin Not Finded.");
       }
       return response(res, 200, "Admin Successfuly Finded !", admin);
