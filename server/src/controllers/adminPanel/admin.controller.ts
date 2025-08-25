@@ -16,6 +16,7 @@ export default class AdminController {
       const data: IUser = req.body.admin;
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
+      data.isAdmin = true;
       const admin = await this.userService.create(data);
       if (!admin) {
         return response(res, 404, "Admin Not Created.");
