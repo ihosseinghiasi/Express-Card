@@ -29,7 +29,8 @@ export default class AdminController {
 
   async findAllAdmins(req: Request, res: Response) {
     try {
-      const admins = await this.userService.findAll();
+      const users = await this.userService.findAll();
+      const admins = users?.filter((user) => user.isAdmin === true);
       if (!admins) {
         return response(res, 400, "Admins Not Finded.");
       }
