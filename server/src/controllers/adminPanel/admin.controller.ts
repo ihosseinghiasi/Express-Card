@@ -1,22 +1,22 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
-import IAdmin from "../../interface/admin.interface";
-import AdminService from "../../services/adminPanel/admin.service";
+import IUser from "../../interface/user.interface";
+import UserService from "../../services/adminPanel/user.service";
 import response from "../../config/response";
 
 export default class AdminController {
-  private readonly AdminService: AdminService;
+  private readonly userService: UserService;
 
   constructor() {
-    this.AdminService = new AdminService();
+    this.userService = new UserService();
   }
 
   async createAdmin(req: Request, res: Response) {
     try {
-      const data: IAdmin = req.body.admin;
+      const data: IUser = req.body.admin;
       const salt = await bcrypt.genSalt();
       data.password = await bcrypt.hash(data.password, salt);
-      const admin = await this.AdminService.create(data);
+      const admin = await this.userService.create(data);
       if (!admin) {
         return response(res, 404, "Admin Not Created.");
       }
@@ -28,7 +28,7 @@ export default class AdminController {
 
   async findAllAdmins(req: Request, res: Response) {
     try {
-      const admins = await this.AdminService.findAll();
+      const admins = await this.userService.findAll();
       if (!admins) {
         return response(res, 400, "Admins Not Finded.");
       }
@@ -41,7 +41,7 @@ export default class AdminController {
   async findAdmin(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const admin = await this.AdminService.findById(id);
+      const admin = await this.userService.findById(id);
       if (!admin) {
         return response(res, 400, "Admin Not Finded.");
       }
@@ -54,12 +54,12 @@ export default class AdminController {
   async updateAdmin(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const data: IAdmin = req.body.admin;
+      const data: IUser = req.body.admin;
       if (data.password.length <= 16) {
         const salt = await bcrypt.genSalt();
         data.password = await bcrypt.hash(data.password, salt);
       }
-      const admin = await this.AdminService.update(id, data);
+      const admin = await this.userService.update(id, data);
       if (!admin) {
         return response(res, 400, "Admin Not Updated.");
       }
@@ -72,7 +72,7 @@ export default class AdminController {
   async deleteAdmin(req: Request, res: Response) {
     try {
       const id: string = req.params.id;
-      const admin = await this.AdminService.delete(id);
+      const admin = await this.userService.delete(id);
       if (!admin) {
         return response(res, 400, "Admin Not Deleted.");
       }
