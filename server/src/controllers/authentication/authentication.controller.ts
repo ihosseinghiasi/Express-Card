@@ -1,9 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import IUser from "../../interface/user.interface";
-import IAdmin from "../../interface/admin.interface";
 import UserService from "../../services/adminPanel/user.service";
-import AdminService from "../../services/adminPanel/admin.service";
 import EmailTemplateService from "../../services/adminPanel/emailTemplate.service";
 import { createToken } from "../../middlewares/createToken";
 import { LocalStorage } from "node-localstorage";
@@ -17,12 +15,10 @@ export default class UserAuthentication {
   private _phoneNumber!: string;
   private _verifySmsCode!: string;
   private readonly userService: UserService;
-  private readonly adminService: AdminService;
   private readonly emailTemplateService: EmailTemplateService;
 
   constructor() {
     this.userService = new UserService();
-    this.adminService = new AdminService();
     this.emailTemplateService = new EmailTemplateService();
   }
 
@@ -79,22 +75,6 @@ export default class UserAuthentication {
             token,
             person: user,
           });
-        }
-      } else {
-        const admin: IAdmin | null = await this.adminService.login(email);
-        if (!admin) {
-          return response(res, 400, "Invalid Email And/Or Password.");
-        }
-        if (admin) {
-          const authentication = await bcrypt.compare(password, admin.password);
-          if (authentication) {
-            const token = createToken(admin._id);
-            localStorage.setItem("adminAuthenticatedId", admin._id);
-            return response(res, 200, "Admin Successfuly Logged In", {
-              token,
-              person: admin,
-            });
-          }
         }
       }
     } catch (error: unknown) {
@@ -156,7 +136,7 @@ export default class UserAuthentication {
     try {
       const verifyCode: string = req.body.verifyCode;
       if (verifyCode === this._verifySmsCode) {
-        return response(res, 200, "Verify Code Correct.")
+        return response(res, 200, "Verify Code Correct.");
       }
     } catch (error: unknown) {
       throw new Error(error as string);
