@@ -11,7 +11,18 @@ import "../../../css/admin/admin.css";
 
 const AddAdmin = () => {
   const [date, setDate] = useState("");
-  const [admin, setAdmin] = useState();
+  const [admin, setAdmin] = useState({
+    department: "مدیریت",
+    permissionAdmin: false,
+    permissionProduct: false,
+    permissionCard: false,
+    permissionEmail: false,
+    permissionReport: false,
+    permissionTicket: false,
+    permissionCategory: false,
+    permissionUser: false,
+    permissionPayment: false,
+  });
   const navigate = useNavigate();
 
   const registerSchema = object({
