@@ -20,6 +20,11 @@ const AddAdmin = () => {
     email: string()
       .email("فرمت ایمبل معتبر نمی باشد")
       .required("فیلد ایمیل اجباری است"),
+    phoneNumber: string()
+      .required("فیلد شماره همراه نمی تواند خالی باشد")
+      .min(11, "طول شماره همراه 11 رقم می باشد")
+      .max(11, "طول شماره همراه 11 رقم می باشد")
+      .matches(/^[0-9]/, "شماره همراه باید از ارقام ایجاد شود"),
     password: string().required("فیلد پسورد اجباری است"),
     confirm: string().oneOf([ref("password")], "پسورد هماهنگی ندارد"),
   });
@@ -133,6 +138,19 @@ const AddAdmin = () => {
                         <option selected>مدیریت</option>
                         <option>پشتیبانی</option>
                       </select>
+                      <input
+                        type="text"
+                        className="form-control form-control mt-3"
+                        placeholder="شماره همراه"
+                        name="phoneNumber"
+                        {...register("phoneNumber", {
+                          onChange: (e) =>
+                            setAdmin({
+                              ...admin,
+                              [e.target.name]: e.target.value,
+                            }),
+                        })}
+                      />
                       <input
                         type="password"
                         className="form-control mt-3 enField"

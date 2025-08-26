@@ -37,7 +37,7 @@ const Register = () => {
 
   const userRegister = async (data) => {
     await registerUser(data).then((res) => {
-      if (res.status === 200) {
+      if (res.status === 201) {
         navigate("/");
       }
     });
