@@ -111,6 +111,18 @@ export default class CardController {
     return fields;
   }
 
+  async selectCardsForSelling(
+    cards: ICard[],
+    title: string,
+    count: number
+  ): Promise<ICard[] | null> {
+    const selectedCards = cards?.filter((card) => {
+      return card.cardProduct === title && card.cardStatus === "فعال";
+    });
+    const selectedCardsForSelling = selectedCards?.slice(0, count);
+    return selectedCardsForSelling;
+  }
+
   async cardReport(req: Request, res: Response) {
     try {
       const cards = await this.cardService.findAll();

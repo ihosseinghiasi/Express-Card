@@ -5,7 +5,7 @@ import EmailService from "../../services/adminPanel/email.service";
 import EmailTemplateService from "../../services/adminPanel/emailTemplate.service";
 import CardService from "../../services/adminPanel/card.service";
 import emailSender from "../../config/email";
-import ICard from "../../interface/card.interface";
+import CardController from "./card.controller";
 import { replaceEmailTemplatePatterns } from "../../config/replaceEmailTemplatePattern";
 import response from "../../config/response";
 
@@ -13,11 +13,13 @@ export default class EmailController {
   private readonly emailService: EmailService;
   private readonly emailTemplateService: EmailTemplateService;
   private readonly cardService: CardService;
+  private readonly cardController: CardController;
 
   constructor() {
     this.emailService = new EmailService();
     this.emailTemplateService = new EmailTemplateService();
     this.cardService = new CardService();
+    this.cardController = new CardController();
   }
 
   async create(req: Request, res: Response) {
@@ -32,11 +34,12 @@ export default class EmailController {
       if (!cards) {
         return response(res, 404, "Card Not Successfully Finded.");
       }
-      const selectedCardsForSelling = await this.selectCardsForSelling(
-        cards,
-        paymentData.title,
-        paymentData.count
-      );
+      const selectedCardsForSelling =
+        await this.cardController.selectCardsForSelling(
+          cards,
+          paymentData.title,
+          paymentData.count
+        );
       if (!selectedCardsForSelling) {
         return response(res, 404, "Cards Not Successfuly Find");
       }
@@ -77,18 +80,6 @@ export default class EmailController {
     } catch (error: unknown) {
       throw new Error(error as string);
     }
-  }
-
-  async selectCardsForSelling(
-    cards: ICard[],
-    title: string,
-    count: number
-  ): Promise<ICard[] | null> {
-    const selectedCards = cards?.filter((card) => {
-      return card.cardProduct === title && card.cardStatus === "فعال";
-    });
-    const selectedCardsForSelling = selectedCards?.slice(0, count);
-    return selectedCardsForSelling;
   }
 
   async findAllEmails(req: Request, res: Response) {
