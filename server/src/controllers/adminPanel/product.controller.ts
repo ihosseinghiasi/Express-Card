@@ -21,7 +21,7 @@ export default class ProductController {
         count: 0,
         description: req.body.description,
         accessible: req.body.accessible,
-        image: req.file?.filename || "unimage.png",
+        image: req.file?.filename ?? "unimage.png",
         fields: req.body.fields.split(","),
       };
       const product = await this.productService.create(data);
@@ -75,7 +75,7 @@ export default class ProductController {
         price: req.body.price,
         description: req.body.description,
         accessible: req.body.accessible,
-        image: req.file?.filename || oldProduct?.image || "",
+        image: req.file?.filename ?? oldProduct?.image,
         fields: req.body.fields.split(","),
       };
       const product = await this.productService.update(id, data);
