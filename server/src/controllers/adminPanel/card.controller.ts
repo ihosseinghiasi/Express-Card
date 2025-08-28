@@ -1,17 +1,16 @@
 import { Request, Response } from "express";
 import ICard from "../../interface/card.interface";
-import IProduct from "../../interface/product.interface";
 import CardService from "../../services/adminPanel/card.service";
-import ProductService from "../../services/adminPanel/product.service";
+import ProductController from "./product.controller";
 import response from "../../config/response";
 
 export default class CardController {
   private readonly cardService: CardService;
-  private readonly productService: ProductService;
+  private productController: ProductController;
 
   constructor() {
     this.cardService = new CardService();
-    this.productService = new ProductService();
+    this.productController = new ProductController();
   }
 
   async createCard(req: Request, res: Response) {
@@ -30,7 +29,7 @@ export default class CardController {
       if (!card) {
         return response(res, 400, "Card Not Successfuly Created.");
       }
-      this.IncreaseProductCount(data.cardProduct);
+      this.productController.IncreaseProductCount(data.cardProduct);
       return response(res, 201, "Card Successfuly Created.", card);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -92,7 +91,7 @@ export default class CardController {
       if (!card) {
         return response(res, 400, "Card Not Successfuly Deleted .");
       }
-      this.DecreaseProductCount(card.cardProduct);
+      this.productController.DecreaseProductCount(card.cardProduct);
       return response(res, 200, "Card Successfuly Deleted .", card);
     } catch (error: unknown) {
       throw new Error(error as string);
@@ -110,60 +109,6 @@ export default class CardController {
       );
     }
     return fields;
-  }
-
-  async IncreaseProductCount(productTitle: string) {
-    try {
-      const product = await this.productService.findByTitle(productTitle);
-      let productID: string = "";
-      if (product) {
-        Object.values(product).map((p) => {
-          productID = p._id;
-        });
-        const data: IProduct = {
-          productName: product.productName,
-          title: product.title,
-          categoryTitle: product.categoryTitle,
-          cycle: product.cycle,
-          count: product.count + 1,
-          price: product.price,
-          description: product.description,
-          accessible: product.accessible,
-          image: product.image,
-          fields: product.fields,
-        };
-        await this.productService.update(productID, data);
-      }
-    } catch (error: unknown) {
-      throw new Error(error as string);
-    }
-  }
-
-  async DecreaseProductCount(productTitle: string) {
-    try {
-      const product = await this.productService.findByTitle(productTitle);
-      let productID: string = "";
-      if (product) {
-        Object.values(product).map((p) => {
-          productID = p._id;
-        });
-        const data: IProduct = {
-          productName: product.productName,
-          title: product.title,
-          categoryTitle: product.categoryTitle,
-          cycle: product.cycle,
-          count: product.count - 1,
-          price: product.price,
-          description: product.description,
-          accessible: product.accessible,
-          image: product.image,
-          fields: product.fields,
-        };
-        await this.productService.update(productID, data);
-      }
-    } catch (error: unknown) {
-      throw new Error(error as string);
-    }
   }
 
   async cardReport(req: Request, res: Response) {

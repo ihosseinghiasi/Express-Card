@@ -101,6 +101,60 @@ export default class ProductController {
     }
   }
 
+  async IncreaseProductCount(productTitle: string) {
+    try {
+      const product = await this.productService.findByTitle(productTitle);
+      let productID: string = "";
+      if (product) {
+        Object.values(product).map((p) => {
+          productID = p._id;
+        });
+        const data: IProduct = {
+          productName: product.productName,
+          title: product.title,
+          categoryTitle: product.categoryTitle,
+          cycle: product.cycle,
+          count: product.count + 1,
+          price: product.price,
+          description: product.description,
+          accessible: product.accessible,
+          image: product.image,
+          fields: product.fields,
+        };
+        await this.productService.update(productID, data);
+      }
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+
+  async DecreaseProductCount(productTitle: string) {
+    try {
+      const product = await this.productService.findByTitle(productTitle);
+      let productID: string = "";
+      if (product) {
+        Object.values(product).map((p) => {
+          productID = p._id;
+        });
+        const data: IProduct = {
+          productName: product.productName,
+          title: product.title,
+          categoryTitle: product.categoryTitle,
+          cycle: product.cycle,
+          count: product.count - 1,
+          price: product.price,
+          description: product.description,
+          accessible: product.accessible,
+          image: product.image,
+          fields: product.fields,
+        };
+        await this.productService.update(productID, data);
+      }
+    } catch (error: unknown) {
+      throw new Error(error as string);
+    }
+  }
+
   async ProductStoreReport(req: Request, res: Response) {
     try {
       const products: IProduct[] | null = await this.productService.findAll();
