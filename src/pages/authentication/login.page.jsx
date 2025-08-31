@@ -9,10 +9,13 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../css/shop/login.css";
 // import Home from "../main/home";
 
+import axios from "axios";
+
 export const Login = () => {
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [email, setEmail] = useState("torani@gmail.com");
   const [password, setPassword] = useState("1024");
+  const [token, setToken] = useState();
   const navigate = useNavigate();
 
   const schema = object({
@@ -36,12 +39,13 @@ export const Login = () => {
   }, [userType]);
   const userLogin = async (data) => {
     await login(data).then((res) => {
-      if (res?.data?.data.person) {
-        const token = res.data.data.token;
+      if (res?.data?.data?.person) {
+        const token = res?.data?.data?.token;
         Cookies.set("commercial", token, {
           expires: 7,
           secure: true,
         });
+        axios.defaults.headers.common["x-auth-key"] = token;
         localStorage.setItem("token", token);
         localStorage.setItem(
           "authenticatedFullName",
