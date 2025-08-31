@@ -20,7 +20,8 @@ const AllProducts = () => {
 
   const getAllProducts = async () => {
     await getProducts().then((res) => {
-      setProducts(res.data);
+      console.log(res);
+      setProducts(res.data.data);
     });
   };
 

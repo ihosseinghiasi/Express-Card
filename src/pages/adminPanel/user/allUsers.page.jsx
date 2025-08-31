@@ -20,7 +20,7 @@ const AllUsers = () => {
 
   const getAllUsers = async () => {
     await getUsers().then((res) => {
-      setUsers(res.data.users);
+      setUsers(res?.data?.data);
     });
   };
 
