@@ -70,7 +70,7 @@ export default class UserAuthentication {
         const authentication = await bcrypt.compare(password, user.password);
         if (authentication) {
           const token = createToken(user._id);
-          localStorage.setItem("userAuthenticatedId", user._id);
+          localStorage.setItem("token", token);
           return response(res, 200, "User Successfuly Logged In", {
             token,
             person: user,
