@@ -12,7 +12,7 @@ import "../../css/shop/login.css";
 import axios from "axios";
 
 export const Login = () => {
-  const [userType, setUserType] = useState(localStorage.getItem("userType"));
+  // const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [email, setEmail] = useState("torani@gmail.com");
   const [password, setPassword] = useState("1024");
   const [token, setToken] = useState();
@@ -31,34 +31,34 @@ export const Login = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  useEffect(() => {
-    if (userType === "admin") {
-      setEmail("sara@gmail.com");
-      setPassword("1024");
-    }
-  }, [userType]);
+  // useEffect(() => {
+  // if (userType === "admin") {
+  //   setEmail("sara@gmail.com");
+  //   setPassword("1024");
+  // }
+  // }, [userType]);
   const userLogin = async (data) => {
     await login(data).then((res) => {
-      if (res?.data?.data?.person) {
+      if (res?.data?.data?.token) {
         const token = res?.data?.data?.token;
         Cookies.set("commercial", token, {
           expires: 7,
           secure: true,
         });
-        axios.defaults.headers.common["x-auth-key"] = token;
-        localStorage.setItem("token", token);
-        localStorage.setItem(
-          "authenticatedFullName",
-          `${res.data.data.person.firstName} ${res.data.data.person.lastName}`
-        );
-        if (userType === "user") {
-          localStorage.setItem("userAuthenticatedId", res.data.data.person._id);
-        } else {
-          localStorage.setItem(
-            "adminAuthenticatedId",
-            res.data.data.person._id
-          );
-        }
+        // axios.defaults.headers.common["x-auth-key"] = token;
+        // localStorage.setItem("token", token);
+        // localStorage.setItem(
+        //   "authenticatedFullName",
+        //   `${res.data.data.person.firstName} ${res.data.data.person.lastName}`
+        // );
+        // if (userType === "user") {
+        //   localStorage.setItem("userAuthenticatedId", res.data.data.person._id);
+        // } else {
+        //   localStorage.setItem(
+        //     "adminAuthenticatedId",
+        //     res.data.data.person._id
+        //   );
+        // }
         navigate("/");
       }
     });
