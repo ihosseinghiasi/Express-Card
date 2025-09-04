@@ -32,10 +32,10 @@ export const Login = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   useEffect(() => {
-  if (userType === "admin") {
-    setEmail("sara@gmail.com");
-    setPassword("1024");
-  }
+    if (userType === "admin") {
+      setEmail("sara@gmail.com");
+      setPassword("1024");
+    }
   }, [userType]);
   const userLogin = async (data) => {
     await login(data).then((res) => {
@@ -46,7 +46,7 @@ export const Login = () => {
           secure: true,
         });
         // axios.defaults.headers.common["x-auth-key"] = token;
-        // localStorage.setItem("token", token);
+        localStorage.setItem("token", token);
         // localStorage.setItem(
         //   "authenticatedFullName",
         //   `${res.data.data.person.firstName} ${res.data.data.person.lastName}`
