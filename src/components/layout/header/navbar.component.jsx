@@ -32,7 +32,7 @@ const NavbarComponent = () => {
       if (decodedToken < currentTime) {
         logOut();
       }
-      setPerson(localStorage.getItem("authenticatedFullName"));
+      // setPerson(localStorage.getItem("authenticatedFullName"));
     }
     getAllCategories();
   }, []);
@@ -55,11 +55,11 @@ const NavbarComponent = () => {
   const logOut = () => {
     Cookies.remove("commercial");
     localStorage.removeItem("userType");
-    localStorage.removeItem("authenticatedFullName");
+    // localStorage.removeItem("authenticatedFullName");
     localStorage.removeItem("token");
-    userType === "user"
-      ? localStorage.removeItem("userAuthenticatedId")
-      : localStorage.removeItem("adminAuthenticatedId");
+    // userType === "user"
+    //   ? localStorage.removeItem("userAuthenticatedId")
+    //   : localStorage.removeItem("adminAuthenticatedId");
     navigate("/");
   };
 
