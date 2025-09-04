@@ -53,7 +53,7 @@ export default class UserAuthentication {
         emailPatterns.emailSubject,
         emailPatterns.emailDescription
       );
-      return response(res, 201, "User Successfuly Registed.", user);
+      return response(res, 201, "User Successfuly Registed.");
     } catch (error: unknown) {
       throw new Error(error as string);
     }
@@ -73,7 +73,6 @@ export default class UserAuthentication {
           localStorage.setItem("token", token);
           return response(res, 200, "User Successfuly Logged In", {
             token,
-            person: user,
           });
         }
       }
