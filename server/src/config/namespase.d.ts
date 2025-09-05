@@ -1,6 +1,10 @@
-import { Request } from "express";
+import Express, { Request } from "express";
 import IUser from "../interface/user.interface";
 
-export interface AuthRequest extends Request {
-  user?: IUser;
+declare global {
+  namespace Express {
+    interface Request {
+      user: IUser;
+    }
+  }
 }
