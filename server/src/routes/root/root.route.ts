@@ -4,13 +4,14 @@ import persianDate from "./persianDate.route";
 import adminPanel from "./adminPanel/adminPanel.route";
 import userPanel from "./userPanel/userPanel.route";
 import dashboard from "./dashboard.route";
+import isLoggined from "../../middlewares/authentication";
 
 const router = express.Router();
 
-router.use("/", dashboard);
-router.use("/authentication", authentication);
+router.use("/dashboard", isLoggined, dashboard);
+router.use("/authentication", isLoggined, authentication);
 router.use("/persianDate", persianDate);
-router.use("/adminPanel", adminPanel);
-router.use("/userPanel", userPanel);
+router.use("/adminPanel", isLoggined, adminPanel);
+router.use("/userPanel", isLoggined, userPanel);
 
 export default router;
