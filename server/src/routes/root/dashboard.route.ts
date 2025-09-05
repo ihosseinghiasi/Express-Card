@@ -1,7 +1,18 @@
 import { Router } from "express";
-import me from "../../controllers/dashboard/dashboard.controller";
-const router = Router();
+import Dashboard from "../../controllers/dashboard/dashboard.controller";
+class DashboardRoute {
+  private readonly dashboard: Dashboard;
+  public readonly router: Router;
 
-router.get("/me", me);
+  constructor() {
+    this.dashboard = new Dashboard();
+    this.router = Router();
+    this.initRoutes();
+  }
 
-export default router;
+  private initRoutes() {
+    this.router.get("/me", this.dashboard.me.bind(this.dashboard));
+  }
+}
+
+export default new DashboardRoute().router;
