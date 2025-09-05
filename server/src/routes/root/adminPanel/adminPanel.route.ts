@@ -9,12 +9,11 @@ import ticket from "./ticket/ticket.route";
 import emailTemplate from "./emailTemplate/emailTemplate.route";
 import email from "./email/email.route";
 import payment from "./payment/payment.route";
-import isLoggined from "../../../middlewares/authentication";
 
 const router = express.Router();
 
-router.use("/admin", isLoggined, admin);
-router.use("/user", isLoggined, user);
+router.use("/admin", admin);
+router.use("/user", user);
 router.use("/category", category);
 router.use("/product", product);
 router.use("/card", card);
