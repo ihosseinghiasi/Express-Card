@@ -1,15 +1,10 @@
-import { Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express";
 import User from "../models/user";
 import jwt from "jsonwebtoken";
 import JwtPayload from "../interface/jwtPayload.interface";
 import response from "../config/response";
-import { AuthRequest } from "../config/namespase";
 
-const isLoggined = async (
-  req: AuthRequest,
-  res: Response,
-  next: NextFunction
-) => {
+const isLoggined = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
