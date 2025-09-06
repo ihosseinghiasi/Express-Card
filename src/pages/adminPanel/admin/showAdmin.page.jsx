@@ -199,7 +199,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkAdmin"
-                          name="isAdmin"
+                          name="permissionAdmin"
                           checked={admin?.isAdmin}
                           onChange={(event) => {
                             setAdmin({
@@ -220,7 +220,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkProduct"
-                          name="isProduct"
+                          name="permissionProduct"
                           checked={admin?.isProduct}
                           onChange={(event) =>
                             setAdmin({
@@ -241,7 +241,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkCard"
-                          name="isCard"
+                          name="permissionCard"
                           checked={admin?.isCard}
                           onChange={(event) =>
                             setAdmin({
@@ -262,7 +262,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkEmail"
-                          name="isEmail"
+                          name="permissionEmail"
                           checked={admin?.isEmail}
                           onChange={(event) =>
                             setAdmin({
@@ -283,7 +283,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkReport"
-                          name="isReport"
+                          name="permissionReport"
                           checked={admin?.isReport}
                           onChange={(event) =>
                             setAdmin({
@@ -304,7 +304,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkTicket"
-                          name="isTicket"
+                          name="permissionTicket"
                           checked={admin?.isTicket}
                           onChange={(event) =>
                             setAdmin({
@@ -325,7 +325,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkCategory"
-                          name="isCategory"
+                          name="permissionCategory"
                           checked={admin?.isCategory}
                           onChange={(event) =>
                             setAdmin({
@@ -346,7 +346,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkUser"
-                          name="isUser"
+                          name="permissionUser"
                           checked={admin?.isUser}
                           onChange={(event) =>
                             setAdmin({
@@ -367,7 +367,7 @@ const ShowAdmin = () => {
                           type="checkbox"
                           className="btn-check"
                           id="chkPayment"
-                          name="isPayment"
+                          name="permissionPayment"
                           checked={admin?.isPayment}
                           onChange={(event) =>
                             setAdmin({
