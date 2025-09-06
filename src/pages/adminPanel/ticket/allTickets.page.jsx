@@ -19,7 +19,7 @@ const AllTickets = () => {
 
   const getAllTickets = async () => {
     await getTickets().then((res) => {
-      setTickets(res.data.tickets);
+      setTickets(res.data.data.tickets);
     });
   };
 

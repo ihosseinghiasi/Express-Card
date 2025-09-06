@@ -72,7 +72,7 @@ const ShowProduct = () => {
 
   const getAProduct = async () => {
     await getProduct(params).then((res) => {
-      setProduct(res.data);
+      setProduct(res.data.data);
       setFields(res.data.data.fields);
     });
   };

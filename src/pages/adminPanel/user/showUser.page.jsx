@@ -78,7 +78,7 @@ const ShowUser = () => {
     e.preventDefault();
 
     await updateUser(params, user).then((res) => {
-      if (res?.data) {
+      if (res.status === 200) {
         navigate("/admin/allUsers");
       }
     });

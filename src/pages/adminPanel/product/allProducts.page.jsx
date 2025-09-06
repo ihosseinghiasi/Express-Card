@@ -20,7 +20,6 @@ const AllProducts = () => {
 
   const getAllProducts = async () => {
     await getProducts().then((res) => {
-      console.log(res);
       setProducts(res.data.data);
     });
   };
