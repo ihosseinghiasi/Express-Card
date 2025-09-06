@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Navbar, Nav, NavDropdown, Container } from "react-bootstrap";
 import { getCategories } from "../../../services/adminPanel/category.services";
+import { me } from "../../../services/dashboard.service";
 import { jwtDecode } from "jwt-decode";
 import Cookies from "js-cookie";
 import "../../../css/shop/navbar.css";
@@ -24,6 +25,15 @@ const NavbarComponent = () => {
     });
   };
 
+  const getAuthenticatedUser = async () => {
+    await me().then((res) => {
+      if (res.status === 200) {
+        setUserAuthenticated(true);
+        setPerson(res.data.data);
+      }
+    });
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
@@ -32,16 +42,10 @@ const NavbarComponent = () => {
       if (decodedToken < currentTime) {
         logOut();
       }
-      // setPerson(localStorage.getItem("authenticatedFullName"));
     }
     getAllCategories();
+    getAuthenticatedUser();
   }, []);
-
-  useEffect(() => {
-    if (person) {
-      setUserAuthenticated(true);
-    }
-  }, [person]);
 
   const userLogin = () => {
     localStorage.setItem("userType", "user");
@@ -55,11 +59,7 @@ const NavbarComponent = () => {
   const logOut = () => {
     Cookies.remove("commercial");
     localStorage.removeItem("userType");
-    // localStorage.removeItem("authenticatedFullName");
     localStorage.removeItem("token");
-    // userType === "user"
-    //   ? localStorage.removeItem("userAuthenticatedId")
-    //   : localStorage.removeItem("adminAuthenticatedId");
     navigate("/");
   };
 
@@ -125,7 +125,7 @@ const NavbarComponent = () => {
               </Nav>
               <Nav className="me-auto">
                 <NavDropdown
-                  title={person + " "}
+                  title={person.firstName + " " + person.lastName + " "}
                   id="user-nav-dropdown"
                   menuVariant="dark"
                   className="dropdown-hover ms-5"
