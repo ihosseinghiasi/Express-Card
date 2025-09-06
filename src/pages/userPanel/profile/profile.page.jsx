@@ -69,7 +69,7 @@ const Profile = () => {
   const userUpdate = async (e) => {
     e.preventDefault();
     await updateUser(user._id, user).then((res) => {
-      if (res.data) {
+      if (res.status === 200) {
         navigate("/user/counter");
       }
     });
