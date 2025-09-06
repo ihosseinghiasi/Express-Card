@@ -7,7 +7,7 @@ export default class Dashboard {
     if (!req.user) {
       return response(res, 404, "Authenticated User Not Finded.");
     }
-    const user = _.pick(req.user, ["firstName", "lastName"]);
+    const user = _.pick(req.user, ["_id", "firstName", "lastName"]);
     return response(res, 200, "Authenticated User Finded.", user);
   }
 }
