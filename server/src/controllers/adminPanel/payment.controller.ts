@@ -29,7 +29,6 @@ export default class PaymentController {
 
   async findAllPayments(req: Request, res: Response) {
     try {
-      console.log(req.user);
       const payments = await this.paymentService.findAll();
       if (!payments) {
         return response(res, 400, "Payment Not Successfuly Finded.");
