@@ -47,18 +47,6 @@ export const Login = () => {
         });
         // axios.defaults.headers.common["x-auth-key"] = token;
         localStorage.setItem("token", token);
-        // localStorage.setItem(
-        //   "authenticatedFullName",
-        //   `${res.data.data.person.firstName} ${res.data.data.person.lastName}`
-        // );
-        // if (userType === "user") {
-        //   localStorage.setItem("userAuthenticatedId", res.data.data.person._id);
-        // } else {
-        //   localStorage.setItem(
-        //     "adminAuthenticatedId",
-        //     res.data.data.person._id
-        //   );
-        // }
         navigate("/");
       }
     });
