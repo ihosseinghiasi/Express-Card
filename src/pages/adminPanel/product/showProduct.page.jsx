@@ -66,14 +66,14 @@ const ShowProduct = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      setCategories(res.data.data);
     });
   };
 
   const getAProduct = async () => {
     await getProduct(params).then((res) => {
       setProduct(res.data);
-      setFields(res.data.fields);
+      setFields(res.data.data.fields);
     });
   };
 
@@ -128,7 +128,7 @@ const ShowProduct = () => {
     formData.append("fields", fields);
 
     await updateProduct(params, formData).then((res) => {
-      if (res.data) {
+      if (res.status === 200) {
         navigate("/admin/allProducts");
       }
     });

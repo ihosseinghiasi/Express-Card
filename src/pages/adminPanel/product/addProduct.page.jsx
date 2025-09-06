@@ -55,7 +55,7 @@ const AddProduct = () => {
 
   const getAllCategories = async () => {
     await getCategories().then((res) => {
-      setCategories(res.data);
+      setCategories(res.data.data);
     });
   };
 
@@ -107,7 +107,9 @@ const AddProduct = () => {
     formData.append("fields", fields);
 
     await addProduct(formData).then((res) => {
-      navigate("/admin/allProducts");
+      if (res.status === 200) {
+        navigate("/admin/allProducts");
+      }
     });
   };
 

@@ -18,7 +18,7 @@ const ShowPayment = () => {
 
   const getAPayment = async () => {
     await getPayment(params).then((res) => {
-      setPayment(res.data);
+      setPayment(res.data.data);
     });
   };
 

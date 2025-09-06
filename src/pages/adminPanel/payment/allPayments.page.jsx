@@ -19,7 +19,7 @@ const AllAdmins = () => {
 
   const getAllPayments = async () => {
     await getPayments().then((res) => {
-      setPayments(res.data);
+      setPayments(res.data.data);
     });
   };
 

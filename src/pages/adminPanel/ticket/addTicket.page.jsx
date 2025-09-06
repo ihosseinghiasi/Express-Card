@@ -18,7 +18,7 @@ const AddTicket = () => {
 
   const addATicket = async () => {
     await addTicket().then((res) => {
-      setTicket(res.data);
+      setTicket(res.data.data);
     });
   };
   return (

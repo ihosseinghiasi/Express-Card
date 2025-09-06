@@ -69,7 +69,7 @@ const AllAdmins = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {payments.map((payment, index) => (
+                    {payments?.map((payment, index) => (
                       <TableRow
                         index={index + 1}
                         id={payment._id}
