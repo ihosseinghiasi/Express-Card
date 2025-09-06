@@ -4,10 +4,12 @@ import { useParams } from "react-router-dom";
 import { getProduct } from "../../services/adminPanel/product.services";
 import { payment } from "../../services/adminPanel/payment.service";
 import { addEmail } from "../../services/adminPanel/email.service";
+import { me } from "../../services/dashboard.service";
 import "../../css/shop/mainPage.css";
 import "../../css/shop/productPage.css";
 
 const Payment = () => {
+  const [person, setPerson] = useState();
   const [product, setProduct] = useState();
   const [arrayNumbers, setArrayNumbers] = useState([]);
   const [tax, setTax] = useState(0);
@@ -24,9 +26,16 @@ const Payment = () => {
     });
   };
 
+  const getAuthenticatedUser = async () => {
+    await me().then((res) => {
+      setPerson(res.data.data);
+    });
+  };
+
   useEffect(() => {
     setCount(1);
     getAProduct();
+    getAuthenticatedUser();
   }, []);
 
   const createArrayOfNumbers = () => {
@@ -71,8 +80,8 @@ const Payment = () => {
 
   const pay = async () => {
     const data = {
-      userFullName: localStorage.getItem("authenticatedFullName"),
-      userId: localStorage.getItem("userAuthenticatedId"),
+      userFullName: person.firstName + " " + person.lastName,
+      userId: person._id,
       title: product.title,
       price,
       count,
