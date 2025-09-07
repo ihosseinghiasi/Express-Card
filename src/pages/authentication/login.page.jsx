@@ -9,8 +9,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "../../css/shop/login.css";
 // import Home from "../main/home";
 
-import axios from "axios";
-
 export const Login = () => {
   const [userType, setUserType] = useState(localStorage.getItem("userType"));
   const [email, setEmail] = useState("torani@gmail.com");
@@ -33,19 +31,18 @@ export const Login = () => {
 
   useEffect(() => {
     if (userType === "admin") {
-      setEmail("sara@gmail.com");
+      setEmail("hosseinghiasi.dev@gmail.com");
       setPassword("1024");
     }
   }, [userType]);
   const userLogin = async (data) => {
     await login(data).then((res) => {
-      if (res?.data?.data?.token) {
-        const token = res?.data?.data?.token;
+      const token = res?.data?.data?.token;
+      if (token) {
         Cookies.set("commercial", token, {
           expires: 7,
           secure: true,
         });
-        // axios.defaults.headers.common["x-auth-key"] = token;
         localStorage.setItem("token", token);
         navigate("/");
       }
